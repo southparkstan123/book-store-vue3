@@ -22,6 +22,10 @@
             {{ item.authors.map(author => author.name).join(", ") }}
           </template>
 
+          <template #books="{ item }">
+            {{ item.books.map(book => book.name).join(", ") }}
+          </template>
+
           <template #addition-header>
             <th>Actions</th>
           </template>
@@ -48,7 +52,7 @@
 <script setup lang="ts">
 type module = "book" | "author" | "publisher";
 
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '../components/TableComponent.vue'
 import type { TableItem, TableField } from '../components/TableComponent.vue'
 import { useRouter } from 'vue-router'
@@ -60,7 +64,7 @@ const router = useRouter()
 const caption = computed(() => `Add ${props.category}`)
 
 const data = ref<TableItem[]>([]);
-const fields = ref<TableField[]>([{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }]);
+const fields = ref<TableField[]>();
 
 const fetchRecords = async (module: module) => {
   isLoading.value = true
@@ -83,6 +87,10 @@ const isLoading = ref<boolean>(false)
 
 onMounted(() => {
   fetchRecords(props.category);
+})
+
+watch(() => props.category, (newValue) => {
+  fetchRecords(newValue);
 })
 
 </script>
