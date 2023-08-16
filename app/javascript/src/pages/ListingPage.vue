@@ -30,11 +30,11 @@
           <template #addition-header>
             <th>Actions</th>
           </template>
-          <template #addition-content="{ id }">
+          <template #addition-content="{ item }">
             <td>
-              <button class="button info" @click="action('view', id)">view</button>
-              <button class="button success" @click="action('edit', id)">edit</button>
-              <button class="button danger" @click="action('delete', id)">delete</button>
+              <button class="button info" @click="action('view', item.id)">view</button>
+              <button class="button success" @click="action('edit', item.id)">edit</button>
+              <button class="button danger" @click="action('delete', item.id)">delete</button>
             </td>
           </template>
           <template #number="{ numberOfRecords }">
