@@ -23,17 +23,17 @@
           <div class="grid grid-cols-2 gap-6">
               <label class="block" for="publisher">
                 <span class="text-gray-700">Publisher</span>
-                <DropdownComponent :data="authors" :isMultiple="true">
-                  <template #options="authors">
-                    <option v-for="item in authors" :value="item.id">{{ item.label }}</option>
+                <DropdownComponent :data="publishers" :isMultiple="false">
+                  <template #options="publishers">
+                    <option v-for="item in publishers" :value="item.id">{{ item.label }}</option>
                   </template>
                 </DropdownComponent>
               </label>
               <label class="block" for="authors">
                 <span class="text-gray-700">Authors</span>
-                <DropdownComponent :data="publishers" :isMultiple="false">
-                  <template #options="publishers">
-                    <option v-for="item in publishers" :value="item.id">{{ item.label }}</option>
+                <DropdownComponent :data="authors" :isMultiple="true">
+                  <template #options="authors">
+                    <option v-for="item in authors" :value="item.id">{{ item.label }}</option>
                   </template>
                 </DropdownComponent>
               </label>
