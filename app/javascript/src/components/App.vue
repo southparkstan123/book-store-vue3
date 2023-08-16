@@ -1,26 +1,29 @@
 <template>
   <div class="mx-auto">
-    <ModalComponent :showModalContent="modal.visible" :type="modal.type" @closeMenu="closeModal">
+    <ModalComponent :showModalContent="state.visible" :type="state.type" @closeMenu="closeModal">
       <template #header>
         <h4 class="modal-title">
-          {{ modal.title }}
+          {{ state.title }}
         </h4>
       </template>
 
       <template #message-body>
-        <p>{{ modal.message }}</p>
+        <p>{{ state.message }}</p>
       </template>
 
       <template #form-body>
-        <component :is="modal.component" />
+        <component :is="state.component" />
       </template>
     </ModalComponent>
-    <MyVueNavBar :backgroundColor="'red'">
+    <MyVueNavBar 
+      :backgroundColor="backgroundColor" 
+      :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
+    >
       <template #body-content>
+        <router-link class="cursor-pointer link" to="/">Main</router-link>
         <router-link class="cursor-pointer link" to="/book/list">Book</router-link>
         <router-link class="cursor-pointer link" to="/publisher/list">Publisher</router-link>
         <router-link class="cursor-pointer link" to="/author/list">Author</router-link>
-        <button class="button bg-green-400" @click="openModal">Open Modal</button>
       </template>
     </MyVueNavBar>
     <router-view v-slot="{ Component }">
@@ -32,45 +35,26 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
-// import { useNavBar } from '../hooks/useNavBar'
-import MyVueNavBar from './menu/MyVueNavBar.vue';
+
+
+
+import { useModalStore } from '../store/modal';
+import { storeToRefs } from 'pinia';
+
+import MyVueNavBar from './menu/MyVueNavBar.vue'
+import { useNavBar } from '../hooks/useNavBar'
+
+const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar()
+
+
 import ModalComponent from './modal/ModalComponent.vue';
+const modalStore = useModalStore()
+const { state } = storeToRefs(modalStore)
 
-type ModelType ='alert' | 'confirm' | 'form';
 
-type Modal = {
-  visible: boolean;
-  type: ModelType;
-  message: string;
-  title: string;
-  component: string;
-  resolvePromise: any
-}
-
-const modal = reactive<Modal>({
-  visible: false,
-  type: 'alert',
-  message: '',
-  title: '',
-  component: '',
-  resolvePromise: undefined
-})
-
-const openModal = () => {
-  modal.visible = true;
-  modal.title = 'Greeting';
-  modal.type = 'alert';
-  modal.component = '';
-  modal.message = 'Welcome to Book-store on Vue3!';
-}
 
 const closeModal = () => {
-  modal.visible = false;
-  modal.title = '';
-  modal.type = 'alert';
-  modal.component = '';
-  modal.message = '';
+  modalStore.close()
 }
 
 </script>

@@ -56,7 +56,7 @@ nav {
     }
 
     &.items > .brand {
-      display: inline;
+      display: flex;
     }
   }
 }
