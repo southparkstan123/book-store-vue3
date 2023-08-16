@@ -1,53 +1,27 @@
 <template>
   <div class="mx-auto">
-    <router-view></router-view>
+    <MyVueNavBar :backgroundColor="'red'">
+      <template #body-content>
+        <router-link class="cursor-pointer link" to="/book/list">Book</router-link>
+        <router-link class="cursor-pointer link" to="/publisher/list">Publisher</router-link>
+        <router-link class="cursor-pointer link" to="/author/list">Author</router-link>
+      </template>
+    </MyVueNavBar>
+    <router-view v-slot="{ Component }">
+      <transition name="slide-upward" :duration="1000">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script setup lang="ts">
-type module = "book" | "author" | "publisher";
-
-import { onMounted, ref } from 'vue'
-import TableComponent from './TableComponent.vue'
-import type { TableItem, TableField } from './TableComponent.vue'
-
-const title = ref<string>('Hello! Vite + Vue3 + Tailwindcss on RoR!')
-
-const category = ref<module>('author');
-
-const data = ref<TableItem[]>([]);
-const fields = ref<TableField[]>([{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }]);
-
-const fetchRecords = async (module: module) => {
-  isLoading.value = true
-  try {
-    const response = await fetch(`/api/v1/${module}/list`);
-    const result = await response.json();
-    data.value = result;
-  } catch {
-    isLoading.value = true
-  } finally {
-    isLoading.value = false
-  }
-}
-
-const action = (type: "view" | "edit" | "delete", id: number) => {
-  alert(`To ${type} ${id}`);
-};
-
-const isLoading = ref<boolean>(false)
-
-onMounted(() => {
-  fetchRecords(category.value);
-})
+import { useNavBar } from '../hooks/useNavBar'
+import MyVueNavBar from './menu/MyVueNavBar.vue';
 
 </script>
 
 <style lang="scss">
-#title {
-  color: wheat;
-}
-
 .button {
   background-color: gray;
   border: none;
@@ -68,5 +42,20 @@ onMounted(() => {
   &.danger {
     background-color: red;
   }
+}
+
+.slide-upward-enter-active,
+.slide-upward-leave-active {
+  transition: all 1s ease-in-out 1s;
+}
+
+.slide-upward-enter-from {
+  transform: translateY(10%);
+  opacity: 0;
+}
+
+.slide-upward-leave-to {
+  transform: translateY(10%);
+  opacity: 0;
 }
 </style>

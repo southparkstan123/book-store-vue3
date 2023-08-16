@@ -1,0 +1,162 @@
+<template>
+  <div v-on-resize="{ breakpoint, action: onChangeView }">
+    <DesktopMenu v-if="!isMobileView" :backgroundColor="backgroundColor">
+      <template #brand>
+        <slot name="brand"></slot>
+      </template>
+      <template #body-content>
+        <slot name="body-content"></slot>
+      </template>
+      <template #footer-content>
+        <slot name="footer-content"></slot>
+      </template>
+    </DesktopMenu>
+    <MobileMenu
+      v-if="isMenuOpen && isMobileView"
+      :isMenuOpen="isMenuOpen"
+      @showMenuContent="onShowMenuContent"
+      :showMenuContent="showMenuContent"
+      @closeMenu="closeMenu"
+      :backgroundColor="backgroundColor"
+      :width="mobileMenuWidth"
+    >
+      <template #body-content>
+        <slot name="body-content"></slot>
+      </template>
+      <template #footer-content>
+        <slot name="footer-content"></slot>
+      </template>
+      <template #close-button>
+        <slot name="close-button"></slot>
+      </template>
+    </MobileMenu>
+    <Transition :appear="true" :duration="1500" name="open-button">
+      <MobileMenuBurgerButton v-if="!isMenuOpen && isMobileView" @openMenu="openMenu">
+        <slot name="open-button"></slot>
+      </MobileMenuBurgerButton>
+    </Transition>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref, computed, watch } from 'vue'
+
+import MobileMenu from './MobileMenu.vue'
+import MobileMenuBurgerButton from './MobileMenuBurgerButton.vue'
+import DesktopMenu from './DesktopMenu.vue'
+import isValidColorValue from '../../utils/isValidColorValue'
+
+export default defineComponent({
+  components: {
+    MobileMenu,
+    MobileMenuBurgerButton,
+    DesktopMenu
+  },
+  props: {
+    backgroundColor: {
+      type: String,
+      default: '#FFF',
+      validator: (value: string) => {
+        return isValidColorValue(value) || value === ''
+      }
+    },
+    breakpoint: {
+      type: Number,
+      default: 1024
+    },
+    percentageOfWidthOfMoblieMenu: {
+      type: Number,
+      default: 100,
+      validator: (value: number) => value <= 100 && value >= 10
+    }
+  },
+  setup(props, context) {
+    const windowWidth = ref<number>(0)
+    const isMobileView = ref<boolean>(false)
+
+    const isMenuOpen = ref<boolean>(false)
+    const showMenuContent = ref<boolean>(false)
+
+    const closeMenu = () => {
+      setTimeout(() => {
+        isMenuOpen.value = false
+        context.emit('bodyScrollLock', false)
+      }, 300)
+    }
+
+    const openMenu = () => {
+      setTimeout(() => {
+        isMenuOpen.value = true
+        context.emit('bodyScrollLock', true)
+      })
+    }
+
+    const onShowMenuContent = (payload: boolean) => {
+      showMenuContent.value = payload
+    }
+
+    watch(
+      () => isMobileView.value,
+      (newValue: boolean) => {
+        if (!newValue && isMenuOpen.value) {
+          closeMenu()
+        }
+      }
+    )
+
+    const onChangeView = (payload) => {
+      windowWidth.value = payload.windowWidth
+      isMobileView.value = payload.isMobileView
+    }
+
+    const mobileMenuWidth = computed<string>(() => {
+      const width = (props.percentageOfWidthOfMoblieMenu / 100) * windowWidth.value
+      return width.toString() + 'px'
+    })
+
+    return {
+      windowWidth,
+      isMobileView,
+      mobileMenuWidth,
+      openMenu,
+      closeMenu,
+      onChangeView,
+      onShowMenuContent,
+      isMenuOpen,
+      showMenuContent
+    }
+  },
+  directives: {
+    'on-resize': (el, binding) => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+          const windowWidth = entry.contentRect.width
+          const isMobileView = entry.contentRect.width < binding.value.breakpoint
+          binding.value.action({ isMobileView, windowWidth })
+        })
+      })
+      resizeObserver.observe(document.body)
+    }
+  }
+})
+</script>
+
+<style scoped>
+.open-button-enter-active,
+.open-button-leave-active {
+  transition: all 1.5s ease-in;
+}
+
+.open-button-enter-active {
+  transition-delay: 0.5s;
+}
+
+.open-button-enter-from {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.open-button-leave-to {
+  opacity: 0;
+}
+</style>
