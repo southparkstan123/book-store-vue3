@@ -1,15 +1,35 @@
 <template>
-  <div>
-
-  </div>
+  <span
+    v-if="errors && errors.length > 0"
+    class="error-feedback"
+  >
+    <ul>
+      <li
+        v-for="(error, index) in errors"
+        :key="index"
+      >
+        {{ error }}
+      </li>
+    </ul>
+  </span>
 </template>
 
-<script>
-  export default {
-    
-  }
+<script setup lang="ts">
+const props = defineProps<{errors: Array<string>}>()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .error-feedback {
+        color:red;
+        font-size: 10px;
+        width: 100%;
+    }
 
+    ul {
+        padding: 0;
+        margin: 0;
+        li {
+            list-style: none;
+        }
+    }
 </style>
