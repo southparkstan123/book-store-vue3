@@ -32,7 +32,6 @@
           </template>
           <template #addition-content="{ item }">
             <td>
-              <button class="button info" @click="action('view', item.id)">view</button>
               <button class="button success" @click="action('edit', item.id)">edit</button>
               <button class="button danger" @click="action('delete', item.id)">delete</button>
             </td>
@@ -43,23 +42,29 @@
         </TableComponent>
       </div>
       <div v-else>
-        Loading...
+        <div v-if="!isLoading && isError">
+          <h1 class="text-center text-2xl text-red-500"></h1>Oops! Error occurs!
+        </div>
+        <div v-else>
+          <h1 class="text-center text-2xl text-red-500">Loading...</h1>
+        </div>
       </div>
     </Transition>
   </div>
 </template>
 
 <script setup lang="ts">
-type module = "book" | "author" | "publisher";
+type Module = "book" | "author" | "publisher";
 type ActionType = "view" | "edit" | "delete";
 
 import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '../components/TableComponent.vue'
 import type { TableItem, TableField } from '../components/TableComponent.vue'
 import { useRouter } from 'vue-router'
-import moment from 'moment';
+import moment from 'moment'
+import { useModalStore } from '../store/modal'
 
-const props = defineProps<{ category: module }>()
+const props = defineProps<{ category: Module }>()
 
 const router = useRouter()
 
@@ -68,24 +73,38 @@ const caption = computed(() => `Add ${props.category}`)
 const data = ref<TableItem[]>([]);
 const fields = ref<TableField[]>();
 
-const fetchRecords = async (module: module) => {
+const modalStore = useModalStore()
+
+const fetchRecords = async (module: Module) => {
   isLoading.value = true
   try {
     const response = await fetch(`/api/v1/${module}/list`);
     const result = await response.json();
     data.value = result;
-  } catch {
-    isLoading.value = true
+  } catch (error) {
+    console.log(error.response.status);
+    isError.value = true
+    modalStore.open({
+      title: `${error.response.status} Error`,
+      message: error.response.data.message,
+      type: 'alert',
+      component: ''
+    })
   } finally {
     isLoading.value = false
   }
 }
 
 const action = (type: ActionType, id: number) => {
-  alert(`To ${type} ${id}`);
+  if(type === 'edit') {
+    router.push({ path: `/${props.category}/${type}/${id}`, replace: true })
+  } else {
+    confirm(`Are you sure to ${type} ${id}`);
+  }
 };
 
 const isLoading = ref<boolean>(false)
+const isError = ref<boolean>(false)
 
 onMounted(() => {
   fetchRecords(props.category);
