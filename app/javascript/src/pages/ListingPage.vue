@@ -9,23 +9,24 @@
           <template #creator="{ item }">
             {{ item.creator.username }}
           </template>
-
           <template #updater="{ item }">
             {{ item.updater.username }}
           </template>
-
           <template #publisher="{ item }">
             {{ item.name }}
           </template>
-
           <template #authors="{ item }">
             {{ item.authors.map(author => author.name).join(", ") }}
           </template>
-
+          <template #created_at="{ item }">
+            {{ moment(item.created_at).format('lll') }}
+          </template>
+          <template #updated_at="{ item }">
+            {{ moment(item.updated_at).format('lll') }}
+          </template>
           <template #books="{ item }">
             {{ item.books.map(book => book.name).join(", ") }}
           </template>
-
           <template #addition-header>
             <th>Actions</th>
           </template>
@@ -36,7 +37,6 @@
               <button class="button danger" @click="action('delete', id)">delete</button>
             </td>
           </template>
-
           <template #number="{ numberOfRecords }">
             <span>{{ numberOfRecords }} {{ numberOfRecords > 1 ? 'records' : 'record' }} </span>
           </template>
@@ -57,6 +57,7 @@ import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '../components/TableComponent.vue'
 import type { TableItem, TableField } from '../components/TableComponent.vue'
 import { useRouter } from 'vue-router'
+import moment from 'moment';
 
 const props = defineProps<{ category: module }>()
 
