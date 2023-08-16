@@ -51,6 +51,7 @@
 
 <script setup lang="ts">
 type module = "book" | "author" | "publisher";
+type ActionType = "view" | "edit" | "delete";
 
 import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '../components/TableComponent.vue'
@@ -79,7 +80,7 @@ const fetchRecords = async (module: module) => {
   }
 }
 
-const action = (type: "view" | "edit" | "delete", id: number) => {
+const action = (type: ActionType, id: number) => {
   alert(`To ${type} ${id}`);
 };
 
