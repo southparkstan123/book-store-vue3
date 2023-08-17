@@ -43,15 +43,21 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
 
+// From Router
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+// Components
 import InputField from '../inputs/InputField.vue'
 import ButtonComponent from '../inputs/ButtonComponent.vue'
-import { signin } from '../../services/AuthServices'
-import { useModalStore } from '../../store/modal'
 
-const router = useRouter()
+// From stores
+import { useModalStore } from '../../store/modal'
+import { useUserStore } from '../../store/user'
+const { signin, state }  = useUserStore()
 const modalStore = useModalStore()
+
 
 type LoginForm = {
   form: {
@@ -61,22 +67,13 @@ type LoginForm = {
 }
 
 const onLogin = async () => {
-  try {
-    const result = await signin(loginForm)
-    if(result.data.token) {
-      router.push('/')
-    }
-  } catch (error) {
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: 'alert',
-      component: ''
-    })
+  await signin(loginForm.form)
+  if(state.token) {
+    router.replace('/')
   }
 }
 
-const loginForm = reactive({
+const loginForm = reactive<LoginForm>({
   form: {
     username: '',
     password: ''

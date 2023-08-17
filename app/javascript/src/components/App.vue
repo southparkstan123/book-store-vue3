@@ -1,21 +1,22 @@
 <template>
   <div class="mx-auto">
-    <ModalComponent :showModalContent="state.visible" :type="state.type" @closeMenu="closeModal">
+    <ModalComponent :showModalContent="modalState.visible" :type="modalState.type" @closeMenu="closeModal">
       <template #header>
         <h4 class="modal-title">
-          {{ state.title }}
+          {{ modalState.title }}
         </h4>
       </template>
 
       <template #message-body>
-        <p>{{ state.message }}</p>
+        <p>{{ modalState.message }}</p>
       </template>
 
       <template #form-body>
-        <component :is="state.component" />
+        <component :is="modalState.component" />
       </template>
     </ModalComponent>
     <MyVueNavBar 
+      v-if="userStore.isAuthenticated"
       :backgroundColor="backgroundColor" 
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
@@ -24,6 +25,11 @@
         <router-link class="cursor-pointer link" to="/book/list">Book</router-link>
         <router-link class="cursor-pointer link" to="/publisher/list">Publisher</router-link>
         <router-link class="cursor-pointer link" to="/author/list">Author</router-link>
+      </template>
+      <template #footer-content>
+        <a class="cursor-pointer link mx-2" @click="onLogout">
+          Logout
+        </a>
       </template>
     </MyVueNavBar>
     <router-view v-slot="{ Component }">
@@ -35,26 +41,44 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 
+// Router
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
 
-
-import { useModalStore } from '../store/modal';
-import { storeToRefs } from 'pinia';
-
-import MyVueNavBar from './menu/MyVueNavBar.vue'
-import { useNavBar } from '../hooks/useNavBar'
-
-const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar()
-
-
+// Modal
+import { useModalStore } from '../store/modal'
 import ModalComponent from './modal/ModalComponent.vue';
 const modalStore = useModalStore()
-const { state } = storeToRefs(modalStore)
+const modalState = storeToRefs(modalStore).state
 
+// NavBar
+import MyVueNavBar from './menu/MyVueNavBar.vue'
+import { useNavBar } from '../hooks/useNavBar'
+const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar()
 
+// UserInfo
+import { useUserStore } from '../store/user'
+const userStore = useUserStore()
 
 const closeModal = () => {
   modalStore.close()
+}
+
+const onLogout = async () => {
+  if(!route.meta.haveForm){
+    const _confirm = confirm('Are you sure?');
+
+    if(_confirm){
+      await userStore.signout()
+
+      router.push('/signin');
+    }
+  } else {
+    router.push('/signin');
+  }
 }
 
 </script>

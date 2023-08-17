@@ -4,20 +4,21 @@ import App from './components/App.vue'
 // router
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes/routes.ts'
-
-// pinia
-import { createPinia } from 'pinia'
+// guardedRouter
+import guardedRouter from './routes/guardRouter';
 
 const router = createRouter({
   history: createWebHistory(),
   routes
 })
 
-const pinia = createPinia()
+// pinia
+import { store } from './store/index'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = createApp(App)
+  guardedRouter(router)
   app.use(router)
-  app.use(pinia)
+  app.use(store)
   app.mount('#app')
 })
