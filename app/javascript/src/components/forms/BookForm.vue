@@ -142,8 +142,6 @@ const onUpdateRecord = () => {
 onMounted(() => {
   if(props.id) {
     bookForm.mode = 'edit';
-  }
-  if(bookForm.mode === 'edit') {
     fetch(props.id);
   }
   fetchForDropdowns();
