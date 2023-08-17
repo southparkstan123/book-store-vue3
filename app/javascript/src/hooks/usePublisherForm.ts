@@ -1,4 +1,5 @@
 import { reactive, ref } from 'vue'
+import { useForm } from './useForm'
 
 export type PublisherForm = {
   name: string,
@@ -13,6 +14,7 @@ export type PublisherFormState = {
 }
 
 export const usePublisherForm = () => {
+  const { errors, onHandleError } = useForm();
   const publisherForm = reactive<PublisherFormState>({
     form: {
       name: '',
@@ -24,6 +26,8 @@ export const usePublisherForm = () => {
   })
 
   return {
+    errors,
+    onHandleError,
     publisherForm
   }
 }

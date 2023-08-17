@@ -1,4 +1,5 @@
 import { reactive, ref } from 'vue'
+import { useForm } from './useForm'
 
 export type AuthorForm = {
   name: string,
@@ -13,6 +14,7 @@ export type AuthorFormState = {
 }
 
 export const useAuthorForm = () => {
+  const { errors, onHandleError } = useForm();
   const authorForm = reactive<AuthorFormState>({
     form: {
       name: '',
@@ -24,6 +26,8 @@ export const useAuthorForm = () => {
   })
 
   return {
+    errors,
+    onHandleError,
     authorForm
   }
 }
