@@ -95,7 +95,7 @@ const fetch = async (id: number) => {
   }
 }
 
-const fetchForDorpdowns = async () => {
+const fetchForDropdowns = async () => {
   try {
     const authorsAPI = await fetchRecords('author')
     const publishersAPI = await fetchRecords('publisher')
@@ -146,7 +146,7 @@ onMounted(() => {
   if(bookForm.mode === 'edit') {
     fetch(props.id);
   }
-  fetchForDorpdowns();
+  fetchForDropdowns();
 })
 
 watch(() => bookForm.form, (newValue: BookForm, oldValue: BookForm) => {
