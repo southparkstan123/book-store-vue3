@@ -18,7 +18,18 @@ export const routes = [
   {
     path: '/:module/edit/:id',
     component: EditPage,
-    props: true
+    props: true,
+    meta: {
+      haveForm: true
+    }
+  },
+  {
+    path: '/:module/add',
+    component: EditPage,
+    props: true,
+    meta: {
+      haveForm: true
+    }
   },
   { 
     path: '/signin',
