@@ -39,9 +39,6 @@ const formComponent = computed(() => {
   }
 })
 
-console.log(formComponent.value);
-
-
 </script>
 
 <style scoped></style>
