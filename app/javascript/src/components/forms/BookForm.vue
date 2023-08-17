@@ -96,7 +96,6 @@ const fetch = async (id: number) => {
 }
 
 const fetchForDorpdowns = async () => {
-  bookForm.isLoading = true
   try {
     const authorsAPI = await fetchRecords('author')
     const publishersAPI = await fetchRecords('publisher')
