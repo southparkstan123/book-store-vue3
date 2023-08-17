@@ -14,7 +14,7 @@ export type AuthorFormState = {
 }
 
 export const useAuthorForm = () => {
-  const { errors, onHandleError } = useForm();
+  const { errors } = useForm();
   const authorForm = reactive<AuthorFormState>({
     form: {
       name: '',
@@ -27,7 +27,6 @@ export const useAuthorForm = () => {
 
   return {
     errors,
-    onHandleError,
     authorForm
   }
 }

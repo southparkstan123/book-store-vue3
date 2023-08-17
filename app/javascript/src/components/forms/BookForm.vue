@@ -2,7 +2,7 @@
   <Transition :appear="true" name="fade">
     <div v-if="!bookForm.isLoading" class="max-w-md w-full space-y-8">
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
-      <form class="mt-8 space-y-6" @submit.prevent="onUpdateRecord">
+      <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-2 gap-6">
             <label class="block" for="name">
@@ -61,17 +61,20 @@ import { useModalStore } from '../../store/modal'
 import DropdownMenu from '../dropdown/DropdownMenu.vue'
 import ErrorFeedback from '../ErrorFeedback.vue';
 
-import { fetchRecordById, fetchRecords } from '../../services/CRUDServices'
+import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '../../services/CRUDServices'
 import MultiSelectDropdown from '../dropdown/MultiSelectDropdown.vue';
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{ id: number }>()
-const { errors, onHandleError, bookForm } = useBookForm()
+const { errors, bookForm } = useBookForm()
 const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
 // For Dropdowns
 const authors = ref([])
 const publishers = ref([])
+
+const router = useRouter()
 
 const fetch = async (id: number) => {
   bookForm.isLoading = true
@@ -108,7 +111,7 @@ const fetchForDropdowns = async () => {
     publishers.value = response[1].data
 
   } catch (error) {
-    onHandleError(error);
+    errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
@@ -138,8 +141,37 @@ const onChangeAuthors = (payload) => {
   bookForm.form.author_ids = payload
 }
 
-const onUpdateRecord = () => {
+const onSubmit = async () => {
   console.log('submit with', bookForm)
+
+  try {
+    bookForm.isFormChanged = false;
+    let response: any = {};
+
+    if (bookForm.mode === 'edit') {
+      response = await updateRecordById(props.id, bookForm.form, 'book')
+    } else {
+      response = await createRecord(bookForm.form, 'book')
+    }
+
+    router.push('/book/list')
+
+    modalStore.open({
+      title: 'Success',
+      message: response.data.message,
+      type: 'alert',
+      component: ''
+    })
+
+  } catch (error) {
+    errors.value = error.response.data.errors;
+    modalStore.open({
+      title: `${error.response.status} Error`,
+      message: error.response.statusText,
+      type: 'alert',
+      component: ''
+    })
+  }
 }
 
 onMounted(() => {

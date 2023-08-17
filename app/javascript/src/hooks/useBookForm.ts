@@ -17,7 +17,7 @@ export type BookFormState = {
 }
 
 export const useBookForm = () => {
-  const { errors, onHandleError } = useForm();
+  const { errors } = useForm();
   const bookForm = reactive<BookFormState>({
     form: {
       name: '',
@@ -33,7 +33,6 @@ export const useBookForm = () => {
 
   return {
     errors,
-    bookForm,
-    onHandleError
+    bookForm
   }
 }

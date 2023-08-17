@@ -2,7 +2,7 @@
   <Transition :appear="true" name="fade">
     <div v-if="!authorForm.isLoading" class="max-w-md w-full space-y-8">
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
-      <form class="mt-8 space-y-6" @submit.prevent="onUpdateRecord">
+      <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
@@ -11,7 +11,8 @@
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <textarea :value="authorForm.form.description" class="block w-full mt-1" name="description" id="description"></textarea>
+              <textarea :value="authorForm.form.description" class="block w-full mt-1" name="description"
+                id="description"></textarea>
             </label>
           </div>
         </div>
@@ -27,16 +28,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useAuthorForm } from '../../hooks/useAuthorForm'
 import { useModalStore } from '../../store/modal'
-import { fetchRecordById } from '../../services/CRUDServices'
+import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
+import { useRouter } from 'vue-router'
+
 import ErrorFeedback from '../ErrorFeedback.vue';
 
 const props = defineProps<{ id: number }>()
-const { errors, authorForm, onHandleError } = useAuthorForm()
+const { errors, authorForm } = useAuthorForm()
 const isError = ref<boolean>(false)
 const modalStore = useModalStore()
+
+const router = useRouter()
 
 const fetch = async (id: number) => {
   authorForm.isLoading = true
@@ -45,7 +50,7 @@ const fetch = async (id: number) => {
     authorForm.form.name = response.data.name;
     authorForm.form.description = response.data.description;
   } catch (error) {
-    onHandleError(error)
+    errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
@@ -57,12 +62,48 @@ const fetch = async (id: number) => {
   }
 }
 
-const onUpdateRecord = () => {
+watch(() => authorForm.form, (newValue, oldValue) => {
+  if(newValue !== oldValue) {
+    authorForm.isFormChanged = true
+  }
+})
+
+const onSubmit = async () => {
   console.log('submit with', authorForm.form)
+
+  try {
+    authorForm.isFormChanged = false;
+    let response: any = {};
+
+    if (authorForm.mode === 'edit') {
+      response = await updateRecordById(props.id, authorForm.form, 'author')
+    } else {
+      response = await createRecord(authorForm.form, 'author')
+    }
+
+    router.push('/author/list')
+
+    modalStore.open({
+      title: 'Success',
+      message: response.data.message,
+      type: 'alert',
+      component: ''
+    })
+
+  } catch (error) {
+    errors.value = error.response.data.errors;
+
+    modalStore.open({
+      title: `${error.response.status} Error`,
+      message: error.response.statusText,
+      type: 'alert',
+      component: ''
+    })
+  }
 }
 
 onMounted(() => {
-  if(props.id) {
+  if (props.id) {
     authorForm.mode = 'edit';
     fetch(props.id);
   }

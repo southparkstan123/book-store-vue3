@@ -17,7 +17,7 @@
     </InputField>
     <InputField :inputId="'password-confirmation'" :className="'w-full'" :inputType="'password'"
       :inputValue="registrationForm.form.password_confirmation" :placeholder="'Password Conformation'" :isRequired="true"
-      @changeValue="onChangePassword"
+      @changeValue="onChangePasswordConfirmation"
     >
     </InputField>
     <div class="flex items-center justify-between">
@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 import InputField from '../../components/inputs/InputField.vue'
@@ -55,7 +55,7 @@ import { useForm } from '../../hooks/useForm'
 
 const router = useRouter()
 const modalStore = useModalStore()
-const { errors, onHandleError } = useForm()
+const { errors } = useForm()
 
 type RegistrationForm = {
   form: {
@@ -108,7 +108,7 @@ const onRegistration = async () => {
 
     router.push('/signin')
   } catch (error) {
-    onHandleError(error);
+    errors.value =  error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,

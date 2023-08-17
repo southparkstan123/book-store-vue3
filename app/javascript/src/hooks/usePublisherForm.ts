@@ -14,7 +14,7 @@ export type PublisherFormState = {
 }
 
 export const usePublisherForm = () => {
-  const { errors, onHandleError } = useForm();
+  const { errors } = useForm();
   const publisherForm = reactive<PublisherFormState>({
     form: {
       name: '',
@@ -27,7 +27,6 @@ export const usePublisherForm = () => {
 
   return {
     errors,
-    onHandleError,
     publisherForm
   }
 }
