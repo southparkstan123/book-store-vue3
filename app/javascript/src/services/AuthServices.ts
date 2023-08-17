@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-type LoginForm = {
+export type LoginForm = {
   form: {
     username: string;
     password: string;
   }
 }
 
-type RegistrationForm = {
+export type RegistrationForm = {
   form: {
     username: string;
     email: string;

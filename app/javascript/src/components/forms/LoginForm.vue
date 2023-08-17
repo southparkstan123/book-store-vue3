@@ -58,13 +58,7 @@ import { useUserStore } from '../../store/user'
 const { signin, state }  = useUserStore()
 const modalStore = useModalStore()
 
-
-type LoginForm = {
-  form: {
-    username: string;
-    password: string;
-  }
-}
+import { type LoginForm } from '../../services/AuthServices'
 
 const onLogin = async () => {
   await signin(loginForm.form)

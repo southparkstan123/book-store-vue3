@@ -43,9 +43,9 @@ export const useUserStore = defineStore('user', () => {
 
   const signout = async () => {
     try {
-      await _signout(user)
-      state.token = ''
-      state.userInfo = ''
+      await _signout()
+      state.token = null
+      state.userInfo = null
     } catch (error) {
       useModalStore.open({
         title: `${error.response.status} Error`,
@@ -68,8 +68,8 @@ export const useUserStore = defineStore('user', () => {
       const payload = await verify();
       state.userInfo = payload.data;
     } catch (error) {
-      state.token = ''
-      state.userInfo = ''
+      state.token = null
+      state.userInfo = null
 
       useModalStore.open({
         title: `${error.response.status} Error`,

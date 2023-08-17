@@ -15,11 +15,8 @@
         <component :is="modalState.component" />
       </template>
     </ModalComponent>
-    <MyVueNavBar 
-      v-if="userStore.isAuthenticated"
-      :backgroundColor="backgroundColor" 
-      :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
-    >
+    <MyVueNavBar v-if="userStore.isAuthenticated" :backgroundColor="backgroundColor"
+      :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu">
       <template #body-content>
         <router-link class="cursor-pointer link" to="/">Main</router-link>
         <router-link class="cursor-pointer link" to="/book/list">Book</router-link>
@@ -68,13 +65,20 @@ const closeModal = () => {
 }
 
 const onLogout = async () => {
-  if(!route.meta.haveForm){
-    const _confirm = confirm('Are you sure?');
+  if (!route.meta.haveForm) {
+    
+    const confirm = await modalStore.open({
+      type: 'confirm',
+      title: 'Logout',
+      message: 'Are you sure?',
+      component: ''
+    });
 
-    if(_confirm){
-      await userStore.signout()
+    if (confirm) {
+      userStore.signout().then(() => {
 
-      router.push('/signin');
+        router.push('/signin')
+      });
     }
   } else {
     router.push('/signin');

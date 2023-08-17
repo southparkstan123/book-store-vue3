@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue';
+import { reactive, computed } from 'vue';
 
 type ModelType ='alert' | 'confirm' | 'form';
 
@@ -28,13 +28,21 @@ export const useModalStore = defineStore('modal', () => {
     component: '',
     resolvePromise: undefined
   })
+
+  // Getters
+  const getModalObject = computed<boolean>(() => state)
   
+  // Actions
   const open = (payload: OpenModalPayload) => {
     state.visible = true;
     state.title = payload.title;
     state.type = payload.type;
     state.component = payload.component;
     state.message = payload.message;
+
+    return new Promise((resolve, reject) => {
+      state.resolvePromise = resolve
+    });
   }
 
   const close = () => {
@@ -45,9 +53,25 @@ export const useModalStore = defineStore('modal', () => {
     state.message = '';
   }
 
+  const confirm = () => {
+    state.visible = false;
+    state.title = '';
+    state.type = 'alert';
+    state.component = '';
+    state.message = '';
+    state.resolvePromise(true);
+  }
+
+  const reject = () => {
+    state.resolvePromise(false);
+  }
+
   return { 
     state, 
     open, 
-    close 
+    close,
+    confirm,
+    reject,
+    getModalObject
   }
 })

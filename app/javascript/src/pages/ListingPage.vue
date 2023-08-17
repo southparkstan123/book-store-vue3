@@ -63,6 +63,7 @@ import type { TableItem, TableField } from '../components/TableComponent.vue'
 import { useRouter } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '../store/modal'
+import { deleteRecordById } from '../services/CRUDServices';
 
 const props = defineProps<{ category: Module }>()
 
@@ -81,8 +82,10 @@ const fetchRecords = async (module: Module) => {
     const response = await fetch(`/api/v1/${module}/list`);
     const result = await response.json();
     data.value = result;
+
+
+
   } catch (error) {
-    console.log(error.response.status);
     isError.value = true
     modalStore.open({
       title: `${error.response.status} Error`,
@@ -95,12 +98,28 @@ const fetchRecords = async (module: Module) => {
   }
 }
 
-const action = (type: ActionType, id: number) => {
-  if(type === 'edit') {
-    router.push({ path: `/${props.category}/${type}/${id}`, replace: true })
-  } else {
-    confirm(`Are you sure to ${type} ${id}`);
+const action = async (type: ActionType, id: number) => {
+  try {
+    if(type === 'edit') {
+      router.push({ path: `/${props.category}/${type}/${id}`, replace: true })
+    } else {
+      const confirm = await modalStore.open({
+        title: 'Delete',
+        message: 'Are you sure?',
+        type: 'confirm',
+        component: ''
+      })
+
+      if(confirm) {
+        await deleteRecordById(id, props.category)
+        router.push(`/${props.category}/list`)
+      }
+    }
+  } catch (error) {
+    console.log(error)
+    isError.value = true
   }
+
 };
 
 const isLoading = ref<boolean>(false)

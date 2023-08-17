@@ -2,21 +2,20 @@
   <ErrorFeedback :errors="errors" />
   <form class="mt-8 space-y-6" @submit.prevent="onRegistration">
     <InputField :inputId="'username'" :className="'w-full'" :inputType="'text'"
-      :inputValue="registrationForm.form.username" :placeholder="'Username'" :isRequired="true"
+       :placeholder="'Username'" :isRequired="true"
       @changeValue="onChangeUsername"
     >
     </InputField>
-    <InputField :inputId="'email'" :className="'w-full'" :inputType="'email'" :inputValue="registrationForm.form.email"
-      :placeholder="'Email'" :isRequired="true" @changeValue="onChangeEmail"
+    <InputField :inputId="'email'" :className="'w-full'" :inputType="'email'" :placeholder="'Email'" :isRequired="true" @changeValue="onChangeEmail"
     >
     </InputField>
     <InputField :inputId="'password'" :className="'w-full'" :inputType="'password'"
-      :inputValue="registrationForm.form.password" :placeholder="'Password'" :isRequired="true"
+      :placeholder="'Password'" :isRequired="true"
       @changeValue="onChangePassword"
     >
     </InputField>
     <InputField :inputId="'password-confirmation'" :className="'w-full'" :inputType="'password'"
-      :inputValue="registrationForm.form.password_confirmation" :placeholder="'Password Conformation'" :isRequired="true"
+      :placeholder="'Password Conformation'" :isRequired="true"
       @changeValue="onChangePasswordConfirmation"
     >
     </InputField>
@@ -57,14 +56,7 @@ const router = useRouter()
 const modalStore = useModalStore()
 const { errors } = useForm()
 
-type RegistrationForm = {
-  form: {
-    username: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-  }
-}
+import { type RegistrationForm } from '../../services/AuthServices'
 
 const registrationForm = reactive<RegistrationForm>({
   form: {
@@ -97,7 +89,7 @@ const toLoginPage = () => {
 
 const onRegistration = async () => {
   try {
-    const result = await register(registrationForm)
+    const result = await register(registrationForm.form)
 
     modalStore.open({
       title: 'Success',
