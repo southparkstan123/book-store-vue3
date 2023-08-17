@@ -1,6 +1,7 @@
 <template>
   <Transition :appear="true" name="fade">
     <div v-if="!bookForm.isLoading" class="max-w-md w-full space-y-8">
+      <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <form class="mt-8 space-y-6" @submit.prevent="onUpdateRecord">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-2 gap-6">
@@ -58,12 +59,13 @@ import { useBookForm, type BookForm } from '../../hooks/useBookForm'
 import { useModalStore } from '../../store/modal'
 
 import DropdownMenu from '../dropdown/DropdownMenu.vue'
+import ErrorFeedback from '../ErrorFeedback.vue';
 
 import { fetchRecordById, fetchRecords } from '../../services/CRUDServices'
 import MultiSelectDropdown from '../dropdown/MultiSelectDropdown.vue';
 
 const props = defineProps<{ id: number }>()
-const { bookForm } = useBookForm()
+const { errors, onHandleError, bookForm } = useBookForm()
 const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
@@ -106,6 +108,7 @@ const fetchForDropdowns = async () => {
     publishers.value = response[1].data
 
   } catch (error) {
+    onHandleError(error);
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,

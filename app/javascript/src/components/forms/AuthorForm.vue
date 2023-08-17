@@ -1,6 +1,7 @@
 <template>
   <Transition :appear="true" name="fade">
     <div v-if="!authorForm.isLoading" class="max-w-md w-full space-y-8">
+      <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <form class="mt-8 space-y-6" @submit.prevent="onUpdateRecord">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
@@ -30,9 +31,10 @@ import { ref, onMounted } from 'vue';
 import { useAuthorForm } from '../../hooks/useAuthorForm'
 import { useModalStore } from '../../store/modal'
 import { fetchRecordById } from '../../services/CRUDServices'
+import ErrorFeedback from '../ErrorFeedback.vue';
 
 const props = defineProps<{ id: number }>()
-const { authorForm } = useAuthorForm()
+const { errors, authorForm, onHandleError } = useAuthorForm()
 const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
@@ -43,7 +45,7 @@ const fetch = async (id: number) => {
     authorForm.form.name = response.data.name;
     authorForm.form.description = response.data.description;
   } catch (error) {
-    isError.value = true
+    onHandleError(error)
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
@@ -60,9 +62,11 @@ const onUpdateRecord = () => {
 }
 
 onMounted(() => {
-  fetch(props.id)
+  if(props.id) {
+    authorForm.mode = 'edit';
+    fetch(props.id);
+  }
 })
-
 </script>
 
 <style scoped></style>

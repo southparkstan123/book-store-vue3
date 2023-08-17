@@ -55,7 +55,7 @@ import { useForm } from '../../hooks/useForm'
 
 const router = useRouter()
 const modalStore = useModalStore()
-const { errors } = useForm()
+const { errors, onHandleError } = useForm()
 
 type RegistrationForm = {
   form: {
@@ -108,7 +108,7 @@ const onRegistration = async () => {
 
     router.push('/signin')
   } catch (error) {
-    errors.value = error.response.data.errors;
+    onHandleError(error);
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
@@ -116,10 +116,6 @@ const onRegistration = async () => {
       component: ''
     })
   }
-
-
-
-  console.log(registrationForm.form);
 }
 </script>
 
