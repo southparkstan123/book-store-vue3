@@ -8,19 +8,26 @@ import EditPage from '../pages/EditPage.vue'
 export const routes = [
   { 
     path: '/',
-    component: MainPage
+    component: MainPage,
+    meta: { 
+      requiresAuth: true 
+    }
   },
   {
     path: '/:category/list',
     component: ListingPage,
-    props: true
+    props: true,
+    meta: { 
+      requiresAuth: true 
+    }
   },
   {
     path: '/:module/edit/:id',
     component: EditPage,
     props: true,
     meta: {
-      haveForm: true
+      haveForm: true,
+      requiresAuth: true 
     }
   },
   {
@@ -28,16 +35,23 @@ export const routes = [
     component: EditPage,
     props: true,
     meta: {
-      haveForm: true
+      haveForm: true,
+      requiresAuth: true 
     }
   },
   { 
     path: '/signin',
-    component: LoginPage
+    component: LoginPage,
+    meta: {
+      forVisitorOnly: true
+    }
   },
   { 
     path: '/signup',
-    component: RegistrationPage
+    component: RegistrationPage,
+    meta: {
+      forVisitorOnly: true
+    }
   },
   { 
     path: '/:pathMatch(.*)*', 
