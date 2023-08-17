@@ -1,7 +1,7 @@
 <template>
   <Transition :appear="true" name="fade">
     <div v-if="!bookForm.isLoading" class="max-w-md w-full space-y-8">
-      <form class="mt-8 space-y-6" @submit.prevent="onUpdateAuthorRecord">
+      <form class="mt-8 space-y-6" @submit.prevent="onUpdateRecord">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-2 gap-6">
             <label class="block" for="name">
@@ -23,19 +23,21 @@
           <div class="grid grid-cols-2 gap-6">
               <label class="block" for="publisher">
                 <span class="text-gray-700">Publisher</span>
-                <DropdownComponent :data="publishers" :isMultiple="false">
-                  <template #options="publishers">
-                    <option v-for="item in publishers" :value="item.id">{{ item.label }}</option>
-                  </template>
-                </DropdownComponent>
+                <DropdownMenu 
+                  :data="publishers" 
+                  :selectedItem="bookForm.form.publisher_id"
+                  @selectedItem="onChangePublisher"
+                >
+                </DropdownMenu>
               </label>
               <label class="block" for="authors">
                 <span class="text-gray-700">Authors</span>
-                <DropdownComponent :data="authors" :isMultiple="true">
-                  <template #options="authors">
-                    <option v-for="item in authors" :value="item.id">{{ item.label }}</option>
-                  </template>
-                </DropdownComponent>
+                <MultiSelectDropdown 
+                  :data="authors" 
+                  :selectedItems="bookForm.form.author_ids"
+                  @selectedItems="onChangeAuthors"
+                >
+                </MultiSelectDropdown>
               </label>
             </div>
         </div>
@@ -51,27 +53,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useBookForm } from '../../hooks/useBookForm'
+import { ref, onMounted, watch } from 'vue';
+import { useBookForm, type BookForm } from '../../hooks/useBookForm'
 import { useModalStore } from '../../store/modal'
 
-import DropdownComponent from '../dropdown/DropdownComponent.vue'
+import DropdownMenu from '../dropdown/DropdownMenu.vue'
+
+import { fetchRecordById, fetchRecords } from '../../services/CRUDServices'
+import MultiSelectDropdown from '../dropdown/MultiSelectDropdown.vue';
 
 const props = defineProps<{ id: number }>()
 const { bookForm } = useBookForm()
 const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
-// For Dropdown
-const authors = ref([{id: 1, name: 'author1', label: 'Author 1'}, {id: 2, name: 'author2', label: 'Author 2'}])
-const publishers = ref([{id: 1, name: 'publisher1', label: 'Publisher1'}, {id: 2, name: 'publisher2', label: 'Publisher2'}])
+// For Dropdowns
+const authors = ref([])
+const publishers = ref([])
 
-const fetchRecordById = async (id: number) => {
+const fetch = async (id: number) => {
   bookForm.isLoading = true
   try {
-    const response = await fetch(`/api/v1/book/${id}`);
-    const result = await response.json();
-    bookForm.form = result;
+    const bookAPI = await fetchRecordById(id, 'book')
+
+    bookForm.form.name = bookAPI.data.name;
+    bookForm.form.price = bookAPI.data.price;
+    bookForm.form.abstract = bookAPI.data.abstract;
+    bookForm.form.publisher_id = bookAPI.data.publisher.id;
+    bookForm.form.author_ids = bookAPI.data.authors.map(e => e.id);
+
   } catch (error) {
     isError.value = true
     modalStore.open({
@@ -82,6 +92,27 @@ const fetchRecordById = async (id: number) => {
     })
   } finally {
     bookForm.isLoading = false
+  }
+}
+
+const fetchForDorpdowns = async () => {
+  bookForm.isLoading = true
+  try {
+    const authorsAPI = await fetchRecords('author')
+    const publishersAPI = await fetchRecords('publisher')
+
+    const response = await Promise.all([authorsAPI, publishersAPI])
+
+    authors.value = response[0].data
+    publishers.value = response[1].data
+
+  } catch (error) {
+    modalStore.open({
+      title: `${error.response.status} Error`,
+      message: error.response.data.message,
+      type: 'alert',
+      component: ''
+    })
   }
 }
 
@@ -97,12 +128,32 @@ const onChangePrice = (event: any) => {
   bookForm.form.price = event.target.value
 }
 
-const onUpdateAuthorRecord = () => {
-  console.log('submit author with', bookForm)
+const onChangePublisher = (payload) => {
+  bookForm.form.publisher_id = payload
+}
+
+const onChangeAuthors = (payload) => {
+  bookForm.form.author_ids = payload
+}
+
+const onUpdateRecord = () => {
+  console.log('submit with', bookForm)
 }
 
 onMounted(() => {
-  fetchRecordById(props.id)
+  if(props.id) {
+    bookForm.mode = 'edit';
+  }
+  if(bookForm.mode === 'edit') {
+    fetch(props.id);
+  }
+  fetchForDorpdowns();
+})
+
+watch(() => bookForm.form, (newValue: BookForm, oldValue: BookForm) => {
+  if(newValue !== oldValue) {
+    bookForm.isFormChanged = true
+  }
 })
 
 </script>
