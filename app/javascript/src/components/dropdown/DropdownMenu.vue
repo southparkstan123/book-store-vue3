@@ -2,6 +2,7 @@
   <div>
     <select v-if="data && data.length > 0" class="block w-full mt-1" @change="onChange">
       <slot name="options" v-bind="data" >
+        <option selected="true" disabled>Please select the publisher</option>
         <option 
           v-for="item in data" 
           :value="item.id" 
