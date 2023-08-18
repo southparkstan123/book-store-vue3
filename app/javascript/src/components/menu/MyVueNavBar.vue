@@ -142,21 +142,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.open-button-enter-active,
-.open-button-leave-active {
-  transition: all 1.5s ease-in;
-}
 
-.open-button-enter-active {
-  transition-delay: 0.5s;
-}
-
-.open-button-enter-from {
-  transform: scale(0);
-  opacity: 0;
-}
-
-.open-button-leave-to {
-  opacity: 0;
-}
 </style>

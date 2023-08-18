@@ -128,23 +128,4 @@ export default defineComponent({
   transform: translateX(-100%);
 }
 
-// Close button
-.menu-enter-active .inner .close,
-.menu-leave-active .inner .close {
-  transition: all 1s ease-in;
-}
-
-.menu-enter-active .inner .close {
-  transition-delay: 0.8s;
-}
-
-.menu-leave-to .inner .close {
-  transform: rotateZ(-360deg);
-  opacity: 0;
-}
-
-.menu-enter-from .inner .close {
-  transform: scale(10) rotateZ(-360deg);
-  opacity: 0;
-}
 </style>

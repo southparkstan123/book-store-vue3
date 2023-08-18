@@ -43,15 +43,29 @@
     <MyVueNavBar v-if="userStore.isAuthenticated" :backgroundColor="backgroundColor"
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu">
       <template #body-content>
-        <router-link class="cursor-pointer link" to="/">Main</router-link>
-        <router-link class="cursor-pointer link" to="/book/list">Book</router-link>
-        <router-link class="cursor-pointer link" to="/publisher/list">Publisher</router-link>
-        <router-link class="cursor-pointer link" to="/author/list">Author</router-link>
+        <router-link class="cursor-pointer link text-lime-500" to="/">Main</router-link>
+        <router-link class="cursor-pointer link text-lime-500" to="/book/list">Book</router-link>
+        <router-link class="cursor-pointer link text-lime-500" to="/publisher/list">Publisher</router-link>
+        <router-link class="cursor-pointer link text-lime-500" to="/author/list">Author</router-link>
       </template>
       <template #footer-content>
-        <a class="cursor-pointer link mx-2" @click="onLogout">
+        <a class="cursor-pointer link mx-2 text-red-400" @click="onLogout">
           Logout
         </a>
+      </template>
+      <template #open-button>
+        <svg width="50px" height="50px">
+          <line x1="10" y1="15" x2="40" y2="15" stroke="lime" stroke-width="3" />
+          <line x1="10" y1="25" x2="40" y2="25" stroke="lime" stroke-width="3" />
+          <line x1="10" y1="35" x2="40" y2="35" stroke="lime" stroke-width="3" />
+        </svg>
+      </template>
+
+      <template #close-button>
+        <svg width="50px" height="50px">
+          <line x1="10" y1="40" x2="40" y2="10" stroke="lime" stroke-width="3" />
+          <line x1="10" y1="10" x2="40" y2="40" stroke="lime" stroke-width="3" />
+        </svg>
       </template>
     </MyVueNavBar>
     <router-view v-slot="{ Component }">
