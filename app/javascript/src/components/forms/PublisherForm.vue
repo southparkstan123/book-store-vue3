@@ -7,29 +7,38 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <input 
-                :value="publisherForm.form.name" 
-                class="block w-full mt-1" 
-                type="text" 
-                name="name" 
-                id="name"
-                @input="onChangeName"
-              />
+              <InputField 
+                  :inputId="'name'"
+                  :className="''"
+                  :inputValue="publisherForm.form.name" 
+                  :inputFieldClass="'block w-full mt-1'"
+                  :inputType="'text'" 
+                  :placeholder="'name'"
+                  @changeValue="onChangeName"
+                ></InputField>
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <textarea 
-                :value="publisherForm.form.description" 
-                class="block w-full mt-1" 
-                name="description" 
-                id="description"
-                @input="onChangeDescription"
-              ></textarea>
+              <TextArea
+                  :inputId="'description'"
+                  :inputName="'description'"
+                  :inputFieldClass="'block w-full mt-1'" 
+                  :inputValue="publisherForm.form.description" 
+                  @changeValue="onChangeDescription"
+                ></TextArea>
             </label>
           </div>
         </div>
         <div class="block">
-          <button>Submit Publisher</button>
+          <ButtonComponent 
+            :buttonType="'submit'" 
+            :textClass="'text-sm font-medium justify-center text-white'"
+            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
+          >
+            <template #text>
+              Submit
+            </template>
+          </ButtonComponent>
         </div>
       </form>
     </div>
@@ -46,6 +55,11 @@ import { useModalStore } from '../../store/modal'
 import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
 import ErrorFeedback from '../ErrorFeedback.vue';
 import { useRouter } from 'vue-router'
+
+// Inputs
+import InputField from '../inputs/InputField.vue'
+import TextArea from '../inputs/TextArea.vue'
+import ButtonComponent from '../inputs/ButtonComponent.vue'
 
 const props = defineProps<{ id: number }>()
 const { errors, publisherForm } = usePublisherForm()
@@ -72,12 +86,12 @@ const fetch = async (id: number) => {
   }
 }
 
-const onChangeName = (event: any) => {
-  publisherForm.form.name = event.target.value
+const onChangeName = (payload) => {
+  publisherForm.form.name = payload
 }
 
-const onChangeDescription = (event: any) => {
-  publisherForm.form.description = event.target.value
+const onChangeDescription = (payload) => {
+  publisherForm.form.description = payload
 }
 
 watch(() => publisherForm.form, (newValue, oldValue) => {

@@ -62,7 +62,15 @@
             </div>
         </div>
         <div class="block">
-          <button type="submit">Submit Book</button>
+          <ButtonComponent 
+            :buttonType="'submit'" 
+            :textClass="'text-sm font-medium justify-center text-white'"
+            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
+          >
+            <template #text>
+              Submit
+            </template>
+          </ButtonComponent>
         </div>
       </form>
     </div>
@@ -92,7 +100,6 @@ import ButtonComponent from '../inputs/ButtonComponent.vue'
 
 const props = defineProps<{ id: number }>()
 const { errors, bookForm } = useBookForm()
-const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
 // For Dropdowns
@@ -113,7 +120,7 @@ const fetch = async (id: number) => {
     bookForm.form.author_ids = bookAPI.data.authors.map(e => e.id);
 
   } catch (error) {
-    isError.value = true
+    errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,

@@ -30,7 +30,15 @@
           </div>
         </div>
         <div class="block">
-          <button class="bg-green-500 hover:bg-green-700 text-white rounded p-4">Submit Author</button>
+          <ButtonComponent 
+            :buttonType="'submit'" 
+            :textClass="'text-sm font-medium justify-center text-white'"
+            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
+          >
+            <template #text>
+              Submit
+            </template>
+          </ButtonComponent>
         </div>
       </form>
     </div>
@@ -56,7 +64,6 @@ import ErrorFeedback from '../ErrorFeedback.vue';
 
 const props = defineProps<{ id: number }>()
 const { errors, authorForm } = useAuthorForm()
-const isError = ref<boolean>(false)
 const modalStore = useModalStore()
 
 const router = useRouter()
