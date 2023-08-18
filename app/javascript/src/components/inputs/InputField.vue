@@ -7,6 +7,7 @@
       :name="inputName"
       :placeholder="displayedPlaceholder"
       :value="inputValue" @keyup="changeValue"
+      :disabled="isDisabled"
     />
   </div>
 </template>
@@ -24,6 +25,7 @@ type InputFieldProps = {
   placeholder: string,
   inputValue: string
   inputFieldClass: string
+  isDisabled: boolean
 };
 
 const props = withDefaults(defineProps<InputFieldProps & {inputType: InputType}>(), {
@@ -34,7 +36,8 @@ const props = withDefaults(defineProps<InputFieldProps & {inputType: InputType}>
   placeholder: 'Placeholder',
   inputValue: '',
   inputFieldClass: 'form-control',
-  inputType: 'text'
+  inputType: 'text',
+  isDisabled: false
 })
 
 const displayedPlaceholder = computed<string>(() => {

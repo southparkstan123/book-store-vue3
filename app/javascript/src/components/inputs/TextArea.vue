@@ -10,6 +10,7 @@
       :placeholder="displayedPlaceholder"
       @keyup="changeValue"
       :value="inputValue"
+      :disabled="isDisabled"
     ></textarea>
     <slot name="hints" />
     <slot name="error-feedback" />
@@ -27,7 +28,8 @@ type InputFieldProps = {
   isRequired: boolean,
   placeholder: string,
   inputValue: string
-  inputFieldClass: string
+  inputFieldClass: string,
+  isDisabled: boolean
 }
 
 type TextareaFieldProps = InputFieldProps & {
@@ -47,7 +49,8 @@ const props = withDefaults(defineProps<TextareaFieldProps>(), {
   inputType: 'text',
   isReadonly: false,
   cols: '30',
-  rows: '10'
+  rows: '10',
+  isDisabled: false
 })
 
 const displayedPlaceholder = computed<string>(() => {

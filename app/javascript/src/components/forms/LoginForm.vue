@@ -5,16 +5,19 @@
       :inputType="'text'" 
       :placeholder="'Username'"
       @changeValue="onChangeUsername"
+      :isDisabled="disableInputs"
     ></InputField>
     <InputField 
       :inputId="'password'"
       :inputType="'password'" 
       :placeholder="'Password'"
       @changeValue="onChangePassword"
+      :isDisabled="disableInputs"
     ></InputField>
     <div class="flex items-center justify-between">
       <div class="flex items-center">
         <ButtonComponent
+          :isDisabled="disableInputs" 
           :buttonType="'submit'"
           :textClass="'text-sm font-medium'"
           :backgroundClass="'group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
@@ -26,7 +29,8 @@
         
       </div>
       <div class="flex items-center">
-        <ButtonComponent 
+        <ButtonComponent
+          :isDisabled="disableInputs" 
           @buttonClicked="toRegisterPage"
           :buttonType="'button'"
           :textClass="'text-sm text-blue-500'"
@@ -42,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 
 // From Router
 import { useRouter } from 'vue-router'
@@ -60,10 +64,24 @@ const modalStore = useModalStore()
 
 import { type LoginForm } from '../../services/AuthServices'
 
+const disableInputs = ref<boolean>(false)
+
 const onLogin = async () => {
-  await signin(loginForm.form)
-  if(state.token) {
-    router.replace('/')
+  try {
+    disableInputs.value = true;
+    await signin(loginForm.form)
+    if(state.token) {
+      router.replace('/')
+    }
+  } catch (error) {
+    modalStore.open({
+      type: 'alert',
+      title: 'Error',
+      component: '',
+      message: 'Invalid username or password.'
+    })
+  } finally {
+    disableInputs.value = false;
   }
 }
 
