@@ -53,16 +53,16 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 // Components
-import InputField from '../inputs/InputField.vue'
-import ButtonComponent from '../inputs/ButtonComponent.vue'
+import InputField from '@/components/inputs/InputField.vue'
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
 
 // From stores
-import { useModalStore } from '../../store/modal'
-import { useUserStore } from '../../store/user'
+import { useModalStore } from '@/store/modal'
+import { useUserStore } from '@/store/user'
 const { signin, state }  = useUserStore()
 const modalStore = useModalStore()
 
-import { type LoginForm } from '../../services/AuthServices'
+import { type LoginForm } from '@/services/AuthServices'
 
 const disableInputs = ref<boolean>(false)
 

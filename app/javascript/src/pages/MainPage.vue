@@ -16,8 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { useModalStore } from '../store/modal'
-import ButtonComponent from '../components/inputs/ButtonComponent.vue';
+import { useModalStore } from '@/store/modal'
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 const modalStore = useModalStore()
 
 const openModal = () => {

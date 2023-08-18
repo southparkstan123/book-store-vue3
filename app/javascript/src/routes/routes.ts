@@ -1,9 +1,9 @@
-import MainPage from '../pages/MainPage.vue'
-import LoginPage from '../pages/LoginPage.vue'
-import RegistrationPage from '../pages/RegistrationPage.vue'
-import NotFoundPage from '../pages/NotFoundPage.vue'
-import ListingPage from '../pages/ListingPage.vue'
-import EditPage from '../pages/EditPage.vue'
+import MainPage from '@/pages/MainPage.vue'
+import LoginPage from '@/pages/LoginPage.vue'
+import RegistrationPage from '@/pages/RegistrationPage.vue'
+import NotFoundPage from '@/pages/NotFoundPage.vue'
+import ListingPage from '@/pages/ListingPage.vue'
+import EditPage from '@/pages/EditPage.vue'
 
 export const routes = [
   { 

@@ -83,20 +83,20 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import { useBookForm, type BookForm } from '../../hooks/useBookForm'
-import { useModalStore } from '../../store/modal'
+import { useBookForm, type BookForm } from '@/hooks/useBookForm'
+import { useModalStore } from '@/store/modal'
 
-import DropdownMenu from '../dropdowns/DropdownMenu.vue'
-import ErrorFeedback from '../ErrorFeedback.vue';
+import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
+import ErrorFeedback from '@/components/ErrorFeedback.vue';
 
-import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '../../services/CRUDServices'
-import MultiSelectDropdown from '../dropdowns/MultiSelectDropdown.vue';
+import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '@/services/CRUDServices'
+import MultiSelectDropdown from '@/components/dropdowns/MultiSelectDropdown.vue';
 import { useRouter } from 'vue-router'
 
 // Inputs
-import InputField from '../inputs/InputField.vue'
-import TextArea from '../inputs/TextArea.vue'
-import ButtonComponent from '../inputs/ButtonComponent.vue'
+import InputField from '@/components/inputs/InputField.vue'
+import TextArea from '@/components/inputs/TextArea.vue'
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
 
 
 const props = defineProps<{ id: number }>()

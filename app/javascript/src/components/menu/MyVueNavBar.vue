@@ -41,10 +41,10 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue'
 
-import MobileMenu from './MobileMenu.vue'
-import MobileMenuBurgerButton from './MobileMenuBurgerButton.vue'
-import DesktopMenu from './DesktopMenu.vue'
-import isValidColorValue from '../../utils/isValidColorValue'
+import MobileMenu from '@/components/menu/MobileMenu.vue'
+import MobileMenuBurgerButton from '@/components/menu/MobileMenuBurgerButton.vue'
+import DesktopMenu from '@/components/menu/DesktopMenu.vue'
+import isValidColorValue from '@/utils/isValidColorValue'
 
 export default defineComponent({
   components: {

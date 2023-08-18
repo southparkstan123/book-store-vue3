@@ -44,19 +44,19 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
-import InputField from '../../components/inputs/InputField.vue'
-import ButtonComponent from '../../components/inputs/ButtonComponent.vue'
-import ErrorFeedback from '../../components/ErrorFeedback.vue'
+import InputField from '@/components/inputs/InputField.vue'
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
+import ErrorFeedback from '@/components/ErrorFeedback.vue'
 
-import { register } from '../../services/AuthServices'
-import { useModalStore } from '../../store/modal'
-import { useForm } from '../../hooks/useForm'
+import { register } from '@/services/AuthServices'
+import { useModalStore } from '@/store/modal'
+import { useForm } from '@/hooks/useForm'
 
 const router = useRouter()
 const modalStore = useModalStore()
 const { errors } = useForm()
 
-import { type RegistrationForm } from '../../services/AuthServices'
+import { type RegistrationForm } from '@/services/AuthServices'
 
 const registrationForm = reactive<RegistrationForm>({
   form: {

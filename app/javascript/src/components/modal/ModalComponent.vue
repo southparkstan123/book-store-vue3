@@ -31,8 +31,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { useModalStore } from '../../store/modal'
-import ButtonComponent from '../inputs/ButtonComponent.vue';
+import { useModalStore } from '@/store/modal'
 
 type ModelType = 'alert' | 'confirm' | 'form';
 

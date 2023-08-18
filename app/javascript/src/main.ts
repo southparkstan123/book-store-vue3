@@ -1,11 +1,11 @@
 import { createApp, defineComponent } from 'vue'
-import App from './components/App.vue'
+import App from '@/components/App.vue'
 
 // router
 import { createRouter, createWebHistory } from 'vue-router';
-import { routes } from './routes/routes.ts'
+import { routes } from '@/routes/routes.ts'
 // guardedRouter
-import guardedRouter from './routes/guardRouter';
+import guardedRouter from '@/routes/guardRouter';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,7 +13,7 @@ const router = createRouter({
 })
 
 // pinia
-import { store } from './store/index'
+import { store } from '@/store/index'
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = createApp(App)

@@ -1,4 +1,4 @@
-import { useUserStore } from "../store/user";
+import { useUserStore } from "@/store/user";
 
 const guardedRouter: void = (router) => {
   router.beforeEach((to, from, next) => {

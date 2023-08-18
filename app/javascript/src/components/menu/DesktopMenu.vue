@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import isValidColorValue from '../../utils/isValidColorValue'
+import isValidColorValue from '@/utils/isValidColorValue'
 
 export default defineComponent({
   props: {

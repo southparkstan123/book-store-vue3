@@ -85,21 +85,21 @@ const router = useRouter()
 const route = useRoute()
 
 // Modal
-import { useModalStore } from '../store/modal'
-import ModalComponent from './modal/ModalComponent.vue';
+import { useModalStore } from '@/store/modal'
+import ModalComponent from '@/components/modal/ModalComponent.vue';
 const modalStore = useModalStore()
 const modalState = storeToRefs(modalStore).state
 
 // NavBar
-import MyVueNavBar from './menu/MyVueNavBar.vue'
-import { useNavBar } from '../hooks/useNavBar'
+import MyVueNavBar from '@/components/menu/MyVueNavBar.vue'
+import { useNavBar } from '@/hooks/useNavBar'
 const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar()
 
 // UserInfo
-import { useUserStore } from '../store/user'
+import { useUserStore } from '@/store/user'
 const userStore = useUserStore()
 
-import ButtonComponent from './inputs/ButtonComponent.vue';
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 
 const closeModal = () => {
   modalStore.close()

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive, computed } from 'vue';
-import { signin as _signin, verify, signout as _signout } from '../services/AuthServices'
-import { useModalStore } from '../store/modal'
+import { signin as _signin, verify, signout as _signout } from '@/services/AuthServices'
+import { useModalStore } from '@/store/modal'
 
 
 export type UserInfo = {

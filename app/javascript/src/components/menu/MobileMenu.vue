@@ -29,9 +29,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import MobileMenuCloseButton from './MobileMenuCloseButton.vue'
-import MobileMenuBody from './MobileMenuBody.vue'
-import isValidColorValue from '../../utils/isValidColorValue'
+import MobileMenuCloseButton from '@/components/menu/MobileMenuCloseButton.vue'
+import MobileMenuBody from '@/components/menu/MobileMenuBody.vue'
+import isValidColorValue from '@/utils/isValidColorValue'
 
 export default defineComponent({
   components: {

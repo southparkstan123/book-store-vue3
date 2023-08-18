@@ -1,5 +1,5 @@
 import { reactive, ref } from 'vue'
-import { useForm } from './useForm'
+import { useForm } from '@/hooks/useForm'
 
 export type AuthorForm = {
   name: string,

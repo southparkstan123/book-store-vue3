@@ -51,16 +51,16 @@
 
 <script setup lang="ts">
 import { onMounted, readonly } from 'vue';
-import { usePublisherForm } from '../../hooks/usePublisherForm'
-import { useModalStore } from '../../store/modal'
-import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
-import ErrorFeedback from '../ErrorFeedback.vue';
+import { usePublisherForm } from '@/hooks/usePublisherForm'
+import { useModalStore } from '@/store/modal'
+import { fetchRecordById, updateRecordById, createRecord } from '@/services/CRUDServices'
+import ErrorFeedback from '@/components/ErrorFeedback.vue';
 import { useRouter } from 'vue-router'
 
 // Inputs
-import InputField from '../inputs/InputField.vue'
-import TextArea from '../inputs/TextArea.vue'
-import ButtonComponent from '../inputs/ButtonComponent.vue'
+import InputField from '@/components/inputs/InputField.vue'
+import TextArea from '@/components/inputs/TextArea.vue'
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
 
 const props = defineProps<{ id: number }>()
 const emit = defineEmits<{e, 'formChanged'}>()

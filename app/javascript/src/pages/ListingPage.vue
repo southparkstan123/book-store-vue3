@@ -86,14 +86,14 @@ type Module = "book" | "author" | "publisher";
 type ActionType = "view" | "edit" | "delete";
 
 import { onMounted, ref, computed, watch } from 'vue'
-import TableComponent from '../components/TableComponent.vue'
-import type { TableItem, TableField } from '../components/TableComponent.vue'
+import TableComponent from '@/components/TableComponent.vue'
+import type { TableItem, TableField } from '@/components/TableComponent.vue'
 import { useRouter } from 'vue-router'
 import moment from 'moment'
-import { useModalStore } from '../store/modal'
-import { deleteRecordById } from '../services/CRUDServices';
+import { useModalStore } from '@/store/modal'
+import { deleteRecordById } from '@/services/CRUDServices';
 
-import ButtonComponent from '../components/inputs/ButtonComponent.vue';
+import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 
 const props = defineProps<{ category: Module }>()
 
