@@ -6,7 +6,7 @@
           <div v-if="data.length > 0">
             <TableComponent :data="data" :fields="fields">
               <template #caption>
-                <router-link to="add">Add {{ category }}</router-link>
+                <router-link to="add">{{ caption }}</router-link>
               </template>
               <template #creator="{ item }">
                 {{ item.creator.username }}
