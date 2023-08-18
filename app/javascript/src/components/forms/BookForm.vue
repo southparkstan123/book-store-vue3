@@ -85,11 +85,11 @@ import { ref, onMounted, watch } from 'vue';
 import { useBookForm, type BookForm } from '../../hooks/useBookForm'
 import { useModalStore } from '../../store/modal'
 
-import DropdownMenu from '../dropdown/DropdownMenu.vue'
+import DropdownMenu from '../dropdowns/DropdownMenu.vue'
 import ErrorFeedback from '../ErrorFeedback.vue';
 
 import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '../../services/CRUDServices'
-import MultiSelectDropdown from '../dropdown/MultiSelectDropdown.vue';
+import MultiSelectDropdown from '../dropdowns/MultiSelectDropdown.vue';
 import { useRouter } from 'vue-router'
 
 // Inputs
