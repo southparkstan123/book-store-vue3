@@ -104,15 +104,19 @@ const caption = computed(() => `Add ${props.category}`)
 const data = ref<TableItem[]>([]);
 
 const fields = computed<TableField[]>(() => {
+
+  const idField = [{key: 'id', label: 'ID'}]
+  const defaultFields = [{key: 'created_at', label: 'Created at'}, {key: 'updated_at', label: 'Updated at'}]
+
   switch (props.category) {
     case 'book':
-      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'},{key: 'abstract', label: 'Abstract'}] 
+      return [...idField, {key: 'name', label: 'Name'}, {key: 'abstract', label: 'Abstract'}, {key: 'price', label: 'Price (USD)'},...defaultFields] 
     case 'author':
-      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'}, {key: 'creator', label: 'Created By'}] 
+      return [...idField, {key: 'name', label: 'Name'}, {key: 'description', label: 'Description'}, ...defaultFields] 
     case 'publisher':
-      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'}, {key: 'creator', label: 'Created By'}, {key: 'books', label: 'Books'}] 
+      return [...idField, {key: 'name', label: 'Name'}, {key: 'description', label: 'Description'}, ...defaultFields] 
     default:
-      return []
+      return undefined
   }
 });
 
