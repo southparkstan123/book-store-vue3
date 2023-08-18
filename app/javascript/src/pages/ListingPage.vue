@@ -102,7 +102,19 @@ const router = useRouter()
 const caption = computed(() => `Add ${props.category}`)
 
 const data = ref<TableItem[]>([]);
-const fields = ref<TableField[]>();
+
+const fields = computed<TableField[]>(() => {
+  switch (props.category) {
+    case 'book':
+      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'},{key: 'abstract', label: 'Abstract'}] 
+    case 'author':
+      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'}, {key: 'creator', label: 'Created By'}] 
+    case 'publisher':
+      return [{key: 'id', label: 'ID'},{key: 'name', label: 'Name'}, {key: 'creator', label: 'Created By'}, {key: 'books', label: 'Books'}] 
+    default:
+      return []
+  }
+});
 
 const modalStore = useModalStore()
 
@@ -112,9 +124,6 @@ const fetchRecords = async (module: Module) => {
     const response = await fetch(`/api/v1/${module}/list`);
     const result = await response.json();
     data.value = result;
-
-
-
   } catch (error) {
     isError.value = true
     modalStore.open({
