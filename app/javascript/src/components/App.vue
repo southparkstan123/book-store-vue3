@@ -14,6 +14,31 @@
       <template #form-body>
         <component :is="modalState.component" />
       </template>
+
+      <template #footer="{ type }">
+        <div v-if="type === 'confirm'">
+          <ButtonComponent @buttonClicked="modalStore.confirm()" :buttonType="'button'" :textClass="'text-sm text-white'"
+            :backgroundClass="'bg-red-500 py-2 px-4'">
+            <template #text>
+              OK
+            </template>
+          </ButtonComponent>
+          <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm'"
+            :backgroundClass="'bg-white py-2 px-4'">
+            <template #text>
+              Cancel
+            </template>
+          </ButtonComponent>
+        </div>
+        <div v-else>
+          <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
+            :backgroundClass="'bg-green-500 py-2 px-4'">
+            <template #text>
+              OK
+            </template>
+          </ButtonComponent>
+        </div>
+      </template>
     </ModalComponent>
     <MyVueNavBar v-if="userStore.isAuthenticated" :backgroundColor="backgroundColor"
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu">
@@ -60,13 +85,15 @@ const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar()
 import { useUserStore } from '../store/user'
 const userStore = useUserStore()
 
+import ButtonComponent from './inputs/ButtonComponent.vue';
+
 const closeModal = () => {
   modalStore.close()
 }
 
 const onLogout = async () => {
   if (!route.meta.haveForm) {
-    
+
     const confirm = await modalStore.open({
       type: 'confirm',
       title: 'Logout',
