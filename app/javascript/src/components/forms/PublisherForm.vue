@@ -31,6 +31,7 @@
         </div>
         <div class="block">
           <ButtonComponent 
+            :isDisabled="!publisherForm.isFormChanged"
             :buttonType="'submit'" 
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -49,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { watch, onMounted } from 'vue';
+import { onMounted, readonly } from 'vue';
 import { usePublisherForm } from '../../hooks/usePublisherForm'
 import { useModalStore } from '../../store/modal'
 import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
@@ -62,6 +63,8 @@ import TextArea from '../inputs/TextArea.vue'
 import ButtonComponent from '../inputs/ButtonComponent.vue'
 
 const props = defineProps<{ id: number }>()
+const emit = defineEmits<{e, 'formChanged'}>()
+
 const { errors, publisherForm } = usePublisherForm()
 const modalStore = useModalStore()
 
@@ -86,25 +89,25 @@ const fetch = async (id: number) => {
   }
 }
 
+const onChangeForm = (payload) => {
+  publisherForm.isFormChanged = payload
+  emit('formChanged', payload)
+}
+
+
 const onChangeName = (payload) => {
   publisherForm.form.name = payload
+  onChangeForm(true)
 }
 
 const onChangeDescription = (payload) => {
   publisherForm.form.description = payload
+  onChangeForm(true)
 }
 
-watch(() => publisherForm.form, (newValue, oldValue) => {
-  if(newValue !== oldValue) {
-    publisherForm.isFormChanged = true
-  }
-})
-
 const onSubmit = async () => {
-  console.log('submit with', publisherForm.form)
-
   try {
-    publisherForm.isFormChanged = false;
+    onChangeForm(false)
     let response: any = {};
 
     if (publisherForm.mode === 'edit') {

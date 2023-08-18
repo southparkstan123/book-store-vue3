@@ -63,6 +63,7 @@
         </div>
         <div class="block">
           <ButtonComponent 
+            :isDisabled="!bookForm.isFormChanged"
             :buttonType="'submit'" 
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -99,6 +100,8 @@ import ButtonComponent from '../inputs/ButtonComponent.vue'
 
 
 const props = defineProps<{ id: number }>()
+const emit = defineEmits<{e, 'formChanged'}>()
+
 const { errors, bookForm } = useBookForm()
 const modalStore = useModalStore()
 
@@ -153,31 +156,40 @@ const fetchForDropdowns = async () => {
   }
 }
 
+const onChangeForm = (payload) => {
+  bookForm.isFormChanged = payload
+  emit('formChanged', payload)
+}
+
 const onChangeName = (payload) => {
   bookForm.form.name = payload
+  onChangeForm(true)
 }
 
 const onChangeAbstract = (payload) => {
   bookForm.form.abstract = payload
+  onChangeForm(true)
 }
 
 const onChangePrice = (event: any) => {
   bookForm.form.price = event.target.value
+  onChangeForm(true)
 }
 
 const onChangePublisher = (payload) => {
   bookForm.form.publisher_id = payload
+  onChangeForm(true)
 }
 
 const onChangeAuthors = (payload) => {
   bookForm.form.author_ids = payload
+  onChangeForm(true)
 }
 
 const onSubmit = async () => {
-  console.log('submit with', bookForm)
 
   try {
-    bookForm.isFormChanged = false;
+    onChangeForm(false)
     let response: any = {};
 
     if (bookForm.mode === 'edit') {
@@ -212,12 +224,6 @@ onMounted(() => {
     fetch(props.id);
   }
   fetchForDropdowns();
-})
-
-watch(() => bookForm.form, (newValue: BookForm, oldValue: BookForm) => {
-  if(newValue !== oldValue) {
-    bookForm.isFormChanged = true
-  }
 })
 
 </script>

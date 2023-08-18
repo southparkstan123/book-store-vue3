@@ -31,6 +31,7 @@
         </div>
         <div class="block">
           <ButtonComponent 
+            :isDisabled="!authorForm.isFormChanged"
             :buttonType="'submit'" 
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -49,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { onMounted } from 'vue';
 import { useAuthorForm } from '../../hooks/useAuthorForm'
 import { useModalStore } from '../../store/modal'
 import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
@@ -63,6 +64,7 @@ import ButtonComponent from '../inputs/ButtonComponent.vue'
 import ErrorFeedback from '../ErrorFeedback.vue';
 
 const props = defineProps<{ id: number }>()
+const emit = defineEmits<{e, 'formChanged'}>()
 const { errors, authorForm } = useAuthorForm()
 const modalStore = useModalStore()
 
@@ -87,26 +89,24 @@ const fetch = async (id: number) => {
   }
 }
 
-watch(() => authorForm.form, (newValue, oldValue) => {
-  if(newValue !== oldValue) {
-    authorForm.isFormChanged = true
-  }
-})
-
 const onChangeName = (payload) => {
   authorForm.form.name = payload
+  onChangeForm(true)
 }
 
 const onChangeDescription = (payload) => {
   authorForm.form.description = payload
+  onChangeForm(true)
 }
 
+const onChangeForm = (payload) => {
+  authorForm.isFormChanged = payload
+  emit('formChanged', payload)
+}
 
 const onSubmit = async () => {
-  console.log('submit with', authorForm.form)
-
   try {
-    authorForm.isFormChanged = false;
+    onChangeForm(false)
     let response: any = {};
 
     if (authorForm.mode === 'edit') {
