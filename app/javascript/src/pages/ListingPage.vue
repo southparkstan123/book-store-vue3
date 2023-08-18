@@ -34,8 +34,26 @@
               </template>
               <template #addition-content="{ item }">
                 <td>
-                  <button class="button success" @click="action('edit', item.id)">edit</button>
-                  <button class="button danger" @click="action('delete', item.id)">delete</button>
+                  <ButtonComponent
+                    @buttonClicked="action('edit', item.id)"
+                    :buttonType="'button'"
+                    :textClass="'text-sm text-white'"
+                    :backgroundClass="'bg-green-500 py-2 px-4'"
+                  >
+                    <template #text>
+                      Edit
+                    </template>
+                  </ButtonComponent>
+                  <ButtonComponent
+                    @buttonClicked="action('delete', item.id)"
+                    :buttonType="'button'"
+                    :textClass="'text-sm text-white'"
+                    :backgroundClass="'bg-red-500 py-2 px-4'"
+                  >
+                    <template #text>
+                      Delete
+                    </template>
+                  </ButtonComponent>
                 </td>
               </template>
               <template #number="{ numberOfRecords }">
@@ -74,6 +92,8 @@ import { useRouter } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '../store/modal'
 import { deleteRecordById } from '../services/CRUDServices';
+
+import ButtonComponent from '../components/inputs/ButtonComponent.vue';
 
 const props = defineProps<{ category: Module }>()
 

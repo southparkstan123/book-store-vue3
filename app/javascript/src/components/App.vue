@@ -88,28 +88,6 @@ const onLogout = async () => {
 </script>
 
 <style lang="scss">
-.button {
-  background-color: gray;
-  border: none;
-  color: white;
-  padding: 8px 6px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-
-  &.info {
-    background-color: blue;
-  }
-
-  &.success {
-    background-color: green;
-  }
-
-  &.danger {
-    background-color: red;
-  }
-}
-
 .slide-upward-enter-active,
 .slide-upward-leave-active {
   transition: all 1s ease-in-out 1s;
