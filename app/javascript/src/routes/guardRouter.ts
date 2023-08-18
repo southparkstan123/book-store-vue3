@@ -3,8 +3,9 @@ import { useUserStore } from "../store/user";
 const guardedRouter: void = (router) => {
   router.beforeEach((to, from, next) => {
     const userStore = useUserStore()
-    const isAuthenticated = userStore.state.userInfo !== null && userStore.state.token !== null
+    
     userStore.attemp(localStorage.getItem('token')).then(() => {
+      const isAuthenticated = userStore.isAuthenticated;
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
           next({ path: '/signin' });
