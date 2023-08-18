@@ -14,7 +14,6 @@ const guardedRouter: void = (router) => {
         }
       }
       else if (to.matched.some(record => record.meta.forVisitorOnly)) {
-        console.log('forVisitorOnly', isAuthenticated);
         if (!isAuthenticated) {
           next();
         } else {
