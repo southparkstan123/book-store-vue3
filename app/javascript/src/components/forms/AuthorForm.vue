@@ -7,12 +7,24 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <input :value="authorForm.form.name" class="block w-full mt-1" type="text" name="name" id="name" />
+              <input 
+                :value="authorForm.form.name" 
+                class="block w-full mt-1" 
+                type="text" 
+                name="name" 
+                id="name" 
+                @input="onChangeName"
+              />
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <textarea :value="authorForm.form.description" class="block w-full mt-1" name="description"
-                id="description"></textarea>
+              <textarea 
+                :value="authorForm.form.description" 
+                class="block w-full mt-1" 
+                name="description"
+                id="description"
+                @input="onChangeDescription"
+              ></textarea>
             </label>
           </div>
         </div>
@@ -67,6 +79,15 @@ watch(() => authorForm.form, (newValue, oldValue) => {
     authorForm.isFormChanged = true
   }
 })
+
+const onChangeName = (event: any) => {
+  authorForm.form.name = event.target.value
+}
+
+const onChangeDescription = (event: any) => {
+  authorForm.form.description = event.target.value
+}
+
 
 const onSubmit = async () => {
   console.log('submit with', authorForm.form)
