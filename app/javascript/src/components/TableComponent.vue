@@ -1,8 +1,8 @@
 <template>
-  <table v-if="data" class="table-auto">
+  <table v-if="data">
     <caption>
       <slot name="caption">
-        Defalut Cation
+        {{ caption }}
       </slot>
     </caption>
     <thead>
@@ -66,7 +66,7 @@ export default defineComponent(
       const displayedfields = computed(() => {
         const result = (props.fields !== undefined)
           ? Object.entries(props.fields).map(([_key, value]) => value.key)
-          : Object.entries(props.data[0]).map(([_key, value]) => _key);
+          : Object.entries(props.data[0]).map(([_key]) => _key);
 
         return result;
       });
