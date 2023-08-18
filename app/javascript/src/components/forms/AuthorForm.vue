@@ -7,24 +7,25 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <input 
-                :value="authorForm.form.name" 
-                class="block w-full mt-1" 
-                type="text" 
-                name="name" 
-                id="name" 
-                @input="onChangeName"
-              />
+              <InputField 
+                :inputId="'name'"
+                :className="''"
+                :inputValue="authorForm.form.name" 
+                :inputFieldClass="'block w-full mt-1'"
+                :inputType="'text'" 
+                :placeholder="'Name'"
+                @changeValue="onChangeName"
+              ></InputField>
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <textarea 
-                :value="authorForm.form.description" 
-                class="block w-full mt-1" 
-                name="description"
-                id="description"
-                @input="onChangeDescription"
-              ></textarea>
+              <TextArea
+                :inputId="'description'"
+                :inputName="'description'"
+                :inputFieldClass="'block w-full mt-1'" 
+                :inputValue="authorForm.form.description" 
+                @changeValue="onChangeDescription"
+              ></TextArea>
             </label>
           </div>
         </div>
@@ -45,6 +46,11 @@ import { useAuthorForm } from '../../hooks/useAuthorForm'
 import { useModalStore } from '../../store/modal'
 import { fetchRecordById, updateRecordById, createRecord } from '../../services/CRUDServices'
 import { useRouter } from 'vue-router'
+
+// Inputs
+import InputField from '../inputs/InputField.vue'
+import TextArea from '../inputs/TextArea.vue'
+import ButtonComponent from '../inputs/ButtonComponent.vue'
 
 import ErrorFeedback from '../ErrorFeedback.vue';
 
@@ -80,12 +86,12 @@ watch(() => authorForm.form, (newValue, oldValue) => {
   }
 })
 
-const onChangeName = (event: any) => {
-  authorForm.form.name = event.target.value
+const onChangeName = (payload) => {
+  authorForm.form.name = payload
 }
 
-const onChangeDescription = (event: any) => {
-  authorForm.form.description = event.target.value
+const onChangeDescription = (payload) => {
+  authorForm.form.description = payload
 }
 
 

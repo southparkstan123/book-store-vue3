@@ -4,21 +4,40 @@
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <input :value="bookForm.form.name" class="block w-full mt-1" type="text" name="name" id="name"
-                @input="onChangeName" />
+                <InputField 
+                  :inputId="'name'"
+                  :className="''"
+                  :inputValue="bookForm.form.name" 
+                  :inputFieldClass="'block w-full mt-1'"
+                  :inputType="'text'" 
+                  :placeholder="'name'"
+                  @changeValue="onChangeName"
+                ></InputField>
             </label>
             <label class="block" for="abtract">
               <span class="text-gray-700">Abstract</span>
-              <textarea :value="bookForm.form.abstract" class="block w-full mt-1" name="description" id="description"
-                @input="onChangeAbstract"></textarea>
+                <TextArea
+                  :inputId="'description'"
+                  :inputName="'description'"
+                  :inputFieldClass="'block w-full mt-1'" 
+                  :inputValue="bookForm.form.abstract" 
+                  @changeValue="onChangeAbstract"
+                ></TextArea>
             </label>
             <label class="block" for="price">
               <span class="text-gray-700">Price</span>
-              <input class="block w-full mt-1" type="number" name="price" step="0.1" min="0"
-                v-model.number="bookForm.form.price" @change="onChangePrice" />
+              <input 
+                class="block w-full mt-1" 
+                type="number" 
+                name="price" 
+                step="0.1" 
+                min="0"
+                v-model.number="bookForm.form.price" 
+                @change="onChangePrice" 
+              />
             </label>
           </div>
           <div class="grid grid-cols-2 gap-6">
@@ -64,6 +83,12 @@ import ErrorFeedback from '../ErrorFeedback.vue';
 import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '../../services/CRUDServices'
 import MultiSelectDropdown from '../dropdown/MultiSelectDropdown.vue';
 import { useRouter } from 'vue-router'
+
+// Inputs
+import InputField from '../inputs/InputField.vue'
+import TextArea from '../inputs/TextArea.vue'
+import ButtonComponent from '../inputs/ButtonComponent.vue'
+
 
 const props = defineProps<{ id: number }>()
 const { errors, bookForm } = useBookForm()
@@ -121,12 +146,12 @@ const fetchForDropdowns = async () => {
   }
 }
 
-const onChangeName = (event: any) => {
-  bookForm.form.name = event.target.value
+const onChangeName = (payload) => {
+  bookForm.form.name = payload
 }
 
-const onChangeAbstract = (event: any) => {
-  bookForm.form.abstract = event.target.value
+const onChangeAbstract = (payload) => {
+  bookForm.form.abstract = payload
 }
 
 const onChangePrice = (event: any) => {
