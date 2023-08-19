@@ -111,10 +111,16 @@ const publishers = ref([])
 
 const router = useRouter()
 
-const fetch = async (id: number) => {
+const fetchById = async (id: number) => {
   bookForm.isLoading = true
   try {
     const bookAPI = await fetchRecordById(id, 'book')
+    // const authorsAPI = await fetch('api/v1/author/list/names')
+    // const publishersAPI = await fetch('api/v1/publisher/list/names')
+
+
+    // const response = await Promise.all([bookAPI])
+    // console.log(response);
 
     bookForm.form.name = bookAPI.data.name;
     bookForm.form.price = bookAPI.data.price;
@@ -137,14 +143,12 @@ const fetch = async (id: number) => {
 
 const fetchForDropdowns = async () => {
   try {
-    const authorsAPI = await fetchRecords('author')
-    const publishersAPI = await fetchRecords('publisher')
-
+    const authorsAPI = await fetch('/api/v1/author/list/names')
+    const publishersAPI = await fetch('/api/v1/publisher/list/names')
     const response = await Promise.all([authorsAPI, publishersAPI])
 
-    authors.value = response[0].data
-    publishers.value = response[1].data
-
+    authors.value = await response[0].json()
+    publishers.value = await response[1].json()
   } catch (error) {
     errors.value = error.response.data.errors
     modalStore.open({
@@ -221,7 +225,7 @@ const onSubmit = async () => {
 onMounted(() => {
   if(props.id) {
     bookForm.mode = 'edit';
-    fetch(props.id);
+    fetchById(props.id);
   }
   fetchForDropdowns();
 })

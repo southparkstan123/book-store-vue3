@@ -10,7 +10,7 @@
 import AuthorForm from '@/components/forms/AuthorForm.vue'
 import BookForm from '@/components/forms/BookForm.vue'
 import PublisherForm from '@/components/forms/PublisherForm.vue'
-import { ref, computed, defineComponent, PropType } from 'vue';
+import { ref, computed, defineComponent, type PropType } from 'vue';
 import { useUserStore } from '@/store/user'
 import { useModalStore } from '@/store/modal'
 import { onBeforeRouteLeave } from 'vue-router'

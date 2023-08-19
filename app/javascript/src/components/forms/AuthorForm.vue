@@ -70,7 +70,7 @@ const modalStore = useModalStore()
 
 const router = useRouter()
 
-const fetch = async (id: number) => {
+const fetchById = async (id: number) => {
   authorForm.isLoading = true
   try {
     const response = await fetchRecordById(id, 'author')
@@ -139,7 +139,7 @@ const onSubmit = async () => {
 onMounted(() => {
   if (props.id) {
     authorForm.mode = 'edit';
-    fetch(props.id);
+    fetchById(props.id);
   }
 })
 </script>
