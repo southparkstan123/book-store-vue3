@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading">
+      <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
           <div v-if="data.length > 0">
             <TableComponent :data="data" :fields="fields">
@@ -34,30 +34,30 @@
               </template>
               <template #addition-content="{ item }">
                 <td>
-                  <ButtonComponent
-                    @buttonClicked="action('edit', item.id)"
-                    :buttonType="'button'"
-                    :textClass="'text-sm text-white'"
-                    :backgroundClass="'bg-green-500 py-2 px-4'"
-                  >
+                  <ButtonComponent @buttonClicked="action('edit', item.id)" :buttonType="'button'"
+                    :textClass="'text-sm text-white'" :backgroundClass="'bg-green-500 py-2 px-4'">
                     <template #text>
                       Edit
                     </template>
                   </ButtonComponent>
-                  <ButtonComponent
-                    @buttonClicked="action('delete', item.id)"
-                    :buttonType="'button'"
-                    :textClass="'text-sm text-white'"
-                    :backgroundClass="'bg-red-500 py-2 px-4'"
-                  >
+                  <ButtonComponent @buttonClicked="action('delete', item.id)" :buttonType="'button'"
+                    :textClass="'text-sm text-white'" :backgroundClass="'bg-red-500 py-2 px-4'">
                     <template #text>
                       Delete
                     </template>
                   </ButtonComponent>
                 </td>
               </template>
-              <template #number="{ numberOfRecords }">
-                <span>{{ numberOfRecords }} {{ numberOfRecords > 1 ? 'records' : 'record' }} </span>
+              <template #footer>
+                <span>{{ pagination.from }} - {{ pagination.to }} of {{ pagination.count }} {{ pagination.count > 1 ?
+                  'records' : 'record' }}
+                </span>
+              </template>
+              <template #pagination>
+                <PaginationComponent :prev="pagination.prev" :next="pagination.next" :items="pagination.items"
+                  :last="pagination.last" :page="pagination.page" :pages="pagination.pages" :from="pagination.from"
+                  :to="pagination.to" :count="pagination.count" @toPage="changeCurrentPage">
+                </PaginationComponent>
               </template>
             </TableComponent>
           </div>
@@ -85,49 +85,50 @@
 type Module = "book" | "author" | "publisher";
 type ActionType = "view" | "edit" | "delete";
 
-import { onMounted, ref, computed, watch } from 'vue'
+import { onMounted, ref, computed, watch, onUpdated } from 'vue'
 import TableComponent from '@/components/TableComponent.vue'
 import type { TableItem, TableField } from '@/components/TableComponent.vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '@/store/modal'
 import { deleteRecordById } from '@/services/CRUDServices';
 
 import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
+import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 
 const props = defineProps<{ category: Module }>()
-
 const router = useRouter()
-
+const route = useRoute()
 const caption = computed(() => `Add ${props.category}`)
-
 const data = ref<TableItem[]>([]);
-
+const pagination = ref<any>({});
+const currentPage = ref<number>(1);
+const perPage = ref<number>(5);
+const changeCurrentPage = (payload) => {
+  currentPage.value = payload
+};
 const fields = computed<TableField[]>(() => {
-
-  const idField = [{key: 'id', label: 'ID'}]
-  const defaultFields = [{key: 'created_at', label: 'Created at'}, {key: 'updated_at', label: 'Updated at'}]
+  const idField = [{ key: 'id', label: 'ID' }]
+  const defaultFields = [{ key: 'created_at', label: 'Created at' }, { key: 'updated_at', label: 'Updated at' }]
 
   switch (props.category) {
     case 'book':
-      return [...idField, {key: 'name', label: 'Name'}, {key: 'abstract', label: 'Abstract'}, {key: 'price', label: 'Price (USD)'},...defaultFields] 
+      return [...idField, { key: 'name', label: 'Name' }, { key: 'price', label: 'Price (USD)' }, ...defaultFields]
     case 'author':
-      return [...idField, {key: 'name', label: 'Name'}, {key: 'description', label: 'Description'}, ...defaultFields] 
+      return [...idField, { key: 'name', label: 'Name' }, ...defaultFields]
     case 'publisher':
-      return [...idField, {key: 'name', label: 'Name'}, {key: 'description', label: 'Description'}, ...defaultFields] 
+      return [...idField, { key: 'name', label: 'Name' }, ...defaultFields]
     default:
       return undefined
   }
 });
-
 const modalStore = useModalStore()
-
-const fetchRecords = async (module: Module) => {
-  isLoading.value = true
+const fetchRecords = async (module: Module, page: number, perPage: number) => {
   try {
-    const response = await fetch(`/api/v1/${module}/list`);
+    const response = await fetch(`/api/v1/${module}/list?page=${page}&per=${perPage}`);
     const result = await response.json();
-    data.value = result;
+    data.value = result.data;
+    pagination.value = result.pagination;
   } catch (error) {
     isError.value = true
     modalStore.open({
@@ -140,7 +141,6 @@ const fetchRecords = async (module: Module) => {
     isLoading.value = false
   }
 }
-
 const action = async (type: ActionType, id: number) => {
   try {
     if (type === 'edit') {
@@ -159,21 +159,23 @@ const action = async (type: ActionType, id: number) => {
       }
     }
   } catch (error) {
-    console.log(error)
     isError.value = true
   }
-
 };
 
-const isLoading = ref<boolean>(false)
+const isLoading = ref<boolean>(true)
 const isError = ref<boolean>(false)
 
 onMounted(() => {
-  fetchRecords(props.category);
+  fetchRecords(props.category, currentPage.value, perPage.value);
 })
 
-watch(() => props.category, (newValue) => {
-  fetchRecords(newValue);
+watch([() => props.category, () => currentPage.value], ([newCategory, newCurrentPage]) => {
+  fetchRecords(newCategory, newCurrentPage, perPage.value);
+})
+
+watch(() => route.params, () => {
+  isLoading.value = true;
 })
 
 </script>

@@ -29,7 +29,13 @@
     <tfoot>
       <tr>
         <td :colspan="displayedfields.length + 1">
-          <slot name="number" :numberOfRecords="numberOfRecords"></slot>
+          <div :style="'float: left'">
+            <slot name="footer"></slot>
+          </div>
+          
+          <div :style="'float: right'">
+            <slot name="pagination"></slot>
+          </div>
         </td>
       </tr>
     </tfoot>
@@ -62,7 +68,6 @@ export default defineComponent(
     },
     setup(props) {
       const caption = ref("Default caption");
-      const numberOfRecords = computed(() => props.data.length);
       const displayedfields = computed(() => {
         const result = (props.fields !== undefined)
           ? Object.entries(props.fields).map(([_key, value]) => value.key)
@@ -81,7 +86,6 @@ export default defineComponent(
 
       return {
         caption,
-        numberOfRecords,
         displayedfields,
         displayedRecords
       };
@@ -130,7 +134,7 @@ table {
 
   tfoot tr {
     background-color: #bbb;
-    text-align: right;
+    // text-align: right;
   }
 
 }
