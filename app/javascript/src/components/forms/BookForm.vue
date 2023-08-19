@@ -29,15 +29,17 @@
             </label>
             <label class="block" for="price">
               <span class="text-gray-700">Price</span>
-              <input 
-                class="block w-full mt-1" 
-                type="number" 
-                name="price" 
-                step="0.1" 
-                min="0"
-                v-model.number="bookForm.form.price" 
-                @change="onChangePrice" 
-              />
+                <InputField 
+                  :inputId="'price'"
+                  :className="''"
+                  :inputValue="bookForm.form.price" 
+                  :inputFieldClass="'block w-full mt-1'"
+                  :inputType="'number'" 
+                  :step="0.1" 
+                  :min="0"
+                  @changeValue="onChangePrice"
+                ></InputField>
+    
             </label>
           </div>
           <div class="grid grid-cols-2 gap-6">
@@ -141,10 +143,6 @@ const fetchForDropdowns = async () => {
     const publishersAPI = await getNameOfPublishers()
     const response = await Promise.all([authorsAPI, publishersAPI])
 
-    
-
-    response.map(e => console.log(e.data))
-
     authors.value = response[0].data
     publishers.value = response[1].data
   } catch (error) {
@@ -173,10 +171,15 @@ const onChangeAbstract = (payload) => {
   onChangeForm(true)
 }
 
-const onChangePrice = (event: any) => {
-  bookForm.form.price = event.target.value
+const onChangePrice = (payload) => {
+  bookForm.form.price = payload
   onChangeForm(true)
 }
+
+// const onChangePrice = (event: any) => {
+//   bookForm.form.price = event.target.value
+//   onChangeForm(true)
+// }
 
 const onChangePublisher = (payload) => {
   bookForm.form.publisher_id = payload

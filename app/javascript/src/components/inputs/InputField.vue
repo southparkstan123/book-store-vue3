@@ -6,8 +6,13 @@
       :class="inputFieldClass" 
       :name="inputName"
       :placeholder="displayedPlaceholder"
-      :value="inputValue" @keyup="changeValue"
+      :value="inputValue" 
+      @keyup="changeValue"
+      @change="changeValue"
       :disabled="isDisabled"
+      :step="step" 
+      :min="min"
+      :max="max"
     />
   </div>
 </template>
@@ -15,7 +20,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-type InputType = 'text' | 'email' | 'password';
+type InputType = 'text' | 'email' | 'password' | 'number';
 
 type InputFieldProps = {
   inputId: string,
@@ -28,7 +33,13 @@ type InputFieldProps = {
   isDisabled: boolean
 };
 
-const props = withDefaults(defineProps<InputFieldProps & {inputType: InputType}>(), {
+type RangeProps = {
+  step: number | undefined
+  min: number | undefined
+  max: number | undefined
+}
+
+const props = withDefaults(defineProps<InputFieldProps & {inputType: InputType} & RangeProps>(), {
   inputId: '',
   className: '',
   inputName: '',
