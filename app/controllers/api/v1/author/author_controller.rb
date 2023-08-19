@@ -1,10 +1,14 @@
+require 'pagy/extras/metadata'
+
 module Api::V1::Author
   class AuthorController < ApiController
+    include Pagy::Backend
+
     before_action :authorized, except: [:list, :show]
 
     def list
-      @authors = Author.includes(:creator, :updater, :books)
-      render json: @authors, each_serializer: AuthorSerializer
+      @pagy, @authors = pagy(Author.includes(:creator, :updater, :books), items: params[:per])
+      render json: { data: @authors, pagination: pagy_metadata(@pagy) }, each_serializer: AuthorSerializer
     end
 
     def show

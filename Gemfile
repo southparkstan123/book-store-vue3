@@ -36,6 +36,8 @@ gem 'rexml'
 gem 'dotenv-rails', groups: %i[development test]
 # Active model serializer
 gem 'active_model_serializers'
+# For pagination
+gem 'pagy', '~> 6.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -59,6 +61,8 @@ group :development do
   gem 'spring'
   # Use Foreman as the process manager for applications
   gem 'foreman', '~> 0.87.2'
+  # For database seeding
+  gem 'faker'
 end
 
 group :test do

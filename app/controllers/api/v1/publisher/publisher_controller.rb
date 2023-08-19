@@ -1,10 +1,14 @@
+require 'pagy/extras/metadata'
+
 module Api::V1::Publisher
   class PublisherController < ApiController
+    include Pagy::Backend
+
     before_action :authorized, except: [:list, :show]
 
     def list
-      @publishers = Publisher.includes(:creator, :updater, :books)
-      render json: @publishers, each_serializer: PublisherSerializer
+      @pagy, @publishers = pagy(Publisher.includes(:creator, :updater, :books), items: params[:per])
+      render json: { data: @publishers, pagination: pagy_metadata(@pagy) }, each_serializer: PublisherSerializer
     end
 
     def show
