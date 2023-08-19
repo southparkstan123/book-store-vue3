@@ -5,43 +5,52 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 
 # Create users
-users = User.create([
+User.create([
   { username: 'admin', password: 'testing1234', email: 'admin@railsapp.com' },
   { username: 'testuser', password: 'testing1234', email: 'test@railsapp.com' }
 ])
 
-# # Create publishers by users
-admin = User.find_by(username: 'admin')
-test_user = User.find_by(username: 'testuser')
+# Create publishers by users
+100.times do |index|
+  user = User.find_by(id: rand(User.count))
 
-Publisher.create([
-  { name: 'Publisher A', description: 'The description for publisher A', creator: admin, updater: admin},
-  { name: 'Publisher B', description: 'The description for publisher B', creator: test_user, updater: test_user}
-])
-
-# Create authors by users
-publisher_A = Publisher.find_by(name: 'Publisher A')
-publisher_B = Publisher.find_by(name: 'Publisher B')
-
-author_A = Author.new(name: 'Author A', description: 'The description for author A', creator: admin, updater: admin)
-author_B = Author.new(name: 'Author B', description: 'The description for author B', creator: test_user, updater: test_user)
-author_A.save
-author_B.save
+  Publisher.create(
+    name: Faker::Book.publisher, 
+    description: Faker::Lorem.paragraph,
+    creator: user, 
+    updater: user
+  )
+end
 
 # Create books by users
-book_A = Book.new(name: 'Book A', abstract: 'The description for book A', price: 30.0, creator: admin, updater: admin, publisher: publisher_A)
-book_B = Book.new(name: 'Book B', abstract: 'The description for book B', price: 20.0, creator: admin, updater: admin,  publisher: publisher_B)
-book_C = Book.new(name: 'Book C', abstract: 'The description for book C', price: 15.0, creator: admin, updater: admin,  publisher: publisher_B)
-book_D = Book.new(name: 'Book D', abstract: 'The description for book D', price: 12.0, creator: test_user, updater: test_user,  publisher: publisher_A)
-book_A.save
-book_B.save
-book_C.save
-book_D.save
+100.times do |index|
+  user = User.find_by(id: rand(User.count))
+  publisher = Publisher.find_by(id: rand(Publisher.count))
 
-# Pivot table
-author_A.books << [book_B, book_C, book_D]
-author_B.books << [book_A, book_B, book_D]
-author_A.save
-author_B.save
+  Book.create(
+    name: Faker::Book.title, 
+    abstract: Faker::Books::Lovecraft.sentence,
+    price: rand(15..90),
+    publisher: publisher,
+    creator: user, 
+    updater: user
+  )
+end
+
+# Create authors by users
+100.times do |index|
+  user = User.find_by(id: rand(User.count))
+
+  books = Book.find(Book.ids.sample(5))
+
+  Author.create(
+    name: Faker::Book.author, 
+    description: Faker::Lorem.paragraph,
+    creator: user, 
+    updater: user,
+    books: books
+  )
+end
