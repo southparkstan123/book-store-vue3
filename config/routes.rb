@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       namespace 'author' do
         get '/list', to: 'author#list'
         get '/:id', to: 'author#show'
+        get '/list/names', to: 'author#names'
         post '/', to: 'author#create'
         patch '/:id', to: 'author#update'
         delete '/:id', to: 'author#delete'
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
       namespace 'publisher' do
         get '/list', to: 'publisher#list'
         get '/:id', to: 'publisher#show'
+        get '/list/names', to: 'publisher#names'
         post '/', to: 'publisher#create'
         patch '/:id', to: 'publisher#update'
         delete '/:id', to: 'publisher#delete'

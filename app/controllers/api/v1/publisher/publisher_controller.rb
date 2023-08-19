@@ -4,11 +4,16 @@ module Api::V1::Publisher
   class PublisherController < ApiController
     include Pagy::Backend
 
-    before_action :authorized, except: [:list, :show]
+    before_action :authorized, except: [:list, :show, :names]
 
     def list
       @pagy, @publishers = pagy(Publisher.includes(:creator, :updater, :books), items: params[:per])
       render json: { data: @publishers, pagination: pagy_metadata(@pagy) }, each_serializer: PublisherSerializer
+    end
+
+    def names
+      @names = Publisher.all.order(:name).map { |item| { id: item.id, name: item.name} }
+      render json:  @names
     end
 
     def show
