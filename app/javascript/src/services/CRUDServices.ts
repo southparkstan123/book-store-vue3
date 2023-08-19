@@ -1,8 +1,8 @@
 import axios from 'axios';
 type ModuleType = 'book' | 'author' | 'publisher';
 
-export async function fetchRecords(module: ModuleType): Promise<any> {
-  const result = await axios.get(`/api/v1/${module}/list`);
+export async function fetchRecords(module: ModuleType, page: number = 1, perPage: number = 10): Promise<any> {
+  const result = await axios.get(`/api/v1/${module}/list?page=${page}&per=${perPage}`);
   return result;
 }
 
@@ -42,4 +42,14 @@ export async function deleteRecordById(id: number, module: ModuleType): Promise<
     }
   });
   return result;
+}
+
+export async function getNameOfAuthors() {
+  const result = await axios.get('/api/v1/author/list/names')
+  return result;
+}
+
+export async function getNameOfPublishers() {
+  const result = await axios.get('/api/v1/publisher/list/names')
+  return result
 }

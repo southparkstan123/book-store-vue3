@@ -7,35 +7,21 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <InputField 
-                  :inputId="'name'"
-                  :className="''"
-                  :inputValue="publisherForm.form.name" 
-                  :inputFieldClass="'block w-full mt-1'"
-                  :inputType="'text'" 
-                  :placeholder="'name'"
-                  @changeValue="onChangeName"
-                ></InputField>
+              <InputField :inputId="'name'" :className="''" :inputValue="publisherForm.form.name"
+                :inputFieldClass="'block w-full mt-1'" :inputType="'text'" :placeholder="'name'"
+                @changeValue="onChangeName"></InputField>
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <TextArea
-                  :inputId="'description'"
-                  :inputName="'description'"
-                  :inputFieldClass="'block w-full mt-1'" 
-                  :inputValue="publisherForm.form.description" 
-                  @changeValue="onChangeDescription"
-                ></TextArea>
+              <TextArea :inputId="'description'" :inputName="'description'" :inputFieldClass="'block w-full mt-1'"
+                :inputValue="publisherForm.form.description" @changeValue="onChangeDescription"></TextArea>
             </label>
           </div>
         </div>
         <div class="block">
-          <ButtonComponent 
-            :isDisabled="!publisherForm.isFormChanged"
-            :buttonType="'submit'" 
+          <ButtonComponent :isDisabled="!publisherForm.isFormChanged" :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
-            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
-          >
+            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'">
             <template #text>
               Submit
             </template>
@@ -63,7 +49,7 @@ import TextArea from '@/components/inputs/TextArea.vue'
 import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
 
 const props = defineProps<{ id: number }>()
-const emit = defineEmits<{e, 'formChanged'}>()
+const emit = defineEmits<{ e, 'formChanged' }>()
 
 const { errors, publisherForm } = usePublisherForm()
 const modalStore = useModalStore()
@@ -137,7 +123,7 @@ const onSubmit = async () => {
 }
 
 onMounted(() => {
-  if(props.id) {
+  if (props.id) {
     publisherForm.mode = 'edit';
     fetchById(props.id);
   }

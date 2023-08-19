@@ -89,7 +89,7 @@ import { useModalStore } from '@/store/modal'
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
 import ErrorFeedback from '@/components/ErrorFeedback.vue';
 
-import { fetchRecordById, updateRecordById, createRecord, fetchRecords } from '@/services/CRUDServices'
+import { fetchRecordById, updateRecordById, createRecord, getNameOfAuthors, getNameOfPublishers } from '@/services/CRUDServices'
 import MultiSelectDropdown from '@/components/dropdowns/MultiSelectDropdown.vue';
 import { useRouter } from 'vue-router'
 
@@ -115,12 +115,6 @@ const fetchById = async (id: number) => {
   bookForm.isLoading = true
   try {
     const bookAPI = await fetchRecordById(id, 'book')
-    // const authorsAPI = await fetch('api/v1/author/list/names')
-    // const publishersAPI = await fetch('api/v1/publisher/list/names')
-
-
-    // const response = await Promise.all([bookAPI])
-    // console.log(response);
 
     bookForm.form.name = bookAPI.data.name;
     bookForm.form.price = bookAPI.data.price;
@@ -143,12 +137,16 @@ const fetchById = async (id: number) => {
 
 const fetchForDropdowns = async () => {
   try {
-    const authorsAPI = await fetch('/api/v1/author/list/names')
-    const publishersAPI = await fetch('/api/v1/publisher/list/names')
+    const authorsAPI = await getNameOfAuthors()
+    const publishersAPI = await getNameOfPublishers()
     const response = await Promise.all([authorsAPI, publishersAPI])
 
-    authors.value = await response[0].json()
-    publishers.value = await response[1].json()
+    
+
+    response.map(e => console.log(e.data))
+
+    authors.value = response[0].data
+    publishers.value = response[1].data
   } catch (error) {
     errors.value = error.response.data.errors
     modalStore.open({

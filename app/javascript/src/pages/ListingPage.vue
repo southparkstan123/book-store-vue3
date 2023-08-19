@@ -91,7 +91,7 @@ import type { TableItem, TableField } from '@/components/TableComponent.vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '@/store/modal'
-import { deleteRecordById } from '@/services/CRUDServices';
+import { deleteRecordById, fetchRecords as _fetchRecords } from '@/services/CRUDServices';
 
 import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
@@ -125,10 +125,9 @@ const fields = computed<TableField[]>(() => {
 const modalStore = useModalStore()
 const fetchRecords = async (module: Module, page: number, perPage: number) => {
   try {
-    const response = await fetch(`/api/v1/${module}/list?page=${page}&per=${perPage}`);
-    const result = await response.json();
-    data.value = result.data;
-    pagination.value = result.pagination;
+    const response = await _fetchRecords(module, page, perPage);
+    data.value = response.data.data;
+    pagination.value = response.data.pagination;
   } catch (error) {
     isError.value = true
     modalStore.open({
