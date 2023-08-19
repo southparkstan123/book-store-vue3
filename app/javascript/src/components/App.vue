@@ -49,6 +49,9 @@
         <router-link class="cursor-pointer link text-lime-500" to="/author/list">Author</router-link>
       </template>
       <template #footer-content>
+        <a class="cursor-pointer link mx-2 text-red-400"  @click="showUserInfo">
+          User info
+        </a>
         <a class="cursor-pointer link mx-2 text-red-400" @click="onLogout">
           Logout
         </a>
@@ -117,13 +120,21 @@ const onLogout = async () => {
 
     if (confirm) {
       userStore.signout().then(() => {
-
         router.push('/signin')
       });
     }
   } else {
     router.push('/signin');
   }
+}
+
+const showUserInfo = () => {
+  modalStore.open({
+    title: userStore.getUserInfo.username,
+    message: userStore.getUserInfo.email,
+    component: '',
+    type: 'alert'
+  })
 }
 
 </script>
