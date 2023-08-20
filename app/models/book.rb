@@ -19,4 +19,6 @@ class Book < ApplicationRecord
 
   # A Book belongs to many books
   has_and_belongs_to_many :authors
+
+  scope :search_by_name, -> (string) { where("name LIKE ?", "%#{string}%") }
 end
