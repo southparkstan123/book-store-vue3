@@ -4,6 +4,7 @@
       <slot name="caption">
         {{ caption }}
       </slot>
+      <slot name="search-bar"></slot>
     </caption>
     <thead>
       <tr>
@@ -96,7 +97,6 @@ export default defineComponent(
 
 <style lang="scss" scoped>
 table {
-  border: 1px solid green;
   margin-left: auto;
   margin-right: auto;
 
