@@ -1,9 +1,7 @@
 <template>
   <table v-if="data">
     <caption>
-      <slot name="caption">
-        {{ caption }}
-      </slot>
+      <slot name="caption"></slot>
       <slot name="search-bar"></slot>
     </caption>
     <thead>
@@ -68,7 +66,6 @@ export default defineComponent(
       }
     },
     setup(props) {
-      const caption = ref("Default caption");
       const displayedfields = computed(() => {
         const result = (props.fields !== undefined)
           ? Object.entries(props.fields).map(([_key, value]) => value.key)
@@ -86,7 +83,6 @@ export default defineComponent(
       });
 
       return {
-        caption,
         displayedfields,
         displayedRecords
       };
