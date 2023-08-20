@@ -196,7 +196,7 @@ const action = async (type: ActionType, id: number) => {
   }
 };
 
-const toAddPage = (type: ActionType) => {
+const toAddPage = () => {
   router.push({ path: `/${props.category}/add`, replace: true })
 }
 
