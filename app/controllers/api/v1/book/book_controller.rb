@@ -7,7 +7,7 @@ module Api::V1::Book
     before_action :authorized, except: [:list, :show]
 
     def list
-      @pagy, @books = pagy(Book.includes(:authors, :creator, :updater, :publisher), items: params[:per])
+      @pagy, @books = pagy(Book.search_by_name(params[:name]).includes(:authors, :creator, :updater, :publisher), items: params[:per])
       render json: { data: @books, pagination: pagy_metadata(@pagy) }, each_serializer: BookSerializer
     end
 
