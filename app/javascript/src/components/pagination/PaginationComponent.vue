@@ -54,7 +54,7 @@ const toPage = (payload: number) => {
     background-color: gray;
     align-items: center;
     justify-content: center;
-    margin: 3px;
+    margin: 3px 0px;
     cursor: pointer;
     &.active {
       background-color: lime;
