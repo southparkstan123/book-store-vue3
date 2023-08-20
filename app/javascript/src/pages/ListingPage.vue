@@ -4,7 +4,7 @@
       <div v-if="!isLoading" class="overflow-x-auto my-12">
         <div v-if="!isError">
           <div >
-            <TableComponent :data="data" :fields="fields" :style="`width: 960px;`">
+            <TableComponent :data="data" :fields="fields" :style="`width: 1280px;`">
               <template #search-bar>
                 <InputField 
                   v-if="category === 'book'"
@@ -18,7 +18,7 @@
                 >
                 </InputField>
                 <ButtonComponent @buttonClicked="toAddPage" :buttonType="'button'"
-                  :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-2 px-4'">
+                  :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-3 px-4'">
                   <template #text>
                     Add {{ category }}
                   </template>
@@ -34,7 +34,18 @@
                 {{ item.publisher.name }}
               </template>
               <template #authors="{ item }">
-                {{ item.authors.map(author => author.name).join(", ") }}
+                <ol v-if="item.authors.length > 2">
+                  <li v-for="(author, index) in item.authors">
+                    <span v-if="index < 2">{{ author.name }}</span>
+                  </li>
+                  + {{ item.authors.length - 2 }} {{ (item.authors.length - 2 > 1) ? 'authors' : 'author'}}
+                </ol>
+                <ol v-if="item.authors.length <= 2">
+                  <li v-for="author in item.authors">
+                    <span>{{ author.name }}</span>
+                  </li>
+                </ol>
+                <div v-if="item.authors.length === 0">(No author)</div>
               </template>
               <template #created_at="{ item }">
                 {{ moment(item.created_at).format('lll') }}
@@ -43,7 +54,18 @@
                 {{ moment(item.updated_at).format('lll') }}
               </template>
               <template #books="{ item }">
-                {{ item.books.map(book => book.name).join(", ") }}
+                <ol v-if="item.books.length > 2">
+                  <li v-for="(book, index) in item.books">
+                    <span v-if="index < 2">{{ book.name }}</span>
+                  </li>
+                  + {{ item.books.length - 2 }} {{ (item.books.length - 2 > 1) ? 'books' : 'book'}}
+                </ol>
+                <ol v-if="item.books.length <= 2">
+                  <li v-for="book in item.books">
+                    <span>{{ book.name }}</span>
+                  </li>
+                </ol>
+                <div v-if="item.books.length === 0">(No book)</div>
               </template>
               <template #addition-header>
                 <th>Actions</th>
@@ -125,11 +147,11 @@ const fields = computed<TableField[] | undefined>(() => {
 
   switch (props.category) {
     case 'book':
-      return [...idField, { key: 'name', label: 'Name' }, { key: 'price', label: 'Price (USD)' }, ...defaultFields]
+      return [...idField, { key: 'name', label: 'Name' }, { key: 'price', label: 'Price (USD)' }, { key: 'authors', label: 'Authors' }, ...defaultFields]
     case 'author':
-      return [...idField, { key: 'name', label: 'Name' }, ...defaultFields]
+      return [...idField, { key: 'name', label: 'Name' }, { key: 'books', label: 'Books' }, ...defaultFields]
     case 'publisher':
-      return [...idField, { key: 'name', label: 'Name' }, ...defaultFields]
+      return [...idField, { key: 'name', label: 'Name' }, { key: 'books', label: 'Books' }, ...defaultFields]
     default:
       return undefined
   }
@@ -194,7 +216,7 @@ watch([
   () => currentPage.value,
   () => keyword.value
 ], ([newCategory, newCurrentPage, newKeyword], [oldCategory, oldCurrentPage, oldKeyword]) => {
-  if(newKeyword !== oldKeyword) {
+  if(newKeyword !== oldKeyword || newCategory !== oldCategory) {
     fetchRecords(newCategory, 1, perPage.value, newKeyword);
   } else {
     fetchRecords(newCategory, newCurrentPage, perPage.value, newKeyword);
