@@ -1,12 +1,28 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading" class="my-12">
+      <div v-if="!isLoading" class="overflow-x-auto my-12">
         <div v-if="!isError">
-          <div v-if="data.length > 0">
-            <TableComponent :data="data" :fields="fields">
-              <template #caption>
-                <router-link to="add">{{ caption }}</router-link>
+          <div >
+            <TableComponent :data="data" :fields="fields" :style="`width: 960px;`">
+              <template #search-bar>
+                <InputField 
+                  v-if="category === 'book'"
+                  :inputId="'test'"
+                  :className="''"
+                  :inputValue="keyword" 
+                  :inputFieldClass="'float-right'"
+                  :inputType="'text'" 
+                  :placeholder="`Search by name`"
+                  @changeValue="searchKeyword"
+                >
+                </InputField>
+                <ButtonComponent @buttonClicked="toAddPage" :buttonType="'button'"
+                  :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-2 px-4'">
+                  <template #text>
+                    Add {{ category }}
+                  </template>
+                </ButtonComponent>
               </template>
               <template #creator="{ item }">
                 {{ item.creator.username }}
@@ -49,9 +65,9 @@
                 </td>
               </template>
               <template #footer>
-                <span>{{ pagination.from }} - {{ pagination.to }} of {{ pagination.count }} {{ pagination.count > 1 ?
-                  'records' : 'record' }}
-                </span>
+                <div class="footer-item">
+                  {{ pagination.from }} - {{ pagination.to }} of {{ pagination.count }} {{ pagination.count > 1 ? 'records' : 'record' }}
+                </div>
               </template>
               <template #pagination>
                 <PaginationComponent :prev="pagination.prev" :next="pagination.next" :items="pagination.items"
@@ -60,12 +76,6 @@
                 </PaginationComponent>
               </template>
             </TableComponent>
-          </div>
-          <div v-else>
-            <div class="text-center">
-              <h1 class="text-2xl text-red-500">No {{ category }}</h1>
-              <router-link to="add">Add {{ category }}</router-link>
-            </div>
           </div>
         </div>
         <div v-else>
@@ -84,30 +94,32 @@
 <script setup lang="ts">
 type Module = "book" | "author" | "publisher";
 type ActionType = "view" | "edit" | "delete";
+import debounce from 'lodash.debounce'
 
-import { onMounted, ref, computed, watch, onUpdated } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '@/components/TableComponent.vue'
 import type { TableItem, TableField } from '@/components/TableComponent.vue'
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '@/store/modal'
 import { deleteRecordById, fetchRecords as _fetchRecords } from '@/services/CRUDServices';
 
 import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
+import InputField from '@/components/inputs/InputField.vue';
 
+const keyword = ref<string>('')
 const props = defineProps<{ category: Module }>()
 const router = useRouter()
 const route = useRoute()
-const caption = computed(() => `Add ${props.category}`)
 const data = ref<TableItem[]>([]);
 const pagination = ref<any>({});
 const currentPage = ref<number>(1);
-const perPage = ref<number>(5);
+const perPage = ref<number>(10);
 const changeCurrentPage = (payload) => {
   currentPage.value = payload
 };
-const fields = computed<TableField[]>(() => {
+const fields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: 'id', label: 'ID' }]
   const defaultFields = [{ key: 'created_at', label: 'Created at' }, { key: 'updated_at', label: 'Updated at' }]
 
@@ -123,9 +135,9 @@ const fields = computed<TableField[]>(() => {
   }
 });
 const modalStore = useModalStore()
-const fetchRecords = async (module: Module, page: number, perPage: number) => {
+const fetchRecords = async (category: Module, page: number, perPage: number, keyword: string) => {
   try {
-    const response = await _fetchRecords(module, page, perPage);
+    const response = await _fetchRecords(category, page, perPage, keyword);
     data.value = response.data.data;
     pagination.value = response.data.pagination;
   } catch (error) {
@@ -162,15 +174,31 @@ const action = async (type: ActionType, id: number) => {
   }
 };
 
+const toAddPage = (type: ActionType) => {
+  router.push({ path: `/${props.category}/add`, replace: true })
+}
+
 const isLoading = ref<boolean>(true)
 const isError = ref<boolean>(false)
 
 onMounted(() => {
-  fetchRecords(props.category, currentPage.value, perPage.value);
+  fetchRecords(props.category, currentPage.value, perPage.value, keyword.value);
 })
 
-watch([() => props.category, () => currentPage.value], ([newCategory, newCurrentPage]) => {
-  fetchRecords(newCategory, newCurrentPage, perPage.value);
+const searchKeyword = debounce((payload) => {
+  keyword.value = payload
+}, 2000)
+
+watch([
+  () => props.category, 
+  () => currentPage.value,
+  () => keyword.value
+], ([newCategory, newCurrentPage, newKeyword], [oldCategory, oldCurrentPage, oldKeyword]) => {
+  if(newKeyword !== oldKeyword) {
+    fetchRecords(newCategory, 1, perPage.value, newKeyword);
+  } else {
+    fetchRecords(newCategory, newCurrentPage, perPage.value, newKeyword);
+  }
 })
 
 watch(() => route.params, () => {
@@ -179,7 +207,7 @@ watch(() => route.params, () => {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .fade-enter {
   opacity: 0;
 }
@@ -195,5 +223,13 @@ watch(() => route.params, () => {
 .fade-leave-active {
   transition: opacity 0.3s;
   opacity: 0;
+}
+
+.footer-item {
+  display: inline-flex;
+  justify-content: center;
+  padding: 2px;
+  height: 30px;
+  margin: 3px 1px;
 }
 </style>
