@@ -7,8 +7,23 @@ module Api::V1::Publisher
     before_action :authorized, except: [:list, :show, :names]
 
     def list
-      @pagy, @publishers = pagy(Publisher.includes(:creator, :updater, :books), items: params[:per])
-      render json: { data: @publishers, pagination: pagy_metadata(@pagy) }, each_serializer: PublisherSerializer
+      @pagy, @publishers = pagy(Publisher.all, items: params[:per])
+      
+      @result = {
+        data: @publishers.map { 
+          |publisher|  { 
+            id: publisher.id,
+            name: publisher.name,
+            description: publisher.description,
+            books: publisher.books,
+            creator: publisher.creator,
+            updater: publisher.updater
+          }
+        },
+        pagination: pagy_metadata(@pagy)
+      }
+
+      render json: @result
     end
 
     def names
