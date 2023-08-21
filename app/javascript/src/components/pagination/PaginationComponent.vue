@@ -17,17 +17,10 @@
 </template>
 
 <script setup lang="ts">
-
+import { computed } from 'vue'
 type PaginationProps = {
-  prev: number | null,
-  next: number | null,
-  items: number,
-  last: number,
   page: number,
-  pages: number,
-  from: number,
-  to: number,
-  count: number
+  pages: number
 }
 
 const props = defineProps<PaginationProps>()
@@ -42,6 +35,8 @@ const toPage = (payload: number) => {
   }
 }
 
+const prev = computed<number | null>(() => (props.page === 1) ? null : props.page - 1) 
+const next = computed<number | null>(() => (props.page === props.pages) ? null : props.page + 1)
 </script>
 
 <style scoped lang="scss">

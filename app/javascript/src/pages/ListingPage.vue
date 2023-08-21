@@ -88,13 +88,15 @@
               </template>
               <template #footer>
                 <div class="footer-item">
-                  {{ pagination.from }} - {{ pagination.to }} of {{ pagination.count }} {{ pagination.count > 1 ? 'records' : 'record' }}
+                  {{ pagination.count }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
                 </div>
               </template>
               <template #pagination>
-                <PaginationComponent :prev="pagination.prev" :next="pagination.next" :items="pagination.items"
-                  :last="pagination.last" :page="pagination.page" :pages="pagination.pages" :from="pagination.from"
-                  :to="pagination.to" :count="pagination.count" @toPage="changeCurrentPage">
+                <PaginationComponent
+                  :page="pagination.currentPage" 
+                  :pages="pagination.pages"
+                  @toPage="changeCurrentPage"
+                >
                 </PaginationComponent>
               </template>
             </TableComponent>
@@ -116,6 +118,15 @@
 <script setup lang="ts">
 type Module = "book" | "author" | "publisher";
 type ActionType = "view" | "edit" | "delete";
+
+type Pagination = {
+  currentPage: number,
+  pages: number,
+  total: number,
+  count: number,
+  perPage: number
+}
+
 import debounce from 'lodash.debounce'
 
 import { onMounted, ref, computed, watch } from 'vue'
@@ -130,16 +141,22 @@ import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
 import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
 import InputField from '@/components/inputs/InputField.vue';
 
-const keyword = ref<string>('')
-const props = defineProps<{ category: Module }>()
 const router = useRouter()
 const route = useRoute()
+const modalStore = useModalStore()
+
+const keyword = ref<string>('')
+const props = defineProps<{ category: Module }>()
 const data = ref<TableItem[]>([]);
-const pagination = ref<any>({});
-const currentPage = ref<number>(1);
-const perPage = ref<number>(10);
+const pagination = ref<Pagination>({
+  currentPage: 1,
+  pages: 1,
+  total: 1,
+  count: 1,
+  perPage: 10
+});
 const changeCurrentPage = (payload) => {
-  currentPage.value = payload
+  pagination.value.currentPage = payload
 };
 const fields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: 'id', label: 'ID' }]
@@ -156,12 +173,19 @@ const fields = computed<TableField[] | undefined>(() => {
       return undefined
   }
 });
-const modalStore = useModalStore()
+
 const fetchRecords = async (category: Module, page: number, perPage: number, keyword: string) => {
   try {
     const response = await _fetchRecords(category, page, perPage, keyword);
-    data.value = response.data.data;
-    pagination.value = response.data.pagination;
+    data.value = response.data;
+
+    pagination.value = {
+      currentPage: parseInt(response.headers['current-page'], 10),
+      pages : parseInt(response.headers['total-pages'], 10),
+      count: parseInt(response.headers['page-items'], 10),
+      total: parseInt(response.headers['total-count'], 10),
+      perPage
+    }
   } catch (error) {
     isError.value = true
     modalStore.open({
@@ -174,6 +198,7 @@ const fetchRecords = async (category: Module, page: number, perPage: number, key
     isLoading.value = false
   }
 }
+
 const action = async (type: ActionType, id: number) => {
   try {
     if (type === 'edit') {
@@ -204,7 +229,7 @@ const isLoading = ref<boolean>(true)
 const isError = ref<boolean>(false)
 
 onMounted(() => {
-  fetchRecords(props.category, currentPage.value, perPage.value, keyword.value);
+  fetchRecords(props.category, pagination.value.currentPage, pagination.value.perPage, keyword.value);
 })
 
 const searchKeyword = debounce((payload) => {
@@ -213,13 +238,13 @@ const searchKeyword = debounce((payload) => {
 
 watch([
   () => props.category, 
-  () => currentPage.value,
+  () => pagination.value.currentPage,
   () => keyword.value
 ], ([newCategory, newCurrentPage, newKeyword], [oldCategory, oldCurrentPage, oldKeyword]) => {
   if(newKeyword !== oldKeyword || newCategory !== oldCategory) {
-    fetchRecords(newCategory, 1, perPage.value, newKeyword);
+    fetchRecords(newCategory, 1, pagination.value.perPage, newKeyword);
   } else {
-    fetchRecords(newCategory, newCurrentPage, perPage.value, newKeyword);
+    fetchRecords(newCategory, newCurrentPage, pagination.value.perPage, newKeyword);
   }
 })
 
