@@ -1,17 +1,6 @@
 import { reactive, ref } from 'vue'
 import { useForm } from '@/hooks/useForm'
-
-export type PublisherForm = {
-  name: string,
-  description: string
-}
-
-export type PublisherFormState = {
-  form: PublisherForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+import { PublisherFormState } from '@/types/types'
 
 export const usePublisherForm = () => {
   const { errors } = useForm();

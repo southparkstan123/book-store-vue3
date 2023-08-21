@@ -13,6 +13,9 @@
                 :inputFieldClass="'float-right'"
                 :inputType="'text'" 
                 :placeholder="`Search by name`"
+                :step="undefined"
+                :min="undefined"
+                :max="undefined"
                 @changeValue="searchKeyword"
               >
               </InputField>
@@ -90,24 +93,17 @@
 </template>
 
 <script setup lang="ts">
-type Module = "book" | "author" | "publisher";
+import type { TableItem, TableField, ModuleType } from '@/types/types'
 type ActionType = "view" | "edit" | "delete";
 
-type Pagination = {
-  currentPage: number,
-  pages: number,
-  total: number,
-  count: number,
-  perPage: number
-}
+import type { Pagination } from '@/types/types'
+
 
 import debounce from 'lodash.debounce'
 
 import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '@/components/table/TableComponent.vue'
 import EllipsisInTable from '@/components/table/EllipsisInTable.vue';
-
-import type { TableItem, TableField } from '@/components/TableComponent.vue'
 import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment'
 import { useModalStore } from '@/store/modal'
@@ -122,7 +118,7 @@ const route = useRoute()
 const modalStore = useModalStore()
 
 const keyword = ref<string>('')
-const props = defineProps<{ category: Module }>()
+const props = defineProps<{ category: ModuleType }>()
 const data = ref<TableItem[]>([]);
 const pagination = ref<Pagination>({
   currentPage: 1,
@@ -150,7 +146,7 @@ const fields = computed<TableField[] | undefined>(() => {
   }
 });
 
-const fetchRecords = async (category: Module, page: number, perPage: number, keyword: string) => {
+const fetchRecords = async (category: ModuleType, page: number, perPage: number, keyword: string) => {
   try {
     const response = await _fetchRecords(category, page, perPage, keyword);
     data.value = response.data;
@@ -162,7 +158,7 @@ const fetchRecords = async (category: Module, page: number, perPage: number, key
       total: parseInt(response.headers['total-count'], 10),
       perPage
     }
-  } catch (error) {
+  } catch (error: any) {
     isError.value = true
     modalStore.open({
       title: `${error.response.status} Error`,

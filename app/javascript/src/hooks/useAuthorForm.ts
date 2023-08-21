@@ -1,17 +1,6 @@
 import { reactive, ref } from 'vue'
 import { useForm } from '@/hooks/useForm'
-
-export type AuthorForm = {
-  name: string,
-  description: string
-}
-
-export type AuthorFormState = {
-  form: AuthorForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+import type { AuthorFormState } from '@/types/types'
 
 export const useAuthorForm = () => {
   const { errors } = useForm();

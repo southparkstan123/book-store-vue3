@@ -17,12 +17,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, type PropType } from 'vue'
-
-type DropdownItem = {
-  id: number,
-  [key: string]: unknown
-}
+import { defineComponent, type PropType } from 'vue'
+import type { DropdownItem } from '@/types/types'
 
 export default defineComponent({
   props: {

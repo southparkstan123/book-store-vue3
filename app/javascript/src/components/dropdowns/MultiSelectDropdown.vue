@@ -17,11 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, type PropType } from 'vue'
-
-type DropdownItem = {
-  id: number,
-  [key: string]: unknown
-}
+import type { DropdownItem } from '@/types/types'
 
 export default defineComponent({
   props: {

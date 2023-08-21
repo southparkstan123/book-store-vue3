@@ -6,6 +6,9 @@
       :placeholder="'Username'"
       @changeValue="onChangeUsername"
       :isDisabled="disableInputs"
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
     ></InputField>
     <InputField 
       :inputId="'password'"
@@ -13,6 +16,9 @@
       :placeholder="'Password'"
       @changeValue="onChangePassword"
       :isDisabled="disableInputs"
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
     ></InputField>
     <div class="flex items-center justify-between">
       <div class="flex items-center">
@@ -62,7 +68,7 @@ import { useUserStore } from '@/store/user'
 const { signin, state }  = useUserStore()
 const modalStore = useModalStore()
 
-import { type LoginForm } from '@/services/AuthServices'
+import { type LoginForm } from '@/types/types'
 
 const disableInputs = ref<boolean>(false)
 

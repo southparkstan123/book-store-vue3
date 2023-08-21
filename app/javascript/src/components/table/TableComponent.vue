@@ -43,16 +43,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from 'vue';
-
-export type TableItem =  {
-  [key: string]: unknown
-}
-
-export type TableField =  {
-  label: string,
-  key: string
-}
+import { defineComponent, computed, type PropType } from 'vue';
+import type { TableItem, TableField } from '@/types/types'
 
 export default defineComponent(
   {

@@ -1,23 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, computed } from 'vue';
-
-type ModelType ='alert' | 'confirm' | 'form';
-
-type ModalState = {
-  visible: boolean;
-  type: ModelType;
-  message: string;
-  title: string;
-  component: string;
-  resolvePromise: any
-}
-
-type OpenModalPayload = {
-  type: ModelType;
-  message: string;
-  title: string;
-  component: string | "";
-}
+import type { ModalType, ModalState, OpenModalPayload } from '@/types/types'
 
 export const useModalStore = defineStore('modal', () => {
   const state = reactive<ModalState>({

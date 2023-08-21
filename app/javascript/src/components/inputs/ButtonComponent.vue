@@ -12,14 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
-type ButtonProps = {
-  isDisabled: boolean,
-  buttonType: "submit" | "button",
-  textClass: string,
-  backgroundClass: string,
-  disabledClass: string
-};
+import type { ButtonProps } from '@/types/types'
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   isDisabled: false,

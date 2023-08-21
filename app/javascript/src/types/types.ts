@@ -12,7 +12,7 @@ export type DropdownItem = {
   [key: string]: unknown
 }
 
-export type InputType = 'text' | 'email' | 'password';
+export type InputType = 'text' | 'email' | 'password' | 'number';
 
 export type InputFieldProps = {
   inputId: string,
@@ -20,9 +20,15 @@ export type InputFieldProps = {
   inputName: string,
   isRequired: boolean,
   placeholder: string,
-  inputValue: string
+  inputValue: string | number | null,
   inputFieldClass: string,
   isDisabled: boolean
+}
+
+export type RangeProps = {
+  step: number | undefined
+  min: number | undefined
+  max: number | undefined
 }
 
 export type TextareaFieldProps = InputFieldProps & {
@@ -30,8 +36,6 @@ export type TextareaFieldProps = InputFieldProps & {
   cols: string,
   rows: string
 }
-
-export type ModelType = 'alert' | 'confirm' | 'form';
 
 export type AuthorForm = {
   name: string,
@@ -57,13 +61,6 @@ export type RegistrationForm = {
     password: string;
     password_confirmation: string;
   }
-}
-
-export type OpenModalPayload = {
-  type: ModelType;
-  message: string;
-  title: string;
-  component: string | "";
 }
 
 export type UserInfo = {
@@ -105,4 +102,45 @@ export type PublisherFormState = {
   isLoading: boolean,
   mode: 'add' | 'edit',
   isFormChanged: boolean
+}
+
+export type ModuleType = 'book' | 'author' | 'publisher';
+
+export type ModalType ='alert' | 'confirm' | 'form';
+
+export type ModalState = {
+  visible: boolean;
+  type: ModalType;
+  message: string;
+  title: string;
+  component: string;
+  resolvePromise: any
+}
+
+export type OpenModalPayload = {
+  type: ModalType;
+  message: string;
+  title: string;
+  component: string | "";
+}
+
+export type ButtonProps = {
+  isDisabled: boolean,
+  buttonType: "submit" | "button",
+  textClass: string,
+  backgroundClass: string,
+  disabledClass: string
+}
+
+export type PaginationProps = {
+  page: number,
+  pages: number
+}
+
+export type Pagination = {
+  currentPage: number,
+  pages: number,
+  total: number,
+  count: number,
+  perPage: number
 }

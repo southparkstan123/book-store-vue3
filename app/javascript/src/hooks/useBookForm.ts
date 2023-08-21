@@ -1,20 +1,6 @@
 import { reactive, ref } from 'vue'
 import { useForm } from '@/hooks/useForm'
-
-export type BookForm = {
-  name: string,
-  abstract: string,
-  price: number | null,
-  publisher_id: number | null,
-  author_ids: Array<number>
-}
-
-export type BookFormState = {
-  form: BookForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+import { BookFormState } from '@/types/types'
 
 export const useBookForm = () => {
   const { errors } = useForm();

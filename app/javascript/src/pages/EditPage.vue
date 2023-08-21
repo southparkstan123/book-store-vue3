@@ -14,13 +14,12 @@ import { ref, computed, defineComponent, type PropType } from 'vue';
 import { useUserStore } from '@/store/user'
 import { useModalStore } from '@/store/modal'
 import { onBeforeRouteLeave } from 'vue-router'
-
-type Module = "book" | "author" | "publisher"
+import type { ModuleType } from '@/types/types';
 
 export default defineComponent({
   props: {
     module: {
-      type: String as PropType<Module>,
+      type: String as PropType<ModuleType>,
       default: "book"
     },
     id: {

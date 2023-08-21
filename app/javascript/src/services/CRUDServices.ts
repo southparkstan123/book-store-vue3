@@ -1,5 +1,5 @@
 import axios from 'axios';
-type ModuleType = 'book' | 'author' | 'publisher';
+import type { ModuleType } from '@/types/types';
 
 export async function fetchRecords(module: ModuleType, page: number = 1, perPage: number = 10, nameText: string = ''): Promise<any> {
   const result = await axios.get(`/api/v1/${module}/list?page=${page}&per=${perPage}&name=${nameText}`);

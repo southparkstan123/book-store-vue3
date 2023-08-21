@@ -1,20 +1,5 @@
 import axios from 'axios';
-
-export type LoginForm = {
-  form: {
-    username: string;
-    password: string;
-  }
-}
-
-export type RegistrationForm = {
-  form: {
-    username: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-  }
-}
+import type { LoginForm, RegistrationForm } from '@/types/types'
 
 export async function getGreetingMessage(): Promise<AxiosResponse<any>> {
   const result = await axios.get('/api/v1/greeting');
@@ -40,7 +25,7 @@ export async function verify(): Promise<AxiosResponse<any>> {
 }
 
 export async function register(payload: RegistrationForm): Promise<AxiosResponse<any>> {
-  const result = await axios.post('/api/v1/user/register', payload);
+  const result = await axios.post('/api/v1/user/register', payload.form);
   return result;
 }
 

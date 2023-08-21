@@ -19,18 +19,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
-
-type InputFieldProps = {
-  inputId: string,
-  className: string,
-  inputName: string,
-  isRequired: boolean,
-  placeholder: string,
-  inputValue: string
-  inputFieldClass: string,
-  isDisabled: boolean
-}
+import type { InputFieldProps } from '@/types/types'
 
 type TextareaFieldProps = InputFieldProps & {
   isReadonly: boolean,

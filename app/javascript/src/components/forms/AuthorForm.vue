@@ -15,6 +15,9 @@
                 :inputType="'text'" 
                 :placeholder="'Name'"
                 @changeValue="onChangeName"
+                :step="undefined" 
+                :min="undefined"
+                :max="undefined"
               ></InputField>
             </label>
             <label class="block" for="description">
@@ -76,7 +79,7 @@ const fetchById = async (id: number) => {
     const response = await fetchRecordById(id, 'author')
     authorForm.form.name = response.data.name;
     authorForm.form.description = response.data.description;
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
@@ -124,7 +127,7 @@ const onSubmit = async () => {
       component: ''
     })
 
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors;
 
     modalStore.open({

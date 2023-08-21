@@ -15,6 +15,9 @@
                   :inputType="'text'" 
                   :placeholder="'name'"
                   @changeValue="onChangeName"
+                  :step="undefined" 
+                  :min="undefined"
+                  :max="undefined"
                 ></InputField>
             </label>
             <label class="block" for="abtract">
@@ -37,6 +40,7 @@
                   :inputType="'number'" 
                   :step="0.1" 
                   :min="0"
+                  :max="1000"
                   @changeValue="onChangePrice"
                 ></InputField>
     
@@ -84,8 +88,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
-import { useBookForm, type BookForm } from '@/hooks/useBookForm'
+import { ref, onMounted } from 'vue';
+import { useBookForm} from '@/hooks/useBookForm'
 import { useModalStore } from '@/store/modal'
 
 import DropdownMenu from '@/components/dropdowns/DropdownMenu.vue'
@@ -124,7 +128,7 @@ const fetchById = async (id: number) => {
     bookForm.form.publisher_id = bookAPI.data.publisher.id;
     bookForm.form.author_ids = bookAPI.data.authors.map(e => e.id);
 
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
@@ -145,7 +149,7 @@ const fetchForDropdowns = async () => {
 
     authors.value = response[0].data
     publishers.value = response[1].data
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
@@ -175,11 +179,6 @@ const onChangePrice = (payload) => {
   bookForm.form.price = payload
   onChangeForm(true)
 }
-
-// const onChangePrice = (event: any) => {
-//   bookForm.form.price = event.target.value
-//   onChangeForm(true)
-// }
 
 const onChangePublisher = (payload) => {
   bookForm.form.publisher_id = payload
@@ -212,7 +211,7 @@ const onSubmit = async () => {
       component: ''
     })
 
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
       title: `${error.response.status} Error`,

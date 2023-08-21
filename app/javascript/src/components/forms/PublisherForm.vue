@@ -7,9 +7,17 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <InputField :inputId="'name'" :className="''" :inputValue="publisherForm.form.name"
-                :inputFieldClass="'block w-full mt-1'" :inputType="'text'" :placeholder="'name'"
-                @changeValue="onChangeName"></InputField>
+              <InputField 
+                :inputId="'name'" 
+                :className="''" 
+                :inputValue="publisherForm.form.name"
+                :inputFieldClass="'block w-full mt-1'" 
+                :inputType="'text'" :placeholder="'name'" 
+                :step="undefined"
+                :min="undefined"
+                :max="undefined"
+                @changeValue="onChangeName"
+              ></InputField>
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
@@ -62,7 +70,7 @@ const fetchById = async (id: number) => {
     const response = await fetchRecordById(id, 'publisher')
     publisherForm.form.name = response.data.name;
     publisherForm.form.description = response.data.description;
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
@@ -111,7 +119,7 @@ const onSubmit = async () => {
       component: ''
     })
 
-  } catch (error) {
+  } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
       title: `${error.response.status} Error`,

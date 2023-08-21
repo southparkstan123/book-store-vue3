@@ -30,17 +30,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { useModalStore } from '@/store/modal'
-
-type ModelType = 'alert' | 'confirm' | 'form';
+import type { ModalType } from '@/types/types'
 
 export default defineComponent({
   props: {
     type: {
       type: String,
       default: 'alert',
-      validator: (type: ModelType): boolean => ['alert', 'confirm', 'form'].includes(type),
+      validator: (type: ModalType): boolean => ['alert', 'confirm', 'form'].includes(type),
     },
     showModalContent: {
       type: Boolean,

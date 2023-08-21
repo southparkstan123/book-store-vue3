@@ -19,25 +19,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-
-type InputType = 'text' | 'email' | 'password' | 'number';
-
-type InputFieldProps = {
-  inputId: string,
-  className: string,
-  inputName: string,
-  isRequired: boolean,
-  placeholder: string,
-  inputValue: string
-  inputFieldClass: string
-  isDisabled: boolean
-};
-
-type RangeProps = {
-  step: number | undefined
-  min: number | undefined
-  max: number | undefined
-}
+import type { InputType, InputFieldProps, RangeProps } from '@/types/types'
 
 const props = withDefaults(defineProps<InputFieldProps & {inputType: InputType} & RangeProps>(), {
   inputId: '',

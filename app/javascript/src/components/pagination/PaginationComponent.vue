@@ -18,10 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-type PaginationProps = {
-  page: number,
-  pages: number
-}
+import type { PaginationProps } from '@/types/types'
 
 const props = defineProps<PaginationProps>()
 

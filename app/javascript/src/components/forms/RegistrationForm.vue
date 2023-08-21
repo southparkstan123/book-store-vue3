@@ -1,21 +1,51 @@
 <template>
   <ErrorFeedback :errors="errors" />
   <form class="mt-8 space-y-6" @submit.prevent="onRegistration">
-    <InputField :inputId="'username'" :className="'w-full'" :inputType="'text'"
-       :placeholder="'Username'" :isRequired="true"
+    <InputField 
+      :inputId="'username'" 
+      :className="'w-full'" 
+      :inputType="'text'"
+      :placeholder="'Username'" 
+      :isRequired="true"
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
       @changeValue="onChangeUsername"
     >
     </InputField>
-    <InputField :inputId="'email'" :className="'w-full'" :inputType="'email'" :placeholder="'Email'" :isRequired="true" @changeValue="onChangeEmail"
+    <InputField 
+      :inputId="'email'" 
+      :className="'w-full'" 
+      :inputType="'email'" 
+      :placeholder="'Email'" 
+      :isRequired="true" 
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
+      @changeValue="onChangeEmail"
     >
     </InputField>
-    <InputField :inputId="'password'" :className="'w-full'" :inputType="'password'"
-      :placeholder="'Password'" :isRequired="true"
+    <InputField 
+      :inputId="'password'" 
+      :className="'w-full'" 
+      :inputType="'password'"
+      :placeholder="'Password'" 
+      :isRequired="true"
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
       @changeValue="onChangePassword"
     >
     </InputField>
-    <InputField :inputId="'password-confirmation'" :className="'w-full'" :inputType="'password'"
-      :placeholder="'Password Conformation'" :isRequired="true"
+    <InputField 
+      :inputId="'password-confirmation'" 
+      :className="'w-full'" 
+      :inputType="'password'"
+      :placeholder="'Password Conformation'" 
+      :isRequired="true"
+      :step="undefined"
+      :min="undefined"
+      :max="undefined"
       @changeValue="onChangePasswordConfirmation"
     >
     </InputField>
@@ -56,7 +86,7 @@ const router = useRouter()
 const modalStore = useModalStore()
 const { errors } = useForm()
 
-import { type RegistrationForm } from '@/services/AuthServices'
+import type { RegistrationForm } from '@/types/types'
 
 const registrationForm = reactive<RegistrationForm>({
   form: {
@@ -89,7 +119,7 @@ const toLoginPage = () => {
 
 const onRegistration = async () => {
   try {
-    const result = await register(registrationForm.form)
+    const result = await register(registrationForm)
 
     modalStore.open({
       title: 'Success',
@@ -99,7 +129,7 @@ const onRegistration = async () => {
     })
 
     router.push('/signin')
-  } catch (error) {
+  } catch (error: any) {
     errors.value =  error.response.data.errors
     modalStore.open({
       title: `${error.response.status} Error`,
