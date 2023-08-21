@@ -1,4 +1,4 @@
-require 'pagy/extras/metadata'
+require 'pagy/extras/headers'
 
 module Api::V1::Author
   class AuthorController < ApiController
@@ -7,21 +7,9 @@ module Api::V1::Author
     before_action :authorized, except: [:list, :show, :names]
 
     def list
-      @pagy, @authors = pagy(Author.all, items: params[:per])
-
-      @result = {
-        data: @authors.map { 
-          |author|  { 
-            id: author.id,
-            name: author.name,
-            description: author.description,
-            books: author.books,
-            creator: author.creator,
-            updater: author.updater
-          }
-        },
-        pagination: pagy_metadata(@pagy)
-      }
+      @authors = Author.includes(:books, :creator, :updater)
+      @pagy, @result = pagy(@authors, items: params[:per])
+      pagy_headers_merge(@pagy)
 
       render json: @result
     end
