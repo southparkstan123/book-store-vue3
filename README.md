@@ -1,4 +1,4 @@
-# Rails-App-Vue3
+# Book-Store-Vue3
 
 ## Introduction
 
@@ -39,7 +39,7 @@ This is an experimental SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3,
 
 You can clone this repo by Github using command line prompt:
 
-```git clone https://github.com/southparkstan123/rails-app-vue3.git```
+```git clone https://github.com/southparkstan123/book-store-vue3.git```
 
 After cloning the repo, install the dependencies for frontend and backend by following command:
 
@@ -77,12 +77,20 @@ TBC
 
 ### Fix Lint and Type errors
 
-TBC
+```bash 
+yarn lint
+```
+
+```bash
+yarn type-check
+```
 
 ## Start up the server
 
-Run ```foreman start``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3000``` on Web browser.
+Run ```rails s -b 0.0.0.0``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3000``` on Web browser.
 
 **Remark: Edit your hosts file for your host name**
+
+**If you want to enable HMR, run ```foreman s```**
 
 Happy Coding!!!!!
