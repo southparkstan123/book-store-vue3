@@ -106,8 +106,8 @@ type Pagination = {
 import debounce from 'lodash.debounce'
 
 import { onMounted, ref, computed, watch } from 'vue'
-import TableComponent from '@/components/TableComponent.vue'
-import EllipsisInTable from '../components/EllipsisInTable.vue';
+import TableComponent from '@/components/table/TableComponent.vue'
+import EllipsisInTable from '@/components/table/EllipsisInTable.vue';
 
 import type { TableItem, TableField } from '@/components/TableComponent.vue'
 import { useRoute, useRouter } from 'vue-router'
