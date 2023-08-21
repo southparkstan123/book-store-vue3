@@ -3,104 +3,80 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="overflow-x-auto my-12">
         <div v-if="!isError">
-          <div >
-            <TableComponent :data="data" :fields="fields" :style="`width: 1280px;`">
-              <template #search-bar>
-                <InputField 
-                  v-if="category === 'book'"
-                  :inputId="'test'"
-                  :className="''"
-                  :inputValue="keyword" 
-                  :inputFieldClass="'float-right'"
-                  :inputType="'text'" 
-                  :placeholder="`Search by name`"
-                  @changeValue="searchKeyword"
-                >
-                </InputField>
-                <ButtonComponent @buttonClicked="toAddPage" :buttonType="'button'"
-                  :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-3 px-4'">
+          <TableComponent :data="data" :fields="fields" :style="`width: 1280px;`">
+            <template #search-bar>
+              <InputField 
+                v-if="category === 'book'"
+                :inputId="'test'"
+                :className="''"
+                :inputValue="keyword" 
+                :inputFieldClass="'float-right'"
+                :inputType="'text'" 
+                :placeholder="`Search by name`"
+                @changeValue="searchKeyword"
+              >
+              </InputField>
+              <ButtonComponent @buttonClicked="toAddPage" :buttonType="'button'"
+                :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-3 px-4'">
+                <template #text>
+                  Add {{ category }}
+                </template>
+              </ButtonComponent>
+            </template>
+            <template #creator="{ item }">
+              {{ item.creator.username }}
+            </template>
+            <template #updater="{ item }">
+              {{ item.updater.username }}
+            </template>
+            <template #publisher="{ item }">
+              {{ item.publisher.name }}
+            </template>
+            <template #authors="{ item }">
+              <EllipsisInTable :data="item.authors"/>
+            </template>
+            <template #created_at="{ item }">
+              {{ moment(item.created_at).format('lll') }}
+            </template>
+            <template #updated_at="{ item }">
+              {{ moment(item.updated_at).format('lll') }}
+            </template>
+            <template #books="{ item }">
+              <EllipsisInTable :data="item.books"/>
+            </template>
+            <template #addition-header>
+              <th>Actions</th>
+            </template>
+            <template #addition-content="{ item }">
+              <td>
+                <ButtonComponent @buttonClicked="action('edit', item.id)" :buttonType="'button'"
+                  :textClass="'text-sm text-white'" :backgroundClass="'bg-green-500 py-2 px-4'">
                   <template #text>
-                    Add {{ category }}
+                    Edit
                   </template>
                 </ButtonComponent>
-              </template>
-              <template #creator="{ item }">
-                {{ item.creator.username }}
-              </template>
-              <template #updater="{ item }">
-                {{ item.updater.username }}
-              </template>
-              <template #publisher="{ item }">
-                {{ item.publisher.name }}
-              </template>
-              <template #authors="{ item }">
-                <ol v-if="item.authors.length > 2">
-                  <li v-for="(author, index) in item.authors">
-                    <span v-if="index < 2">{{ author.name }}</span>
-                  </li>
-                  + {{ item.authors.length - 2 }} {{ (item.authors.length - 2 > 1) ? 'authors' : 'author'}}
-                </ol>
-                <ol v-if="item.authors.length <= 2">
-                  <li v-for="author in item.authors">
-                    <span>{{ author.name }}</span>
-                  </li>
-                </ol>
-                <div v-if="item.authors.length === 0">(No author)</div>
-              </template>
-              <template #created_at="{ item }">
-                {{ moment(item.created_at).format('lll') }}
-              </template>
-              <template #updated_at="{ item }">
-                {{ moment(item.updated_at).format('lll') }}
-              </template>
-              <template #books="{ item }">
-                <ol v-if="item.books.length > 2">
-                  <li v-for="(book, index) in item.books">
-                    <span v-if="index < 2">{{ book.name }}</span>
-                  </li>
-                  + {{ item.books.length - 2 }} {{ (item.books.length - 2 > 1) ? 'books' : 'book'}}
-                </ol>
-                <ol v-if="item.books.length <= 2">
-                  <li v-for="book in item.books">
-                    <span>{{ book.name }}</span>
-                  </li>
-                </ol>
-                <div v-if="item.books.length === 0">(No book)</div>
-              </template>
-              <template #addition-header>
-                <th>Actions</th>
-              </template>
-              <template #addition-content="{ item }">
-                <td>
-                  <ButtonComponent @buttonClicked="action('edit', item.id)" :buttonType="'button'"
-                    :textClass="'text-sm text-white'" :backgroundClass="'bg-green-500 py-2 px-4'">
-                    <template #text>
-                      Edit
-                    </template>
-                  </ButtonComponent>
-                  <ButtonComponent @buttonClicked="action('delete', item.id)" :buttonType="'button'"
-                    :textClass="'text-sm text-white'" :backgroundClass="'bg-red-500 py-2 px-4'">
-                    <template #text>
-                      Delete
-                    </template>
-                  </ButtonComponent>
-                </td>
-              </template>
-              <template #footer>
-                <div class="footer-item">
-                  {{ data.length }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
-                </div>
-              </template>
-              <template #pagination>
-                <PaginationComponent
-                  :page="pagination.currentPage" 
-                  :pages="pagination.pages"
-                  @toPage="changeCurrentPage"
-                >
-                </PaginationComponent>
-              </template>
-            </TableComponent>
-          </div>
+                <ButtonComponent @buttonClicked="action('delete', item.id)" :buttonType="'button'"
+                  :textClass="'text-sm text-white'" :backgroundClass="'bg-red-500 py-2 px-4'">
+                  <template #text>
+                    Delete
+                  </template>
+                </ButtonComponent>
+              </td>
+            </template>
+            <template #footer>
+              <div class="footer-item">
+                {{ data.length }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
+              </div>
+            </template>
+            <template #pagination>
+              <PaginationComponent
+                :page="pagination.currentPage" 
+                :pages="pagination.pages"
+                @toPage="changeCurrentPage"
+              >
+              </PaginationComponent>
+            </template>
+          </TableComponent>
         </div>
         <div v-else>
           <div class="text-center">
@@ -131,6 +107,8 @@ import debounce from 'lodash.debounce'
 
 import { onMounted, ref, computed, watch } from 'vue'
 import TableComponent from '@/components/TableComponent.vue'
+import EllipsisInTable from '../components/EllipsisInTable.vue';
+
 import type { TableItem, TableField } from '@/components/TableComponent.vue'
 import { useRoute, useRouter } from 'vue-router'
 import moment from 'moment'

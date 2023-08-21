@@ -1,0 +1,37 @@
+<template>
+  <ol v-if="data.length > numberOfDisplayedItem">
+    <li v-for="(item, index) in data">
+      <span v-if="index < numberOfDisplayedItem">{{ item[field] }}</span>
+    </li>
+    + {{ data.length - numberOfDisplayedItem }} {{ (data.length - numberOfDisplayedItem > numberOfDisplayedItem - 1) ? 'items' : 'item' }}
+  </ol>
+  <ol v-if="data.length <= numberOfDisplayedItem">
+    <li v-for="item in data">
+      <span>{{ item[field] }}</span>
+    </li>
+  </ol>
+  <div v-if="data.length === 0">(No item)</div>
+</template>
+
+<script lang="ts" setup>
+type Item = {
+  [key: string]: unknown
+}
+type Field = {
+  field: string
+}
+type Data = {
+  data: Item[]
+}
+type NumberOfDisplayedItem = {
+  numberOfDisplayedItem: number
+}
+
+withDefaults(defineProps<Data & Field & NumberOfDisplayedItem>(), {
+  numberOfDisplayedItem: 2,
+  field: 'name'
+})
+
+</script>
+
+<style scoped></style>
