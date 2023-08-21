@@ -88,7 +88,7 @@
               </template>
               <template #footer>
                 <div class="footer-item">
-                  {{ pagination.count }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
+                  {{ data.length }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
                 </div>
               </template>
               <template #pagination>
