@@ -15,7 +15,7 @@
     </thead>
     <tbody>
       <tr v-for="item in displayedRecords">
-        <td v-for="field in displayedfields"> 
+        <td v-for="field in displayedfields">
           <slot :name="field" :item="item">
             {{ item[field] }}
           </slot>
@@ -31,7 +31,7 @@
           <div :style="'float: left'">
             <slot name="footer"></slot>
           </div>
-          
+
           <div :style="'float: right'">
             <slot name="pagination"></slot>
           </div>
@@ -43,44 +43,43 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, type PropType } from 'vue';
-import type { TableItem, TableField } from '@/types/types'
+import { defineComponent, computed, type PropType } from "vue";
+import type { TableItem, TableField } from "@/types/types";
 
-export default defineComponent(
-  {
-    props: {
-      data: {
-        type: Array as PropType<TableItem[]>,
-        default: () => []
-      },
-      fields: {
-        type: Array as PropType<TableField[]>,
-      }
+export default defineComponent({
+  props: {
+    data: {
+      type: Array as PropType<TableItem[]>,
+      default: () => [],
     },
-    setup(props) {
-      const displayedfields = computed(() => {
-        const result = (props.fields !== undefined)
+    fields: {
+      type: Array as PropType<TableField[]>,
+    },
+  },
+  setup(props) {
+    const displayedfields = computed(() => {
+      const result =
+        props.fields !== undefined
           ? Object.entries(props.fields).map(([_key, value]) => value.key)
           : Object.entries(props.data[0]).map(([_key]) => _key);
 
-        return result;
-      });
+      return result;
+    });
 
-      const displayedRecords = computed(() => {
-        const result = props.data.filter((item) =>
-          displayedfields.value.map((field) => item.hasOwnProperty(field))
-        );
+    const displayedRecords = computed(() => {
+      const result = props.data.filter((item) =>
+        displayedfields.value.map((field) => item.hasOwnProperty(field)),
+      );
 
-        return result;
-      });
+      return result;
+    });
 
-      return {
-        displayedfields,
-        displayedRecords
-      };
-    }
-  }
-)
+    return {
+      displayedfields,
+      displayedRecords,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -88,7 +87,8 @@ table {
   margin-left: auto;
   margin-right: auto;
 
-  th,td {
+  th,
+  td {
     padding: 5px;
     color: #303030;
   }
@@ -124,6 +124,5 @@ table {
     background-color: #bbb;
     // text-align: right;
   }
-
 }
 </style>

@@ -31,7 +31,10 @@
       </template>
     </MobileMenu>
     <Transition :appear="true" :duration="1500" name="open-button">
-      <MobileMenuBurgerButton v-if="!isMenuOpen && isMobileView" @openMenu="openMenu">
+      <MobileMenuBurgerButton
+        v-if="!isMenuOpen && isMobileView"
+        @openMenu="openMenu"
+      >
         <slot name="open-button"></slot>
       </MobileMenuBurgerButton>
     </Transition>
@@ -39,80 +42,81 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from 'vue'
+import { defineComponent, ref, computed, watch } from "vue";
 
-import MobileMenu from '@/components/menu/MobileMenu.vue'
-import MobileMenuBurgerButton from '@/components/menu/MobileMenuBurgerButton.vue'
-import DesktopMenu from '@/components/menu/DesktopMenu.vue'
-import isValidColorValue from '@/utils/isValidColorValue'
+import MobileMenu from "@/components/menu/MobileMenu.vue";
+import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
+import DesktopMenu from "@/components/menu/DesktopMenu.vue";
+import isValidColorValue from "@/utils/isValidColorValue";
 
 export default defineComponent({
   components: {
     MobileMenu,
     MobileMenuBurgerButton,
-    DesktopMenu
+    DesktopMenu,
   },
   props: {
     backgroundColor: {
       type: String,
-      default: '#FFF',
+      default: "#FFF",
       validator: (value: string) => {
-        return isValidColorValue(value) || value === ''
-      }
+        return isValidColorValue(value) || value === "";
+      },
     },
     breakpoint: {
       type: Number,
-      default: 1024
+      default: 1024,
     },
     percentageOfWidthOfMoblieMenu: {
       type: Number,
       default: 100,
-      validator: (value: number) => value <= 100 && value >= 10
-    }
+      validator: (value: number) => value <= 100 && value >= 10,
+    },
   },
   setup(props, context) {
-    const windowWidth = ref<number>(0)
-    const isMobileView = ref<boolean>(false)
+    const windowWidth = ref<number>(0);
+    const isMobileView = ref<boolean>(false);
 
-    const isMenuOpen = ref<boolean>(false)
-    const showMenuContent = ref<boolean>(false)
+    const isMenuOpen = ref<boolean>(false);
+    const showMenuContent = ref<boolean>(false);
 
     const closeMenu = () => {
       setTimeout(() => {
-        isMenuOpen.value = false
-        context.emit('bodyScrollLock', false)
-      }, 300)
-    }
+        isMenuOpen.value = false;
+        context.emit("bodyScrollLock", false);
+      }, 300);
+    };
 
     const openMenu = () => {
       setTimeout(() => {
-        isMenuOpen.value = true
-        context.emit('bodyScrollLock', true)
-      })
-    }
+        isMenuOpen.value = true;
+        context.emit("bodyScrollLock", true);
+      });
+    };
 
     const onShowMenuContent = (payload: boolean) => {
-      showMenuContent.value = payload
-    }
+      showMenuContent.value = payload;
+    };
 
     watch(
       () => isMobileView.value,
       (newValue: boolean) => {
         if (!newValue && isMenuOpen.value) {
-          closeMenu()
+          closeMenu();
         }
-      }
-    )
+      },
+    );
 
     const onChangeView = (payload) => {
-      windowWidth.value = payload.windowWidth
-      isMobileView.value = payload.isMobileView
-    }
+      windowWidth.value = payload.windowWidth;
+      isMobileView.value = payload.isMobileView;
+    };
 
     const mobileMenuWidth = computed<string>(() => {
-      const width = (props.percentageOfWidthOfMoblieMenu / 100) * windowWidth.value
-      return width.toString() + 'px'
-    })
+      const width =
+        (props.percentageOfWidthOfMoblieMenu / 100) * windowWidth.value;
+      return width.toString() + "px";
+    });
 
     return {
       windowWidth,
@@ -123,24 +127,23 @@ export default defineComponent({
       onChangeView,
       onShowMenuContent,
       isMenuOpen,
-      showMenuContent
-    }
+      showMenuContent,
+    };
   },
   directives: {
-    'on-resize': (el, binding) => {
+    "on-resize": (el, binding) => {
       const resizeObserver = new ResizeObserver((entries) => {
         entries.forEach((entry) => {
-          const windowWidth = entry.contentRect.width
-          const isMobileView = entry.contentRect.width < binding.value.breakpoint
-          binding.value.action({ isMobileView, windowWidth })
-        })
-      })
-      resizeObserver.observe(document.body)
-    }
-  }
-})
+          const windowWidth = entry.contentRect.width;
+          const isMobileView =
+            entry.contentRect.width < binding.value.breakpoint;
+          binding.value.action({ isMobileView, windowWidth });
+        });
+      });
+      resizeObserver.observe(document.body);
+    },
+  },
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

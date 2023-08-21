@@ -5,19 +5,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
   setup(props, context) {
     const close = () => {
-      context.emit('closeMenu')
-    }
+      context.emit("closeMenu");
+    };
 
     return {
-      close
-    }
-  }
-})
+      close,
+    };
+  },
+});
 </script>
 
 <style scoped>

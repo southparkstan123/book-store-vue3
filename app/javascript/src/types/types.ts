@@ -1,58 +1,58 @@
-export type TableItem =  {
-  [key: string]: unknown
-}
+export type TableItem = {
+  [key: string]: unknown;
+};
 
-export type TableField =  {
-  label: string,
-  key: string
-}
+export type TableField = {
+  label: string;
+  key: string;
+};
 
 export type DropdownItem = {
-  id: number,
-  [key: string]: unknown
-}
+  id: number;
+  [key: string]: unknown;
+};
 
-export type InputType = 'text' | 'email' | 'password' | 'number';
+export type InputType = "text" | "email" | "password" | "number";
 
 export type InputFieldProps = {
-  inputId: string,
-  className: string,
-  inputName: string,
-  isRequired: boolean,
-  placeholder: string,
-  inputValue: string | number | null,
-  inputFieldClass: string,
-  isDisabled: boolean
-}
+  inputId: string;
+  className: string;
+  inputName: string;
+  isRequired: boolean;
+  placeholder: string;
+  inputValue: string | number | null;
+  inputFieldClass: string;
+  isDisabled: boolean;
+};
 
 export type RangeProps = {
-  step: number | undefined
-  min: number | undefined
-  max: number | undefined
-}
+  step: number | undefined;
+  min: number | undefined;
+  max: number | undefined;
+};
 
 export type TextareaFieldProps = InputFieldProps & {
-  isReadonly: boolean,
-  cols: string,
-  rows: string
-}
+  isReadonly: boolean;
+  cols: string;
+  rows: string;
+};
 
 export type AuthorForm = {
-  name: string,
-  description: string
-}
+  name: string;
+  description: string;
+};
 
 export type PublisherForm = {
-  name: string,
-  description: string
-}
+  name: string;
+  description: string;
+};
 
 export type LoginForm = {
   form: {
     username: string;
     password: string;
-  }
-}
+  };
+};
 
 export type RegistrationForm = {
   form: {
@@ -60,53 +60,52 @@ export type RegistrationForm = {
     email: string;
     password: string;
     password_confirmation: string;
-  }
-}
+  };
+};
 
 export type UserInfo = {
   id: string;
   username: string;
   email: string;
-}
+};
 
 export type UserState = {
   userInfo: UserInfo | null;
   token: string | null;
-}
-
+};
 
 export type AuthorFormState = {
-  form: AuthorForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+  form: AuthorForm;
+  isLoading: boolean;
+  mode: "add" | "edit";
+  isFormChanged: boolean;
+};
 
 export type BookForm = {
-  name: string,
-  abstract: string,
-  price: number | null,
-  publisher_id: number | null,
-  author_ids: Array<number>
-}
+  name: string;
+  abstract: string;
+  price: number | null;
+  publisher_id: number | null;
+  author_ids: Array<number>;
+};
 
 export type BookFormState = {
-  form: BookForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+  form: BookForm;
+  isLoading: boolean;
+  mode: "add" | "edit";
+  isFormChanged: boolean;
+};
 
 export type PublisherFormState = {
-  form: PublisherForm,
-  isLoading: boolean,
-  mode: 'add' | 'edit',
-  isFormChanged: boolean
-}
+  form: PublisherForm;
+  isLoading: boolean;
+  mode: "add" | "edit";
+  isFormChanged: boolean;
+};
 
-export type ModuleType = 'book' | 'author' | 'publisher';
+export type ModuleType = "book" | "author" | "publisher";
 
-export type ModalType ='alert' | 'confirm' | 'form';
+export type ModalType = "alert" | "confirm" | "form";
 
 export type ModalState = {
   visible: boolean;
@@ -114,33 +113,33 @@ export type ModalState = {
   message: string;
   title: string;
   component: string;
-  resolvePromise: any
-}
+  resolvePromise: any;
+};
 
 export type OpenModalPayload = {
   type: ModalType;
   message: string;
   title: string;
   component: string | "";
-}
+};
 
 export type ButtonProps = {
-  isDisabled: boolean,
-  buttonType: "submit" | "button",
-  textClass: string,
-  backgroundClass: string,
-  disabledClass: string
-}
+  isDisabled: boolean;
+  buttonType: "submit" | "button";
+  textClass: string;
+  backgroundClass: string;
+  disabledClass: string;
+};
 
 export type PaginationProps = {
-  page: number,
-  pages: number
-}
+  page: number;
+  pages: number;
+};
 
 export type Pagination = {
-  currentPage: number,
-  pages: number,
-  total: number,
-  count: number,
-  perPage: number
-}
+  currentPage: number;
+  pages: number;
+  total: number;
+  count: number;
+  perPage: number;
+};

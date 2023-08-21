@@ -7,12 +7,13 @@
           <div class="grid grid-cols-1 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
-              <InputField 
-                :inputId="'name'" 
-                :className="''" 
+              <InputField
+                :inputId="'name'"
+                :className="''"
                 :inputValue="publisherForm.form.name"
-                :inputFieldClass="'block w-full mt-1'" 
-                :inputType="'text'" :placeholder="'name'" 
+                :inputFieldClass="'block w-full mt-1'"
+                :inputType="'text'"
+                :placeholder="'name'"
                 :step="undefined"
                 :min="undefined"
                 :max="undefined"
@@ -21,18 +22,24 @@
             </label>
             <label class="block" for="description">
               <span class="text-gray-700">Description</span>
-              <TextArea :inputId="'description'" :inputName="'description'" :inputFieldClass="'block w-full mt-1'"
-                :inputValue="publisherForm.form.description" @changeValue="onChangeDescription"></TextArea>
+              <TextArea
+                :inputId="'description'"
+                :inputName="'description'"
+                :inputFieldClass="'block w-full mt-1'"
+                :inputValue="publisherForm.form.description"
+                @changeValue="onChangeDescription"
+              ></TextArea>
             </label>
           </div>
         </div>
         <div class="block">
-          <ButtonComponent :isDisabled="!publisherForm.isFormChanged" :buttonType="'submit'"
+          <ButtonComponent
+            :isDisabled="!publisherForm.isFormChanged"
+            :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
-            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'">
-            <template #text>
-              Submit
-            </template>
+            :backgroundClass="'group relative bg-green-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
+          >
+            <template #text> Submit </template>
           </ButtonComponent>
         </div>
       </form>
@@ -44,99 +51,104 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, readonly } from 'vue';
-import { usePublisherForm } from '@/hooks/usePublisherForm'
-import { useModalStore } from '@/store/modal'
-import { fetchRecordById, updateRecordById, createRecord } from '@/services/CRUDServices'
-import ErrorFeedback from '@/components/ErrorFeedback.vue';
-import { useRouter } from 'vue-router'
+import { onMounted, readonly } from "vue";
+import { usePublisherForm } from "@/hooks/usePublisherForm";
+import { useModalStore } from "@/store/modal";
+import {
+  fetchRecordById,
+  updateRecordById,
+  createRecord,
+} from "@/services/CRUDServices";
+import ErrorFeedback from "@/components/ErrorFeedback.vue";
+import { useRouter } from "vue-router";
 
 // Inputs
-import InputField from '@/components/inputs/InputField.vue'
-import TextArea from '@/components/inputs/TextArea.vue'
-import ButtonComponent from '@/components/inputs/ButtonComponent.vue'
+import InputField from "@/components/inputs/InputField.vue";
+import TextArea from "@/components/inputs/TextArea.vue";
+import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 
-const props = defineProps<{ id: number }>()
-const emit = defineEmits<{ e, 'formChanged' }>()
+const props = defineProps<{ id: number }>();
+const emit = defineEmits<{ e; formChanged }>();
 
-const { errors, publisherForm } = usePublisherForm()
-const modalStore = useModalStore()
+const { errors, publisherForm } = usePublisherForm();
+const modalStore = useModalStore();
 
-const router = useRouter()
+const router = useRouter();
 
 const fetchById = async (id: number) => {
-  publisherForm.isLoading = true
+  publisherForm.isLoading = true;
   try {
-    const response = await fetchRecordById(id, 'publisher')
+    const response = await fetchRecordById(id, "publisher");
     publisherForm.form.name = response.data.name;
     publisherForm.form.description = response.data.description;
   } catch (error: any) {
-    errors.value = error.response.data.errors
+    errors.value = error.response.data.errors;
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
-      type: 'alert',
-      component: ''
-    })
+      type: "alert",
+      component: "",
+    });
   } finally {
-    publisherForm.isLoading = false
+    publisherForm.isLoading = false;
   }
-}
+};
 
 const onChangeForm = (payload) => {
-  publisherForm.isFormChanged = payload
-  emit('formChanged', payload)
-}
-
+  publisherForm.isFormChanged = payload;
+  emit("formChanged", payload);
+};
 
 const onChangeName = (payload) => {
-  publisherForm.form.name = payload
-  onChangeForm(true)
-}
+  publisherForm.form.name = payload;
+  onChangeForm(true);
+};
 
 const onChangeDescription = (payload) => {
-  publisherForm.form.description = payload
-  onChangeForm(true)
-}
+  publisherForm.form.description = payload;
+  onChangeForm(true);
+};
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false)
+    onChangeForm(false);
     let response: any = {};
 
-    if (publisherForm.mode === 'edit') {
-      response = await updateRecordById(props.id, publisherForm.form, 'publisher')
+    if (publisherForm.mode === "edit") {
+      response = await updateRecordById(
+        props.id,
+        publisherForm.form,
+        "publisher",
+      );
     } else {
-      response = await createRecord(publisherForm.form, 'publisher')
+      response = await createRecord(publisherForm.form, "publisher");
     }
 
-    router.push('/publisher/list')
+    router.push("/publisher/list");
 
     modalStore.open({
-      title: 'Success',
+      title: "Success",
       message: response.data.message,
-      type: 'alert',
-      component: ''
-    })
-
+      type: "alert",
+      component: "",
+    });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.statusText,
-      type: 'alert',
-      component: ''
-    })
+      type: "alert",
+      component: "",
+    });
   }
-}
+};
 
 onMounted(() => {
   if (props.id) {
-    publisherForm.mode = 'edit';
+    publisherForm.mode = "edit";
     fetchById(props.id);
   }
-})
-
+});
 </script>
 
 <style scoped></style>

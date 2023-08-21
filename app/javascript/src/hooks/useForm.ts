@@ -1,9 +1,9 @@
-import { ref } from 'vue'
+import { ref } from "vue";
 
 export const useForm = () => {
-  const errors = ref([])
+  const errors = ref([]);
 
   return {
-    errors
-  }
-}
+    errors,
+  };
+};

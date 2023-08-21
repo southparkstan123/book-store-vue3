@@ -3,15 +3,19 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="overflow-x-auto my-12">
         <div v-if="!isError">
-          <TableComponent :data="data" :fields="fields" :style="`width: 1280px;`">
+          <TableComponent
+            :data="data"
+            :fields="fields"
+            :style="`width: 1280px;`"
+          >
             <template #search-bar>
-              <InputField 
+              <InputField
                 v-if="category === 'book'"
                 :inputId="'test'"
                 :className="''"
-                :inputValue="keyword" 
+                :inputValue="keyword"
                 :inputFieldClass="'float-right'"
-                :inputType="'text'" 
+                :inputType="'text'"
                 :placeholder="`Search by name`"
                 :step="undefined"
                 :min="undefined"
@@ -19,11 +23,13 @@
                 @changeValue="searchKeyword"
               >
               </InputField>
-              <ButtonComponent @buttonClicked="toAddPage" :buttonType="'button'"
-                :textClass="'float-left text-sm text-white'" :backgroundClass="'bg-blue-700 py-3 px-4'">
-                <template #text>
-                  Add {{ category }}
-                </template>
+              <ButtonComponent
+                @buttonClicked="toAddPage"
+                :buttonType="'button'"
+                :textClass="'float-left text-sm text-white'"
+                :backgroundClass="'bg-blue-700 py-3 px-4'"
+              >
+                <template #text> Add {{ category }} </template>
               </ButtonComponent>
             </template>
             <template #creator="{ item }">
@@ -36,42 +42,49 @@
               {{ item.publisher.name }}
             </template>
             <template #authors="{ item }">
-              <EllipsisInTable :data="item.authors"/>
+              <EllipsisInTable :data="item.authors" />
             </template>
             <template #created_at="{ item }">
-              {{ moment(item.created_at).format('lll') }}
+              {{ moment(item.created_at).format("lll") }}
             </template>
             <template #updated_at="{ item }">
-              {{ moment(item.updated_at).format('lll') }}
+              {{ moment(item.updated_at).format("lll") }}
             </template>
             <template #books="{ item }">
-              <EllipsisInTable :data="item.books"/>
+              <EllipsisInTable :data="item.books" />
             </template>
             <template #addition-header>
               <th>Actions</th>
             </template>
             <template #addition-content="{ item }">
-              <ButtonComponent @buttonClicked="action('edit', item.id)" :buttonType="'button'"
-                :textClass="'text-sm text-white'" :backgroundClass="'bg-green-500 py-2 px-4'" :isDisable="false">
-                <template #text>
-                  Edit
-                </template>
+              <ButtonComponent
+                @buttonClicked="action('edit', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-green-500 py-2 px-4'"
+                :isDisable="false"
+              >
+                <template #text> Edit </template>
               </ButtonComponent>
-              <ButtonComponent @buttonClicked="action('delete', item.id)" :buttonType="'button'"
-                :textClass="'text-sm text-white'" :backgroundClass="'bg-red-500 py-2 px-4'" :isDisable="false">
-                <template #text>
-                  Delete
-                </template>
+              <ButtonComponent
+                @buttonClicked="action('delete', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-red-500 py-2 px-4'"
+                :isDisable="false"
+              >
+                <template #text> Delete </template>
               </ButtonComponent>
             </template>
             <template #footer>
               <div class="footer-item">
-                {{ data.length }} of {{ pagination.total }} {{ pagination.total > 1 ? 'records' : 'record' }}
+                {{ data.length }} of {{ pagination.total }}
+                {{ pagination.total > 1 ? "records" : "record" }}
               </div>
             </template>
             <template #pagination>
               <PaginationComponent
-                :page="pagination.currentPage" 
+                :page="pagination.currentPage"
                 :pages="pagination.pages"
                 @toPage="changeCurrentPage"
               >
@@ -93,137 +106,181 @@
 </template>
 
 <script setup lang="ts">
-import type { TableItem, TableField, ModuleType } from '@/types/types'
+import type { TableItem, TableField, ModuleType } from "@/types/types";
 type ActionType = "view" | "edit" | "delete";
 
-import type { Pagination } from '@/types/types'
+import type { Pagination } from "@/types/types";
 
+import debounce from "lodash.debounce";
 
-import debounce from 'lodash.debounce'
+import { onMounted, ref, computed, watch } from "vue";
+import TableComponent from "@/components/table/TableComponent.vue";
+import EllipsisInTable from "@/components/table/EllipsisInTable.vue";
+import { useRoute, useRouter } from "vue-router";
+import moment from "moment";
+import { useModalStore } from "@/store/modal";
+import {
+  deleteRecordById,
+  fetchRecords as _fetchRecords,
+} from "@/services/CRUDServices";
 
-import { onMounted, ref, computed, watch } from 'vue'
-import TableComponent from '@/components/table/TableComponent.vue'
-import EllipsisInTable from '@/components/table/EllipsisInTable.vue';
-import { useRoute, useRouter } from 'vue-router'
-import moment from 'moment'
-import { useModalStore } from '@/store/modal'
-import { deleteRecordById, fetchRecords as _fetchRecords } from '@/services/CRUDServices';
+import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
+import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
+import InputField from "@/components/inputs/InputField.vue";
 
-import ButtonComponent from '@/components/inputs/ButtonComponent.vue';
-import PaginationComponent from '@/components/pagination/PaginationComponent.vue';
-import InputField from '@/components/inputs/InputField.vue';
+const router = useRouter();
+const route = useRoute();
+const modalStore = useModalStore();
 
-const router = useRouter()
-const route = useRoute()
-const modalStore = useModalStore()
-
-const keyword = ref<string>('')
-const props = defineProps<{ category: ModuleType }>()
+const keyword = ref<string>("");
+const props = defineProps<{ category: ModuleType }>();
 const data = ref<TableItem[]>([]);
 const pagination = ref<Pagination>({
   currentPage: 1,
   pages: 1,
   total: 1,
   count: 1,
-  perPage: 10
+  perPage: 10,
 });
 const changeCurrentPage = (payload) => {
-  pagination.value.currentPage = payload
+  pagination.value.currentPage = payload;
 };
 const fields = computed<TableField[] | undefined>(() => {
-  const idField = [{ key: 'id', label: 'ID' }]
-  const defaultFields = [{ key: 'created_at', label: 'Created at' }, { key: 'updated_at', label: 'Updated at' }]
+  const idField = [{ key: "id", label: "ID" }];
+  const defaultFields = [
+    { key: "created_at", label: "Created at" },
+    { key: "updated_at", label: "Updated at" },
+  ];
 
   switch (props.category) {
-    case 'book':
-      return [...idField, { key: 'name', label: 'Name' }, { key: 'price', label: 'Price (USD)' }, { key: 'authors', label: 'Authors' }, ...defaultFields]
-    case 'author':
-      return [...idField, { key: 'name', label: 'Name' }, { key: 'books', label: 'Books' }, ...defaultFields]
-    case 'publisher':
-      return [...idField, { key: 'name', label: 'Name' }, { key: 'books', label: 'Books' }, ...defaultFields]
+    case "book":
+      return [
+        ...idField,
+        { key: "name", label: "Name" },
+        { key: "price", label: "Price (USD)" },
+        { key: "authors", label: "Authors" },
+        ...defaultFields,
+      ];
+    case "author":
+      return [
+        ...idField,
+        { key: "name", label: "Name" },
+        { key: "books", label: "Books" },
+        ...defaultFields,
+      ];
+    case "publisher":
+      return [
+        ...idField,
+        { key: "name", label: "Name" },
+        { key: "books", label: "Books" },
+        ...defaultFields,
+      ];
     default:
-      return undefined
+      return undefined;
   }
 });
 
-const fetchRecords = async (category: ModuleType, page: number, perPage: number, keyword: string) => {
+const fetchRecords = async (
+  category: ModuleType,
+  page: number,
+  perPage: number,
+  keyword: string,
+) => {
   try {
     const response = await _fetchRecords(category, page, perPage, keyword);
     data.value = response.data;
 
     pagination.value = {
-      currentPage: parseInt(response.headers['current-page'], 10),
-      pages : parseInt(response.headers['total-pages'], 10),
-      count: parseInt(response.headers['page-items'], 10),
-      total: parseInt(response.headers['total-count'], 10),
-      perPage
-    }
+      currentPage: parseInt(response.headers["current-page"], 10),
+      pages: parseInt(response.headers["total-pages"], 10),
+      count: parseInt(response.headers["page-items"], 10),
+      total: parseInt(response.headers["total-count"], 10),
+      perPage,
+    };
   } catch (error: any) {
-    isError.value = true
+    isError.value = true;
     modalStore.open({
       title: `${error.response.status} Error`,
       message: error.response.data.message,
-      type: 'alert',
-      component: ''
-    })
+      type: "alert",
+      component: "",
+    });
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
-}
+};
 
 const action = async (type: ActionType, id: number) => {
   try {
-    if (type === 'edit') {
-      router.push({ path: `/${props.category}/${type}/${id}`, replace: true })
+    if (type === "edit") {
+      router.push({ path: `/${props.category}/${type}/${id}`, replace: true });
     } else {
       const confirm = await modalStore.open({
-        title: 'Delete',
-        message: 'Are you sure?',
-        type: 'confirm',
-        component: ''
-      })
+        title: "Delete",
+        message: "Are you sure?",
+        type: "confirm",
+        component: "",
+      });
 
       if (confirm) {
-        await deleteRecordById(id, props.category)
-        router.push(`/${props.category}/list`)
+        await deleteRecordById(id, props.category);
+        router.push(`/${props.category}/list`);
       }
     }
   } catch (error) {
-    isError.value = true
+    isError.value = true;
   }
 };
 
 const toAddPage = () => {
-  router.push({ path: `/${props.category}/add`, replace: true })
-}
+  router.push({ path: `/${props.category}/add`, replace: true });
+};
 
-const isLoading = ref<boolean>(true)
-const isError = ref<boolean>(false)
+const isLoading = ref<boolean>(true);
+const isError = ref<boolean>(false);
 
 onMounted(() => {
-  fetchRecords(props.category, pagination.value.currentPage, pagination.value.perPage, keyword.value);
-})
+  fetchRecords(
+    props.category,
+    pagination.value.currentPage,
+    pagination.value.perPage,
+    keyword.value,
+  );
+});
 
 const searchKeyword = debounce((payload) => {
-  keyword.value = payload
-}, 2000)
+  keyword.value = payload;
+}, 2000);
 
-watch([
-  () => props.category, 
-  () => pagination.value.currentPage,
-  () => keyword.value
-], ([newCategory, newCurrentPage, newKeyword], [oldCategory, oldCurrentPage, oldKeyword]) => {
-  if(newKeyword !== oldKeyword || newCategory !== oldCategory) {
-    fetchRecords(newCategory, 1, pagination.value.perPage, newKeyword);
-  } else {
-    fetchRecords(newCategory, newCurrentPage, pagination.value.perPage, newKeyword);
-  }
-})
+watch(
+  [
+    () => props.category,
+    () => pagination.value.currentPage,
+    () => keyword.value,
+  ],
+  (
+    [newCategory, newCurrentPage, newKeyword],
+    [oldCategory, oldCurrentPage, oldKeyword],
+  ) => {
+    if (newKeyword !== oldKeyword || newCategory !== oldCategory) {
+      fetchRecords(newCategory, 1, pagination.value.perPage, newKeyword);
+    } else {
+      fetchRecords(
+        newCategory,
+        newCurrentPage,
+        pagination.value.perPage,
+        newKeyword,
+      );
+    }
+  },
+);
 
-watch(() => route.params, () => {
-  isLoading.value = true;
-})
-
+watch(
+  () => route.params,
+  () => {
+    isLoading.value = true;
+  },
+);
 </script>
 
 <style lang="scss" scoped>

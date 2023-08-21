@@ -3,12 +3,18 @@
     <div class="overlay flex items-center" v-if="showModalContent">
       <div
         class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-        role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-headline"
+      >
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <slot name="header">
-                <h3 id="modal-headline" class="text-lg leading-6 font-medium text-gray-900">
+                <h3
+                  id="modal-headline"
+                  class="text-lg leading-6 font-medium text-gray-900"
+                >
                   Title
                 </h3>
               </slot>
@@ -30,40 +36,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useModalStore } from '@/store/modal'
-import type { ModalType } from '@/types/types'
+import { defineComponent } from "vue";
+import { useModalStore } from "@/store/modal";
+import type { ModalType } from "@/types/types";
 
 export default defineComponent({
   props: {
     type: {
       type: String,
-      default: 'alert',
-      validator: (type: ModalType): boolean => ['alert', 'confirm', 'form'].includes(type),
+      default: "alert",
+      validator: (type: ModalType): boolean =>
+        ["alert", "confirm", "form"].includes(type),
     },
     showModalContent: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props, { emit }) {
     const close = () => {
-      emit('closeMenu')
-    }
+      emit("closeMenu");
+    };
 
     const confirm = () => {
-      const modalStore = useModalStore()
+      const modalStore = useModalStore();
 
-      modalStore.confirm()
-    }
+      modalStore.confirm();
+    };
 
     return {
       close,
-      confirm
+      confirm,
     };
-  }
-})
-
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -112,7 +118,6 @@ export default defineComponent({
   background-color: transparent;
 }
 
-
 .modal-enter-active,
 .modal-leave-active {
   transition: all 1s ease-in-out;
@@ -122,7 +127,6 @@ export default defineComponent({
 .modal-leave-to {
   opacity: 0;
 }
-
 
 .modal-enter-active .dialog,
 .modal-leave-active .dialog {

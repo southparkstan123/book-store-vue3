@@ -1,24 +1,24 @@
-import { createApp, defineComponent } from 'vue'
-import App from '@/components/App.vue'
+import { createApp, defineComponent } from "vue";
+import App from "@/components/App.vue";
 
 // router
-import { createRouter, createWebHistory } from 'vue-router';
-import { routes } from '@/routes/routes.ts'
+import { createRouter, createWebHistory } from "vue-router";
+import { routes } from "@/routes/routes.ts";
 // guardedRouter
-import guardedRouter from '@/routes/guardRouter';
+import guardedRouter from "@/routes/guardRouter";
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
 // pinia
-import { store } from '@/store/index'
+import { store } from "@/store/index";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const app = createApp(App)
-  guardedRouter(router)
-  app.use(router)
-  app.use(store)
-  app.mount('#app')
-})
+document.addEventListener("DOMContentLoaded", () => {
+  const app = createApp(App);
+  guardedRouter(router);
+  app.use(router);
+  app.use(store);
+  app.mount("#app");
+});

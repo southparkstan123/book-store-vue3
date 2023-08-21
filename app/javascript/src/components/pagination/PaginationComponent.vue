@@ -3,9 +3,9 @@
     <div v-if="prev !== null" class="item" @click="toPage(prev)">
       <slot name="prev">＜</slot>
     </div>
-    <div 
-      v-for="(e, index) in pages" 
-      :class="(index + 1 === page) ? 'item active' : 'item'"
+    <div
+      v-for="(e, index) in pages"
+      :class="index + 1 === page ? 'item active' : 'item'"
       @click="toPage(index + 1)"
     >
       {{ index + 1 }}
@@ -17,23 +17,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import type { PaginationProps } from '@/types/types'
+import { computed } from "vue";
+import type { PaginationProps } from "@/types/types";
 
-const props = defineProps<PaginationProps>()
+const props = defineProps<PaginationProps>();
 
 const emit = defineEmits<{
-  (e: 'toPage', payload: number): void
-}>()
+  (e: "toPage", payload: number): void;
+}>();
 
 const toPage = (payload: number) => {
-  if(payload !== props.page){
-    emit('toPage', payload)
+  if (payload !== props.page) {
+    emit("toPage", payload);
   }
-}
+};
 
-const prev = computed<number | null>(() => (props.page === 1) ? null : props.page - 1) 
-const next = computed<number | null>(() => (props.page === props.pages) ? null : props.page + 1)
+const prev = computed<number | null>(() =>
+  props.page === 1 ? null : props.page - 1,
+);
+const next = computed<number | null>(() =>
+  props.page === props.pages ? null : props.page + 1,
+);
 </script>
 
 <style scoped lang="scss">
@@ -51,11 +55,10 @@ const next = computed<number | null>(() => (props.page === props.pages) ? null :
     &.active {
       background-color: lime;
     }
-    
+
     &:hover {
       background-color: #eee;
     }
   }
 }
-
 </style>

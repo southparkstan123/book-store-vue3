@@ -3,7 +3,12 @@
     <div v-for="(item, index) in data">
       <span v-if="index < numberOfDisplayedItem">{{ item[field] }}</span>
     </div>
-    + {{ data.length - numberOfDisplayedItem }} {{ (data.length - numberOfDisplayedItem > numberOfDisplayedItem - 1) ? 'items' : 'item' }}
+    + {{ data.length - numberOfDisplayedItem }}
+    {{
+      data.length - numberOfDisplayedItem > numberOfDisplayedItem - 1
+        ? "items"
+        : "item"
+    }}
   </div>
   <div v-if="data.length <= numberOfDisplayedItem">
     <div v-for="item in data">
@@ -15,23 +20,22 @@
 
 <script lang="ts" setup>
 type Item = {
-  [key: string]: unknown
-}
+  [key: string]: unknown;
+};
 type Field = {
-  field: string
-}
+  field: string;
+};
 type Data = {
-  data: Item[]
-}
+  data: Item[];
+};
 type NumberOfDisplayedItem = {
-  numberOfDisplayedItem: number
-}
+  numberOfDisplayedItem: number;
+};
 
 withDefaults(defineProps<Data & Field & NumberOfDisplayedItem>(), {
   numberOfDisplayedItem: 2,
-  field: 'name'
-})
-
+  field: "name",
+});
 </script>
 
 <style scoped></style>

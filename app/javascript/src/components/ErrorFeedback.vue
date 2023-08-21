@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ errors: Array<string> }>()
+const props = defineProps<{ errors: Array<string> }>();
 </script>
 
 <style scoped lang="scss">

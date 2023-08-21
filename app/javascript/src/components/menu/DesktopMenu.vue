@@ -13,20 +13,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import isValidColorValue from '@/utils/isValidColorValue'
+import { defineComponent } from "vue";
+import isValidColorValue from "@/utils/isValidColorValue";
 
 export default defineComponent({
   props: {
     backgroundColor: {
       type: String,
-      default: '#FFF',
+      default: "#FFF",
       validator: (value: string) => {
-        return isValidColorValue(value) || value === ''
-      }
-    }
-  }
-})
+        return isValidColorValue(value) || value === "";
+      },
+    },
+  },
+});
 </script>
 
 <style scoped lang="scss">

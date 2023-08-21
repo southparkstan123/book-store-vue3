@@ -1,7 +1,10 @@
 <template>
   <Transition :duration="1000" :appear="true" name="menu">
     <div class="overlay" @click="clickOutsideMenu" v-if="showMenuContent">
-      <div class="inner" :style="{ 'background-color': backgroundColor, width }">
+      <div
+        class="inner"
+        :style="{ 'background-color': backgroundColor, width }"
+      >
         <MobileMenuBody>
           <template #button>
             <MobileMenuCloseButton @closeMenu="closeMenu" class="close">
@@ -27,54 +30,54 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
-import MobileMenuCloseButton from '@/components/menu/MobileMenuCloseButton.vue'
-import MobileMenuBody from '@/components/menu/MobileMenuBody.vue'
-import isValidColorValue from '@/utils/isValidColorValue'
+import MobileMenuCloseButton from "@/components/menu/MobileMenuCloseButton.vue";
+import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
+import isValidColorValue from "@/utils/isValidColorValue";
 
 export default defineComponent({
   components: {
     MobileMenuBody,
-    MobileMenuCloseButton
+    MobileMenuCloseButton,
   },
   props: {
     backgroundColor: {
       type: String,
-      default: '#FFF',
+      default: "#FFF",
       validator: (value: string) => {
-        return isValidColorValue(value) || value === ''
-      }
+        return isValidColorValue(value) || value === "";
+      },
     },
     width: {
       type: String,
-      default: '100%'
+      default: "100%",
     },
     showMenuContent: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props, context) {
     const closeMenu = () => {
-      context.emit('showMenuContent', false)
-      context.emit('closeMenu')
-    }
+      context.emit("showMenuContent", false);
+      context.emit("closeMenu");
+    };
 
     const clickOutsideMenu = (event: any) => {
-      if (event.target.className === 'overlay') {
-        closeMenu()
+      if (event.target.className === "overlay") {
+        closeMenu();
       }
-    }
+    };
 
-    context.emit('showMenuContent', true)
+    context.emit("showMenuContent", true);
 
     return {
       clickOutsideMenu,
-      closeMenu
-    }
-  }
-})
+      closeMenu,
+    };
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -127,5 +130,4 @@ export default defineComponent({
 .menu-enter-from .inner {
   transform: translateX(-100%);
 }
-
 </style>

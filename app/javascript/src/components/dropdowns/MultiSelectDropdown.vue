@@ -1,11 +1,16 @@
 <template>
   <div>
-    <select v-if="data && data.length > 0" class="block w-full mt-1" multiple @change="onChange">
-      <slot name="options" v-bind="data" >
-        <option 
-          v-for="item in data" 
-          :value="item.id" 
-          :key="item.id"  
+    <select
+      v-if="data && data.length > 0"
+      class="block w-full mt-1"
+      multiple
+      @change="onChange"
+    >
+      <slot name="options" v-bind="data">
+        <option
+          v-for="item in data"
+          :value="item.id"
+          :key="item.id"
           :selected="selectedItems ? selectedItems.includes(item.id) : false"
         >
           {{ item.name }}
@@ -16,18 +21,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, type PropType } from 'vue'
-import type { DropdownItem } from '@/types/types'
+import { defineComponent, computed, type PropType } from "vue";
+import type { DropdownItem } from "@/types/types";
 
 export default defineComponent({
   props: {
     data: {
-      type: Array as PropType<DropdownItem[]>
+      type: Array as PropType<DropdownItem[]>,
     },
     selectedItems: {
       type: Array as PropType<number[]>,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   setup(props, { emit }) {
     const onChange = (event: any) => {
@@ -39,16 +44,14 @@ export default defineComponent({
           ids.push(parseInt(options[index].value, 10));
         }
       }
-      emit('selectedItems', ids);
-    }
+      emit("selectedItems", ids);
+    };
 
     return {
-      onChange
-    }
-  }
-})
-
-
+      onChange,
+    };
+  },
+});
 </script>
 
 <style scoped></style>
