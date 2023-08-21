@@ -2,12 +2,16 @@
 
 ## Introduction
 
-This is an experimental SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3, it may be the template repo for further development for Full-stack project.
+This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the repository [Book store](https://github.com/southparkstan123/book-store).
 
 ## Features
 1. Basic Token Based (JWT) Authentication
 
-(To be added for further development...)
+2. Login by username and password
+
+3. CRUD for 'Books', 'Authors' and 'Publisher'
+
+4. Search records of 'books' by name
 
 ## Technical information
 
@@ -39,11 +43,15 @@ This is an experimental SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3,
 
 You can clone this repo by Github using command line prompt:
 
-```git clone https://github.com/southparkstan123/book-store-vue3.git```
+```bash
+git clone https://github.com/southparkstan123/book-store-vue3.git
+```
 
 After cloning the repo, install the dependencies for frontend and backend by following command:
 
-```yarn install``` and  ```bundle install```
+```bash
+yarn install && bundle install
+```
 
 ### Environment variables
 
@@ -61,9 +69,14 @@ You have to ensure that MySQL and Redis driver is installed in your local machin
 If you not require the username and password for your database, just comment out the username and password field on ```config/database.yml```
 
 You can create the database and migration by following command:
-```rails db:create && rails db:migrate```
+```bash
+rails db:create && rails db:migrate
+```
 
-If you want to seeding of a database with data, Use ```rails db:seed```
+If you want to seeding of a database with data by following command:
+```bash
+rails db:seed
+```
 
 ### Run the test cases
 
