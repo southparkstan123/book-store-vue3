@@ -1,15 +1,15 @@
 <template>
-  <ol v-if="data.length > numberOfDisplayedItem">
-    <li v-for="(item, index) in data">
+  <div v-if="data.length > numberOfDisplayedItem">
+    <div v-for="(item, index) in data">
       <span v-if="index < numberOfDisplayedItem">{{ item[field] }}</span>
-    </li>
+    </div>
     + {{ data.length - numberOfDisplayedItem }} {{ (data.length - numberOfDisplayedItem > numberOfDisplayedItem - 1) ? 'items' : 'item' }}
-  </ol>
-  <ol v-if="data.length <= numberOfDisplayedItem">
-    <li v-for="item in data">
+  </div>
+  <div v-if="data.length <= numberOfDisplayedItem">
+    <div v-for="item in data">
       <span>{{ item[field] }}</span>
-    </li>
-  </ol>
+    </div>
+  </div>
   <div v-if="data.length === 0">(No item)</div>
 </template>
 
