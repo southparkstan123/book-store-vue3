@@ -27,6 +27,8 @@
                 :inputName="'description'"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputValue="authorForm.form.description"
+                :placeholder="'Description'"
+                :rows="'5'"
                 @changeValue="onChangeDescription"
               ></TextArea>
             </label>

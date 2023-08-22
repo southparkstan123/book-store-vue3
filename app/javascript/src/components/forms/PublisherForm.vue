@@ -13,7 +13,7 @@
                 :inputValue="publisherForm.form.name"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputType="'text'"
-                :placeholder="'name'"
+                :placeholder="'Name'"
                 :step="undefined"
                 :min="undefined"
                 :max="undefined"
@@ -27,6 +27,8 @@
                 :inputName="'description'"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputValue="publisherForm.form.description"
+                :placeholder="'Description'"
+                :rows="'5'"
                 @changeValue="onChangeDescription"
               ></TextArea>
             </label>

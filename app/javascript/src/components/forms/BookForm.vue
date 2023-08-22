@@ -4,7 +4,7 @@
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
-          <div class="grid grid-cols-1 gap-6">
+          <div class="grid grid-cols-2 gap-6">
             <label class="block" for="name">
               <span class="text-gray-700">Name</span>
               <InputField
@@ -13,39 +13,13 @@
                 :inputValue="bookForm.form.name"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputType="'text'"
-                :placeholder="'name'"
+                :placeholder="'Name'"
                 @changeValue="onChangeName"
                 :step="undefined"
                 :min="undefined"
                 :max="undefined"
               ></InputField>
             </label>
-            <label class="block" for="abtract">
-              <span class="text-gray-700">Abstract</span>
-              <TextArea
-                :inputId="'description'"
-                :inputName="'description'"
-                :inputFieldClass="'block w-full mt-1'"
-                :inputValue="bookForm.form.abstract"
-                @changeValue="onChangeAbstract"
-              ></TextArea>
-            </label>
-            <label class="block" for="price">
-              <span class="text-gray-700">Price</span>
-              <InputField
-                :inputId="'price'"
-                :className="''"
-                :inputValue="bookForm.form.price"
-                :inputFieldClass="'block w-full mt-1'"
-                :inputType="'number'"
-                :step="0.1"
-                :min="0"
-                :max="1000"
-                @changeValue="onChangePrice"
-              ></InputField>
-            </label>
-          </div>
-          <div class="grid grid-cols-2 gap-6">
             <label class="block" for="publisher">
               <span class="text-gray-700">Publisher</span>
               <DropdownMenu
@@ -55,6 +29,21 @@
               >
               </DropdownMenu>
             </label>
+            <label class="block" for="price">
+              <span class="text-gray-700">Price</span>
+              <InputField
+                :inputId="'price'"
+                :className="''"
+                :inputValue="bookForm.form.price"
+                :inputFieldClass="'block w-full mt-1'"
+                :inputType="'number'"
+                :placeholder="'Price (USD)'"
+                :step="0.1"
+                :min="0"
+                :max="1000"
+                @changeValue="onChangePrice"
+              ></InputField>
+            </label>
             <label class="block" for="authors">
               <span class="text-gray-700">Authors</span>
               <MultiSelectDropdown
@@ -63,6 +52,20 @@
                 @selectedItems="onChangeAuthors"
               >
               </MultiSelectDropdown>
+            </label>
+          </div>
+          <div class="grid grid-cols-1 gap-6">
+            <label class="block" for="abstract">
+              <span class="text-gray-700">Abstract</span>
+              <TextArea
+                :inputId="'description'"
+                :inputName="'description'"
+                :inputFieldClass="'block w-full mt-1'"
+                :inputValue="bookForm.form.abstract"
+                :placeholder="'Description'"
+                :rows="'5'"
+                @changeValue="onChangeAbstract"
+              ></TextArea>
             </label>
           </div>
         </div>
