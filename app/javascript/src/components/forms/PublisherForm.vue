@@ -5,7 +5,11 @@
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
-            <LabelWrapper :forAttribute="'name'" :textClass="'text-gray-700'" :labelText="'Name'">
+            <LabelWrapper
+              :forAttribute="'name'"
+              :textClass="'text-gray-700'"
+              :labelText="'Name'"
+            >
               <InputField
                 :inputId="'name'"
                 :className="''"
@@ -19,7 +23,11 @@
                 @changeValue="onChangeName"
               ></InputField>
             </LabelWrapper>
-            <LabelWrapper :forAttribute="'description'" :textClass="'text-gray-700'" :labelText="'Description'">
+            <LabelWrapper
+              :forAttribute="'description'"
+              :textClass="'text-gray-700'"
+              :labelText="'Description'"
+            >
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
@@ -51,14 +59,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, readonly } from "vue";
+import { onMounted } from "vue";
 import { usePublisherForm } from "@/hooks/usePublisherForm";
 import { useModalStore } from "@/store/modal";
-import {
-  fetchRecordById,
-  updateRecordById,
-  createRecord,
-} from "@/services/CRUDServices";
+import { updateRecordById, createRecord } from "@/services/CRUDServices";
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
 import { useRouter } from "vue-router";
 
@@ -71,29 +75,10 @@ import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
 
-const { errors, publisherForm } = usePublisherForm();
+const { errors, publisherForm, fetchById } = usePublisherForm();
 const modalStore = useModalStore();
 
 const router = useRouter();
-
-const fetchById = async (id: number) => {
-  publisherForm.isLoading = true;
-  try {
-    const response = await fetchRecordById(id, "publisher");
-    publisherForm.form.name = response.data.name;
-    publisherForm.form.description = response.data.description;
-  } catch (error: any) {
-    errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-    });
-  } finally {
-    publisherForm.isLoading = false;
-  }
-};
 
 const onChangeForm = (payload) => {
   publisherForm.isFormChanged = payload;

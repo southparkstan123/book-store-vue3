@@ -5,7 +5,11 @@
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-2 gap-6">
-            <LabelWrapper :forAttribute="'name'" :textClass="'text-gray-700'" :labelText="'Name'">
+            <LabelWrapper
+              :forAttribute="'name'"
+              :textClass="'text-gray-700'"
+              :labelText="'Name'"
+            >
               <InputField
                 :inputId="'name'"
                 :className="''"
@@ -19,29 +23,41 @@
                 :max="undefined"
               ></InputField>
             </LabelWrapper>
-            <LabelWrapper :forAttribute="'publisher'" :textClass="'text-gray-700'" :labelText="'Publisher'">
+            <LabelWrapper
+              :forAttribute="'publisher'"
+              :textClass="'text-gray-700'"
+              :labelText="'Publisher'"
+            >
               <DropdownMenu
-                  :data="publishers"
-                  :selectedItem="bookForm.form.publisher_id"
-                  @selectedItem="onChangePublisher"
-                >
-                </DropdownMenu>
+                :data="publishers"
+                :selectedItem="bookForm.form.publisher_id"
+                @selectedItem="onChangePublisher"
+              >
+              </DropdownMenu>
             </LabelWrapper>
-            <LabelWrapper :forAttribute="'price'" :textClass="'text-gray-700'" :labelText="'Price'">
+            <LabelWrapper
+              :forAttribute="'price'"
+              :textClass="'text-gray-700'"
+              :labelText="'Price'"
+            >
               <InputField
-                  :inputId="'price'"
-                  :className="''"
-                  :inputValue="bookForm.form.price"
-                  :inputFieldClass="'block w-full mt-1'"
-                  :inputType="'number'"
-                  :placeholder="'Price (USD)'"
-                  :step="0.1"
-                  :min="0"
-                  :max="1000"
-                  @changeValue="onChangePrice"
-                ></InputField>
+                :inputId="'price'"
+                :className="''"
+                :inputValue="bookForm.form.price"
+                :inputFieldClass="'block w-full mt-1'"
+                :inputType="'number'"
+                :placeholder="'Price (USD)'"
+                :step="0.1"
+                :min="0"
+                :max="1000"
+                @changeValue="onChangePrice"
+              ></InputField>
             </LabelWrapper>
-            <LabelWrapper :forAttribute="'authors'" :textClass="'text-gray-700'" :labelText="'Authors'">
+            <LabelWrapper
+              :forAttribute="'authors'"
+              :textClass="'text-gray-700'"
+              :labelText="'Authors'"
+            >
               <MultiSelectDropdown
                 :data="authors"
                 :selectedItems="bookForm.form.author_ids"
@@ -51,7 +67,11 @@
             </LabelWrapper>
           </div>
           <div class="grid grid-cols-1 gap-6">
-            <LabelWrapper :forAttribute="'abstract'" :textClass="'text-gray-700'" :labelText="'Abstract'">
+            <LabelWrapper
+              :forAttribute="'abstract'"
+              :textClass="'text-gray-700'"
+              :labelText="'Abstract'"
+            >
               <TextArea
                 :inputId="'abstract'"
                 :inputName="'abstract'"
@@ -83,22 +103,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useBookForm } from "@/hooks/useBookForm";
 import { useModalStore } from "@/store/modal";
+import { useRouter } from "vue-router";
 
 import DropdownMenu from "@/components/dropdowns/DropdownMenu.vue";
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
 
-import {
-  fetchRecordById,
-  updateRecordById,
-  createRecord,
-  getNameOfAuthors,
-  getNameOfPublishers,
-} from "@/services/CRUDServices";
+import { updateRecordById, createRecord } from "@/services/CRUDServices";
+
 import MultiSelectDropdown from "@/components/dropdowns/MultiSelectDropdown.vue";
-import { useRouter } from "vue-router";
 
 // Inputs
 import InputField from "@/components/inputs/InputField.vue";
@@ -109,61 +124,11 @@ import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
 
-const { errors, bookForm } = useBookForm();
 const modalStore = useModalStore();
-
-// For Dropdowns
-const authors = ref([]);
-const publishers = ref([]);
-
 const router = useRouter();
 
-const fetchById = async (id: number) => {
-  bookForm.isLoading = true;
-  try {
-    const bookAPI = await fetchRecordById(id, "book");
-
-    bookForm.form.name = bookAPI.data.name;
-    bookForm.form.price = bookAPI.data.price;
-    bookForm.form.abstract = bookAPI.data.abstract;
-    bookForm.form.publisher_id = bookAPI.data.publisher.id;
-    bookForm.form.author_ids = bookAPI.data.authors.map((e) => e.id);
-  } catch (error: any) {
-    errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-    });
-  } finally {
-    bookForm.isLoading = false;
-  }
-};
-
-const fetchForDropdowns = async () => {
-  try {
-    const authorsAPI = await getNameOfAuthors();
-    const publishersAPI = await getNameOfPublishers();
-    const response = await Promise.all([authorsAPI, publishersAPI]);
-
-    authors.value = response[0].data;
-    publishers.value = response[1].data;
-  } catch (error: any) {
-    errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-    });
-  }
-};
-
-const onChangeForm = (payload) => {
-  bookForm.isFormChanged = payload;
-  emit("formChanged", payload);
-};
+const { errors, bookForm, fetchById, authors, publishers, fetchForDropdowns } =
+  useBookForm();
 
 const onChangeName = (payload) => {
   bookForm.form.name = payload;
@@ -188,6 +153,11 @@ const onChangePublisher = (payload) => {
 const onChangeAuthors = (payload) => {
   bookForm.form.author_ids = payload;
   onChangeForm(true);
+};
+
+const onChangeForm = (payload) => {
+  bookForm.isFormChanged = payload;
+  emit("formChanged", payload);
 };
 
 const onSubmit = async () => {

@@ -5,8 +5,11 @@
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
-
-            <LabelWrapper :forAttribute="'name'" :textClass="'text-gray-700'" :labelText="'Name'">
+            <LabelWrapper
+              :forAttribute="'name'"
+              :textClass="'text-gray-700'"
+              :labelText="'Name'"
+            >
               <InputField
                 :inputId="'name'"
                 :className="''"
@@ -20,7 +23,11 @@
                 :max="undefined"
               ></InputField>
             </LabelWrapper>
-            <LabelWrapper :forAttribute="'description'" :textClass="'text-gray-700'" :labelText="'Description'">
+            <LabelWrapper
+              :forAttribute="'description'"
+              :textClass="'text-gray-700'"
+              :labelText="'Description'"
+            >
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
@@ -55,11 +62,7 @@
 import { onMounted } from "vue";
 import { useAuthorForm } from "@/hooks/useAuthorForm";
 import { useModalStore } from "@/store/modal";
-import {
-  fetchRecordById,
-  updateRecordById,
-  createRecord,
-} from "@/services/CRUDServices";
+import { updateRecordById, createRecord } from "@/services/CRUDServices";
 import { useRouter } from "vue-router";
 
 // Inputs
@@ -72,29 +75,10 @@ import ErrorFeedback from "@/components/ErrorFeedback.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
-const { errors, authorForm } = useAuthorForm();
+const { errors, authorForm, fetchById } = useAuthorForm();
 const modalStore = useModalStore();
 
 const router = useRouter();
-
-const fetchById = async (id: number) => {
-  authorForm.isLoading = true;
-  try {
-    const response = await fetchRecordById(id, "author");
-    authorForm.form.name = response.data.name;
-    authorForm.form.description = response.data.description;
-  } catch (error: any) {
-    errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-    });
-  } finally {
-    authorForm.isLoading = false;
-  }
-};
 
 const onChangeName = (payload) => {
   authorForm.form.name = payload;
