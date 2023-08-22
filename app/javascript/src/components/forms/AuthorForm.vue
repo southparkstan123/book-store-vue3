@@ -5,8 +5,8 @@
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
-            <label class="block" for="name">
-              <span class="text-gray-700">Name</span>
+
+            <LabelWrapper :forAttribute="'name'" :textClass="'text-gray-700'" :labelText="'Name'">
               <InputField
                 :inputId="'name'"
                 :className="''"
@@ -19,9 +19,8 @@
                 :min="undefined"
                 :max="undefined"
               ></InputField>
-            </label>
-            <label class="block" for="description">
-              <span class="text-gray-700">Description</span>
+            </LabelWrapper>
+            <LabelWrapper :forAttribute="'description'" :textClass="'text-gray-700'" :labelText="'Description'">
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
@@ -31,7 +30,7 @@
                 :rows="'5'"
                 @changeValue="onChangeDescription"
               ></TextArea>
-            </label>
+            </LabelWrapper>
           </div>
         </div>
         <div class="block">
@@ -67,6 +66,7 @@ import { useRouter } from "vue-router";
 import InputField from "@/components/inputs/InputField.vue";
 import TextArea from "@/components/inputs/TextArea.vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
+import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
 

@@ -5,8 +5,7 @@
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-2 gap-6">
-            <label class="block" for="name">
-              <span class="text-gray-700">Name</span>
+            <LabelWrapper :forAttribute="'name'" :textClass="'text-gray-700'" :labelText="'Name'">
               <InputField
                 :inputId="'name'"
                 :className="''"
@@ -19,54 +18,50 @@
                 :min="undefined"
                 :max="undefined"
               ></InputField>
-            </label>
-            <label class="block" for="publisher">
-              <span class="text-gray-700">Publisher</span>
+            </LabelWrapper>
+            <LabelWrapper :forAttribute="'publisher'" :textClass="'text-gray-700'" :labelText="'Publisher'">
               <DropdownMenu
-                :data="publishers"
-                :selectedItem="bookForm.form.publisher_id"
-                @selectedItem="onChangePublisher"
-              >
-              </DropdownMenu>
-            </label>
-            <label class="block" for="price">
-              <span class="text-gray-700">Price</span>
+                  :data="publishers"
+                  :selectedItem="bookForm.form.publisher_id"
+                  @selectedItem="onChangePublisher"
+                >
+                </DropdownMenu>
+            </LabelWrapper>
+            <LabelWrapper :forAttribute="'price'" :textClass="'text-gray-700'" :labelText="'Price'">
               <InputField
-                :inputId="'price'"
-                :className="''"
-                :inputValue="bookForm.form.price"
-                :inputFieldClass="'block w-full mt-1'"
-                :inputType="'number'"
-                :placeholder="'Price (USD)'"
-                :step="0.1"
-                :min="0"
-                :max="1000"
-                @changeValue="onChangePrice"
-              ></InputField>
-            </label>
-            <label class="block" for="authors">
-              <span class="text-gray-700">Authors</span>
+                  :inputId="'price'"
+                  :className="''"
+                  :inputValue="bookForm.form.price"
+                  :inputFieldClass="'block w-full mt-1'"
+                  :inputType="'number'"
+                  :placeholder="'Price (USD)'"
+                  :step="0.1"
+                  :min="0"
+                  :max="1000"
+                  @changeValue="onChangePrice"
+                ></InputField>
+            </LabelWrapper>
+            <LabelWrapper :forAttribute="'authors'" :textClass="'text-gray-700'" :labelText="'Authors'">
               <MultiSelectDropdown
                 :data="authors"
                 :selectedItems="bookForm.form.author_ids"
                 @selectedItems="onChangeAuthors"
               >
               </MultiSelectDropdown>
-            </label>
+            </LabelWrapper>
           </div>
           <div class="grid grid-cols-1 gap-6">
-            <label class="block" for="abstract">
-              <span class="text-gray-700">Abstract</span>
+            <LabelWrapper :forAttribute="'abstract'" :textClass="'text-gray-700'" :labelText="'Abstract'">
               <TextArea
-                :inputId="'description'"
-                :inputName="'description'"
+                :inputId="'abstract'"
+                :inputName="'abstract'"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputValue="bookForm.form.abstract"
-                :placeholder="'Description'"
+                :placeholder="'Abstract'"
                 :rows="'5'"
                 @changeValue="onChangeAbstract"
               ></TextArea>
-            </label>
+            </LabelWrapper>
           </div>
         </div>
         <div class="block">
@@ -109,6 +104,7 @@ import { useRouter } from "vue-router";
 import InputField from "@/components/inputs/InputField.vue";
 import TextArea from "@/components/inputs/TextArea.vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
+import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
