@@ -8,7 +8,7 @@ export const useBookForm = () => {
     form: {
       name: "",
       abstract: "",
-      price: null,
+      price: 0,
       publisher_id: null,
       author_ids: [],
     },

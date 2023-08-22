@@ -20,7 +20,7 @@ export type InputFieldProps = {
   inputName: string;
   isRequired: boolean;
   placeholder: string;
-  inputValue: string | number | null;
+  inputValue: string | number | string[];
   inputFieldClass: string;
   isDisabled: boolean;
 };
@@ -84,7 +84,7 @@ export type AuthorFormState = {
 export type BookForm = {
   name: string;
   abstract: string;
-  price: number | null;
+  price: number;
   publisher_id: number | null;
   author_ids: Array<number>;
 };
