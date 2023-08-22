@@ -1,5 +1,5 @@
 import { createApp, defineComponent } from "vue";
-import App from "@/components/App.vue";
+import App from "@/App.vue";
 
 // router
 import { createRouter, createWebHistory } from "vue-router";
