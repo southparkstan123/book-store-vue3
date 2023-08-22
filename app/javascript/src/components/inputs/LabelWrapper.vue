@@ -7,12 +7,10 @@
 
 <script setup lang="ts">
 defineProps<{
-  labelText: string, 
-  textClass: string, 
-  forAttribute: string
-}>()
+  labelText: string;
+  textClass: string;
+  forAttribute: string;
+}>();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
