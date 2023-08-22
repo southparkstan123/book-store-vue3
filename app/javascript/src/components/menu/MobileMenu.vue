@@ -14,6 +14,7 @@
 
           <template #body-content>
             <div class="body">
+              <slot name="brand"></slot>
               <slot name="body-content"></slot>
             </div>
           </template>

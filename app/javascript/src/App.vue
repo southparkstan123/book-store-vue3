@@ -55,10 +55,12 @@
       :backgroundColor="backgroundColor"
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
+      <template #brand>
+        <router-link class="cursor-pointer link text-yellow-500" to="/">
+          Book Store
+        </router-link>
+      </template>
       <template #body-content>
-        <router-link class="cursor-pointer link text-lime-500" to="/"
-          >Main</router-link
-        >
         <router-link class="cursor-pointer link text-lime-500" to="/book/list"
           >Book</router-link
         >

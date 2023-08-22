@@ -20,6 +20,9 @@
       :backgroundColor="backgroundColor"
       :width="mobileMenuWidth"
     >
+      <template #brand>
+        <slot name="brand"></slot>
+      </template>
       <template #body-content>
         <slot name="body-content"></slot>
       </template>

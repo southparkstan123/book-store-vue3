@@ -2,6 +2,7 @@
   <div class="content">
     <slot name="button"></slot>
     <div class="items">
+      <slot name="brand"></slot>
       <slot name="body-content"></slot>
     </div>
     <div class="items">

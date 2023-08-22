@@ -1,9 +1,7 @@
 <template>
   <nav :style="{ 'background-color': backgroundColor }">
     <div class="body">
-      <div class="brand">
-        <slot name="brand"></slot>
-      </div>
+      <slot name="brand"></slot>
       <slot name="body-content"></slot>
     </div>
     <div class="footer">
