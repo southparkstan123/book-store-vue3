@@ -21,7 +21,7 @@ export default defineComponent({});
   height: 100vh;
   width: 100%;
   .items {
-    :deep(a) {
+    :deep(*) {
       display: block;
       text-decoration: none;
       text-align: center;
