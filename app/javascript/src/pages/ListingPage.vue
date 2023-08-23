@@ -1,13 +1,12 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center">
+  <div
+    v-on-change-table-view="{ breakpoint: 1024, action: toogleDisplayView }"
+    class="min-h-screen flex items-center justify-center"
+  >
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading" class="overflow-x-auto my-12">
+      <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
-          <TableComponent
-            :data="data"
-            :fields="fields"
-            :style="`width: 1280px;`"
-          >
+          <component :is="displayComponent" :data="data" :fields="fields">
             <template #search-bar>
               <InputField
                 v-if="category === 'book'"
@@ -53,6 +52,7 @@
             <template #books="{ item }">
               <EllipsisInTable :data="item.books" />
             </template>
+
             <template #addition-header>
               <th>Actions</th>
             </template>
@@ -61,7 +61,7 @@
                 @buttonClicked="action('edit', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-green-500 py-2 px-4'"
+                :backgroundClass="'bg-green-500 py-2 px-4 mx-1'"
                 :isDisable="false"
               >
                 <template #text> Edit </template>
@@ -70,7 +70,7 @@
                 @buttonClicked="action('delete', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-red-500 py-2 px-4'"
+                :backgroundClass="'bg-red-500 py-2 px-4  mx-1'"
                 :isDisable="false"
               >
                 <template #text> Delete </template>
@@ -90,7 +90,7 @@
               >
               </PaginationComponent>
             </template>
-          </TableComponent>
+          </component>
         </div>
         <div v-else>
           <div class="text-center">
@@ -106,18 +106,25 @@
 </template>
 
 <script setup lang="ts">
-import type { TableItem, TableField, ModuleType } from "@/types/types";
-type ActionType = "view" | "edit" | "delete";
-
-import type { Pagination } from "@/types/types";
+import type {
+  ActionType,
+  TableItem,
+  TableField,
+  ModuleType,
+  Pagination,
+} from "@/types/types";
 
 import debounce from "lodash.debounce";
-
-import { onMounted, ref, computed, watch } from "vue";
-import TableComponent from "@/components/table/TableComponent.vue";
-import EllipsisInTable from "@/components/table/EllipsisInTable.vue";
-import { useRoute, useRouter } from "vue-router";
 import moment from "moment";
+import { onMounted, ref, computed, watch } from "vue";
+
+// Views
+import TableComponent from "@/components/table/TableComponent.vue";
+import StackComponent from "@/components/table/StackComponent.vue";
+import EllipsisInTable from "@/components/table/EllipsisInTable.vue";
+
+import { useRoute, useRouter } from "vue-router";
+
 import { useModalStore } from "@/store/modal";
 import {
   deleteRecordById,
@@ -131,9 +138,28 @@ import InputField from "@/components/inputs/InputField.vue";
 const router = useRouter();
 const route = useRoute();
 const modalStore = useModalStore();
+const windowWidth = ref<number>(0);
 
 const keyword = ref<string>("");
+
+const isMobileView = ref<boolean>(false);
+
 const props = defineProps<{ category: ModuleType }>();
+
+const displayComponent = computed(() => {
+  switch (isMobileView.value) {
+    case false:
+      return TableComponent;
+    default:
+      return StackComponent;
+  }
+});
+
+const toogleDisplayView = (payload) => {
+  windowWidth.value = payload.windowWidth;
+  isMobileView.value = payload.isMobileView;
+};
+
 const data = ref<TableItem[]>([]);
 const pagination = ref<Pagination>({
   currentPage: 1,
@@ -145,6 +171,7 @@ const pagination = ref<Pagination>({
 const changeCurrentPage = (payload) => {
   pagination.value.currentPage = payload;
 };
+
 const fields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
   const defaultFields = [
@@ -279,6 +306,7 @@ watch(
   () => route.params,
   () => {
     isLoading.value = true;
+    keyword.value = "";
   },
 );
 </script>

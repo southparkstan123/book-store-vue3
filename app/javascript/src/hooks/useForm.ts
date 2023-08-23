@@ -10,6 +10,6 @@ export const useForm = () => {
   const errors = ref<any>([]);
 
   return {
-    errors
+    errors,
   };
 };

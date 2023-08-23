@@ -42,50 +42,29 @@
   <div style="text-align: center" v-else>No Data</div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, type PropType } from "vue";
+<script setup lang="ts">
 import type { TableItem, TableField } from "@/types/types";
+import { useList } from "@/hooks/useList";
 
-export default defineComponent({
-  props: {
-    data: {
-      type: Array as PropType<TableItem[]>,
-      default: () => [],
-    },
-    fields: {
-      type: Array as PropType<TableField[]>,
-    },
-  },
-  setup(props) {
-    const displayedfields = computed(() => {
-      const result =
-        props.fields !== undefined
-          ? Object.entries(props.fields).map(([_key, value]) => value.key)
-          : Object.entries(props.data[0]).map(([_key]) => _key);
+type DataProps = {
+  data: TableItem[] | undefined;
+  fields: TableField[] | undefined;
+};
 
-      return result;
-    });
-
-    const displayedRecords = computed(() => {
-      const result = props.data.filter((item) =>
-        displayedfields.value.map((field) => item.hasOwnProperty(field)),
-      );
-
-      return result;
-    });
-
-    return {
-      displayedfields,
-      displayedRecords,
-    };
-  },
+const props = withDefaults(defineProps<DataProps>(), {
+  data: undefined,
+  fields: undefined,
 });
+
+const { displayedfields, displayedRecords } = useList(props);
 </script>
 
 <style lang="scss" scoped>
 table {
   margin-left: auto;
   margin-right: auto;
+  overflow-x: scroll;
+  min-width: 1024px;
 
   th,
   td {

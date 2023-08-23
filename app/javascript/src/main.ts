@@ -20,5 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
   guardedRouter(router);
   app.use(router);
   app.use(store);
+  app.directive("on-change-table-view", (el, binding) => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        const windowWidth = entry.contentRect.width;
+        const isMobileView = entry.contentRect.width < binding.value.breakpoint;
+        binding.value.action({ isMobileView, windowWidth });
+      });
+    });
+    resizeObserver.observe(document.body);
+  });
   app.mount("#app");
 });
