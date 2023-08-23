@@ -143,3 +143,5 @@ export type Pagination = {
   count: number;
   perPage: number;
 };
+
+export type ActionType = "view" | "edit" | "delete";
