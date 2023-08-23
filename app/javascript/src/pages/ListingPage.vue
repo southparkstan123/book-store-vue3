@@ -31,6 +31,9 @@
                 <template #text> Add {{ category }} </template>
               </ButtonComponent>
             </template>
+            <template #price="{ item }">
+              {{ '$' + item.price }}
+            </template>
             <template #creator="{ item }">
               {{ item.creator.username }}
             </template>
