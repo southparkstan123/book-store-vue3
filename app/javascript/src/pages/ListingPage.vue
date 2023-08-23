@@ -173,6 +173,10 @@ const pagination = ref<Pagination>({
 });
 const changeCurrentPage = (payload) => {
   pagination.value.currentPage = payload;
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 };
 
 const fields = computed<TableField[] | undefined>(() => {
