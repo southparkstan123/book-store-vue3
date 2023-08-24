@@ -64,7 +64,7 @@
                 @buttonClicked="action('edit', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-green-500 py-2 px-4 mx-1'"
+                :backgroundClass="'bg-green-500 py-2 px-4'"
                 :isDisable="false"
               >
                 <template #text> Edit </template>
@@ -73,7 +73,7 @@
                 @buttonClicked="action('delete', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-red-500 py-2 px-4  mx-1'"
+                :backgroundClass="'bg-red-500 py-2 px-4 '"
                 :isDisable="false"
               >
                 <template #text> Delete </template>
