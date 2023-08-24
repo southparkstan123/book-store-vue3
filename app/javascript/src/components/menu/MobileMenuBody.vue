@@ -11,9 +11,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({});
+<script setup lang="ts">
 </script>
 
 <style scoped lang="scss">
@@ -21,7 +19,7 @@ export default defineComponent({});
   height: 100vh;
   width: 100%;
   .items {
-    :deep(*) {
+    :deep(a) {
       display: block;
       text-decoration: none;
       text-align: center;

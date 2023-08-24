@@ -4,20 +4,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  setup(props, context) {
-    const close = () => {
-      context.emit("closeMenu");
-    };
-
-    return {
-      close,
-    };
-  },
-});
+<script setup lang="ts">
+const emits = defineEmits<{e; "closeMenu"}>()
+const close = () => emits("closeMenu");
 </script>
 
 <style scoped>
