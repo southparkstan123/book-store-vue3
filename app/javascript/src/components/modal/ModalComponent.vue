@@ -35,41 +35,13 @@
   </Transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { useModalStore } from "@/store/modal";
+<script setup lang="ts">
 import type { ModalType } from "@/types/types";
 
-export default defineComponent({
-  props: {
-    type: {
-      type: String,
-      default: "alert",
-      validator: (type: ModalType): boolean =>
-        ["alert", "confirm", "form"].includes(type),
-    },
-    showModalContent: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    const close = () => {
-      emit("closeMenu");
-    };
-
-    const confirm = () => {
-      const modalStore = useModalStore();
-
-      modalStore.confirm();
-    };
-
-    return {
-      close,
-      confirm,
-    };
-  },
-});
+const props = withDefaults(defineProps<{type: ModalType, showModalContent: boolean}>(), {
+  type: "alert",
+  showModalContent: false
+})
 </script>
 
 <style scoped lang="scss">
