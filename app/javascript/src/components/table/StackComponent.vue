@@ -68,7 +68,7 @@ table {
     tr {
       td {
         display: grid;
-        grid-template-columns: 40% auto;
+        grid-template-columns: 30% auto;
         grid-gap: 0.25rem 1rem;
         border-bottom: dotted 1px #303030;
 
