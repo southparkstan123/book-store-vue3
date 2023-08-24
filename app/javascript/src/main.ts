@@ -30,5 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     resizeObserver.observe(document.body);
   });
+
+  app.config.warnHandler = (msg, vm, trace) => null
+
   app.mount("#app");
 });
