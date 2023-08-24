@@ -1,6 +1,6 @@
 import { reactive, ref } from "vue";
 import { useForm } from "@/hooks/useForm";
-import { PublisherFormState } from "@/types/types";
+import type { PublisherFormState } from "@/types/types";
 import { useModalStore } from "@/store/modal";
 import { useRouter } from "vue-router";
 import { fetchRecordById } from "@/services/CRUDServices";
