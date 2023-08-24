@@ -6,7 +6,7 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
-          <component :is="displayComponent" :data="data" :fields="fields">
+          <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.8}px`">
             <template #search-bar>
               <InputField
                 v-if="category === 'book'"
