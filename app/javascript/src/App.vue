@@ -25,7 +25,7 @@
             @buttonClicked="modalStore.confirm()"
             :buttonType="'button'"
             :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-red-500 py-2 px-4'"
+            :backgroundClass="'bg-pink-700 py-2 px-4'"
           >
             <template #text> OK </template>
           </ButtonComponent>
@@ -43,7 +43,7 @@
             @buttonClicked="modalStore.close()"
             :buttonType="'button'"
             :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-green-500 py-2 px-4'"
+            :backgroundClass="'bg-purple-500 py-2 px-4'"
           >
             <template #text> OK </template>
           </ButtonComponent>
@@ -56,20 +56,20 @@
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
       <template #brand>
-        <router-link class="cursor-pointer link text-yellow-500" to="/">
+        <router-link class="cursor-pointer link text-pink-500" to="/">
           Book Store
         </router-link>
       </template>
       <template #body-content>
-        <router-link class="cursor-pointer link text-lime-500" to="/book/list"
+        <router-link class="cursor-pointer link text-pink-300" to="/book/list"
           >Book</router-link
         >
         <router-link
-          class="cursor-pointer link text-lime-500"
+          class="cursor-pointer link text-pink-300"
           to="/publisher/list"
           >Publisher</router-link
         >
-        <router-link class="cursor-pointer link text-lime-500" to="/author/list"
+        <router-link class="cursor-pointer link text-pink-300" to="/author/list"
           >Author</router-link
         >
       </template>
@@ -88,7 +88,7 @@
             y1="15"
             x2="40"
             y2="15"
-            stroke="lime"
+            stroke="purple"
             stroke-width="3"
           />
           <line
@@ -96,7 +96,7 @@
             y1="25"
             x2="40"
             y2="25"
-            stroke="lime"
+            stroke="purple"
             stroke-width="3"
           />
           <line
@@ -104,7 +104,7 @@
             y1="35"
             x2="40"
             y2="35"
-            stroke="lime"
+            stroke="purple"
             stroke-width="3"
           />
         </svg>
@@ -117,7 +117,7 @@
             y1="40"
             x2="40"
             y2="10"
-            stroke="lime"
+            stroke="pink"
             stroke-width="3"
           />
           <line
@@ -125,7 +125,7 @@
             y1="10"
             x2="40"
             y2="40"
-            stroke="lime"
+            stroke="pink"
             stroke-width="3"
           />
         </svg>

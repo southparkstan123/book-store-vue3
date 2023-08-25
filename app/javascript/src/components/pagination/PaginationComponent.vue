@@ -47,13 +47,13 @@ const next = computed<number | null>(() =>
     padding: 2px;
     width: 30px;
     height: 30px;
-    background-color: gray;
+    background-color: rgb(116, 92, 131);
     align-items: center;
     justify-content: center;
     margin: 3px 0px;
     cursor: pointer;
     &.active {
-      background-color: lime;
+      background-color: rgb(210, 7, 203);
     }
 
     &:hover {

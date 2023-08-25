@@ -78,7 +78,7 @@ table {
           text-align: right;
           overflow-wrap: break-word;
           font-weight: 700;
-          color: green;
+          color: purple;
         }
 
         *::after,

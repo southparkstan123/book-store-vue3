@@ -54,7 +54,7 @@
         <ButtonComponent
           :buttonType="'submit'"
           :textClass="'text-sm font-medium'"
-          :backgroundClass="'group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
+          :backgroundClass="'group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-pink-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
         >
           <template #text> Register </template>
         </ButtonComponent>
@@ -63,7 +63,7 @@
         <ButtonComponent
           @buttonClicked="toLoginPage"
           :buttonType="'button'"
-          :textClass="'text-sm text-blue-500'"
+          :textClass="'text-sm text-purple-500'"
           :backgroundClass="' focus:outline-none'"
         >
           <template #text> Login page </template>

@@ -26,7 +26,7 @@
                 @buttonClicked="toAddPage"
                 :buttonType="'button'"
                 :textClass="'float-left text-sm text-white'"
-                :backgroundClass="'bg-blue-700 py-3 px-4'"
+                :backgroundClass="'bg-pink-500 py-3 px-4'"
               >
                 <template #text> Add {{ category }} </template>
               </ButtonComponent>
@@ -64,7 +64,7 @@
                 @buttonClicked="action('edit', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-green-500 py-2 px-4'"
+                :backgroundClass="'bg-purple-400 py-2 px-4'"
                 :isDisable="false"
               >
                 <template #text> Edit </template>
@@ -73,7 +73,7 @@
                 @buttonClicked="action('delete', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-red-500 py-2 px-4 '"
+                :backgroundClass="'bg-pink-400 py-2 px-4 '"
                 :isDisable="false"
               >
                 <template #text> Delete </template>
@@ -97,12 +97,12 @@
         </div>
         <div v-else>
           <div class="text-center">
-            <h1 class="text-2xl text-red-500">Oops! Error occurs.</h1>
+            <h1 class="text-2xl text-purple-500">Oops! Error occurs.</h1>
           </div>
         </div>
       </div>
       <div v-else>
-        <h1 class="text-center text-2xl text-red-500">Loading...</h1>
+        <h1 class="text-center text-2xl text-purple-500">Loading...</h1>
       </div>
     </Transition>
   </div>

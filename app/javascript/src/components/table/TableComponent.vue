@@ -80,7 +80,7 @@ table {
 
     :deep(th) {
       background-color: #aaa;
-      color: green;
+      color: purple;
     }
   }
 
