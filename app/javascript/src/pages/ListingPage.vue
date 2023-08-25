@@ -1,6 +1,6 @@
 <template>
   <div
-    v-on-change-table-view="{ breakpoint: 1024, action: toogleDisplayView }"
+    v-change-table-view="{ breakpoint: 1024, action: toogleDisplayView }"
     class="min-h-screen flex items-center justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
@@ -316,6 +316,19 @@ watch(
     keyword.value = "";
   },
 );
+
+const vChangeTableView = (el, binding) => {
+  const { action, breakpoint } = binding.value;
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const windowWidth = entry.contentRect.width;
+      const isMobileView = entry.contentRect.width < breakpoint;
+      action({ isMobileView, windowWidth });
+    });
+  });
+  resizeObserver.observe(document.body);
+}
+
 </script>
 
 <style lang="scss" scoped>
