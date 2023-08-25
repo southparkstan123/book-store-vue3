@@ -48,6 +48,7 @@ const next = computed<number | null>(() =>
     width: 30px;
     height: 30px;
     background-color: rgb(116, 92, 131);
+    color: white;
     align-items: center;
     justify-content: center;
     margin: 3px 0px;
@@ -57,7 +58,7 @@ const next = computed<number | null>(() =>
     }
 
     &:hover {
-      background-color: #eee;
+      background-color: #777;
     }
   }
 }
