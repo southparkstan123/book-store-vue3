@@ -5,7 +5,13 @@
         :is="formComponent"
         :id="id"
         @formChanged="formChanged"
-      ></component>
+      >
+        <template #back>
+          <router-link class="cursor-pointer link text-red-500" :to="`/${module}/list`">
+            Back to Listing page
+          </router-link>
+        </template>
+      </component>
     </Transition>
   </div>
 </template>
