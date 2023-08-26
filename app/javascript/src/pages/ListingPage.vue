@@ -48,14 +48,14 @@
             </template>
             <template #created_at="{ item }">
               <TooltipComponent 
-                :position="'top'" 
+                :position="!isMobileView ? 'top': 'right'" 
                 :dataTip="moment(item.created_at).format('lll')"
                 :content="moment(item.created_at).fromNow()">
               </TooltipComponent>
             </template>
             <template #updated_at="{ item }">
               <TooltipComponent 
-                :position="'top'" 
+                :position="!isMobileView ? 'top': 'right'" 
                 :dataTip="moment(item.updated_at).format('lll')"
                 :content="moment(item.updated_at).fromNow()">
               </TooltipComponent>
