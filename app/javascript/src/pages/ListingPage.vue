@@ -47,10 +47,14 @@
               <EllipsisInTable :data="item.authors" />
             </template>
             <template #created_at="{ item }">
-              {{ moment(item.created_at).format("lll") }}
+              <TooltipComponent :position="'top'" :content="moment(item.created_at).format('lll')">
+                {{ moment(item.created_at).fromNow() }}
+              </TooltipComponent>
             </template>
             <template #updated_at="{ item }">
-              {{ moment(item.updated_at).format("lll") }}
+              <TooltipComponent :position="'top'" :content="moment(item.updated_at).format('lll')">
+                {{ moment(item.updated_at).fromNow() }}
+              </TooltipComponent>
             </template>
             <template #books="{ item }">
               <EllipsisInTable :data="item.books" />
@@ -137,6 +141,8 @@ import {
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 import InputField from "@/components/inputs/InputField.vue";
+
+import TooltipComponent from "@/components/TooltipComponent.vue";
 
 const router = useRouter();
 const route = useRoute();
