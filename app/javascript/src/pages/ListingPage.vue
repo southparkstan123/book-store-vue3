@@ -22,14 +22,9 @@
                 @changeValue="searchKeyword"
               >
               </InputField>
-              <ButtonComponent
-                @buttonClicked="toAddPage"
-                :buttonType="'button'"
-                :textClass="'float-left text-sm text-white'"
-                :backgroundClass="'bg-pink-500 py-3 px-4'"
-              >
-                <template #text> Add {{ category }} </template>
-              </ButtonComponent>
+              <router-link :class="'float-left text-sm text-pink-500 pr-4 py-3'" :to="`/${category}/add`">
+                Add {{ category }}
+              </router-link>
             </template>
             <template #price="{ item }">
               {{ '$' + item.price }}
@@ -117,48 +112,50 @@
 </template>
 
 <script setup lang="ts">
+// Types
 import type {
   ActionType,
   TableItem,
   TableField,
   ModuleType,
-  Pagination,
 } from "@/types/types";
 
-import debounce from "lodash.debounce";
+// External imports
 import moment from "moment";
 import { onMounted, ref, computed, watch } from "vue";
-
-// Views
-import TableComponent from "@/components/table/TableComponent.vue";
-import StackComponent from "@/components/table/StackComponent.vue";
-import EllipsisInTable from "@/components/table/EllipsisInTable.vue";
-
-import { useRoute, useRouter } from "vue-router";
-
-import { useModalStore } from "@/store/modal";
 import {
   deleteRecordById,
   fetchRecords as _fetchRecords,
 } from "@/services/CRUDServices";
 
+// Views and Components
+import TableComponent from "@/components/table/TableComponent.vue";
+import StackComponent from "@/components/table/StackComponent.vue";
+import EllipsisInTable from "@/components/table/EllipsisInTable.vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 import InputField from "@/components/inputs/InputField.vue";
-
 import TooltipComponent from "@/components/TooltipComponent.vue";
 
-const router = useRouter();
-const route = useRoute();
-const modalStore = useModalStore();
-const windowWidth = ref<number>(0);
-
-const keyword = ref<string>("");
-
-const isMobileView = ref<boolean>(false);
-
+// Props
 const props = defineProps<{ category: ModuleType }>();
 
+// Router
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+const route = useRoute();
+
+// Store
+import { useModalStore } from "@/store/modal";
+const modalStore = useModalStore();
+
+// Search Keyword
+import { useSearch } from "@/hooks/useSearch";
+const { keyword, searchKeyword } = useSearch();
+
+// Display View control
+const windowWidth = ref<number>(0);
+const isMobileView = ref<boolean>(false);
 const displayComponent = computed(() => {
   switch (isMobileView.value) {
     case false:
@@ -167,28 +164,16 @@ const displayComponent = computed(() => {
       return StackComponent;
   }
 });
-
 const toogleDisplayView = (payload) => {
   windowWidth.value = payload.windowWidth;
   isMobileView.value = payload.isMobileView;
 };
 
-const data = ref<TableItem[]>([]);
-const pagination = ref<Pagination>({
-  currentPage: 1,
-  pages: 1,
-  total: 1,
-  count: 1,
-  perPage: 10,
-});
-const changeCurrentPage = (payload) => {
-  pagination.value.currentPage = payload;
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+// Pagination
+import { usePagination } from "@/hooks/usePagination";
+const { pagination, changeCurrentPage } = usePagination();
 
+// Custom fields
 const fields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
   const defaultFields = [
@@ -224,6 +209,8 @@ const fields = computed<TableField[] | undefined>(() => {
   }
 });
 
+// Data
+const data = ref<TableItem[]>([]);
 const fetchRecords = async (
   category: ModuleType,
   page: number,
@@ -254,6 +241,7 @@ const fetchRecords = async (
   }
 };
 
+// Actions
 const action = async (type: ActionType, id: number) => {
   try {
     if (type === "edit") {
@@ -276,10 +264,6 @@ const action = async (type: ActionType, id: number) => {
   }
 };
 
-const toAddPage = () => {
-  router.push({ path: `/${props.category}/add`, replace: true });
-};
-
 const isLoading = ref<boolean>(true);
 const isError = ref<boolean>(false);
 
@@ -291,10 +275,6 @@ onMounted(() => {
     keyword.value,
   );
 });
-
-const searchKeyword = debounce((payload) => {
-  keyword.value = payload;
-}, 2000);
 
 watch(
   [
