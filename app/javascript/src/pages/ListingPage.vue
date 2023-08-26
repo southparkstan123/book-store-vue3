@@ -47,13 +47,17 @@
               <EllipsisInTable :data="item.authors" />
             </template>
             <template #created_at="{ item }">
-              <TooltipComponent :position="'top'" :content="moment(item.created_at).format('lll')">
-                {{ moment(item.created_at).fromNow() }}
+              <TooltipComponent 
+                :position="'top'" 
+                :dataTip="moment(item.created_at).format('lll')"
+                :content="moment(item.created_at).fromNow()">
               </TooltipComponent>
             </template>
             <template #updated_at="{ item }">
-              <TooltipComponent :position="'top'" :content="moment(item.updated_at).format('lll')">
-                {{ moment(item.updated_at).fromNow() }}
+              <TooltipComponent 
+                :position="'top'" 
+                :dataTip="moment(item.updated_at).format('lll')"
+                :content="moment(item.updated_at).fromNow()">
               </TooltipComponent>
             </template>
             <template #books="{ item }">
