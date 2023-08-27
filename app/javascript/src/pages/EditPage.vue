@@ -7,7 +7,7 @@
         @formChanged="formChanged"
       >
         <template #back>
-          <router-link class="cursor-pointer link text-pink-500" :to="`/${module}/list`">
+          <router-link class="cursor-pointer link text-info" :to="`/${module}/list`">
             Back to Listing page
           </router-link>
         </template>

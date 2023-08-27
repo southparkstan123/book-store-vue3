@@ -2,12 +2,12 @@
   <div class="min-h-screen flex items-center justify-center">
     <div class="mx-auto">
       <ButtonComponent
-        @buttonClicked="openModal"
+        @buttonClicked="toggleMode"
         :buttonType="'button'"
         :textClass="'text-sm text-white'"
-        :backgroundClass="'bg-purple-400 py-2 px-4'"
+        :backgroundClass="'bg-info py-2 px-4'"
       >
-        <template #text> Open Modal </template>
+        <template #text> Change Mode </template>
       </ButtonComponent>
     </div>
   </div>
@@ -26,6 +26,20 @@ const openModal = () => {
     message: "Welcome to Book-store on Vue3! This is Main Page.",
   });
 };
+
+const toggleMode = () => {
+  let htmlElement = document.querySelector('html');
+  const mode = localStorage.getItem('mode');
+
+  if(mode !== null && mode === 'shoujyo'){
+    htmlElement?.classList.remove('shoujyo');
+    localStorage.removeItem('mode');
+  } else {
+    htmlElement?.classList.add('shoujyo');
+    localStorage.setItem('mode', 'shoujyo');
+  }
+}
+
 </script>
 
 <style scoped></style>

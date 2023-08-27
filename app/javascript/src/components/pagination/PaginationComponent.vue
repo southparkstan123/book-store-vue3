@@ -1,16 +1,16 @@
 <template>
   <div class="list">
-    <div v-if="prev !== null" class="item" @click="toPage(prev)">
+    <div v-if="prev !== null" :class="`item ${themeClass}`" @click="toPage(prev)">
       <slot name="prev">＜</slot>
     </div>
     <div
       v-for="(e, index) in pages"
-      :class="index + 1 === page ? 'item active' : 'item'"
+      :class="index + 1 === page ? `item ${themeClass} ${activeClass}` : `item ${themeClass}`"
       @click="toPage(index + 1)"
     >
       {{ index + 1 }}
     </div>
-    <div v-if="next !== null" class="item" @click="toPage(next)">
+    <div v-if="next !== null" :class="`item ${themeClass}`" @click="toPage(next)">
       <slot name="prev">＞</slot>
     </div>
   </div>
@@ -38,6 +38,15 @@ const prev = computed<number | null>(() =>
 const next = computed<number | null>(() =>
   props.page === props.pages ? null : props.page + 1,
 );
+
+const themeClass = computed(() => {
+  return 'text-table-footer-text bg-primary hover:bg-secondary'
+})
+
+const activeClass = computed(() => {
+  return 'text-gray bg-secondary hover:bg-primary'
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -47,19 +56,10 @@ const next = computed<number | null>(() =>
     padding: 2px;
     width: 30px;
     height: 30px;
-    background-color: rgb(116, 92, 131);
-    color: white;
     align-items: center;
     justify-content: center;
     margin: 3px 0px;
     cursor: pointer;
-    &.active {
-      background-color: rgb(210, 7, 203);
-    }
-
-    &:hover {
-      background-color: #777;
-    }
   }
 }
 </style>

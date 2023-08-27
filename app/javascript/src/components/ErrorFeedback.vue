@@ -1,5 +1,5 @@
 <template>
-  <span v-if="errors && errors.length > 0" class="error-feedback">
+  <span v-if="errors && errors.length > 0" :class="textClass">
     <ul>
       <li v-for="(error, index) in errors" :key="index">
         {{ error }}
@@ -9,16 +9,12 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ errors: Array<string> }>();
+const props = withDefaults(defineProps<{ errors: Array<string>, textClass: string }>(), {
+  textClass: 'text-danger text-sm w-full'
+});
 </script>
 
 <style scoped lang="scss">
-.error-feedback {
-  color: red;
-  font-size: 10px;
-  width: 100%;
-}
-
 ul {
   padding: 0;
   margin: 0;

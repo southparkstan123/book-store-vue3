@@ -22,7 +22,7 @@
                 @changeValue="searchKeyword"
               >
               </InputField>
-              <router-link :class="'float-left text-sm text-pink-500 pr-4 py-3'" :to="`/${category}/add`">
+              <router-link :class="'float-left text-sm text-info pr-4 py-3'" :to="`/${category}/add`">
                 Add {{ category }}
               </router-link>
             </template>
@@ -67,7 +67,7 @@
                 @buttonClicked="action('edit', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-purple-400 py-2 px-4'"
+                :backgroundClass="'bg-info py-2 px-4 my-1'"
                 :isDisable="false"
               >
                 <template #text> Edit </template>
@@ -76,14 +76,14 @@
                 @buttonClicked="action('delete', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-pink-400 py-2 px-4 '"
+                :backgroundClass="'bg-danger py-2 px-4 my-1'"
                 :isDisable="false"
               >
                 <template #text> Delete </template>
               </ButtonComponent>
             </template>
             <template #footer>
-              <div class="footer-item">
+              <div class="footer-item text-table-footer-text">
                 {{ data.length }} of {{ pagination.total }}
                 {{ pagination.total > 1 ? "records" : "record" }}
               </div>
@@ -100,12 +100,12 @@
         </div>
         <div v-else>
           <div class="text-center">
-            <h1 class="text-2xl text-purple-500">Oops! Error occurs.</h1>
+            <h1 class="text-2xl text-primary">Oops! Error occurs.</h1>
           </div>
         </div>
       </div>
       <div v-else>
-        <h1 class="text-center text-2xl text-purple-500">Loading...</h1>
+        <h1 class="text-center text-2xl text-primary">Loading...</h1>
       </div>
     </Transition>
   </div>
@@ -318,7 +318,6 @@ const vChangeTableView = (el, binding) => {
   });
   resizeObserver.observe(document.body);
 }
-
 </script>
 
 <style lang="scss" scoped>

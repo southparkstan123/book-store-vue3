@@ -1,8 +1,10 @@
 <template>
-  <span :class="`tooltip ${position}`" :data-tip="dataTip">{{ content }}</span>
+  <span :class="`tooltip ${beforeClass} ${afterClass} ${position}`" :data-tip="dataTip">{{ content }}</span>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 type TooltipProps = {
   position: 'top' | 'bottom' | 'left' | 'right';
   content: string;
@@ -14,6 +16,24 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   content: '',
   dataTip: 'Hover'
 })
+
+const beforeClass = computed(() => {
+  return `before:bg-info before:text-white`
+})
+
+const afterClass = computed(() => {
+  switch (props.position) {
+    case 'top':
+      return `after:border-transparent after:border-t-info`;
+    case 'bottom':
+      return `after:border-transparent after:border-b-info`;
+    case 'left':
+      return `after:border-transparent after:border-l-info`;
+    case 'right':
+      return `after:border-transparent after:border-r-info`;
+  }
+});
+
 </script>
 
 <style lang="scss" scoped>
@@ -39,7 +59,6 @@ const props = withDefaults(defineProps<TooltipProps>(), {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent transparent transparent rgb(178, 83, 181);
     }
   }
   &.right:hover {
@@ -55,7 +74,6 @@ const props = withDefaults(defineProps<TooltipProps>(), {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent rgb(178, 83, 181) transparent transparent;
     }
   }
   &.top:hover {
@@ -72,7 +90,6 @@ const props = withDefaults(defineProps<TooltipProps>(), {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: rgb(178, 83, 181) transparent transparent transparent;
     }
   }
   &.bottom:hover {
@@ -91,15 +108,12 @@ const props = withDefaults(defineProps<TooltipProps>(), {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: transparent transparent rgb(178, 83, 181) transparent;
     }
   }
   &::before {
     content: attr(data-tip);
     visibility: hidden;
     width: 200px;
-    background-color: rgb(178, 83, 181);
-    color: #fff;
     text-align: center;
     padding: 5px 0;
     border-radius: 6px;

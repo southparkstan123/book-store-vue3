@@ -46,7 +46,7 @@
             :isDisabled="!publisherForm.isFormChanged"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
-            :backgroundClass="'group relative bg-purple-300 w-full flex py-2 px-4 border border-transparent rounded-md'"
+            :backgroundClass="'group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
           >
             <template #text> Submit </template>
           </ButtonComponent>
@@ -54,7 +54,7 @@
       </form>
     </div>
     <div v-else>
-      <h1 class="text-center text-2xl text-red-500">Loading...</h1>
+      <h1 class="text-center text-2xl text-primary">Loading...</h1>
     </div>
   </Transition>
 </template>

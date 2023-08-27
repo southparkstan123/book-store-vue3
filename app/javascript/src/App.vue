@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto">
+  <div v-mode class="mx-auto">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -25,7 +25,7 @@
             @buttonClicked="modalStore.confirm()"
             :buttonType="'button'"
             :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-pink-700 py-2 px-4'"
+            :backgroundClass="'bg-success py-2 px-4'"
           >
             <template #text> OK </template>
           </ButtonComponent>
@@ -43,7 +43,7 @@
             @buttonClicked="modalStore.close()"
             :buttonType="'button'"
             :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-purple-500 py-2 px-4'"
+            :backgroundClass="'bg-success py-2 px-4'"
           >
             <template #text> OK </template>
           </ButtonComponent>
@@ -52,32 +52,32 @@
     </ModalComponent>
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
-      :backgroundColor="backgroundColor"
+      :backgroundClass="'bg-navbar'"
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
       <template #brand>
-        <router-link class="cursor-pointer link text-pink-500" to="/">
+        <router-link class="cursor-pointer link text-menu-brand" to="/">
           Book Store
         </router-link>
       </template>
       <template #body-content>
-        <router-link class="cursor-pointer link text-pink-300" to="/book/list"
+        <router-link class="cursor-pointer link text-menu-item" to="/book/list"
           >Book</router-link
         >
         <router-link
-          class="cursor-pointer link text-pink-300"
+          class="cursor-pointer link text-menu-item"
           to="/publisher/list"
           >Publisher</router-link
         >
-        <router-link class="cursor-pointer link text-pink-300" to="/author/list"
+        <router-link class="cursor-pointer link text-menu-item" to="/author/list"
           >Author</router-link
         >
       </template>
       <template #footer-content>
-        <a class="cursor-pointer link mx-2 text-red-400" @click="showUserInfo">
+        <a class="cursor-pointer link mx-2 text-menu-item" @click="showUserInfo">
           User info
         </a>
-        <a class="cursor-pointer link mx-2 text-red-400" @click="onLogout">
+        <a class="cursor-pointer link mx-2 text-menu-item" @click="onLogout">
           Logout
         </a>
       </template>
@@ -88,7 +88,7 @@
             y1="15"
             x2="40"
             y2="15"
-            stroke="purple"
+            class="stroke-menu-button"
             stroke-width="3"
           />
           <line
@@ -96,7 +96,7 @@
             y1="25"
             x2="40"
             y2="25"
-            stroke="purple"
+            class="stroke-menu-button"
             stroke-width="3"
           />
           <line
@@ -104,7 +104,7 @@
             y1="35"
             x2="40"
             y2="35"
-            stroke="purple"
+            class="stroke-menu-button"
             stroke-width="3"
           />
         </svg>
@@ -117,7 +117,7 @@
             y1="40"
             x2="40"
             y2="10"
-            stroke="pink"
+            class="stroke-menu-button"
             stroke-width="3"
           />
           <line
@@ -125,7 +125,7 @@
             y1="10"
             x2="40"
             y2="40"
-            stroke="pink"
+            class="stroke-menu-button"
             stroke-width="3"
           />
         </svg>
@@ -156,7 +156,7 @@ const modalState = storeToRefs(modalStore).state;
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
 import { useNavBar } from "@/hooks/useNavBar";
-const { backgroundColor, percentageOfWidthOfMoblieMenu } = useNavBar();
+const { percentageOfWidthOfMoblieMenu } = useNavBar();
 
 // UserInfo
 import { useUserStore } from "@/store/user";
@@ -195,6 +195,15 @@ const showUserInfo = () => {
     type: "alert",
   });
 };
+
+const vMode = (el) => {
+  let htmlElement = document.querySelector('html');
+  const mode = localStorage.getItem('mode');
+
+  if(mode !== null && mode === 'shoujyo'){
+    htmlElement?.classList.add('shoujyo');
+  }
+}
 </script>
 
 <style lang="scss">

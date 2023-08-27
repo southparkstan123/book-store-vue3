@@ -5,8 +5,8 @@
       <slot name="search-bar"></slot>
     </caption>
     <tbody>
-      <tr v-for="item in displayedRecords">
-        <td v-if="fields" v-for="field in fields" :data-label="field.label">
+      <tr class="odd:bg-table-body-1 even:bg-table-body-2" v-for="item in displayedRecords">
+        <td class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header" v-if="fields" v-for="field in fields" :data-label="field.label">
           <slot :name="field.key" :item="item">
             {{ item[field.key] }}
           </slot>
@@ -16,9 +16,8 @@
             {{ item[field] }}
           </slot>
         </td>
-
         <td>
-          <div>
+          <div class="text-table-title-2">
             <slot name="addition-header"></slot>
             <slot name="addition-content" :item="item"></slot>
           </div>
@@ -26,14 +25,14 @@
       </tr>
     </tbody>
     <tfoot>
-      <tr>
+      <tr class="bg-table-footer">
         <td :colspan="displayedfields.length + 1">
           <div :style="'float: left'">
             <slot name="footer"></slot>
           </div>
 
           <div :style="'float: right'">
-            <slot name="pagination"></slot>
+            <slot name="pagination"> </slot>
           </div>
         </td>
       </tr>
@@ -70,7 +69,6 @@ table {
         display: grid;
         grid-template-columns: 30% auto;
         grid-gap: 0.25rem 1rem;
-        border-bottom: dotted 1px #303030;
 
         &::before {
           content: attr(data-label);
@@ -78,7 +76,6 @@ table {
           text-align: right;
           overflow-wrap: break-word;
           font-weight: 700;
-          color: purple;
         }
 
         *::after,
@@ -86,18 +83,6 @@ table {
           box-sizing: border-box;
           display: block;
         }
-      }
-
-      &:nth-child(2n) {
-        background-color: #eee;
-      }
-
-      &:nth-child(2n + 1) {
-        background-color: #ddd;
-      }
-
-      td {
-        padding: 5px;
       }
     }
   }
