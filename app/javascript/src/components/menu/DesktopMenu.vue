@@ -1,5 +1,5 @@
 <template>
-  <nav :style="{ 'background-color': backgroundColor }">
+  <nav :class="backgroundClass">
     <div class="body">
       <slot name="brand"></slot>
       <slot name="body-content"></slot>
@@ -12,16 +12,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import isValidColorValue from "@/utils/isValidColorValue";
 
 export default defineComponent({
   props: {
-    backgroundColor: {
-      type: String,
-      default: "#FFF",
-      validator: (value: string) => {
-        return isValidColorValue(value) || value === "";
-      },
+    backgroundClass: {
+      type: String
     },
   },
 });

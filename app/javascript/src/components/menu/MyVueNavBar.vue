@@ -1,6 +1,6 @@
 <template>
   <div v-on-resize="{ breakpoint, action: onChangeView }">
-    <DesktopMenu v-if="!isMobileView" :backgroundColor="backgroundColor">
+    <DesktopMenu v-if="!isMobileView" :backgroundClass="backgroundClass">
       <template #brand>
         <slot name="brand"></slot>
       </template>
@@ -17,7 +17,7 @@
       @showMenuContent="onShowMenuContent"
       :showMenuContent="showMenuContent"
       @closeMenu="closeMenu"
-      :backgroundColor="backgroundColor"
+      :backgroundClass="backgroundClass"
       :width="mobileMenuWidth"
     >
       <template #brand>
@@ -59,12 +59,9 @@ export default defineComponent({
     DesktopMenu,
   },
   props: {
-    backgroundColor: {
+    backgroundClass: {
       type: String,
-      default: "#FFF",
-      validator: (value: string) => {
-        return isValidColorValue(value) || value === "";
-      },
+      default: 'bg-navbar',
     },
     breakpoint: {
       type: Number,

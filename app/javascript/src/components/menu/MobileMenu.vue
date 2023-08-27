@@ -2,8 +2,8 @@
   <Transition :duration="1000" :appear="true" name="menu">
     <div class="overlay" @click="clickOutsideMenu" v-if="showMenuContent">
       <div
-        class="inner"
-        :style="{ 'background-color': backgroundColor, width }"
+        :class="`inner ${backgroundClass}`"
+        :style="{ width }"
       >
         <MobileMenuBody>
           <template #button>
@@ -43,12 +43,8 @@ export default defineComponent({
     MobileMenuCloseButton,
   },
   props: {
-    backgroundColor: {
-      type: String,
-      default: "#FFF",
-      validator: (value: string) => {
-        return isValidColorValue(value) || value === "";
-      },
+    backgroundClass: {
+      type: String
     },
     width: {
       type: String,
