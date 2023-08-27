@@ -18,11 +18,6 @@ module Api::V1::Publisher
       render json:  @names
     end
 
-    def names
-      @names = Publisher.all.order(:name).map { |item| { id: item.id, name: item.name} }
-      render json:  @names
-    end
-
     def show
       @publisher = Publisher.find_by(id: params[:id])
       if @publisher
