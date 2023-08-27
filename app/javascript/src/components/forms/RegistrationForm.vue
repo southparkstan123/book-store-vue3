@@ -63,7 +63,7 @@
         <ButtonComponent
           @buttonClicked="toLoginPage"
           :buttonType="'button'"
-          :textClass="'text-sm bg-success'"
+          :textClass="'text-sm text-secondary'"
           :backgroundClass="' focus:outline-none'"
         >
           <template #text> Login page </template>
