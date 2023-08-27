@@ -19,11 +19,6 @@ module Api::V1::Author
       render json: @names
     end
 
-    def names
-      @names = Author.all.order(:name).map { |item| { id: item.id, name: item.name} }
-      render json: @names
-    end
-
     def show
       @author = Author.find_by(id: params[:id])
       if @author
