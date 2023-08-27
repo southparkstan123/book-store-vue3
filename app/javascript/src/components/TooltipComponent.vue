@@ -46,7 +46,7 @@ const afterClass = computed(() => {
     &::before {
       opacity: 1;
       visibility: visible;
-      top: -25%;
+      top: -20%;
       right: 106%;
     }
  
@@ -54,7 +54,7 @@ const afterClass = computed(() => {
       opacity: 1;
       content: "";
       visibility: visible;
-      top: 25%;
+      top: 30%;
       left: 0%;
       margin-left: -5px;
       border-width: 5px;
@@ -64,13 +64,14 @@ const afterClass = computed(() => {
   &.right:hover {
     &::before {
       visibility: visible;
-      top: -50%;
+      top: -20%;
       left: 105%;
     }
     &::after {
       content: "";
       visibility: visible;
       left: 99%;
+      top: 30%;
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
@@ -80,12 +81,13 @@ const afterClass = computed(() => {
     &::before {
       visibility: visible;
       bottom: 100%;
-      left: 50%;
+      
       margin-left: -60px;
     }
 
     &::after {
       content: "";
+      left: 50%;
       visibility: visible;
       margin-left: -5px;
       border-width: 5px;
@@ -96,15 +98,15 @@ const afterClass = computed(() => {
     &::before {
       visibility: visible;
       width: 200px;
-      top: 100%;
-      left: 50%;
+      top: 120%;
       margin-left: -60px;
     }
 
     &::after {
       content: "";
       visibility: visible;
-      top: 60%;
+      top: 80%;
+      left: 50%;
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
