@@ -1,3 +1,87 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --color-blue: #007bff;
+    --color-indigo: #6610f2;
+    --color-purple: #6f42c1;
+    --color-pink: #e83e8c;
+    --color-red: #dc3545;
+    --color-orange: #fd7e14;
+    --color-yellow: #ffc107;
+    --color-green: #28a745;
+    --color-teal: #20c997;
+    --color-cyan: #17a2b8;
+    --color-white: #fff;
+    --color-gray: #6c757d;
+    --color-gray-dark: #343a40;
+
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-info: #17a2b8;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+    --color-muted: rgb(222, 187, 238);
+
+    --color-navbar : seagreen;
+    --color-menu-brand : #007bff;
+    --color-menu-button : #007bff;
+    --color-menu-item : wheat;
+
+    --color-table: #ddd;
+    --color-table-text: #111;
+    --color-table-title-1: #303030;
+    --color-table-title-2: #221e24;
+    --color-table-header: #aaa;
+    --color-table-body-1: #eee;
+    --color-table-body-2: #fff;
+    --color-table-footer: #bbb;
+    --color-table-footer-text: #444;
+  }
+
+  .shoujyo {
+    --color-blue: #007bff;
+    --color-indigo: #6610f2;
+    --color-purple: #6f42c1;
+    --color-pink: #e83e8c;
+    --color-red: #dc3545;
+    --color-orange: #fd7e14;
+    --color-yellow: #ffc107;
+    --color-green: #28a745;
+    --color-teal: #20c997;
+    --color-cyan: #17a2b8;
+    --color-white: #fff;
+    --color-gray: #6c757d;
+    --color-gray-dark: #343a40;
+
+    --color-primary: rgb(190, 24, 93);
+    --color-secondary: rgb(244, 114, 182);
+    --color-info: rgb(192, 132, 252);
+    --color-success: rgb(190, 24,93);
+    --color-warning: rgb(198, 198, 58);
+    --color-danger: rgb(234, 135, 135);
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+    --color-muted: rgb(222, 187, 238);
+
+    --color-navbar:rgb(187, 51, 187);
+    --color-menu-brand : rgb(255, 255, 255);
+    --color-menu-button : rgb(66, 63, 55);
+    --color-menu-item : rgb(94, 64, 64);
+
+    --color-table: #c41212;
+    --color-table-text: #741111;
+    --color-table-title-1: #d5cdd9;
+    --color-table-title-2: #5a167c;
+    --color-table-header: #b966b9;
+    --color-table-body-1: #d3bcd8;
+    --color-table-body-2: #bba0bb;
+    --color-table-footer: #b966b9;
+    --color-table-footer-text: #fff;
+  }
+}
