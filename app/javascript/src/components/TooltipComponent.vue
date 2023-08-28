@@ -18,19 +18,19 @@ const props = withDefaults(defineProps<TooltipProps>(), {
 })
 
 const beforeClass = computed(() => {
-  return `before:bg-info before:text-white`
+  return `before:bg-primary before:text-white`
 })
 
 const afterClass = computed(() => {
   switch (props.position) {
     case 'top':
-      return `after:border-transparent after:border-t-info`;
+      return `after:border-transparent after:border-t-primary`;
     case 'bottom':
-      return `after:border-transparent after:border-b-info`;
+      return `after:border-transparent after:border-b-primary`;
     case 'left':
-      return `after:border-transparent after:border-l-info`;
+      return `after:border-transparent after:border-l-primary`;
     case 'right':
-      return `after:border-transparent after:border-r-info`;
+      return `after:border-transparent after:border-r-primary`;
   }
 });
 
