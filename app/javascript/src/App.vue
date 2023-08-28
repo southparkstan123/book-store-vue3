@@ -56,22 +56,20 @@
       :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
       <template #brand>
-        <router-link class="cursor-pointer link text-menu-brand" to="/">
+        <router-link class="cursor-pointer link" :class="route.path === '/' ? 'text-muted' : 'text-menu-brand'" to="/">
           Book Store
         </router-link>
       </template>
       <template #body-content>
-        <router-link class="cursor-pointer link text-menu-item" to="/book/list"
-          >Book</router-link
-        >
-        <router-link
-          class="cursor-pointer link text-menu-item"
-          to="/publisher/list"
-          >Publisher</router-link
-        >
-        <router-link class="cursor-pointer link text-menu-item" to="/author/list"
-          >Author</router-link
-        >
+        <router-link class="cursor-pointer link" :class="route.path === '/book/list' ? 'text-muted' : 'text-menu-item'" to="/book/list">
+          Book
+        </router-link>
+        <router-link class="cursor-pointer link" to="/publisher/list" :class="route.path === '/publisher/list' ? 'text-muted' : 'text-menu-item'">
+          Publisher
+        </router-link>
+        <router-link class="cursor-pointer link" :class="route.path === '/author/list' ? 'text-muted' : 'text-menu-item'" to="/author/list">
+          Author
+        </router-link>
       </template>
       <template #footer-content>
         <a class="cursor-pointer link mx-2 text-menu-item" @click="showUserInfo">
