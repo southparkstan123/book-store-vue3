@@ -13,9 +13,9 @@ module Api::V1::Author
 
       render json: @result
     end
-    
+
     def names
-      @names = Author.all.order(:name).map { |item| { id: item.id, name: item.name} }
+      @names = Author.order(:name).pluck(:id, :name)
       render json: @names
     end
 

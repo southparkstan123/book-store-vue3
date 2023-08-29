@@ -8,12 +8,12 @@
     >
       <slot name="options" v-bind="data">
         <option
-          v-for="item in data"
-          :value="item.id"
-          :key="item.id"
-          :selected="selectedItems ? selectedItems.includes(item.id) : false"
+          v-for="[key, value] in data"
+          :value="key"
+          :key="key"
+          :selected="selectedItems ? selectedItems.includes(key) : false"
         >
-          {{ item.name }}
+          {{ value }}
         </option>
       </slot>
     </select>
