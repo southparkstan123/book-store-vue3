@@ -14,7 +14,7 @@ module Api::V1::Publisher
     end
 
     def names
-      @names = Publisher.all.order(:name).map { |item| { id: item.id, name: item.name} }
+      @names = Publisher.order(:name).pluck(:id, :name)
       render json:  @names
     end
 
