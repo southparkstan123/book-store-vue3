@@ -7,10 +7,7 @@ export type TableField = {
   key: string;
 };
 
-export type DropdownItem = {
-  id: number;
-  [key: string]: unknown;
-};
+export type DropdownItem = [ key: number, value: string ];
 
 export type InputType = "text" | "email" | "password" | "number";
 

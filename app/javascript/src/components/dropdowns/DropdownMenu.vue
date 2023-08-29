@@ -8,12 +8,12 @@
       <slot name="options" v-bind="data">
         <option selected="true" disabled>Please select the publisher</option>
         <option
-          v-for="item in data"
-          :value="item.id"
-          :key="item.id"
-          :selected="selectedItem ? selectedItem === item.id : false"
+          v-for="[key, value] in data"
+          :value="key"
+          :key="key"
+          :selected="selectedItem ? selectedItem === key : false"
         >
-          {{ item.name }}
+          {{ value }}
         </option>
       </slot>
     </select>
