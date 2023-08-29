@@ -1,13 +1,17 @@
-# Rails-App-Vue3
+# Book-Store-Vue3
 
 ## Introduction
 
-This is an experimental SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3, it may be the template repo for further development for Full-stack project.
+This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the repository [Book store](https://github.com/southparkstan123/book-store).
 
 ## Features
 1. Basic Token Based (JWT) Authentication
 
-(To be added for further development...)
+2. Login by username and password
+
+3. CRUD for 'Books', 'Authors' and 'Publisher'
+
+4. Search records of 'books' by name
 
 ## Technical information
 
@@ -39,11 +43,15 @@ This is an experimental SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3,
 
 You can clone this repo by Github using command line prompt:
 
-```git clone https://github.com/southparkstan123/rails-app-vue3.git```
+```bash
+git clone https://github.com/southparkstan123/book-store-vue3.git
+```
 
 After cloning the repo, install the dependencies for frontend and backend by following command:
 
-```yarn install``` and  ```bundle install```
+```bash
+yarn install && bundle install
+```
 
 ### Environment variables
 
@@ -61,9 +69,14 @@ You have to ensure that MySQL and Redis driver is installed in your local machin
 If you not require the username and password for your database, just comment out the username and password field on ```config/database.yml```
 
 You can create the database and migration by following command:
-```rails db:create && rails db:migrate```
+```bash
+rails db:create && rails db:migrate
+```
 
-If you want to seeding of a database with data, Use ```rails db:seed```
+If you want to seeding of a database with data by following command:
+```bash
+rails db:seed
+```
 
 ### Run the test cases
 
@@ -77,12 +90,20 @@ TBC
 
 ### Fix Lint and Type errors
 
-TBC
+```bash 
+yarn lint
+```
+
+```bash
+yarn type-check
+```
 
 ## Start up the server
 
-Run ```foreman start``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3000``` on Web browser.
+Run ```rails s -b 0.0.0.0``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3000``` on Web browser.
 
 **Remark: Edit your hosts file for your host name**
+
+**If you want to enable HMR, run ```foreman s```**
 
 Happy Coding!!!!!
