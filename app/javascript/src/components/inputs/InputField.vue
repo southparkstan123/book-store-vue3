@@ -15,6 +15,7 @@
       :max="max"
       :checked="checked"
     />
+    <slot name="label"></slot>
   </div>
 </template>
 
