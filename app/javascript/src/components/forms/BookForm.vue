@@ -13,15 +13,11 @@
             >
               <InputField
                 :inputId="'name'"
-                :className="''"
                 :inputValue="bookForm.form.name"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 @changeValue="onChangeName"
-                :step="undefined"
-                :min="undefined"
-                :max="undefined"
               ></InputField>
             </LabelWrapper>
             <LabelWrapper
@@ -43,7 +39,6 @@
             >
               <InputField
                 :inputId="'price'"
-                :className="''"
                 :inputValue="bookForm.form.price"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputType="'number'"

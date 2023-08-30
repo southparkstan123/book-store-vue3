@@ -3,8 +3,14 @@
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Choose Programming Language:'">
       <InputField v-for="item in checkboxList" :inputId="item" :className="'my-3 inline'" :inputValue="item"
+<<<<<<< HEAD
         :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'" :inputType="'radio'"
         :checked="item === selectedValue" @changeValue="onChangeValue">
+=======
+        :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'language'"
+        :inputType="'radio'" :placeholder="''" :checked="item === selectedValue"
+        @changeValue="onChangeValue">
+>>>>>>> Frontend
         <template #label>
           <label :for="item" class="px-1">{{ item }}</label>
         </template>

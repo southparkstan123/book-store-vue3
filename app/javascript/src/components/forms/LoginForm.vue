@@ -6,9 +6,6 @@
       :placeholder="'Username'"
       @changeValue="onChangeUsername"
       :isDisabled="disableInputs"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
     ></InputField>
     <InputField
       :inputId="'password'"
@@ -16,9 +13,6 @@
       :placeholder="'Password'"
       @changeValue="onChangePassword"
       :isDisabled="disableInputs"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
     ></InputField>
     <div class="flex items-center justify-between">
       <div class="flex items-center">

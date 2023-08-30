@@ -7,9 +7,6 @@
       :inputType="'text'"
       :placeholder="'Username'"
       :isRequired="true"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
       @changeValue="onChangeUsername"
     >
     </InputField>
@@ -19,9 +16,6 @@
       :inputType="'email'"
       :placeholder="'Email'"
       :isRequired="true"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
       @changeValue="onChangeEmail"
     >
     </InputField>
@@ -31,9 +25,6 @@
       :inputType="'password'"
       :placeholder="'Password'"
       :isRequired="true"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
       @changeValue="onChangePassword"
     >
     </InputField>
@@ -43,9 +34,6 @@
       :inputType="'password'"
       :placeholder="'Password Conformation'"
       :isRequired="true"
-      :step="undefined"
-      :min="undefined"
-      :max="undefined"
       @changeValue="onChangePasswordConfirmation"
     >
     </InputField>

@@ -13,15 +13,11 @@
             >
               <InputField
                 :inputId="'name'"
-                :className="''"
                 :inputValue="authorForm.form.name"
                 :inputFieldClass="'block w-full mt-1'"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 @changeValue="onChangeName"
-                :step="undefined"
-                :min="undefined"
-                :max="undefined"
               ></InputField>
             </LabelWrapper>
             <LabelWrapper

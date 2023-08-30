@@ -11,14 +11,10 @@
               <InputField
                 v-if="category === 'book'"
                 :inputId="'test'"
-                :className="''"
                 :inputValue="keyword"
                 :inputFieldClass="'float-right'"
                 :inputType="'text'"
                 :placeholder="`Search by name`"
-                :step="undefined"
-                :min="undefined"
-                :max="undefined"
                 @changeValue="searchKeyword"
               >
               </InputField>
