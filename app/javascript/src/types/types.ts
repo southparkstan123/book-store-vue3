@@ -9,7 +9,8 @@ export type TableField = {
 
 export type DropdownItem = [ key: number, value: string ];
 
-export type InputType = "text" | "email" | "password" | "number";
+// Inputs
+export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio";
 
 export type InputFieldProps = {
   inputId: string;
@@ -17,7 +18,7 @@ export type InputFieldProps = {
   inputName: string;
   isRequired: boolean;
   placeholder: string;
-  inputValue: string | number | string[];
+  inputValue: string | number | string[] | boolean;
   inputFieldClass: string;
   isDisabled: boolean;
 };
@@ -33,6 +34,14 @@ export type TextareaFieldProps = InputFieldProps & {
   cols: string;
   rows: string;
 };
+
+export type RadioButtonProps = InputFieldProps & {
+  checked: boolean 
+}
+
+export type CheckboxProps = InputFieldProps & {
+  checked: boolean 
+}
 
 export type AuthorForm = {
   name: string;
