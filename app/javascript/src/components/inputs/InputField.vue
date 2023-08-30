@@ -35,6 +35,9 @@ const props = withDefaults(
     inputFieldClass: "form-control",
     inputType: "text",
     isDisabled: false,
+    step: undefined,
+    min: undefined,
+    max: undefined,
     checked: false
   },
 );
