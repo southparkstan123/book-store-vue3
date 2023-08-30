@@ -10,12 +10,16 @@
         <template #text> Change Mode </template>
       </ButtonComponent>
     </div>
+    <div class="mx-auto">
+      <TemplateForm/>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useModalStore } from "@/store/modal";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
+import TemplateForm from "@/components/forms/TemplateForm.vue";
 const modalStore = useModalStore();
 
 const openModal = () => {

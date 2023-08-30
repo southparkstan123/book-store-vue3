@@ -13,16 +13,18 @@
       :step="step"
       :min="min"
       :max="max"
+      :checked="checked"
     />
+    <slot name="label"></slot>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { InputType, InputFieldProps, RangeProps } from "@/types/types";
+import type { InputType, InputFieldProps, RangeProps, CheckboxProps, RadioButtonProps } from "@/types/types";
 
 const props = withDefaults(
-  defineProps<InputFieldProps & { inputType: InputType } & RangeProps>(),
+  defineProps<InputFieldProps & { inputType: InputType } & RangeProps & CheckboxProps & RadioButtonProps>(),
   {
     inputId: "",
     className: "",
@@ -33,6 +35,7 @@ const props = withDefaults(
     inputFieldClass: "form-control",
     inputType: "text",
     isDisabled: false,
+    checked: false
   },
 );
 
@@ -47,7 +50,12 @@ const emit = defineEmits<{
 }>();
 
 const changeValue = (event) => {
-  emit("changeValue", event.target.value);
+  if(props.inputType === 'checkbox'){
+    const { checked, value } = event.target;
+    emit("changeValue", { checked, value });
+  } else {
+    emit("changeValue", event.target.value);
+  }
 };
 </script>
 
