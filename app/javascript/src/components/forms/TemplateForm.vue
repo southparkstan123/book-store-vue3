@@ -1,6 +1,6 @@
 <template>
   <div class="mx-auto inline w-full">
-    <FieldsetWrapper :class="'border border-solid border-purple-500 p-3'" :title="'Choose Programming Language:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-purple-500 p-3'" :textClass="'text-sm text-purple-700'" :title="'Choose Programming Language:'">
       <InputField v-for="item in checkboxList" :inputId="item" :className="'my-3 inline'" :inputValue="item"
         :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'language'"
         :inputType="'radio'" :placeholder="''" :step="0.1" :min="0" :max="1000" :checked="item === selectedValue"
@@ -20,7 +20,7 @@
       </template>
     </InputField>
 
-    <FieldsetWrapper :class="'border border-solid border-purple-500 p-3'" :title="'Choose districts:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-purple-500 p-3'" :textClass="'text-sm text-purple-700'" :title="'Choose districts:'">
       <InputField v-for="item in districts" :inputId="item" :className="'my-1'" :inputValue="item"
         :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'districts'"
         :inputType="'checkbox'" :placeholder="''" :step="0.1" :min="0" :max="1000"

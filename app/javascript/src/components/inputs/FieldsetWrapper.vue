@@ -1,13 +1,14 @@
 <template>
-  <fieldset :class="class">
-    <legend>{{ title }}</legend>
+  <fieldset :class="wrapperClass">
+    <legend :class="textClass">{{ title }}</legend>
     <slot></slot>
   </fieldset>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ class: string, title: string }>(), {
-  class: '',
+const props = withDefaults(defineProps<{ wrapperClass: string, textClass: string, title: string }>(), {
+  wrapperClass: '',
+  textClass: '',
   title: ''
 })
 </script>
