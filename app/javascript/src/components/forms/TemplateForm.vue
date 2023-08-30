@@ -1,8 +1,8 @@
 <template>
   <div class="mx-auto inline w-full">
-    <FieldsetWrapper :wrapperClass="'border border-solid border-purple-500 p-3'" :textClass="'text-sm text-purple-700'" :title="'Choose Programming Language:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'" :title="'Choose Programming Language:'">
       <InputField v-for="item in checkboxList" :inputId="item" :className="'my-3 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'language'"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'"
         :inputType="'radio'" :placeholder="''" :step="0.1" :min="0" :max="1000" :checked="item === selectedValue"
         @changeValue="onChangeValue">
         <template #label>
@@ -12,7 +12,7 @@
     </FieldsetWrapper>
 
     <InputField :inputId="'visible'" :className="'my-3 block'" :inputValue="visible"
-      :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'visible'"
+      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'visible'"
       :inputType="'checkbox'" :placeholder="''" :step="0.1" :min="0" :max="1000" :checked="visible"
       @changeValue="onChangeVisible">
       <template #label>
@@ -20,9 +20,9 @@
       </template>
     </InputField>
 
-    <FieldsetWrapper :wrapperClass="'border border-solid border-purple-500 p-3'" :textClass="'text-sm text-purple-700'" :title="'Choose districts:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'" :title="'Choose districts:'">
       <InputField v-for="item in districts" :inputId="item" :className="'my-1'" :inputValue="item"
-        :inputFieldClass="'px-1 text-pink-300 border-purple-300 focus:ring-0'" :inputName="'districts'"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
         :inputType="'checkbox'" :placeholder="''" :step="0.1" :min="0" :max="1000"
         :checked="selectedItems ? selectedItems.includes(item) : false" @changeValue="onChangeSelectedItems">
         <template #label>
