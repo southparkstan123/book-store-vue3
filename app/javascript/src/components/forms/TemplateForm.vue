@@ -1,10 +1,10 @@
 <template>
   <div class="mx-auto inline w-full">
-    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'" :title="'Choose Programming Language:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
+      :title="'Choose Programming Language:'">
       <InputField v-for="item in checkboxList" :inputId="item" :className="'my-3 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'"
-        :inputType="'radio'" :placeholder="''" :step="0.1" :min="0" :max="1000" :checked="item === selectedValue"
-        @changeValue="onChangeValue">
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'" :inputType="'radio'"
+        :checked="item === selectedValue" @changeValue="onChangeValue">
         <template #label>
           <label :for="item" class="px-1">{{ item }}</label>
         </template>
@@ -12,19 +12,19 @@
     </FieldsetWrapper>
 
     <InputField :inputId="'visible'" :className="'my-3 block'" :inputValue="visible"
-      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'visible'"
-      :inputType="'checkbox'" :placeholder="''" :step="0.1" :min="0" :max="1000" :checked="visible"
-      @changeValue="onChangeVisible">
+      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'visible'" :inputType="'checkbox'"
+      :checked="visible" @changeValue="onChangeVisible">
       <template #label>
         <label for="visible" class="px-1">isVisible?</label>
       </template>
     </InputField>
 
-    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'" :title="'Choose districts:'">
+    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
+      :title="'Choose districts:'">
       <InputField v-for="item in districts" :inputId="item" :className="'my-1'" :inputValue="item"
         :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
-        :inputType="'checkbox'" :placeholder="''" :step="0.1" :min="0" :max="1000"
-        :checked="selectedItems ? selectedItems.includes(item) : false" @changeValue="onChangeSelectedItems">
+        :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item) : false"
+        @changeValue="onChangeSelectedItems">
         <template #label>
           <label :for="item" class="px-1">{{ item }}</label>
         </template>
@@ -37,7 +37,6 @@
     <pre>{{ visible }}</pre>
     <pre>{{ selectedItems }}</pre>
   </div>
-  
 </template>
 
 <script setup lang="ts">
