@@ -39,11 +39,10 @@
     >
       <InputField :inputId="'images'" :className="''" :inputValue="''"
         :inputFieldClass="'hidden'" :inputName="'images'"
-        :inputType="'file'" :isMultiple="false"
+        :inputType="'file'" :isMultiple="true"
         @changeValue="onChangeFile">
       </InputField>
     </LabelWrapper>
-
   </div>
 
   <div>
@@ -92,7 +91,8 @@ const visible = ref<boolean>(true);
 const districts = ref<string[]>(['hk', 'kl', 'nt']);
 const selectedItems = ref<string[]>([]);
 
-const imageData = ref<ImageFile[]>([]);
+import { useUploadFile } from '@/hooks/useUploadFile';
+const { imageData, onChangeFile, deleteImage} = useUploadFile();
 
 const onChangeValue = (payload) => {
   selectedValue.value = payload;
@@ -113,34 +113,6 @@ const onChangeSelectedItems = ({ checked, value }) => {
   }
 
   selectedItems.value = result;
-}
-
-const previewImages = (file) => {
-  const fileReader = new FileReader();
-  fileReader.readAsDataURL(file);
-
-  fileReader.addEventListener('load', () => {
-    const imageObject: ImageFile = {
-      name: file.name,
-      type: file.type,
-      src: fileReader.result as string,
-      size: file.size,
-      createdAt: Date.now()
-    }
-
-    imageData.value.push(imageObject);
-  });
-}
-
-const onChangeFile = (payload) => {
-  const files = payload;
-  if(files){
-    Array.prototype.forEach.call(files, previewImages)
-  }
-}
-
-const deleteImage = (index) => {
-  imageData.value.splice(index,1);
 }
 
 </script>
