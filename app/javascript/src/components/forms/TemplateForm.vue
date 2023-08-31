@@ -30,20 +30,59 @@
         </template>
       </InputField>
     </FieldsetWrapper>
+
+    <LabelWrapper 
+      :forAttribute="'images'" 
+      :labelClass="'inline-block my-3 cursor-pointer'" 
+      :textClass="'text-sm text-white bg-purple-400 py-2 px-4'" 
+      :labelText="'Upload File'"
+    >
+      <InputField :inputId="'images'" :className="''" :inputValue="''"
+        :inputFieldClass="'hidden'" :inputName="'images'"
+        :inputType="'file'" :isMultiple="false"
+        @changeValue="onChangeFile">
+      </InputField>
+    </LabelWrapper>
+
   </div>
 
   <div>
     <pre>{{ selectedValue }}</pre>
     <pre>{{ visible }}</pre>
     <pre>{{ selectedItems }}</pre>
+    <div class="even: bg-gray-300 odd:bg-gray-100" v-for="(image, index) in imageData" v-if="imageData && imageData.length > 0">
+      <div :style="'float:right;cursor:pointer'" @click="deleteImage(index)">
+        x
+      </div>
+      <div>
+        <img :src="image.src" width="200" height="200"/>
+        <ul>
+          <li>Name: {{ image.name }}</li>
+          <li>Type: {{ image.type }}</li>
+          <li>Size: {{ (image.size/1024/1024).toPrecision(3) + 'MB' }}</li>
+          <li>{{ moment(image.createdAt).fromNow() }}</li>
+        </ul>
+      </div>
+    </div> 
   </div>
   
 </template>
 
 <script setup lang="ts">
+type ImageFile = {
+  name: string;
+  type: string;
+  src: string;
+  size: number;
+  createdAt: number;
+}
+
 import { ref } from 'vue';
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
+import LabelWrapper from '../inputs/LabelWrapper.vue';
+
+import moment from 'moment';
 
 const checkboxList = ['ruby', 'javascript', 'php', 'go'];
 const selectedValue = ref<string>('javascript');
@@ -52,6 +91,8 @@ const visible = ref<boolean>(true);
 
 const districts = ref<string[]>(['hk', 'kl', 'nt']);
 const selectedItems = ref<string[]>([]);
+
+const imageData = ref<ImageFile[]>([]);
 
 const onChangeValue = (payload) => {
   selectedValue.value = payload;
@@ -72,6 +113,34 @@ const onChangeSelectedItems = ({ checked, value }) => {
   }
 
   selectedItems.value = result;
+}
+
+const previewImages = (file) => {
+  const fileReader = new FileReader();
+  fileReader.readAsDataURL(file);
+
+  fileReader.addEventListener('load', () => {
+    const imageObject: ImageFile = {
+      name: file.name,
+      type: file.type,
+      src: fileReader.result as string,
+      size: file.size,
+      createdAt: Date.now()
+    }
+
+    imageData.value.push(imageObject);
+  });
+}
+
+const onChangeFile = (payload) => {
+  const files = payload;
+  if(files){
+    Array.prototype.forEach.call(files, previewImages)
+  }
+}
+
+const deleteImage = (index) => {
+  imageData.value.splice(index,1);
 }
 
 </script>
