@@ -34,7 +34,7 @@
     <LabelWrapper 
       :forAttribute="'images'" 
       :labelClass="'inline-block my-3 cursor-pointer'" 
-      :textClass="'text-sm text-white bg-purple-400 py-2 px-4'" 
+      :textClass="'text-sm text-white bg-info py-2 px-4'" 
       :labelText="'Upload File'"
     >
       <InputField :inputId="'images'" :className="''" :inputValue="''"
@@ -52,16 +52,19 @@
     <CardList :data="(imageData as ImageFile[])">
       <template v-slot="{ item, index }">
         <CardItem 
-          :wrapperClass="(index % 2 === 0) ? 'bg-gray-100': 'bg-gray-300'" 
+          :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1': 'bg-table-body-2'" 
           :item="(item as ImageFile)"
+          :class="'text-table-text'"
         >
           <template #close-button>
-            <div :style="'float:right;cursor:pointer'" @click="deleteImage(index)">x</div>
+            <div :class="'float-right cursor-pointer p-1'" @click="deleteImage(index)">x</div>
           </template>
-          <template v-slot="{ name, src, type, createdAt, size }">
-            <img :src="(src as string)" width="150" height="150"/>
+          <template v-slot="{ src, type, createdAt, size }">
+            <div class="flex justify-center">
+              <img :src="(src as string)" width="150" height="150"/>
+            </div>
+            
             <ul>
-              <li>Name: {{ name }}</li>
               <li>Type: {{ type }}</li>
               <li>Size: {{ (size as number/1024/1024).toPrecision(3) + 'MB' }}</li>
               <li>Create At: {{ moment(createdAt as number).fromNow() }}</li>
