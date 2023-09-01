@@ -14,6 +14,7 @@
       :min="min"
       :max="max"
       :checked="checked"
+      :multiple="isMultiple"
     />
     <slot name="label"></slot>
   </div>
@@ -21,10 +22,10 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { InputType, InputFieldProps, RangeProps, CheckboxProps, RadioButtonProps } from "@/types/types";
+import type { InputType, InputFieldProps, RangeProps, CheckboxProps, RadioButtonProps, FileProps } from "@/types/types";
 
 const props = withDefaults(
-  defineProps<InputFieldProps & { inputType: InputType } & RangeProps & CheckboxProps & RadioButtonProps>(),
+  defineProps<InputFieldProps & { inputType: InputType } & RangeProps & CheckboxProps & RadioButtonProps & FileProps>(),
   {
     inputId: "",
     className: "",
@@ -38,7 +39,8 @@ const props = withDefaults(
     step: undefined,
     min: undefined,
     max: undefined,
-    checked: false
+    checked: false,
+    isMultiple: undefined
   },
 );
 
@@ -56,6 +58,9 @@ const changeValue = (event) => {
   if(props.inputType === 'checkbox'){
     const { checked, value } = event.target;
     emit("changeValue", { checked, value });
+  } else if (props.inputType === 'file') {
+    const { files } = event.target;
+    emit("changeValue", files );
   } else {
     emit("changeValue", event.target.value);
   }

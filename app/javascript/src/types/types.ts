@@ -10,7 +10,7 @@ export type TableField = {
 export type DropdownItem = [ key: number, value: string ];
 
 // Inputs
-export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio";
+export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file";
 
 export type InputFieldProps = {
   inputId: string;
@@ -41,6 +41,10 @@ export type RadioButtonProps = InputFieldProps & {
 
 export type CheckboxProps = InputFieldProps & {
   checked: boolean 
+}
+
+export type FileProps = InputFieldProps & {
+  isMultiple: boolean | undefined 
 }
 
 export type AuthorForm = {
@@ -151,3 +155,11 @@ export type Pagination = {
 };
 
 export type ActionType = "view" | "edit" | "delete";
+
+export type ImageFile = {
+  src: string;
+  name: string;
+  type: string;
+  size: number;
+  createdAt: number;
+}

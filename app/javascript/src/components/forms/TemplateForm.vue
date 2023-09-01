@@ -30,19 +30,57 @@
         </template>
       </InputField>
     </FieldsetWrapper>
+
+    <LabelWrapper 
+      :forAttribute="'images'" 
+      :labelClass="'inline-block my-3 cursor-pointer'" 
+      :textClass="'text-sm text-white bg-purple-400 py-2 px-4'" 
+      :labelText="'Upload File'"
+    >
+      <InputField :inputId="'images'" :className="''" :inputValue="''"
+        :inputFieldClass="'hidden'" :inputName="'images'"
+        :inputType="'file'" :isMultiple="true"
+        @changeValue="onChangeFile">
+      </InputField>
+    </LabelWrapper>
   </div>
 
   <div>
     <pre>{{ selectedValue }}</pre>
     <pre>{{ visible }}</pre>
     <pre>{{ selectedItems }}</pre>
-  </div>
+    <CardList :data="(imageData as ImageFile[])">
+      <template v-slot="{ item, index }">
+        <CardItem 
+          :wrapperClass="(index % 2 === 0) ? 'bg-gray-100': 'bg-gray-300'" 
+          :item="(item as ImageFile)"
+        >
+          <template #close-button>
+            <div :style="'float:right;cursor:pointer'" @click="deleteImage(index)">x</div>
+          </template>
+          <template v-slot="{ name, src, type, createdAt, size }">
+            <img :src="(src as string)" width="150" height="150"/>
+            <ul>
+              <li>Name: {{ name }}</li>
+              <li>Type: {{ type }}</li>
+              <li>Size: {{ (size as number/1024/1024).toPrecision(3) + 'MB' }}</li>
+              <li>Create At: {{ moment(createdAt as number).fromNow() }}</li>
+            </ul>
+          </template>
+        </CardItem>
+      </template>
+    </CardList>
+  </div> 
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
+import LabelWrapper from '../inputs/LabelWrapper.vue';
+
+import CardList from "@/components/card/CardList.vue";
+import CardItem from "@/components/card/CardItem.vue";
 
 const checkboxList = ['ruby', 'javascript', 'php', 'go'];
 const selectedValue = ref<string>('javascript');
@@ -51,6 +89,11 @@ const visible = ref<boolean>(true);
 
 const districts = ref<string[]>(['hk', 'kl', 'nt']);
 const selectedItems = ref<string[]>([]);
+
+import moment from 'moment';
+import type { ImageFile } from '@/types/types';
+import { useUploadFile } from '@/hooks/useUploadFile';
+const { imageData, onChangeFile, deleteImage} = useUploadFile();
 
 const onChangeValue = (payload) => {
   selectedValue.value = payload;
