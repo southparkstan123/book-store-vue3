@@ -1,3 +1,5 @@
+import type { Component } from "vue";
+
 export type TableItem = {
   [key: string]: unknown;
 };
@@ -130,7 +132,7 @@ export type OpenModalPayload = {
   type: ModalType;
   message: string;
   title: string;
-  component: string | "";
+  component: Component | "";
 };
 
 export type ButtonProps = {
