@@ -31,20 +31,22 @@
       </InputField>
     </FieldsetWrapper>
 
-    <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block my-3 cursor-pointer'"
-      :textClass="'text-sm text-white bg-info py-2 px-4'" :labelText="'Upload File'">
+    <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block my-3 cursor-pointer bg-info py-2 px-4'"
+      :textClass="'text-sm text-white'" :labelText="'Upload Files'">
       <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'" :inputName="'images'"
         :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile">
       </InputField>
     </LabelWrapper>
   </div>
 
+  <div class="flex px-1">
+    <span class="mr-1">{{ selectedValue }}</span>
+    <span class="mx-1">{{ visible }}</span>
+    <span class="mx-1">{{ selectedItems.join(',') }}</span>
+  </div>
+
   <div :style="'height: 200px'" class="overflow-y-scroll">
-    <div class="flex px-1">
-      <span class="mr-1">{{ selectedValue }}</span>
-      <span class="mx-1">{{ visible }}</span>
-      <span class="mx-1">{{ selectedItems.join(',') }}</span>
-    </div>
+    
     <CardList :data="(imageData as ImageFile[])">
       <template v-slot="{ item, index }">
         <CardItem :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1' : 'bg-table-body-2'" :item="(item as ImageFile)"
