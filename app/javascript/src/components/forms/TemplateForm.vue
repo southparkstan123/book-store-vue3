@@ -21,7 +21,7 @@
 
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Choose districts:'">
-      <InputField v-for="item in districts" :inputId="item" :className="'my-1'" :inputValue="item"
+      <InputField v-for="item in districts" :inputId="item" :className="'my-1 inline'" :inputValue="item"
         :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
         :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item) : false"
         @changeValue="onChangeSelectedItems">
