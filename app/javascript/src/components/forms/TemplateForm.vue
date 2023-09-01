@@ -75,7 +75,7 @@
   </ButtonComponent>
 
   <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
-    :backgroundClass="'bg-warning py-2 px-4 my-3'">
+    :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
     <template #text> Close Modal </template>
   </ButtonComponent>
 </template>
