@@ -155,3 +155,11 @@ export type Pagination = {
 };
 
 export type ActionType = "view" | "edit" | "delete";
+
+export type ImageFile = {
+  src: string;
+  name: string;
+  type: string;
+  size: number;
+  createdAt: number;
+}

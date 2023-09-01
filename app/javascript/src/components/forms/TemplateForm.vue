@@ -49,39 +49,38 @@
     <pre>{{ selectedValue }}</pre>
     <pre>{{ visible }}</pre>
     <pre>{{ selectedItems }}</pre>
-    <div class="even: bg-gray-300 odd:bg-gray-100" v-for="(image, index) in imageData" v-if="imageData && imageData.length > 0">
-      <div :style="'float:right;cursor:pointer'" @click="deleteImage(index)">
-        x
-      </div>
-      <div>
-        <img :src="image.src" width="200" height="200"/>
-        <ul>
-          <li>Name: {{ image.name }}</li>
-          <li>Type: {{ image.type }}</li>
-          <li>Size: {{ (image.size/1024/1024).toPrecision(3) + 'MB' }}</li>
-          <li>{{ moment(image.createdAt).fromNow() }}</li>
-        </ul>
-      </div>
-    </div> 
-  </div>
-  
+    <CardList :data="(imageData as ImageFile[])">
+      <template v-slot="{ item, index }">
+        <CardItem 
+          :wrapperClass="(index % 2 === 0) ? 'bg-gray-100': 'bg-gray-300'" 
+          :item="(item as ImageFile)"
+        >
+          <template #close-button>
+            <div :style="'float:right;cursor:pointer'" @click="deleteImage(index)">x</div>
+          </template>
+          <template v-slot="{ name, src, type, createdAt, size }">
+            <img :src="(src as string)" width="150" height="150"/>
+            <ul>
+              <li>Name: {{ name }}</li>
+              <li>Type: {{ type }}</li>
+              <li>Size: {{ (size as number/1024/1024).toPrecision(3) + 'MB' }}</li>
+              <li>Create At: {{ moment(createdAt as number).fromNow() }}</li>
+            </ul>
+          </template>
+        </CardItem>
+      </template>
+    </CardList>
+  </div> 
 </template>
 
 <script setup lang="ts">
-type ImageFile = {
-  name: string;
-  type: string;
-  src: string;
-  size: number;
-  createdAt: number;
-}
-
 import { ref } from 'vue';
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
 import LabelWrapper from '../inputs/LabelWrapper.vue';
 
-import moment from 'moment';
+import CardList from "@/components/card/CardList.vue";
+import CardItem from "@/components/card/CardItem.vue";
 
 const checkboxList = ['ruby', 'javascript', 'php', 'go'];
 const selectedValue = ref<string>('javascript');
@@ -91,6 +90,8 @@ const visible = ref<boolean>(true);
 const districts = ref<string[]>(['hk', 'kl', 'nt']);
 const selectedItems = ref<string[]>([]);
 
+import moment from 'moment';
+import type { ImageFile } from '@/types/types';
 import { useUploadFile } from '@/hooks/useUploadFile';
 const { imageData, onChangeFile, deleteImage} = useUploadFile();
 
