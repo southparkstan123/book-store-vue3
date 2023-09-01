@@ -2,16 +2,13 @@
   <div class="min-h-screen flex items-center justify-center">
     <div class="mx-auto">
       <ButtonComponent
-        @buttonClicked="toggleMode"
+        @buttonClicked="openModal"
         :buttonType="'button'"
         :textClass="'text-sm text-white'"
         :backgroundClass="'bg-info py-2 px-4'"
       >
-        <template #text> Change Mode </template>
+        <template #text> Setting </template>
       </ButtonComponent>
-    </div>
-    <div class="mx-auto">
-      <TemplateForm/>
     </div>
   </div>
 </template>
@@ -24,10 +21,10 @@ const modalStore = useModalStore();
 
 const openModal = () => {
   modalStore.open({
-    title: "Greeting",
-    type: "alert",
-    component: "",
-    message: "Welcome to Book-store on Vue3! This is Main Page.",
+    title: "Setting",
+    type: "form",
+    component: TemplateForm,
+    message: "",
   });
 };
 

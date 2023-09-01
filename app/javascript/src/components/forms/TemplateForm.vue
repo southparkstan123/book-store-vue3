@@ -31,49 +31,51 @@
       </InputField>
     </FieldsetWrapper>
 
-    <LabelWrapper 
-      :forAttribute="'images'" 
-      :labelClass="'inline-block my-3 cursor-pointer'" 
-      :textClass="'text-sm text-white bg-info py-2 px-4'" 
-      :labelText="'Upload File'"
-    >
-      <InputField :inputId="'images'" :className="''" :inputValue="''"
-        :inputFieldClass="'hidden'" :inputName="'images'"
-        :inputType="'file'" :isMultiple="true"
-        @changeValue="onChangeFile">
+    <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block my-3 cursor-pointer'"
+      :textClass="'text-sm text-white bg-info py-2 px-4'" :labelText="'Upload File'">
+      <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'" :inputName="'images'"
+        :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile">
       </InputField>
     </LabelWrapper>
   </div>
 
-  <div>
-    <pre>{{ selectedValue }}</pre>
-    <pre>{{ visible }}</pre>
-    <pre>{{ selectedItems }}</pre>
+  <div :style="'height: 200px'" class="overflow-y-scroll">
+    <div class="flex px-1">
+      <span class="mr-1">{{ selectedValue }}</span>
+      <span class="mx-1">{{ visible }}</span>
+      <span class="mx-1">{{ selectedItems.join(',') }}</span>
+    </div>
     <CardList :data="(imageData as ImageFile[])">
       <template v-slot="{ item, index }">
-        <CardItem 
-          :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1': 'bg-table-body-2'" 
-          :item="(item as ImageFile)"
-          :class="'text-table-text'"
-        >
+        <CardItem :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1' : 'bg-table-body-2'" :item="(item as ImageFile)"
+          :class="'text-table-text'">
           <template #close-button>
             <div :class="'float-right cursor-pointer p-1'" @click="deleteImage(index)">x</div>
           </template>
           <template v-slot="{ src, type, createdAt, size }">
             <div class="flex justify-center">
-              <img :src="(src as string)" width="150" height="150"/>
+              <img :src="(src as string)" width="150" height="150" />
             </div>
-            
             <ul>
               <li>Type: {{ type }}</li>
-              <li>Size: {{ (size as number/1024/1024).toPrecision(3) + 'MB' }}</li>
+              <li>Size: {{ (size as number / 1024 / 1024).toPrecision(3) + 'MB' }}</li>
               <li>Create At: {{ moment(createdAt as number).fromNow() }}</li>
             </ul>
           </template>
         </CardItem>
       </template>
     </CardList>
-  </div> 
+  </div>
+
+  <ButtonComponent @buttonClicked="toggleMode" :buttonType="'button'" :textClass="'text-sm text-white'"
+    :backgroundClass="'bg-success py-2 px-4 my-3'">
+    <template #text> Change Theme </template>
+  </ButtonComponent>
+
+  <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
+    :backgroundClass="'bg-warning py-2 px-4 my-3'">
+    <template #text> Close Modal </template>
+  </ButtonComponent>
 </template>
 
 <script setup lang="ts">
@@ -81,6 +83,7 @@ import { ref } from 'vue';
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
 import LabelWrapper from '../inputs/LabelWrapper.vue';
+import ButtonComponent from '../inputs/ButtonComponent.vue';
 
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
@@ -96,7 +99,11 @@ const selectedItems = ref<string[]>([]);
 import moment from 'moment';
 import type { ImageFile } from '@/types/types';
 import { useUploadFile } from '@/hooks/useUploadFile';
-const { imageData, onChangeFile, deleteImage} = useUploadFile();
+
+import { useModalStore } from '@/store/modal';
+const modalStore = useModalStore();
+
+const { imageData, onChangeFile, deleteImage } = useUploadFile();
 
 const onChangeValue = (payload) => {
   selectedValue.value = payload;
@@ -117,6 +124,19 @@ const onChangeSelectedItems = ({ checked, value }) => {
   }
 
   selectedItems.value = result;
+}
+
+const toggleMode = () => {
+  let htmlElement = document.querySelector('html');
+  const mode = localStorage.getItem('mode');
+
+  if (mode !== null && mode === 'shoujyo') {
+    htmlElement?.classList.remove('shoujyo');
+    localStorage.removeItem('mode');
+  } else {
+    htmlElement?.classList.add('shoujyo');
+    localStorage.setItem('mode', 'shoujyo');
+  }
 }
 
 </script>
