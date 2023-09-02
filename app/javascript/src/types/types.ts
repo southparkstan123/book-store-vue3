@@ -165,3 +165,5 @@ export type ImageFile = {
   size: number;
   createdAt: number;
 }
+
+export type Theme = "default" | "shoujyo";

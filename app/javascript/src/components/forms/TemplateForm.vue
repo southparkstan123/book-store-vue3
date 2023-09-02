@@ -1,10 +1,10 @@
 <template>
   <div class="mx-auto inline w-full">
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
-      :title="'Choose Programming Language:'">
-      <InputField v-for="item in checkboxList" :inputId="item" :className="'my-3 inline'" :inputValue="item"
+      :title="'Choose Theme:'">
+      <InputField v-for="item in allThemes" :inputId="item" :className="'my-3 inline'" :inputValue="item"
         :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'" :inputType="'radio'"
-        :checked="item === selectedValue" @changeValue="onChangeValue">
+        :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
         <template #label>
           <label :for="item" class="px-1">{{ item }}</label>
         </template>
@@ -40,7 +40,6 @@
   </div>
 
   <div class="flex px-1">
-    <span class="mr-1">{{ selectedValue }}</span>
     <span class="mx-1">{{ visible }}</span>
     <span class="mx-1">{{ selectedItems.join(',') }}</span>
   </div>
@@ -69,11 +68,6 @@
     </CardList>
   </div>
 
-  <ButtonComponent @buttonClicked="toggleMode" :buttonType="'button'" :textClass="'text-sm text-white'"
-    :backgroundClass="'bg-success py-2 px-4 my-3'">
-    <template #text> Change Theme </template>
-  </ButtonComponent>
-
   <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
     :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
     <template #text> Close Modal </template>
@@ -90,8 +84,11 @@ import ButtonComponent from '../inputs/ButtonComponent.vue';
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
 
-const checkboxList = ['ruby', 'javascript', 'php', 'go'];
-const selectedValue = ref<string>('javascript');
+// Theme
+import { useThemeStore } from "@/store/theme"
+const themeStore = useThemeStore();
+const selectedTheme = themeStore.getTheme;
+const allThemes = themeStore.getAllThemes;
 
 const visible = ref<boolean>(true);
 
@@ -106,10 +103,6 @@ import { useModalStore } from '@/store/modal';
 const modalStore = useModalStore();
 
 const { imageData, onChangeFile, deleteImage } = useUploadFile();
-
-const onChangeValue = (payload) => {
-  selectedValue.value = payload;
-}
 
 const onChangeVisible = ({ checked, value }) => {
   visible.value = checked;
@@ -126,19 +119,6 @@ const onChangeSelectedItems = ({ checked, value }) => {
   }
 
   selectedItems.value = result;
-}
-
-const toggleMode = () => {
-  let htmlElement = document.querySelector('html');
-  const mode = localStorage.getItem('mode');
-
-  if (mode !== null && mode === 'shoujyo') {
-    htmlElement?.classList.remove('shoujyo');
-    localStorage.removeItem('mode');
-  } else {
-    htmlElement?.classList.add('shoujyo');
-    localStorage.setItem('mode', 'shoujyo');
-  }
 }
 
 </script>

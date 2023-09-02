@@ -194,14 +194,10 @@ const showUserInfo = () => {
   });
 };
 
-const vMode = (el) => {
-  let htmlElement = document.querySelector('html');
-  const mode = localStorage.getItem('mode');
+import { useThemeStore } from "@/store/theme";
+const themeStore = useThemeStore();
+themeStore.onToggleTheme();
 
-  if(mode !== null && mode === 'shoujyo'){
-    htmlElement?.classList.add('shoujyo');
-  }
-}
 </script>
 
 <style lang="scss">
