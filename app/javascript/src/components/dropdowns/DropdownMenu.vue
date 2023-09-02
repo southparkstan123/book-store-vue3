@@ -6,7 +6,7 @@
       @change="onChange"
     >
       <slot name="options" v-bind="data">
-        <option selected="true" disabled>Please select the publisher</option>
+        <option selected="true" disabled>{{ placeholder }}</option>
         <option
           v-for="[key, value] in data"
           :value="key"
@@ -33,6 +33,10 @@ export default defineComponent({
       type: Object as PropType<number | null>,
       default: null,
     },
+    placeholder: {
+      type: String,
+      default: '',
+    }
   },
   setup(props, { emit }) {
     const onChange = (event: any) => {
