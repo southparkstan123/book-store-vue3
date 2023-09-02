@@ -9,7 +9,7 @@ export type TableField = {
   key: string;
 };
 
-export type DropdownItem = [ key: number, value: string ];
+export type DropdownItem = [ key: string | number, value: string | number ];
 
 // Inputs
 export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file";
@@ -167,3 +167,7 @@ export type ImageFile = {
 }
 
 export type Theme = "default" | "shoujyo";
+
+export type PaginationSetting = {
+  perPage: number;
+};

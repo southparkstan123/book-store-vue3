@@ -1,18 +1,22 @@
 import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
-import type { Theme } from "@/types/types";
+import type { Theme, PaginationSetting } from "@/types/types";
 
 export const useThemeStore = defineStore("theme", () => {
-  const state = reactive<{theme: getTheme; allThemes: Theme[]}>({
+  const state = reactive<{theme: getTheme; allThemes: Theme[]; pagination: PaginationSetting}>({
     theme: "default",
-    allThemes: ["default", "shoujyo"]
+    allThemes: ["default", "shoujyo"],
+    pagination: {
+      perPage: 10
+    }
   })
 
   // Getters
   const getTheme = computed<Theme>(() => state.theme);
   const getAllThemes = computed<Theme[]>(() => state.allThemes);
+  const getPerPage = computed<number>(() => state.pagination.perPage);
 
-  // Action
+  // Actions
   const onToggleTheme = (payload?: Theme) => {
     let htmlElement = document.querySelector('html'); 
     const themeFromLocalStorage = localStorage.getItem('theme') as Theme;
@@ -23,9 +27,15 @@ export const useThemeStore = defineStore("theme", () => {
     state.theme = mode;
   }
 
+  const changeValuePerPage = (payload: number) => {
+    state.pagination.perPage = payload;
+  }
+
   return {
     getTheme,
     getAllThemes,
-    onToggleTheme
+    getPerPage,
+    onToggleTheme,
+    changeValuePerPage
   };
 })

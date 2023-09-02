@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto inline w-full">
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
-      :title="'Choose Theme:'">
+      :title="'Theme'">
       <InputField v-for="item in allThemes" :inputId="item" :className="'my-3 inline'" :inputValue="item"
         :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'" :inputType="'radio'"
         :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
@@ -9,6 +9,23 @@
           <label :for="item" class="px-1">{{ item }}</label>
         </template>
       </InputField>
+    </FieldsetWrapper>
+
+    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
+      :title="'Pagination'">
+      <LabelWrapper
+        :forAttribute="'per-page'"
+        :textClass="''"
+        :labelText="'Page size:'"
+      >
+        <DropdownMenu
+          :data="[[10, 10],[20, 20],[50, 50]]"
+          :placeholder="'Please select the page size'"
+          :selectedItem="perPage"
+          @selectedItem="themeStore.changeValuePerPage"
+        >
+        </DropdownMenu>
+      </LabelWrapper>
     </FieldsetWrapper>
 
     <InputField :inputId="'visible'" :className="'my-3 block'" :inputValue="visible"
@@ -41,11 +58,10 @@
 
   <div class="flex px-1">
     <span class="mx-1">{{ visible }}</span>
-    <span class="mx-1">{{ selectedItems.join(',') }}</span>
+    <span class="mx-1">{{ selectedItems.sort().join(',') }}</span>
   </div>
 
   <div :style="'height: 200px'" class="overflow-y-scroll">
-    
     <CardList :data="(imageData as ImageFile[])">
       <template v-slot="{ item, index }">
         <CardItem :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1' : 'bg-table-body-2'" :item="(item as ImageFile)"
@@ -80,6 +96,7 @@ import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
 import LabelWrapper from '../inputs/LabelWrapper.vue';
 import ButtonComponent from '../inputs/ButtonComponent.vue';
+import DropdownMenu from '../dropdowns/DropdownMenu.vue';
 
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
@@ -89,6 +106,7 @@ import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 const selectedTheme = themeStore.getTheme;
 const allThemes = themeStore.getAllThemes;
+const perPage = themeStore.getPerPage;
 
 const visible = ref<boolean>(true);
 
