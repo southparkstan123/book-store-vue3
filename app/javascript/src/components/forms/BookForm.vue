@@ -27,6 +27,7 @@
             >
               <DropdownMenu
                 :data="publishers"
+                :placeholder="'Please select the publisher'"
                 :selectedItem="bookForm.form.publisher_id"
                 @selectedItem="onChangePublisher"
               >
