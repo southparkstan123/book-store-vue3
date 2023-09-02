@@ -228,4 +228,8 @@ themeStore.onToggleTheme();
   transform: translateY(10%);
   opacity: 0;
 }
+
+html * {
+  @apply transition-colors duration-500;
+}
 </style>
