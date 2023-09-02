@@ -21,8 +21,8 @@
         <DropdownMenu
           :data="[[10, 10],[20, 20],[50, 50]]"
           :placeholder="'Please select the page size'"
-          :selectedItem="perPage"
-          @selectedItem="themeStore.changeValuePerPage"
+          :selectedItem="themeStore.getPerPage"
+          @selectedItem="(payload: number) => themeStore.changeValuePerPage(payload)"
         >
         </DropdownMenu>
       </LabelWrapper>
@@ -109,7 +109,6 @@ import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 const selectedTheme = themeStore.getTheme;
 const allThemes = themeStore.getAllThemes;
-const perPage = themeStore.getPerPage;
 
 const visible = ref<boolean>(true);
 

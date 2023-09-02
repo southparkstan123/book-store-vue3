@@ -72,6 +72,9 @@
         </router-link>
       </template>
       <template #footer-content>
+        <a class="cursor-pointer link mx-2 text-menu-item" @click="openTemplateForm">
+          Setting
+        </a>
         <a class="cursor-pointer link mx-2 text-menu-item" @click="showUserInfo">
           User info
         </a>
@@ -191,6 +194,16 @@ const showUserInfo = () => {
     message: userStore.getUserInfo.email,
     component: "",
     type: "alert",
+  });
+};
+
+import TemplateForm from "./components/forms/TemplateForm.vue";
+const openTemplateForm = () => {
+  modalStore.open({
+    title: "Setting",
+    type: "form",
+    component: TemplateForm,
+    message: "",
   });
 };
 

@@ -169,6 +169,10 @@ const toogleDisplayView = (payload) => {
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
 
+// Theme
+import { useThemeStore } from "@/store/theme"
+const themeStore = useThemeStore();
+
 // Custom fields
 const fields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
@@ -276,14 +280,15 @@ watch(
   [
     () => props.category,
     () => pagination.value.currentPage,
+    () => themeStore.getPerPage,
     () => keyword.value,
   ],
   (
-    [newCategory, newCurrentPage, newKeyword],
-    [oldCategory, oldCurrentPage, oldKeyword],
+    [newCategory, newCurrentPage, newPerPage, newKeyword],
+    [oldCategory, oldCurrentPage, oldPerPage, oldKeyword],
   ) => {
-    if (newKeyword !== oldKeyword || newCategory !== oldCategory) {
-      fetchRecords(newCategory, 1, pagination.value.perPage, newKeyword);
+    if (newKeyword !== oldKeyword || newCategory !== oldCategory || newPerPage !== oldPerPage) {
+      fetchRecords(newCategory, 1, newPerPage, newKeyword);
     } else {
       fetchRecords(
         newCategory,
