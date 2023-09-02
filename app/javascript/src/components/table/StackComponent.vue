@@ -11,7 +11,7 @@
             {{ item[field.key] }}
           </slot>
         </td>
-        <td v-else v-for="field in displayedfields" :data-label="field">
+        <td class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header" v-else v-for="field in displayedfields" :data-label="field">
           <slot :name="field" :item="item">
             {{ item[field] }}
           </slot>
