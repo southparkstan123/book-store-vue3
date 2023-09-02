@@ -61,7 +61,7 @@
     <span class="mx-1">{{ selectedItems.sort().join(',') }}</span>
   </div>
 
-  <div :style="'height: 200px'" class="overflow-y-scroll">
+  <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 200px'" class="overflow-y-scroll">
     <CardList :data="(imageData as ImageFile[])">
       <template v-slot="{ item, index }">
         <CardItem :wrapperClass="(index % 2 === 0) ? 'bg-table-body-1' : 'bg-table-body-2'" :item="(item as ImageFile)"
@@ -84,10 +84,13 @@
     </CardList>
   </div>
 
-  <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
-    :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
-    <template #text> Close Modal </template>
-  </ButtonComponent>
+  <div class="float-right">
+    <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
+      :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
+      <template #text> Close Modal </template>
+    </ButtonComponent>
+  </div>
+
 </template>
 
 <script setup lang="ts">
