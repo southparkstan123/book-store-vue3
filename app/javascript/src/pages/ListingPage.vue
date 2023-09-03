@@ -6,11 +6,6 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
-          <ColumnFilter 
-            :data="data" 
-            :presetFields="presetFields" 
-            @onChangeColumn="changeColumn"
-          ></ColumnFilter>
           <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
             <template #search-bar>
               <InputField
@@ -98,6 +93,11 @@
               </PaginationComponent>
             </template>
           </component>
+          <ColumnFilter 
+            :data="data" 
+            :presetFields="presetFields" 
+            @onChangeColumn="changeColumn"
+          ></ColumnFilter>
         </div>
         <div v-else>
           <div class="text-center">
