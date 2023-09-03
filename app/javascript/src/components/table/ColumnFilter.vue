@@ -4,7 +4,7 @@
     :textClass="'text-sm text-info'"
     :title="'Column Filter'"
   >
-    <InputField v-for="item in fields" :inputId="item.key" :className="'my-1'" :inputValue="item.key"
+    <InputField v-for="item in fields" :inputId="item.key" :className="'my-1 float-left'" :inputValue="item.key"
       :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
       :checked="item.isVisible" @changeValue="({ checked, value }) => onChangeVisible(item, checked)"
       :inputType="'checkbox'">

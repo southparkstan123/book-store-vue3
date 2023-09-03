@@ -6,6 +6,16 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
+          <Transition :appear="false" name="fade" mode="out-in">
+            <div :style="`width: ${windowWidth * 0.4}px`" v-if="isDisplayColumnFilter">
+              <ColumnFilter 
+                class="block"
+                :data="data" 
+                :presetFields="presetFields" 
+                @onChangeColumn="changeColumn"
+              />
+            </div>
+          </Transition>
           <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
             <template #search-bar>
               <InputField
@@ -18,9 +28,16 @@
                 @changeValue="searchKeyword"
               >
               </InputField>
-              <router-link :class="'float-left text-sm text-info pr-4 py-3'" :to="`/${category}/add`">
+              <router-link :class="'float-left text-info pr-4 py-3'" :to="`/${category}/add`">
                 Add {{ category }}
               </router-link>
+              <InputField :inputId="'column-filter'" :className="'float-left my-3'" :inputValue="isDisplayColumnFilter"
+                :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'column-filter'" :inputType="'checkbox'"
+                :checked="isDisplayColumnFilter" @changeValue="toggleColumnFilter">
+                <template #label>
+                  <label for="column-filter" class="px-1">{{ `${(isDisplayColumnFilter) ? 'Hidden' : 'Show'} column filter`}}</label>
+                </template>
+              </InputField>
             </template>
             <template #price="{ item }">
               {{ '$' + item.price }}
@@ -93,11 +110,6 @@
               </PaginationComponent>
             </template>
           </component>
-          <ColumnFilter 
-            :data="data" 
-            :presetFields="presetFields" 
-            @onChangeColumn="changeColumn"
-          ></ColumnFilter>
         </div>
         <div v-else>
           <div class="text-center">
@@ -184,6 +196,9 @@ const fields = ref<TableField[] | undefined>(undefined);
 const changeColumn = (payload: TableField[] | undefined) => {
   fields.value = payload
 }
+
+const isDisplayColumnFilter = ref<boolean>(false);
+const toggleColumnFilter = ({ checked, value }) => isDisplayColumnFilter.value = checked;
 
 const presetFields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
