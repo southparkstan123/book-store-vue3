@@ -6,6 +6,11 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
+          <ColumnFilter 
+            :data="data" 
+            :presetFields="presetFields" 
+            @onChangeColumn="changeColumn"
+          ></ColumnFilter>
           <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
             <template #search-bar>
               <InputField
@@ -174,7 +179,13 @@ import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 
 // Custom fields
-const fields = computed<TableField[] | undefined>(() => {
+import ColumnFilter from "@/components/table/ColumnFilter.vue";
+const fields = ref<TableField[] | undefined>(undefined);
+const changeColumn = (payload: TableField[] | undefined) => {
+  fields.value = payload
+}
+
+const presetFields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
   const defaultFields = [
     { key: "created_at", label: "Created at" },
