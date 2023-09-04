@@ -285,7 +285,7 @@ const action = async (type: ActionType, id: number) => {
     if(type === "view") {
       const item = data.value.filter(item => item.id === id).pop();
       modalStore.open({
-        title: "Detail",
+        title: props.category.toUpperCase(),
         message: "",
         type: "form",
         component: DetailInfo,
