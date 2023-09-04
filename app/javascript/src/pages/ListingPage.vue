@@ -77,6 +77,15 @@
             </template>
             <template #addition-content="{ item }">
               <ButtonComponent
+                @buttonClicked="action('view', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-primary py-2 px-4 my-1'"
+                :isDisable="false"
+              >
+                <template #text> View </template>
+              </ButtonComponent>
+              <ButtonComponent
                 @buttonClicked="action('edit', item.id)"
                 :buttonType="'button'"
                 :textClass="'text-sm text-white'"
@@ -192,6 +201,8 @@ const themeStore = useThemeStore();
 
 // Custom fields
 import ColumnFilter from "@/components/table/ColumnFilter.vue";
+import DetailInfo from "@/components/DetailInfo.vue";
+
 const fields = ref<TableField[] | undefined>(undefined);
 const changeColumn = (payload: TableField[] | undefined) => {
   fields.value = payload
@@ -271,7 +282,18 @@ const fetchRecords = async (
 // Actions
 const action = async (type: ActionType, id: number) => {
   try {
-    if (type === "edit") {
+    if(type === "view") {
+      const item = data.value.filter(item => item.id === id).pop();
+      modalStore.open({
+        title: "Detail",
+        message: "",
+        type: "form",
+        component: DetailInfo,
+        props: {
+          item
+        }
+      });
+    } else if (type === "edit") {
       router.push({ path: `/${props.category}/${type}/${id}`, replace: true });
     } else {
       const confirm = await modalStore.open({
