@@ -10,12 +10,12 @@
         : "item"
     }}
   </div>
-  <div v-if="data.length <= numberOfDisplayedItem && data.length > 0">
+  <div v-if="data && data.length <= numberOfDisplayedItem && data.length > 0">
     <div v-for="item in data">
       <span>{{ item[field] }}</span>
     </div>
   </div>
-  <div v-if="data.length === 0">
+  <div v-if="data && data.length === 0">
     <span>(No item)</span>
   </div>
 </template>
