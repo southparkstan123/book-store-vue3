@@ -110,6 +110,7 @@ const onSubmit = async () => {
       message: response.data.message,
       type: "alert",
       component: "",
+      props: undefined
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
@@ -119,6 +120,7 @@ const onSubmit = async () => {
       message: error.response.statusText,
       type: "alert",
       component: "",
+      props: undefined
     });
   }
 };

@@ -30,6 +30,7 @@ export const useAuthorForm = () => {
         message: error.response.data.message,
         type: "alert",
         component: "",
+        props: undefined
       });
     } finally {
       authorForm.isLoading = false;

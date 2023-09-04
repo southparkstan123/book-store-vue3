@@ -117,6 +117,7 @@ const onRegistration = async () => {
       message: result.data.message,
       type: "alert",
       component: "",
+      props: undefined
     });
 
     router.push("/signin");
@@ -127,6 +128,7 @@ const onRegistration = async () => {
       message: error.response.data.message,
       type: "alert",
       component: "",
+      props: undefined
     });
   }
 };

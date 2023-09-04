@@ -10,6 +10,7 @@ export const useModalStore = defineStore("modal", () => {
     title: "",
     component: "",
     resolvePromise: undefined,
+    props: undefined
   });
 
   // Getters
@@ -22,6 +23,7 @@ export const useModalStore = defineStore("modal", () => {
     state.type = payload.type;
     state.component = payload.component;
     state.message = payload.message;
+    state.props = payload.props;
 
     return new Promise((resolve, reject) => {
       state.resolvePromise = resolve;
@@ -34,6 +36,7 @@ export const useModalStore = defineStore("modal", () => {
     state.type = "alert";
     state.component = "";
     state.message = "";
+    state.props = undefined;
   };
 
   const confirm = () => {
@@ -43,6 +46,7 @@ export const useModalStore = defineStore("modal", () => {
     state.component = "";
     state.message = "";
     state.resolvePromise(true);
+    state.props = undefined;
   };
 
   const reject = () => {

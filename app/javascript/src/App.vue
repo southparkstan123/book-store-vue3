@@ -16,7 +16,7 @@
       </template>
 
       <template #form-body>
-        <component :is="modalState.component" />
+        <component :is="modalState.component" v-bind="modalState.props"/>
       </template>
 
       <template #footer="{ type }">
@@ -176,6 +176,7 @@ const onLogout = async () => {
       title: "Logout",
       message: "Are you sure?",
       component: "",
+      props: undefined
     });
 
     if (confirm) {
@@ -194,6 +195,7 @@ const showUserInfo = () => {
     message: userStore.getUserInfo.email,
     component: "",
     type: "alert",
+    props: undefined
   });
 };
 
@@ -204,6 +206,7 @@ const openTemplateForm = () => {
     type: "form",
     component: TemplateForm,
     message: "",
+    props: undefined
   });
 };
 

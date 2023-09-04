@@ -50,6 +50,7 @@ export const useBookForm = () => {
         message: error.response.data.message,
         type: "alert",
         component: "",
+        props: undefined
       });
     } finally {
       bookForm.isLoading = false;

@@ -24,6 +24,7 @@ const openModal = () => {
     type: "alert",
     component: "",
     message: "Welcome!",
+    props: undefined
   });
 };
 

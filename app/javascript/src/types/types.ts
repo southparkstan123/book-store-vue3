@@ -126,6 +126,7 @@ export type ModalState = {
   title: string;
   component: string;
   resolvePromise: any;
+  props: any;
 };
 
 export type OpenModalPayload = {
@@ -133,6 +134,7 @@ export type OpenModalPayload = {
   message: string;
   title: string;
   component: Component | "";
+  props: any;
 };
 
 export type ButtonProps = {
