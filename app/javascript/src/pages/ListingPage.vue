@@ -35,7 +35,7 @@
                 :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'column-filter'" :inputType="'checkbox'"
                 :checked="isDisplayColumnFilter" @changeValue="toggleColumnFilter">
                 <template #label>
-                  <label for="column-filter" class="px-1">{{ `${(isDisplayColumnFilter) ? 'Hidden' : 'Show'} column filter`}}</label>
+                  <label for="column-filter" class="px-1"> Show column filter </label>
                 </template>
               </InputField>
             </template>
