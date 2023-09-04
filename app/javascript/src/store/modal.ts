@@ -14,7 +14,7 @@ export const useModalStore = defineStore("modal", () => {
   });
 
   // Getters
-  const getModalObject = computed<boolean>(() => state);
+  const getModalObject = computed<ModalState>(() => state);
 
   // Actions
   const open = (payload: OpenModalPayload) => {

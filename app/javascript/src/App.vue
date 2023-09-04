@@ -152,7 +152,7 @@ const route = useRoute();
 import { useModalStore } from "@/store/modal";
 import ModalComponent from "@/components/modal/ModalComponent.vue";
 const modalStore = useModalStore();
-const modalState = storeToRefs(modalStore).state;
+const modalState = modalStore.getModalObject;
 
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
