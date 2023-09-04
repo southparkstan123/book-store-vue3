@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data.length > numberOfDisplayedItem">
+  <div v-if="data && data.length > numberOfDisplayedItem">
     <div v-for="(item, index) in data">
       <span v-if="index < numberOfDisplayedItem">{{ item[field] }}</span>
     </div>
