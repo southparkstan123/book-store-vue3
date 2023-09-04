@@ -12,19 +12,19 @@
           <div v-if="books">
             <span><b>Books: </b></span>
             <ul>
-              <li v-for="item in books">{{ item }}</li>
+              <li v-for="item in books">{{ item['name'] }}</li>
             </ul>
           </div>
           <div v-if="authors">
             <span><b>Authors: </b></span>
             <ul>
-              <li v-for="item in authors">{{ item }}</li>
+              <li v-for="item in authors">{{ item['name'] }}</li>
             </ul>
           </div>
           <div v-if="publisher">
             <span><b>Publisher: </b></span>
             <ul>
-              <li>{{ publisher }}</li>
+              <li>{{ publisher['name'] }}</li>
             </ul>
           </div>
         </div>
