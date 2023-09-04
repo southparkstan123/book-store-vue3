@@ -25,6 +25,7 @@ type TextareaFieldProps = InputFieldProps & {
   isReadonly: boolean;
   cols: string;
   rows: string;
+  inputValue: string;
 };
 
 const props = withDefaults(defineProps<TextareaFieldProps>(), {
