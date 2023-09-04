@@ -7,11 +7,29 @@
       <template v-slot="{ name, abstract, description, price, books, authors, publisher }">
         <div>
           <ul>
-            <li v-if="name">Name: {{ name }}</li>
-            <li v-if="abstract">Abstract: {{ abstract }}</li>
-            <li v-if="description">Description: {{ description }}</li>
-            <li v-if="price">Price (USD): {{ price }}</li>
+            <li v-if="name"><b>Name: </b>{{ name }}</li>
+            <li v-if="abstract"><b>Abstract: </b>{{ abstract }}</li>
+            <li v-if="description"><b>Description: </b>{{ description }}</li>
+            <li v-if="price"><b>Price (USD): </b>{{ price }}</li>
           </ul>
+          <div v-if="books">
+            <span><b>Books: </b></span>
+            <ul>
+              <li v-for="item in books">{{ item }}</li>
+            </ul>
+          </div>
+          <div v-if="authors">
+            <span><b>Authors: </b></span>
+            <ul>
+              <li v-for="item in authors">{{ item }}</li>
+            </ul>
+          </div>
+          <div v-if="publisher">
+            <span><b>Publisher: </b></span>
+            <ul>
+              <li>{{ publisher }}</li>
+            </ul>
+          </div>
         </div>
       </template>
     </CardItem>
