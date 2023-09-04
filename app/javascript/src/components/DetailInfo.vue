@@ -8,25 +8,42 @@
             <li v-if="abstract"><b>Abstract: </b>{{ abstract }}</li>
             <li v-if="description"><b>Description: </b>{{ description }}</li>
             <li v-if="price"><b>Price (USD): </b>${{ price }}</li>
+            <li v-if="books && Object.keys(books).length > 0">
+              <b>Books: </b>
+              <ol>
+                <li v-for="item in books">
+                  <div class="w-full grid grid-cols-2" >
+                    <h1 class="float-left italic">Title: {{ item['name'] }}</h1>
+                    <b class="float-right">
+                      ${{ item['price'] }}
+                    </b>
+                  </div>
+                  <div class="w-full grid grid-cols-1">
+                    <span>Abstract: {{ item['abstract'] }}</span>
+                  </div>
+                </li>
+              </ol>
+            </li>
+            <li v-if="authors && Object.keys(authors).length > 0">
+              <b>Authors: </b>
+              <ol>
+                <li v-for="item in authors">
+                  <div class="w-full grid grid-cols-1 italic">{{ item['name'] }}</div>
+                  <div class="w-full grid grid-cols-1">{{ item['description'] }}</div>
+                </li>
+              </ol>
+            </li>
+            <li v-if="publisher && Object.keys(publisher).length > 0">
+              <b>Publisher: </b>
+              <ul>
+                <li>
+                  <div class="italic">
+                    {{ publisher['name'] }}
+                  </div>
+                </li>
+              </ul>
+            </li>
           </ul>
-          <div v-if="books">
-            <span><b>Books: </b></span>
-            <ul>
-              <li v-for="item in books">{{ item['name'] }}</li>
-            </ul>
-          </div>
-          <div v-if="authors">
-            <span><b>Authors: </b></span>
-            <ul>
-              <li v-for="item in authors">{{ item['name'] }}</li>
-            </ul>
-          </div>
-          <div v-if="publisher">
-            <span><b>Publisher: </b></span>
-            <ul>
-              <li>{{ publisher['name'] }}</li>
-            </ul>
-          </div>
         </div>
       </template>
     </CardItem>
