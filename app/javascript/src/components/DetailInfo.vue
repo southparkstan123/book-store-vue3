@@ -7,7 +7,7 @@
             <li v-if="name"><b>Name: </b>{{ name }}</li>
             <li v-if="abstract"><b>Abstract: </b>{{ abstract }}</li>
             <li v-if="description"><b>Description: </b>{{ description }}</li>
-            <li v-if="price"><b>Price (USD): </b>{{ price }}</li>
+            <li v-if="price"><b>Price (USD): </b>${{ price }}</li>
           </ul>
           <div v-if="books">
             <span><b>Books: </b></span>
