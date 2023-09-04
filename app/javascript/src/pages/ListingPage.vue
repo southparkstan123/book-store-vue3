@@ -22,7 +22,7 @@
                 v-if="category === 'book'"
                 :inputId="'test'"
                 :inputValue="keyword"
-                :inputFieldClass="'float-right'"
+                :inputFieldClass="'float-right disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="`Search by name`"
                 @changeValue="searchKeyword"
@@ -32,7 +32,7 @@
                 Add {{ category }}
               </router-link>
               <InputField :inputId="'column-filter'" :className="'float-left my-3'" :inputValue="isDisplayColumnFilter"
-                :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'column-filter'" :inputType="'checkbox'"
+                :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'column-filter'" :inputType="'checkbox'"
                 :checked="isDisplayColumnFilter" @changeValue="toggleColumnFilter">
                 <template #label>
                   <label for="column-filter" class="px-1"> Show column filter </label>

@@ -6,14 +6,14 @@
       :title="'Column Filter'"
     >
       <InputField v-for="item in fields" :inputId="item.key" :className="'my-1 float-left w-full'" :inputValue="item.key"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'districts'"
         :checked="item.isVisible" @changeValue="({ checked, value }) => onChangeVisible(item, checked)"
         :inputType="'checkbox'">
         <template #label>
           <label :for="item.key" class="px-3">{{ item.key }}</label>
           <span>Label:</span>
           <InputField :className="'my-1 inline'" :inputType="'text'" :placeholder="`Label of ${item.key}`"
-            :inputValue="item.label" :isDisabled="item.isVisible === false"
+            :inputValue="item.label" :isDisabled="item.isVisible === false" :inputFieldClass="'disabled:opacity-25'"
             @changeValue="(payload) => onChangeLabel(item, payload)"></InputField>
         </template>
       </InputField>

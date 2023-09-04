@@ -3,7 +3,7 @@
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Theme'">
       <InputField v-for="item in allThemes" :inputId="item" :className="'my-3 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'language'" :inputType="'radio'"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'language'" :inputType="'radio'"
         :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
         <template #label>
           <label :for="item" class="px-1">{{ item }}</label>
@@ -29,7 +29,7 @@
     </FieldsetWrapper>
 
     <InputField :inputId="'visible'" :className="'my-3 block'" :inputValue="visible"
-      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'visible'" :inputType="'checkbox'"
+      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'visible'" :inputType="'checkbox'"
       :checked="visible" @changeValue="onChangeVisible">
       <template #label>
         <label for="visible" class="px-1">isVisible?</label>
@@ -39,7 +39,7 @@
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Choose districts:'">
       <InputField v-for="item in districts" :inputId="item" :className="'my-1 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'districts'"
         :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item) : false"
         @changeValue="onChangeSelectedItems">
         <template #label>

@@ -5,7 +5,7 @@
         @buttonClicked="openModal"
         :buttonType="'button'"
         :textClass="'text-sm text-white'"
-        :backgroundClass="'bg-info py-2 px-4'"
+        :backgroundClass="'bg-info py-2 px-4 disabled:opacity-25'"
       >
         <template #text> Open Modal </template>
       </ButtonComponent>

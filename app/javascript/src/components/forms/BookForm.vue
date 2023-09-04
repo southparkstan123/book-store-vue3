@@ -14,7 +14,7 @@
               <InputField
                 :inputId="'name'"
                 :inputValue="bookForm.form.name"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 @changeValue="onChangeName"
@@ -41,7 +41,7 @@
               <InputField
                 :inputId="'price'"
                 :inputValue="bookForm.form.price"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'number'"
                 :placeholder="'Price (USD)'"
                 :step="0.1"
@@ -72,7 +72,7 @@
               <TextArea
                 :inputId="'abstract'"
                 :inputName="'abstract'"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputValue="bookForm.form.abstract"
                 :placeholder="'Abstract'"
                 :rows="'5'"
@@ -86,7 +86,7 @@
             :isDisabled="!bookForm.isFormChanged"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
-            :backgroundClass="'group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
+            :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
           >
             <template #text> Submit </template>
           </ButtonComponent>

@@ -14,7 +14,7 @@
               <InputField
                 :inputId="'name'"
                 :inputValue="publisherForm.form.name"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 @changeValue="onChangeName"
@@ -28,7 +28,7 @@
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputValue="publisherForm.form.description"
                 :placeholder="'Description'"
                 :rows="'5'"
@@ -42,7 +42,7 @@
             :isDisabled="!publisherForm.isFormChanged"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
-            :backgroundClass="'group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
+            :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
           >
             <template #text> Submit </template>
           </ButtonComponent>

@@ -3,6 +3,7 @@
     <InputField
       :inputId="'username'"
       :inputType="'text'"
+      :inputFieldClass="'disabled:opacity-25'"
       :placeholder="'Username'"
       @changeValue="onChangeUsername"
       :isDisabled="disableInputs"
@@ -10,6 +11,7 @@
     <InputField
       :inputId="'password'"
       :inputType="'password'"
+      :inputFieldClass="'disabled:opacity-25'"
       :placeholder="'Password'"
       @changeValue="onChangePassword"
       :isDisabled="disableInputs"
@@ -20,7 +22,7 @@
           :isDisabled="disableInputs"
           :buttonType="'submit'"
           :textClass="'text-sm font-medium'"
-          :backgroundClass="'group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
+          :backgroundClass="'disabled:opacity-25 group relative w-full flex justify-center py-2 px-4 border border-transparent rounded-md text-white bg-success focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
         >
           <template #text> Login </template>
         </ButtonComponent>
@@ -31,7 +33,7 @@
           @buttonClicked="toRegisterPage"
           :buttonType="'button'"
           :textClass="'text-sm text-secondary'"
-          :backgroundClass="' focus:outline-none'"
+          :backgroundClass="'disabled:opacity-25 focus:outline-none'"
         >
           <template #text> Register </template>
         </ButtonComponent>
