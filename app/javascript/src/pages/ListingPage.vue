@@ -6,8 +6,8 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
-          <Transition :appear="false" name="fade" mode="out-in">
-            <div :style="`width: ${windowWidth * 0.4}px`" v-if="isDisplayColumnFilter">
+          <Transition :appear="false" name="fade">
+            <div v-show="isDisplayColumnFilter">
               <ColumnFilter 
                 class="block"
                 :data="data" 
@@ -261,6 +261,7 @@ const fetchRecords = async (
       message: error.response.data.message,
       type: "alert",
       component: "",
+      props: undefined
     });
   } finally {
     isLoading.value = false;
@@ -278,6 +279,7 @@ const action = async (type: ActionType, id: number) => {
         message: "Are you sure?",
         type: "confirm",
         component: "",
+        props: undefined
       });
 
       if (confirm) {

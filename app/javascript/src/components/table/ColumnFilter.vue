@@ -1,22 +1,24 @@
 <template>
-  <FieldsetWrapper 
-    :wrapperClass="'border border-solid border-info p-3'" 
-    :textClass="'text-sm text-info'"
-    :title="'Column Filter'"
-  >
-    <InputField v-for="item in fields" :inputId="item.key" :className="'my-1 float-left'" :inputValue="item.key"
-      :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
-      :checked="item.isVisible" @changeValue="({ checked, value }) => onChangeVisible(item, checked)"
-      :inputType="'checkbox'">
-      <template #label>
-        <label :for="item.key" class="px-3">{{ item.key }}</label>
-        <span>Label:</span>
-        <InputField :className="'my-1 inline'" :inputType="'text'" :placeholder="`Label of ${item.key}`"
-          :inputValue="item.label" :isDisabled="item.isVisible === false"
-          @changeValue="(payload) => onChangeLabel(item, payload)"></InputField>
-      </template>
-    </InputField>
-  </FieldsetWrapper>
+  <div class="bg-muted fixed right-0 bottom-0 z-10">
+    <FieldsetWrapper 
+      :wrapperClass="'border border-solid border-info p-3 m-2'" 
+      :textClass="'text-sm text-info'"
+      :title="'Column Filter'"
+    >
+      <InputField v-for="item in fields" :inputId="item.key" :className="'my-1 float-left w-full'" :inputValue="item.key"
+        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0'" :inputName="'districts'"
+        :checked="item.isVisible" @changeValue="({ checked, value }) => onChangeVisible(item, checked)"
+        :inputType="'checkbox'">
+        <template #label>
+          <label :for="item.key" class="px-3">{{ item.key }}</label>
+          <span>Label:</span>
+          <InputField :className="'my-1 inline'" :inputType="'text'" :placeholder="`Label of ${item.key}`"
+            :inputValue="item.label" :isDisabled="item.isVisible === false"
+            @changeValue="(payload) => onChangeLabel(item, payload)"></InputField>
+        </template>
+      </InputField>
+    </FieldsetWrapper>
+  </div>
 </template>
 
 <script setup lang="ts">
