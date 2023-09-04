@@ -28,14 +28,14 @@
                 @changeValue="searchKeyword"
               >
               </InputField>
-              <router-link :class="'float-left text-info pr-4 py-3'" :to="`/${category}/add`">
+              <router-link :class="'float-left text-primary pr-4 py-3'" :to="`/${category}/add`">
                 Add {{ category }}
               </router-link>
               <InputField :inputId="'column-filter'" :className="'float-left my-3'" :inputValue="isDisplayColumnFilter"
                 :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'column-filter'" :inputType="'checkbox'"
                 :checked="isDisplayColumnFilter" @changeValue="toggleColumnFilter">
                 <template #label>
-                  <label for="column-filter" class="px-1"> Show column filter </label>
+                  <label for="column-filter" class="px-1 text-primary"> Show column filter </label>
                 </template>
               </InputField>
             </template>

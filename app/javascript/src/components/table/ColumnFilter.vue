@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-muted fixed right-0 bottom-0 z-10">
+  <div class="bg-table fixed right-0 bottom-0 z-10 ">
     <FieldsetWrapper 
       :wrapperClass="'border border-solid border-info p-3 m-2'" 
       :textClass="'text-sm text-info'"
