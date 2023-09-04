@@ -1,7 +1,7 @@
 <template>
   <div :class="wrapperClass">
     <slot name="close-button"></slot>
-    <slot v-bind="item"></slot>
+    <slot v-bind="item">{{ item }}</slot>
   </div> 
 </template>
 
