@@ -104,31 +104,32 @@ import DropdownMenu from '../dropdowns/DropdownMenu.vue';
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
 
+// Upload Files
+import moment from 'moment';
+import type { ImageFile } from '@/types/types';
+import { useUploadFile } from '@/hooks/useUploadFile';
+const { imageData, onChangeFile, deleteImage } = useUploadFile();
+
+// Modal
+import { useModalStore } from '@/store/modal';
+const modalStore = useModalStore();
+
 // Theme
 import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 const selectedTheme = themeStore.getTheme;
 const allThemes = themeStore.getAllThemes;
 
+// Visible
 const visible = ref<boolean>(true);
-
-const districts = ref<string[]>(['hk', 'kl', 'nt']);
-const selectedItems = ref<string[]>([]);
-
-import moment from 'moment';
-import type { ImageFile } from '@/types/types';
-import { useUploadFile } from '@/hooks/useUploadFile';
-
-import { useModalStore } from '@/store/modal';
-const modalStore = useModalStore();
-
-const { imageData, onChangeFile, deleteImage } = useUploadFile();
-
 const onChangeVisible = ({ checked, value }) => {
   visible.value = checked;
 }
 
-const onChangeSelectedItems = ({ checked, value }) => {
+// Districts
+const districts = ref<string[]>(['hk', 'kl', 'nt']);
+const selectedItems = ref<string[]>([]);
+  const onChangeSelectedItems = ({ checked, value }) => {
   let result: Array<string> = selectedItems.value;
 
   if (checked === true) {
