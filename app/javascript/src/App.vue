@@ -6,9 +6,9 @@
       @closeMenu="closeModal"
     >
       <template #header>
-        <h4 class="modal-title">
+        <h1 class="modal-title text-primary text-xl font-extrabold">
           {{ modalState.title }}
-        </h4>
+        </h1>
       </template>
 
       <template #message-body>
