@@ -4,12 +4,24 @@
       <template v-slot="{ name, abstract, description, price, books, authors, publisher }">
         <div>
           <ul>
-            <li v-if="name"><b>Name: </b>{{ name }}</li>
-            <li v-if="abstract"><b>Abstract: </b>{{ abstract }}</li>
-            <li v-if="description"><b>Description: </b>{{ description }}</li>
-            <li v-if="price"><b>Price (USD): </b>${{ price }}</li>
+            <li v-if="name">
+              <h1><b>Name: </b></h1>
+              {{ name }}
+            </li>
+            <li v-if="abstract">
+              <h1><b>Abstract: </b></h1>
+              {{ abstract }}
+            </li>
+            <li v-if="description">
+              <h1><b>Description: </b></h1>
+              {{ description }}
+            </li>
+            <li v-if="price">
+              <h1><b>Price (USD): </b></h1>
+              ${{ price }}
+            </li>
             <li v-if="books && Object.keys(books).length > 0">
-              <b>Books: </b>
+              <h1><b>Books: </b></h1>
               <ol>
                 <li v-for="item in books" class="odd:bg-table-body-1 even:bg-table-body-2">
                   <div class="w-full grid grid-cols-8 py-1" >
