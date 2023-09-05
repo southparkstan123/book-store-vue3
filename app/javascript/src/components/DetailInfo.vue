@@ -11,12 +11,16 @@
             <li v-if="books && Object.keys(books).length > 0">
               <b>Books: </b>
               <ol>
-                <li v-for="item in books">
-                  <div class="w-full grid grid-cols-2" >
-                    <h1 class="float-left italic">Title: {{ item['name'] }}</h1>
-                    <b class="float-right">
-                      ${{ item['price'] }}
-                    </b>
+                <li v-for="item in books" class="odd:bg-table-body-1 even:bg-table-body-2">
+                  <div class="w-full grid grid-cols-8 py-1" >
+                    <div class="col-span-7">
+                      <h1 class="float-left italic">Title: {{ item['name'] }}</h1>
+                    </div>
+                    <div class="float-right">
+                      <b>
+                        ${{ item['price'] }}
+                      </b>
+                    </div>
                   </div>
                   <div class="w-full grid grid-cols-1">
                     <span>Abstract: {{ item['abstract'] }}</span>
@@ -27,7 +31,7 @@
             <li v-if="authors && Object.keys(authors).length > 0">
               <b>Authors: </b>
               <ol>
-                <li v-for="item in authors">
+                <li v-for="item in authors" class="odd:bg-table-body-1 even:bg-table-body-2 py-1">
                   <div class="w-full grid grid-cols-1 italic">{{ item['name'] }}</div>
                   <div class="w-full grid grid-cols-1">{{ item['description'] }}</div>
                 </li>
