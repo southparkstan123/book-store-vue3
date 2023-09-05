@@ -305,8 +305,24 @@ const action = async (type: ActionType, id: number) => {
       });
 
       if (confirm) {
-        await deleteRecordById(id, props.category);
-        router.push(`/${props.category}/list`);
+        const response = await deleteRecordById(id, props.category);
+
+        modalStore.open({
+          title: "Success",
+          message: response.data.message,
+          type: "alert",
+          component: "",
+          props: undefined
+        });
+
+        setTimeout(() => {
+          fetchRecords(
+            props.category,
+            pagination.value.currentPage,
+            pagination.value.perPage,
+            keyword.value,
+          );
+        }, 1000);
       }
     }
   } catch (error) {
