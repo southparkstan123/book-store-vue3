@@ -11,7 +11,7 @@
           v-for="[key, value] in data"
           :value="key"
           :key="key"
-          :selected="selectedItems ? selectedItems.includes(key) : false"
+          :selected="selectedItems ? selectedItems.includes(key as number) : false"
         >
           {{ value }}
         </option>
