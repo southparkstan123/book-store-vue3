@@ -20,38 +20,28 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, type PropType } from "vue";
+<script setup lang="ts">
 import type { DropdownItem } from "@/types/types";
 
-export default defineComponent({
-  props: {
-    data: {
-      type: Array as PropType<DropdownItem[]>,
-    },
-    selectedItems: {
-      type: Array as PropType<number[]>,
-      default: () => [],
-    },
-  },
-  setup(props, { emit }) {
-    const onChange = (event: any) => {
-      let ids: Array<number> = [];
-      const options: any = event.target.options;
+withDefaults(defineProps<{data: DropdownItem[]; selectedItems: number[]}>(), {
+  data: () => [],
+  selectedItems: () => [],
+})
 
-      for (let index = 0; index < options.length; index++) {
-        if (options[index].selected === true) {
-          ids.push(parseInt(options[index].value, 10));
-        }
-      }
-      emit("selectedItems", ids);
-    };
+const emit = defineEmits<{e: number[]; "selectedItems"}>()
 
-    return {
-      onChange,
-    };
-  },
-});
+const onChange = (event: any) => {
+  let ids: Array<number> = [];
+  const options: any = event.target.options;
+
+  for (let index = 0; index < options.length; index++) {
+    if (options[index].selected === true) {
+      ids.push(parseInt(options[index].value, 10));
+    }
+  }
+  emit("selectedItems", ids);
+};
+
 </script>
 
 <style scoped></style>
