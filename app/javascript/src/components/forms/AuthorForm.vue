@@ -17,6 +17,7 @@
                 :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="'Name'"
+                :isRequired="true"
                 @changeValue="onChangeName"
               ></InputField>
             </LabelWrapper>
@@ -31,6 +32,7 @@
                 :inputFieldClass="'block w-full mt-1'"
                 :inputValue="authorForm.form.description"
                 :placeholder="'Description'"
+                :isRequired="true"
                 :rows="'5'"
                 @changeValue="onChangeDescription"
               ></TextArea>

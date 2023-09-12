@@ -10,6 +10,7 @@
               :forAttribute="'name'"
               :textClass="'text-gray-700'"
               :labelText="'Name'"
+              :isRequired="true"
             >
               <InputField
                 :inputId="'name'"
@@ -17,6 +18,7 @@
                 :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="'Name'"
+                :isRequired="true"
                 @changeValue="onChangeName"
               ></InputField>
             </LabelWrapper>
@@ -24,6 +26,7 @@
               :forAttribute="'publisher'"
               :textClass="'text-gray-700'"
               :labelText="'Publisher'"
+              :isRequired="true"
             >
               <DropdownMenu
                 :data="publishers"
@@ -37,6 +40,7 @@
               :forAttribute="'price'"
               :textClass="'text-gray-700'"
               :labelText="'Price'"
+              :isRequired="true"
             >
               <InputField
                 :inputId="'price'"
@@ -48,12 +52,14 @@
                 :min="0"
                 :max="1000"
                 @changeValue="onChangePrice"
+                :isRequired="true"
               ></InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'authors'"
               :textClass="'text-gray-700'"
               :labelText="'Authors'"
+              :isRequired="true"
             >
               <MultiSelectDropdown
                 :data="authors"
@@ -68,6 +74,7 @@
               :forAttribute="'abstract'"
               :textClass="'text-gray-700'"
               :labelText="'Abstract'"
+              :isRequired="true"
             >
               <TextArea
                 :inputId="'abstract'"
@@ -76,6 +83,7 @@
                 :inputValue="bookForm.form.abstract"
                 :placeholder="'Abstract'"
                 :rows="'5'"
+                :isRequired="true"
                 @changeValue="onChangeAbstract"
               ></TextArea>
             </LabelWrapper>

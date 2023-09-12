@@ -1,6 +1,11 @@
 <template>
   <label :class="labelClass" :for="forAttribute">
-    <span :class="textClass">{{ labelText }}</span>
+    <span :class="textClass">
+      {{ labelText }}
+      <slot name="required">
+        <span v-if="isRequired" :style="'color: red;'">*</span>
+      </slot>
+    </span>
     <slot></slot>
   </label>
 </template>
@@ -11,8 +16,10 @@ const props = withDefaults(defineProps<{
   textClass: string;
   forAttribute: string;
   labelClass: string;
+  isRequired: boolean;
 }>(), {
-  labelClass: 'block'
+  labelClass: 'block',
+  isRequired: false
 });
 </script>
 

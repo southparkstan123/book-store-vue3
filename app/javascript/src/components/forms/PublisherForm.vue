@@ -10,6 +10,7 @@
               :forAttribute="'name'"
               :textClass="'text-gray-700'"
               :labelText="'Name'"
+              :isRequired="true"
             >
               <InputField
                 :inputId="'name'"
@@ -17,6 +18,7 @@
                 :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
                 :inputType="'text'"
                 :placeholder="'Name'"
+                :isRequired="true"
                 @changeValue="onChangeName"
               ></InputField>
             </LabelWrapper>
@@ -24,6 +26,7 @@
               :forAttribute="'description'"
               :textClass="'text-gray-700'"
               :labelText="'Description'"
+              :isRequired="true"
             >
               <TextArea
                 :inputId="'description'"
@@ -32,6 +35,7 @@
                 :inputValue="publisherForm.form.description"
                 :placeholder="'Description'"
                 :rows="'5'"
+                :isRequired="true"
                 @changeValue="onChangeDescription"
               ></TextArea>
             </LabelWrapper>
