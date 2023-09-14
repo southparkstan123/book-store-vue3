@@ -74,6 +74,7 @@ export default defineComponent({
           message: "Do you really want to leave?",
           type: "confirm",
           component: "",
+          props: undefined
         });
 
         if (isLeave) {
@@ -82,6 +83,7 @@ export default defineComponent({
             message: "Are you sure?",
             type: "confirm",
             component: "",
+            props: undefined
           });
 
           if (isLogout) {
@@ -97,6 +99,7 @@ export default defineComponent({
           message: "Do you really want to leave?",
           type: "confirm",
           component: "",
+          props: undefined
         });
 
         if (isLeave) {
@@ -108,6 +111,7 @@ export default defineComponent({
           message: "Are you sure?",
           type: "confirm",
           component: "",
+          props: undefined
         });
 
         if (isLogout) {
