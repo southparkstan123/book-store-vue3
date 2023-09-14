@@ -49,9 +49,9 @@
     </FieldsetWrapper>
 
     <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block my-3 cursor-pointer bg-info py-2 px-4'"
-      :textClass="'text-sm text-white'" :labelText="'Upload Files'">
+      :textClass="'text-sm text-white'" :labelText="'Upload Images'">
       <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'" :inputName="'images'"
-        :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile">
+        :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile" :accept="'image/*'">
       </InputField>
     </LabelWrapper>
   </div>

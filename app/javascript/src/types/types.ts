@@ -46,7 +46,8 @@ export type CheckboxProps = InputFieldProps & {
 }
 
 export type FileProps = InputFieldProps & {
-  isMultiple: boolean | undefined 
+  isMultiple: boolean | undefined;
+  accept: string | undefined;
 }
 
 export type AuthorForm = {

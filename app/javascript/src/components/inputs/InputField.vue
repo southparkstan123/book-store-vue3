@@ -15,6 +15,7 @@
       :max="max"
       :checked="checked"
       :multiple="isMultiple"
+      :accept="accept"
     />
     <slot name="label"></slot>
   </div>
@@ -40,7 +41,8 @@ const props = withDefaults(
     min: undefined,
     max: undefined,
     checked: false,
-    isMultiple: undefined
+    isMultiple: undefined,
+    accept: undefined
   },
 );
 
