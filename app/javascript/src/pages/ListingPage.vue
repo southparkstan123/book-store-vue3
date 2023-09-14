@@ -6,15 +6,14 @@
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
         <div v-if="!isError">
-          <Transition :appear="false" name="fade">
-            <div v-show="isDisplayColumnFilter">
-              <ColumnFilter 
-                class="block"
-                :data="data" 
-                :presetFields="presetFields" 
-                @onChangeColumn="changeColumn"
-              />
-            </div>
+          <Transition :appear="false" name="slide-right">
+            <ColumnFilter
+              v-show="isDisplayColumnFilter"
+              class="block"
+              :data="data" 
+              :presetFields="presetFields" 
+              @onChangeColumn="changeColumn"
+            />
           </Transition>
           <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
             <template #search-bar>
@@ -402,6 +401,21 @@ const vChangeTableView = (el, binding) => {
 
 .fade-leave-active {
   transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.8s ease-in-out;
+}
+
+.slide-right-enter-from {
+  transform: translateX(10%);
+  opacity: 0;
+}
+
+.slide-right-leave-to {
+  transform: translateX(10%);
   opacity: 0;
 }
 
