@@ -36,14 +36,6 @@
       </LabelWrapper>
     </FieldsetWrapper>
 
-    <ToggleSwitch 
-      :forAttribute="'visible'"
-      :label="'visible?'"
-      :inputValue="visible"
-      :size="'medium'"
-      @changeValue="onChangeVisible"
-    />
-
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Choose districts:'">
       <ul class="grid w-full gap-6 md:grid-cols-2">
@@ -71,11 +63,6 @@
         :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile" :accept="'image/*'">
       </InputField>
     </LabelWrapper>
-  </div>
-
-  <div class="flex px-1">
-    <span class="mx-1">{{ visible }}</span>
-    <span class="mx-1">{{ selectedItems.sort().join(',') }}</span>
   </div>
 
   <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 200px'" class="overflow-y-scroll">
@@ -137,12 +124,6 @@ import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 const selectedTheme = themeStore.getTheme;
 const allThemes = themeStore.getAllThemes;
-
-// Visible
-const visible = ref<boolean>(true);
-const onChangeVisible = ({ checked, value }) => {
-  visible.value = checked;
-}
 
 // Districts
 type Districts = {
