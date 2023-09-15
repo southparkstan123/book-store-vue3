@@ -174,3 +174,8 @@ export type Theme = "default" | "shoujyo";
 export type PaginationSetting = {
   perPage: number;
 };
+
+export type DataProps = {
+  data: TableItem[] | undefined;
+  fields: TableField[] | undefined;
+};

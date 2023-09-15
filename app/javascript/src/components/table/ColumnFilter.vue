@@ -41,14 +41,12 @@ import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '@/components/inputs/FieldsetWrapper.vue';
 import LabelWrapper from '@/components/inputs/LabelWrapper.vue';
 
-type DataProps = {
-  data: TableItem[] | undefined;
-  presetFields: TableField[] | undefined;
-};
-
 type Fields = TableField & { isVisible: boolean }
 
-const props = withDefaults(defineProps<DataProps>(), {
+const props = withDefaults(defineProps<{
+  data: TableItem[] | undefined;
+  presetFields: TableField[] | undefined;
+}>(), {
   data: undefined,
   presetFields: undefined
 });

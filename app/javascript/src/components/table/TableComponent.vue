@@ -42,13 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import type { TableItem, TableField } from "@/types/types";
+import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
-
-type DataProps = {
-  data: TableItem[] | undefined;
-  fields: TableField[] | undefined;
-};
 
 const props = withDefaults(defineProps<DataProps>(), {
   data: undefined,
