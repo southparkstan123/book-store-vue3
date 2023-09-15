@@ -2,13 +2,21 @@
   <div class="mx-auto inline w-full">
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Theme'">
-      <InputField v-for="item in allThemes" :inputId="item" :className="'my-3 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'language'" :inputType="'radio'"
-        :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
-        <template #label>
-          <label :for="item" class="px-1">{{ item }}</label>
-        </template>
-      </InputField>
+      <ul class="grid w-full gap-6 md:grid-cols-2">
+        <li v-for="item in allThemes">
+          <InputField  :inputId="item" :className="'my-3 inline'" :inputValue="item"
+            :inputFieldClass="'hidden peer'" :inputName="'language'" :inputType="'radio'"
+            :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
+            <template #label>
+              <label :for="item" class="border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">{{ item }}</div>
+                </div>
+              </label>
+            </template>
+          </InputField>
+        </li>
+      </ul>
     </FieldsetWrapper>
 
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
@@ -38,14 +46,23 @@
 
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Choose districts:'">
-      <InputField v-for="item in districts" :inputId="item" :className="'my-1 inline'" :inputValue="item"
-        :inputFieldClass="'px-1 text-primary border-secondary focus:ring-0 disabled:opacity-25'" :inputName="'districts'"
-        :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item) : false"
-        @changeValue="onChangeSelectedItems">
-        <template #label>
-          <label :for="item" class="px-1">{{ item }}</label>
-        </template>
-      </InputField>
+      <ul class="grid w-full gap-6 md:grid-cols-2">
+        <li v-for="item in districts">
+          <InputField  :inputId="item.value" :className="'my-1 inline'" :inputValue="item.value"
+            :inputFieldClass="'hidden peer px-1 disabled:opacity-25'" :inputName="'districts'"
+            :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item.value) : false"
+            @changeValue="onChangeSelectedItems">
+            <template #label>
+              <label :for="item.value" class="cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 border border-dark rounded">
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">{{ item.label }}</div>
+                  <div class="w-full">{{ item.value }}</div>
+                </div>
+              </label>
+            </template>
+          </InputField>
+        </li>
+      </ul>
     </FieldsetWrapper>
 
     <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block my-3 cursor-pointer bg-info py-2 px-4'"
@@ -127,7 +144,12 @@ const onChangeVisible = ({ checked, value }) => {
 }
 
 // Districts
-const districts = ref<string[]>(['hk', 'kl', 'nt']);
+type Districts = {
+  value: string,
+  label: string
+}
+
+const districts = ref<Districts[]>([{ label: 'Hong Kong Island', value: 'hk'}, { label: 'Kowloon', value: 'kl'}, { label: 'New Territories', value: 'nt'}]);
 const selectedItems = ref<string[]>([]);
   const onChangeSelectedItems = ({ checked, value }) => {
   let result: Array<string> = selectedItems.value;
