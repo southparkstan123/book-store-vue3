@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div class="mx-auto">
-      <div class="inline">
-        <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block m-1 cursor-pointer bg-info py-2 px-4'"
+      <div class="text-center">
+        <LabelWrapper :forAttribute="'images'" :labelClass="'text-center inline-block m-1 cursor-pointer bg-info py-2 px-4'"
           :textClass="'text-sm text-white'" :labelText="'Upload Images'">
           <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'"
             :inputName="'images'" :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile" :accept="'image/*'">
@@ -47,7 +47,9 @@
         </CardList>
       </div>
       <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
-        <h1 class="text-2xl text-primary">No Images</h1>
+        <div class="w-full">
+          <h1 class="text-2xl text-center text-primary">No Images</h1>
+        </div>
       </div>
     </div>
   </div>
