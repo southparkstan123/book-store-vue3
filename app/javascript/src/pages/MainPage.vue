@@ -15,7 +15,7 @@
         </LabelWrapper>
       </div>
 
-      <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 400px;min-width:600px;'"
+      <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 400px;min-width:320px;'"
         class="overflow-scroll">
         <CardList :data="(imageData as ImageFile[])" :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'">
           <template v-slot="{ item, index }">
@@ -52,7 +52,7 @@
           </template>
         </CardList>
       </div>
-      <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:600px;'">
+      <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
         <h1 class="text-2xl text-primary">No Images</h1>
       </div>
     </div>
