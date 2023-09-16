@@ -2,11 +2,6 @@
   <div class="min-h-screen flex items-center justify-center">
     <div class="mx-auto">
       <div class="inline">
-        <ButtonComponent @buttonClicked="openModal" :buttonType="'button'" :textClass="'text-sm text-white'"
-          :backgroundClass="'bg-info m-1 py-2 px-4 disabled:opacity-25'">
-          <template #text> Open Modal </template>
-        </ButtonComponent>
-
         <LabelWrapper :forAttribute="'images'" :labelClass="'inline-block m-1 cursor-pointer bg-info py-2 px-4'"
           :textClass="'text-sm text-white'" :labelText="'Upload Images'">
           <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'"
@@ -15,15 +10,14 @@
         </LabelWrapper>
       </div>
 
-      <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 400px;min-width:320px;'"
-        class="overflow-scroll">
+      <div v-if="imageData.length > 0 && imageData !== undefined" :style="'height: 400px;min-width:320px;'" class="overflow-scroll">
         <CardList :data="(imageData as ImageFile[])" :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'">
           <template v-slot="{ item, index }">
             <CardItem :wrapperClass="''" :item="(item as ImageFile)" class="text-white text-sm">
               <template #close-button>
                 <div 
                   :class="'float-right cursor-pointer p-3 text-lg'" 
-                  @click="deleteImage(index)"
+                  @click="confirmDelete(index)"
                 >
                   x
                 </div>
@@ -61,17 +55,20 @@
 
 <script setup lang="ts">
 import { useModalStore } from "@/store/modal";
-import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 const modalStore = useModalStore();
 
-const openModal = () => {
-  modalStore.open({
-    title: "Greeting",
-    type: "alert",
+const confirmDelete = async (index) => {
+  const confirm = await modalStore.open({
+    type: "confirm",
+    title: "Logout",
+    message: "Are you sure?",
     component: "",
-    message: "Welcome!",
     props: undefined
   });
+
+  if (confirm) {
+    deleteImage(index);
+  }
 };
 
 import LabelWrapper from '@/components/inputs/LabelWrapper.vue';
