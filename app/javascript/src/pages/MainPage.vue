@@ -60,7 +60,7 @@ const modalStore = useModalStore();
 const confirmDelete = async (index) => {
   const confirm = await modalStore.open({
     type: "confirm",
-    title: "Logout",
+    title: "Delete",
     message: "Are you sure?",
     component: "",
     props: undefined
