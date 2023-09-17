@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 export const useUploadFile = () => {
 
@@ -32,9 +32,15 @@ export const useUploadFile = () => {
     imageData.value.splice(index,1);
   }
 
+  const displaySize = (size: number) => (size/ 1024 / 1024).toPrecision(3).toString() + 'MB';
+
+  const totalFileSize = computed<number>(() => imageData.value.reduce((a, file) => a + file.size, 0));
+
   return {
     imageData,
     onChangeFile,
-    deleteImage
+    deleteImage,
+    totalFileSize,
+    displaySize
   }
 }

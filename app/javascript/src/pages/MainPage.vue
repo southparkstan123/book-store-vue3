@@ -37,7 +37,7 @@
                   >
                     <div>{{ name }}</div>
                     <div>Type: {{ type }}</div>
-                    <div>Size: {{ (size as number / 1024 / 1024).toPrecision(3) + 'MB' }}</div>
+                    <div>Size: {{ displaySize(size as number) }}</div>
                     <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
                   </div>
                 </div>
@@ -45,6 +45,7 @@
             </CardItem>
           </template>
         </CardList>
+        <span>Total Size: {{ displaySize(totalFileSize as number) }}</span>
       </div>
       <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
         <div class="w-full">
@@ -83,7 +84,7 @@ import CardItem from "@/components/card/CardItem.vue";
 import moment from 'moment';
 import type { ImageFile } from '@/types/types';
 import { useUploadFile } from '@/hooks/useUploadFile';
-const { imageData, onChangeFile, deleteImage } = useUploadFile();
+const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize } = useUploadFile();
 
 </script>
 
