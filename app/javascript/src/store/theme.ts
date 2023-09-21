@@ -27,8 +27,11 @@ export const useThemeStore = defineStore("theme", () => {
     state.theme = mode;
   }
 
-  const changeValuePerPage = (payload: number) => {
-    state.pagination.perPage = payload;
+  const changeValuePerPage = (payload?: number) => {
+    const perPage: number = parseInt(localStorage.getItem('perPage'), 10);
+    const value = payload ? payload : (perPage ? perPage : state.pagination.perPage );
+    localStorage.setItem('perPage', value);
+    state.pagination.perPage = value;
   }
 
   return {

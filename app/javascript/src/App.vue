@@ -213,7 +213,7 @@ const openTemplateForm = () => {
 import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
-
+themeStore.changeValuePerPage();
 </script>
 
 <style lang="scss">
