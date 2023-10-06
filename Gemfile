@@ -10,8 +10,8 @@ gem 'vite_ruby'
 gem 'rails', '7.0.0'
 # Necessary for upgrage to Rail 7
 gem "sprockets-rails"
-# Use mysql as the database for Active Record
-gem 'mysql2', '~> 0.5'
+# Use postgresql as the database for Active Record
+gem "pg", "~> 1.1"
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
