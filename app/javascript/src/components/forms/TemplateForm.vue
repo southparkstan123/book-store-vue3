@@ -35,27 +35,6 @@
         </DropdownMenu>
       </LabelWrapper>
     </FieldsetWrapper>
-
-    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
-      :title="'Choose districts:'">
-      <ul class="grid w-full gap-6 md:grid-cols-2">
-        <li v-for="item in districts">
-          <InputField  :inputId="item.value" :className="'my-1 inline'" :inputValue="item.value"
-            :inputFieldClass="'hidden peer px-1 disabled:opacity-25'" :inputName="'districts'"
-            :inputType="'checkbox'" :checked="selectedItems ? selectedItems.includes(item.value) : false"
-            @changeValue="onChangeSelectedItems">
-            <template #label>
-              <label :for="item.value" class="cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 border border-dark rounded">
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">{{ item.label }}</div>
-                  <div class="w-full">{{ item.value }}</div>
-                </div>
-              </label>
-            </template>
-          </InputField>
-        </li>
-      </ul>
-    </FieldsetWrapper>
   </div>
 
   <div class="float-right">
@@ -84,27 +63,6 @@ import { useThemeStore } from "@/store/theme"
 const themeStore = useThemeStore();
 const selectedTheme = themeStore.getTheme;
 const allThemes = themeStore.getAllThemes;
-
-// Districts
-type Districts = {
-  value: string,
-  label: string
-}
-
-const districts = ref<Districts[]>([{ label: 'Hong Kong Island', value: 'hk'}, { label: 'Kowloon', value: 'kl'}, { label: 'New Territories', value: 'nt'}]);
-const selectedItems = ref<string[]>([]);
-  const onChangeSelectedItems = ({ checked, value }) => {
-  let result: Array<string> = selectedItems.value;
-
-  if (checked === true) {
-    result.push(value);
-  } else {
-    const index = result.findIndex(item => item === value)
-    result.splice(index, 1)
-  }
-
-  selectedItems.value = result;
-}
 
 </script>
 
