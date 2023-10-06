@@ -13,12 +13,9 @@ export const usePagination = () => {
     perPage: themeStore.getPerPage,
   });
 
-  const changeCurrentPage = (payload) => {
+  const changeCurrentPage = (payload: number, callback: void) => {
     pagination.value.currentPage = payload;
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    callback;
   };
 
   return {

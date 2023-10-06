@@ -5,7 +5,32 @@
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
-        <div v-if="!isError">
+        <div class="flex items-center justify-between w-full mx-auto">
+          <div>
+            <router-link :class="'float-left text-primary pr-4 py-3'" :to="`/${category}/add`">
+              Add {{ category }}
+            </router-link>
+            <ToggleSwitch 
+              v-if="!isMobileView"
+              class="float-left my-3"
+              :forAttribute="'column-filter'"
+              :label="'Show column filter'"
+              :inputValue="isDisplayColumnFilter"
+              @changeValue="toggleColumnFilter"
+            />
+          </div>
+          <InputField
+            v-if="category === 'book'"
+            :inputId="'test'"
+            :inputValue="keyword"
+            :inputFieldClass="'float-right disabled:opacity-25'"
+            :inputType="'text'"
+            :placeholder="`Search by name`"
+            @changeValue="searchKeyword"
+          >
+          </InputField>
+        </div>
+        <div v-if="!isError" ref="container" class="table-container">
           <Transition :appear="false" name="slide-right">
             <ColumnFilter
               v-show="isDisplayColumnFilter"
@@ -16,29 +41,6 @@
             />
           </Transition>
           <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
-            <template #search-bar>
-              <InputField
-                v-if="category === 'book'"
-                :inputId="'test'"
-                :inputValue="keyword"
-                :inputFieldClass="'float-right disabled:opacity-25'"
-                :inputType="'text'"
-                :placeholder="`Search by name`"
-                @changeValue="searchKeyword"
-              >
-              </InputField>
-              <router-link :class="'float-left text-primary pr-4 py-3'" :to="`/${category}/add`">
-                Add {{ category }}
-              </router-link>
-              <ToggleSwitch 
-                v-if="!isMobileView"
-                class="float-left my-3"
-                :forAttribute="'column-filter'"
-                :label="'Show column filter'"
-                :inputValue="isDisplayColumnFilter"
-                @changeValue="toggleColumnFilter"
-              />
-            </template>
             <template #price="{ item }">
               {{ '$' + item.price }}
             </template>
@@ -114,7 +116,7 @@
               <PaginationComponent
                 :page="pagination.currentPage"
                 :pages="pagination.pages"
-                @toPage="changeCurrentPage"
+                @toPage="(payload) => changeCurrentPage(payload, scrollToTop(container))"
               >
               </PaginationComponent>
             </template>
@@ -195,6 +197,12 @@ const toogleDisplayView = (payload) => {
 // Pagination
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
+const scrollToTop = (ref: any) => {
+  ref.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
 // Theme
 import { useThemeStore } from "@/store/theme"
@@ -334,6 +342,8 @@ const action = async (type: ActionType, id: number) => {
 const isLoading = ref<boolean>(true);
 const isError = ref<boolean>(false);
 
+const container = ref()
+
 onMounted(() => {
   fetchRecords(
     props.category,
@@ -427,5 +437,11 @@ const vChangeTableView = (el, binding) => {
   padding: 2px;
   height: 30px;
   margin: 3px 1px;
+}
+
+.table-container {
+  overflow-y: scroll;
+  max-height: 500px;
+  display: block;
 }
 </style>
