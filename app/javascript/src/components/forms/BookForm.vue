@@ -1,11 +1,11 @@
 <template>
-  <Transition :appear="true" name="fade">
-    <div v-if="!bookForm.isLoading" class="max-w-md w-full space-y-8">
+  <Transition :appear="true" name="fade" mode="out-in">
+    <div v-if="!bookForm.isLoading" class="max-w-md w-full space-y-8 px-2">
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <slot name="back"></slot>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
-          <div class="grid grid-cols-2 gap-6">
+          <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
             <LabelWrapper
               :forAttribute="'name'"
               :textClass="'text-gray-700'"
