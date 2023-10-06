@@ -31,6 +31,7 @@
                 Add {{ category }}
               </router-link>
               <ToggleSwitch 
+                v-if="!isMobileView"
                 class="float-left my-3"
                 :forAttribute="'column-filter'"
                 :label="'Show column filter'"
