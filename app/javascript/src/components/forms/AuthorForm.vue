@@ -10,6 +10,7 @@
               :forAttribute="'name'"
               :textClass="'text-gray-700'"
               :labelText="'Name'"
+              :isRequired="true"
             >
               <InputField
                 :inputId="'name'"
@@ -25,6 +26,7 @@
               :forAttribute="'description'"
               :textClass="'text-gray-700'"
               :labelText="'Description'"
+              :isRequired="true"
             >
               <TextArea
                 :inputId="'description'"
