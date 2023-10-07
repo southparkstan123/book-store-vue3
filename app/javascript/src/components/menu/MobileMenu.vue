@@ -92,7 +92,7 @@ export default defineComponent({
   clear: both;
   width: 100%;
   overflow: scroll;
-  min-height: 70vh;
+  min-height: 50vh;
 }
 
 // Outside
