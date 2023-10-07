@@ -15,11 +15,15 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 
 5. Pagination for records
 
-6. Switch theme and control the page size
+6. Switch theme and control the page size of pagination
 
 ## Technical information
 
 ### Backend
+
+#### Database
+
+**PostgreSQL 15** is used on this repo
 
 #### Ruby
 
@@ -39,7 +43,7 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 
 **TailwindCSS 3.3.3** is used on this repo
 
-## Others
+#### Others
 
 **Pinia** and **Vue-router 4** are used on this repo
 
@@ -68,7 +72,7 @@ In addition, you can add the test configurations for your local machine by copy 
 ### Database
 
 **Important**
-You have to ensure that MySQL and Redis driver is installed in your local machine.
+You have to ensure that PostgreSQL and Redis driver is installed in your local machine.
 
 If you not require the username and password for your database, just comment out the username and password field on ```config/database.yml```
 
@@ -76,7 +80,7 @@ You can create the database and migration by following command:
 ```bash
 rails db:create && rails db:migrate
 ```
-
+**Optional**
 If you want to seeding of a database with data by following command:
 ```bash
 rails db:seed
