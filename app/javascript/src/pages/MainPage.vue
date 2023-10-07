@@ -44,18 +44,23 @@
             </CardItem>
           </template>
         </CardList>
-        <span>Total Size: {{ displaySize(totalFileSize as number) }}</span>
       </div>
       <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
         <div class="w-full">
           <h1 class="text-2xl text-center text-primary">No Images</h1>
         </div>
       </div>
+
+      <div class="flex items-center justify-between w-full mx-auto" v-if="imageData.length > 0 && imageData !== undefined">
+        <span class="float-right">Total Size: {{ displaySize(totalFileSize as number) }}</span>
+        <span class="float-left">{{ information }}</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 
@@ -72,6 +77,8 @@ const confirmDelete = async (index) => {
     deleteImage(index);
   }
 };
+
+const information = computed(() => `${imageData.value.length} ${(imageData.value.length > 1) ? 'images were uploaded' : 'image was uploaded'}.`)
 
 import LabelWrapper from '@/components/inputs/LabelWrapper.vue';
 import InputField from "@/components/inputs/InputField.vue";
