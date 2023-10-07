@@ -2,7 +2,7 @@
   <div class="mx-auto inline w-full">
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
       :title="'Theme'">
-      <ul class="grid w-full gap-6 md:grid-cols-2">
+      <ul class="grid w-full gap-6 grid-cols-2">
         <li v-for="item in allThemes">
           <InputField  :inputId="item" :className="'my-3 inline'" :inputValue="item"
             :inputFieldClass="'hidden peer'" :inputName="'language'" :inputType="'radio'"
