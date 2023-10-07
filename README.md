@@ -5,17 +5,12 @@
 This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the repository [Book store](https://github.com/southparkstan123/book-store).
 
 ## Features
-1. Basic Token Based (JWT) Authentication
-
-2. Login by username and password
-
-3. CRUD for 'Books', 'Authors' and 'Publisher'
-
-4. Search records of 'books' by name
-
-5. Pagination for records
-
-6. Switch theme and control the page size of pagination
+- Basic Token Based (JWT) Authentication
+- Login by username and password
+- CRUD for 'Books', 'Authors' and 'Publisher'
+- Search records of 'books' by name
+- Pagination for records
+- Switch theme and control the page size of pagination
 
 ## Technical information
 
@@ -115,3 +110,7 @@ Run ```rails s -b 0.0.0.0``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3
 **If you want to enable HMR, run ```foreman s```**
 
 Happy Coding!!!!!
+
+## Staging environment
+
+[https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
