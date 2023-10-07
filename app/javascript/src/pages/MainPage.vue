@@ -26,7 +26,6 @@
                 <div :style="`
                   background-image:url(${src});
                   height: 200px;
-                  width:200px;
                   background-position: 50% 50%;
                   background-size: cover;
                   background-repeat: no-repeat;`"
