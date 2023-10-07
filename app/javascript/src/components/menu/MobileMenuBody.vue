@@ -18,6 +18,7 @@
 .content {
   height: 100vh;
   width: 100%;
+  overflow: scroll;
   .items {
     :deep(a) {
       display: block;
