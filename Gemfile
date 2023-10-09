@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.0'
+ruby '3.1.4'
 
 # Use vite_rails and vite_ruby as the frontend tooling
 gem 'vite_rails'
 gem 'vite_ruby'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '7.0.0'
+gem 'rails', '~> 7.0.3'
 # Necessary for upgrage to Rail 7
 gem "sprockets-rails"
 # Use postgresql as the database for Active Record

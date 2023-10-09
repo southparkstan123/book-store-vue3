@@ -22,11 +22,11 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 
 #### Ruby
 
-**Ruby 3.0.0** is used on this repo
+**Ruby 3.1.4** is used on this repo
 
 #### Rails
 
-**Rails 7.0.0** is used on this repo
+**Rails 7.0** is used on this repo
 
 ### Frontend
 

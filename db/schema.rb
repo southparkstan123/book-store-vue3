@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_15_115115) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_08_15_115115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +19,8 @@ ActiveRecord::Schema.define(version: 2023_08_15_115115) do
     t.text "description"
     t.bigint "creator_id"
     t.bigint "updater_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_authors_on_creator_id"
     t.index ["updater_id"], name: "index_authors_on_updater_id"
   end
@@ -40,8 +39,8 @@ ActiveRecord::Schema.define(version: 2023_08_15_115115) do
     t.bigint "creator_id"
     t.bigint "updater_id"
     t.bigint "publisher_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_books_on_creator_id"
     t.index ["publisher_id"], name: "index_books_on_publisher_id"
     t.index ["updater_id"], name: "index_books_on_updater_id"
@@ -52,8 +51,8 @@ ActiveRecord::Schema.define(version: 2023_08_15_115115) do
     t.text "description"
     t.bigint "creator_id"
     t.bigint "updater_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["creator_id"], name: "index_publishers_on_creator_id"
     t.index ["updater_id"], name: "index_publishers_on_updater_id"
   end
@@ -62,8 +61,8 @@ ActiveRecord::Schema.define(version: 2023_08_15_115115) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "authors", "users", column: "creator_id"
