@@ -114,3 +114,39 @@ Happy Coding!!!!!
 ## Staging environment
 
 [https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
+
+## Develepment Environments in Docker
+
+
+
+- Run the following command for prepare the Docker image:
+```bash
+docker-compose build
+```
+
+- Run the following command to start the Rails and Vite services:
+```bash
+docker-compose up
+```
+
+- Create the database and migration by following command:
+```bash
+docker-compose exec app bundle exec rails db:setup db:migrate
+```
+
+- Seeding of a database with data by following command:
+```bash
+docker-compose exec app bundle exec rails db:seed
+```
+
+- Run the following command to restart the app:
+```bash
+docker-compose restart
+```
+
+If you want to run the app on virtual macine such as Homestead, you must comment the following lines on ```config/database.yml```:
+
+```yml
+# config/database.yml
+host: <%= ENV.fetch("DATABASE_HOST") { "postgres" } %>
+```
