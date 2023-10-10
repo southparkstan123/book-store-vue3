@@ -7,11 +7,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     command: "postgres -c 'max_connections=500'"
     ports:
-      - "5432:5432"
+      - "${DATABASE_PORT}:5432"
     environment:
-      - POSTGRES_DB=book_store_vue3_development
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=testing1234
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
   web:
     build: .
     depends_on:
@@ -19,16 +19,16 @@ services:
       - postgres
     entrypoint: ./docker-rails.sh
     environment:
-      - DATABASE_HOST=postgres
-      - RAILS_ENV=development
-      - JWT_SECRET=iloveyou2
-      - DATABASE_USERNAME=admin
-      - DATABASE_PASSWORD=testing1234
-      - HOST_NAME=127.0.0.1
-      - DATABASE_NAME=book_store_vue3_development
-      - SECRET_KEY_BASE=b6c33f88e6982b749daf02b15001fb572c437229a987c9d62161c043547dbb25c371e3a0e9ed61747e1ca55576548883425adc056fad8b986bc38e8b530dfec9
+      - DATABASE_HOST=${DATABASE_HOST}
+      - RAILS_ENV=${RAILS_ENV}
+      - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - HOST_NAME=${HOST_NAME}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
     ports:
-      - "3000:3000"
+      - "${PORT}:3000"
     volumes:
       - .:/book-store-vue3
   vite:
@@ -36,7 +36,7 @@ services:
     entrypoint: ./docker-vite.sh
     environment:
       DEBUG: '*vite*'
-      RAILS_ENV: development
+      RAILS_ENV: ${RAILS_ENV}
       VITE_RUBY_HOST: 0.0.0.0
     ports:
       - "3036:3036"

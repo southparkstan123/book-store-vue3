@@ -123,23 +123,32 @@ Happy Coding!!!!!
 git clone https://github.com/southparkstan123/book-store-vue3.git
 ```
 
-2. Run the following command to prepare the Docker image and start the PostgresSQL, Rails and Vite services:
+2. Environment variables
+
+You can add the .env files to store the configuration value for different environments , the example file is in ```.env.template```, just copy this file for specific environment as ```.env``` file. 
+
+**Caution!!!**
+
+**Avoid to commit the ```.env``` file which may contains the sensitive information such as API keys, credentials, etc.**
+
+
+3. Run the following command to prepare the Docker image and start the PostgresSQL, Rails and Vite services:
 
 ```bash
 docker-compose up --build 
 ```
 
-3. After create the images, migration the database by following command:
+4. After create the images, migration the database by following command:
 ```bash
 docker-compose exec web bundle exec rails db:migrate
 ```
 
-4. (Optional) Seeding of a database with data by following command:
+5. (Optional) Seeding of a database with data by following command:
 ```bash
 docker-compose exec web bundle exec rails db:seed
 ```
 
-5. Wait a moment and access ```http://localhost:3000``` on Web browser.
+6. Wait a moment and access ```http://localhost:3000``` on Web browser.
 
 Happy Coding !!!!!!
 
