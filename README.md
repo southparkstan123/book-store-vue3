@@ -42,6 +42,8 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 
 **Pinia** and **Vue-router 4** are used on this repo
 
+## Setup the environment on local machine or Vitrual Machine
+
 ### Clone the repo to your local machine
 
 You can clone this repo by Github using command line prompt:
@@ -101,7 +103,7 @@ yarn lint
 yarn type-check
 ```
 
-## Start up the server
+### Start up the server
 
 Run ```rails s -b 0.0.0.0``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3000``` on Web browser.
 
@@ -111,42 +113,65 @@ Run ```rails s -b 0.0.0.0``` and access ```http://<YOUR_HOST_NAME_IN_ENV_FILE>:3
 
 Happy Coding!!!!!
 
-## Staging environment
+## <i>Alternative</i> Setup the environment on Docker
 
-[https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
+### Initialization
 
-## Develepment Environments in Docker
+1. Clone this repo by Github using command line prompt:
 
-
-
-- Run the following command for prepare the Docker image:
 ```bash
-docker-compose build
+git clone https://github.com/southparkstan123/book-store-vue3.git
 ```
 
-- Run the following command to start the Rails and Vite services:
+2. Run the following command to prepare the Docker image and start the PostgresSQL, Rails and Vite services:
+
+```bash
+docker-compose up --build 
+```
+
+3. After create the images, migration the database by following command:
+```bash
+docker-compose exec web bundle exec rails db:migrate
+```
+
+4. (Optional) Seeding of a database with data by following command:
+```bash
+docker-compose exec web bundle exec rails db:seed
+```
+
+5. Wait a moment and access ```http://localhost:3000``` on Web browser.
+
+Happy Coding !!!!!!
+
+### Useful commands after establish the environment:
+
+1. Run the following command to start the app:
 ```bash
 docker-compose up
 ```
 
-- Create the database and migration by following command:
-```bash
-docker-compose exec app bundle exec rails db:setup db:migrate
-```
-
-- Seeding of a database with data by following command:
-```bash
-docker-compose exec app bundle exec rails db:seed
-```
-
-- Run the following command to restart the app:
+2. Run the following command to restart the app:
 ```bash
 docker-compose restart
 ```
 
-If you want to run the app on virtual macine such as Homestead, you must comment the following lines on ```config/database.yml```:
+3. Run the following command to shutdown the app:
+```bash
+docker-compose down
+```
+
+4. Run the following command to clean up old unused builds to keep my system clean:
+```bash
+docker system prune --all
+```
+
+**Remark** If you want to run the app on virtual macine such as Homestead, you must comment the key ```host``` on ```config/database.yml```:
 
 ```yml
 # config/database.yml
 host: <%= ENV.fetch("DATABASE_HOST") { "postgres" } %>
 ```
+
+## Staging environment
+
+[https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
