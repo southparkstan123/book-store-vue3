@@ -125,7 +125,7 @@ git clone https://github.com/southparkstan123/book-store-vue3.git
 
 2. Environment variables
 
-You can add the .env files to store the configuration value for different environments , the example file is in ```.env.template```, just copy this file for specific environment as ```.env``` file. 
+You can add the .env files to store the configuration value for different environments , the example file is in ```.env.template```, just copy this file for specific environment, for example ```.env.development.local``` file. 
 
 **Caution!!!**
 
@@ -136,6 +136,13 @@ You can add the .env files to store the configuration value for different enviro
 
 ```bash
 docker-compose up --build 
+```
+
+or specify an env file for several environment such as ```.env.development.local```.
+
+```bash
+# depends on .env.development.local
+docker compose --env-file ./.env.development.local up
 ```
 
 4. After create the images, migration the database by following command:
@@ -156,7 +163,15 @@ Happy Coding !!!!!!
 
 1. Run the following command to start the app:
 ```bash
+# depends on .env
 docker-compose up
+```
+
+or specify an env file for several environment such as ```.env.development.local```.
+
+```bash
+# depends on .env.development.local
+docker compose --env-file ./.env.development.local up
 ```
 
 2. Run the following command to restart the app:
@@ -164,9 +179,21 @@ docker-compose up
 docker-compose restart
 ```
 
+or
+
+```bash
+docker compose --env-file ./.env.anything.local restart
+```
+
 3. Run the following command to shutdown the app:
 ```bash
 docker-compose down
+```
+
+or
+
+```bash
+docker compose --env-file ./.env.anything.local down
 ```
 
 4. Run the following command to clean up old unused builds to keep my system clean:
