@@ -161,6 +161,8 @@ Happy Coding !!!!!!
 
 ### Useful commands after establish the environment:
 
+#### Start and End the container
+
 1. Run the following command to start the app:
 ```bash
 # depends on .env
@@ -201,6 +203,35 @@ docker compose --env-file ./.env.anything.local down
 docker system prune --all
 ```
 
+#### Rails
+
+1. Run the following command to access rails console:
+```bash
+docker-compose exec web bundle exec rails c
+```
+
+2. After create the images, migration the database by following command:
+```bash
+docker-compose exec web bundle exec rails db:migrate
+```
+
+3. (Optional) Seeding of a database with data by following command:
+```bash
+docker-compose exec web bundle exec rails db:seed
+```
+
+#### Database
+
+1. Run the following command to verify the version of PostgreSQL:
+```bash
+docker exec my-postgres psql -V
+```
+
+2. Run the following command to show databases:
+```bash
+docker exec my-postgres psql -U postgres -c "\l"
+```
+
 **Remark** If you want to run the app on virtual macine such as Homestead, you must comment the key ```host``` on ```config/database.yml```:
 
 ```yml
@@ -211,3 +242,8 @@ host: <%= ENV.fetch("DATABASE_HOST") { "postgres" } %>
 ## Staging environment
 
 [https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
+
+Account for testing:
+
+username: admin
+password: testing1234
