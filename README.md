@@ -142,7 +142,7 @@ or specify an env file for several environment such as ```.env.development.local
 
 ```bash
 # depends on .env.development.local
-docker compose --env-file ./.env.development.local up
+docker compose --env-file ./.env.development.local up --build 
 ```
 
 4. After create the images, migration the database by following command:
