@@ -210,12 +210,17 @@ docker system prune --all
 docker-compose exec web bundle exec rails c
 ```
 
-2. After create the images, migration the database by following command:
+2. Migration the database by following command:
 ```bash
-docker-compose exec web bundle exec rails db:migrate
+docker-compose exec web bundle exec rails db:migrate:<up or down> VERSION=<VERSION_WITH_DATETIME>
 ```
 
-3. (Optional) Seeding of a database with data by following command:
+3. Rollback the migration the database by following command:
+```bash
+docker-compose exec web bundle exec rails db:rollback STEP=<ROLLBACK_TIMES> 
+```
+
+4. Seeding of a database with data by following command:
 ```bash
 docker-compose exec web bundle exec rails db:seed
 ```
