@@ -34,7 +34,7 @@
                     class="p-2" 
                     :style="`background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0))`"
                   >
-                    <div>{{ name }}</div>
+                    <div :style="{ overflow: 'scroll'}">{{ name }}</div>
                     <div>Type: {{ type }}</div>
                     <div>Size: {{ displaySize(size as number) }}</div>
                     <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
