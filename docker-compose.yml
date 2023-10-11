@@ -27,6 +27,7 @@ services:
       - HOST_NAME=${HOST_NAME}
       - DATABASE_NAME=${DATABASE_NAME}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - VITE_RUBY_HOST=vite
     ports:
       - "${PORT}:3000"
     volumes:
