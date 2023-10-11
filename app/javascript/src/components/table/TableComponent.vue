@@ -27,7 +27,7 @@
     </tbody>
     <tfoot>
       <tr class="bg-table-footer">
-        <td :colspan="displayedfields.length + 1">
+        <td :colspan="displayedfields && displayedfields.length + 1">
           <div :style="'float: left'">
             <slot name="footer"></slot>
           </div>
