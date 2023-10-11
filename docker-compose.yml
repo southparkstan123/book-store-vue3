@@ -15,7 +15,6 @@ services:
   web:
     build: .
     depends_on:
-      - vite
       - postgres
     entrypoint: ./docker-rails.sh
     environment:
@@ -34,6 +33,8 @@ services:
       - .:/book-store-vue3
   vite:
     build: .
+    depends_on:
+      - web
     entrypoint: ./docker-vite.sh
     environment:
       DEBUG: '*vite*'
