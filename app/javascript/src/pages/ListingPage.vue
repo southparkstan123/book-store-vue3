@@ -11,7 +11,7 @@
               Add {{ category }}
             </router-link>
             <ToggleSwitch 
-              v-if="!isMobileView"
+              v-if="!isMobileView && pagination.total > 0"
               class="float-left my-3"
               :forAttribute="'column-filter'"
               :label="'Show column filter'"
@@ -212,14 +212,6 @@ const themeStore = useThemeStore();
 import ColumnFilter from "@/components/table/ColumnFilter.vue";
 import DetailInfo from "@/components/DetailInfo.vue";
 
-const fields = ref<TableField[] | undefined>(undefined);
-const changeColumn = (payload: TableField[] | undefined) => {
-  fields.value = payload
-}
-
-const isDisplayColumnFilter = ref<boolean>(false);
-const toggleColumnFilter = ({ checked, value }) => isDisplayColumnFilter.value = checked;
-
 const presetFields = computed<TableField[] | undefined>(() => {
   const idField = [{ key: "id", label: "ID" }];
   const defaultFields = [
@@ -255,6 +247,14 @@ const presetFields = computed<TableField[] | undefined>(() => {
   }
 });
 
+const fields = ref<TableField[] | undefined>(presetFields.value);
+const changeColumn = (payload: TableField[] | undefined) => {
+  fields.value = payload
+}
+
+const isDisplayColumnFilter = ref<boolean>(false);
+const toggleColumnFilter = ({ checked, value }) => isDisplayColumnFilter.value = checked;
+
 // Data
 const data = ref<TableItem[]>([]);
 const fetchRecords = async (
@@ -274,6 +274,16 @@ const fetchRecords = async (
       total: parseInt(response.headers["total-count"], 10),
       perPage,
     };
+
+    // pagination.value = {
+    //   currentPage: 0,
+    //   pages: 0,
+    //   count: 0,
+    //   total: 0,
+    //   perPage,
+    // };
+
+    
   } catch (error: any) {
     isError.value = true;
     modalStore.open({

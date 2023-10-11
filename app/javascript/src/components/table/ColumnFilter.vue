@@ -61,7 +61,7 @@ const test = computed<Fields[]>(() => {
 });
 
 const fields = reactive<Fields[]>(
-  (props.data) ? Object.entries(props.data[0]).map(([_key]) => {
+  (props.data && props.data.length > 0) ? Object.entries(props.data[0]).map(([_key]) => {
     const _test = test.value.find(item => item.key === _key);
     return {
       key: _key,
