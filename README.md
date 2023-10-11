@@ -165,7 +165,7 @@ Happy Coding !!!!!!
 
 1. Run the following command to start the app:
 ```bash
-# depends on .env
+# depends on .env by default
 docker-compose up
 ```
 
@@ -176,26 +176,21 @@ or specify an env file for several environment such as ```.env.development.local
 docker compose --env-file ./.env.development.local up
 ```
 
-2. Run the following command to restart the app:
+Start the app for only certain containers and without <b>```hot modules replacement (HMR)```</b> by following command:
+
 ```bash
-docker-compose restart
+# depends on .env.development.local
+docker compose --env-file <SPECIFIED_ENV_FILE> up postgres web
 ```
 
-or
-
+2. Run the following command to restart the app:
 ```bash
-docker compose --env-file ./.env.anything.local restart
+docker-compose --env-file <SPECIFIED_ENV_FILE> restart
 ```
 
 3. Run the following command to shutdown the app:
 ```bash
-docker-compose down
-```
-
-or
-
-```bash
-docker compose --env-file ./.env.anything.local down
+docker compose --env-file <SPECIFIED_ENV_FILE> down
 ```
 
 4. Run the following command to clean up old unused builds to keep my system clean:
@@ -250,5 +245,7 @@ host: <%= ENV.fetch("DATABASE_HOST") { "postgres" } %>
 
 Account for testing:
 
+```
 username: admin
 password: testing1234
+```
