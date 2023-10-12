@@ -1,5 +1,5 @@
 <template>
-  <div v-mode class="mx-auto">
+  <div v-body-scroll-lock="true" class="mx-auto">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -214,6 +214,11 @@ import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
 themeStore.changeValuePerPage();
+
+const vBodyScrollLock = (el: HTMLElement, binding) => {
+  const isBodyScrollLock: boolean = binding.value as boolean
+  document.documentElement.style.overflow = (isBodyScrollLock === true) ? 'hidden' : 'auto';
+}
 </script>
 
 <style lang="scss">
