@@ -18,7 +18,7 @@
                   Title
                 </h3>
               </slot>
-              <div class="overflow-scroll sm:h-48 h-96">
+              <div :class="(type === 'form') ? 'overflow-scroll sm:h-48 h-96 ': ''">
                 <slot v-if="type === 'form'" name="form-body" />
                 <slot v-else name="message-body" />
               </div>
