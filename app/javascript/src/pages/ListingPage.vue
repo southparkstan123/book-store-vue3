@@ -31,10 +31,10 @@
           </InputField>
         </div>
         <div v-if="!isError" ref="container" class="table-container">
-          <Transition :appear="false" name="slide-right">
+          <Transition :appear="false" name="slide-up">
             <ColumnFilter
-              v-show="isDisplayColumnFilter"
-              class="block"
+              v-show="isDisplayColumnFilter && !isMobileView"
+              class="block overflow-scroll sm:w-full h-1/2"
               :data="data" 
               :presetFields="presetFields" 
               @onChangeColumn="changeColumn"
@@ -434,18 +434,18 @@ const vChangeTableView = (el, binding) => {
   opacity: 0;
 }
 
-.slide-right-enter-active,
-.slide-right-leave-active {
+.slide-up-enter-active,
+.slide-up-leave-active {
   transition: all 0.8s ease-in-out;
 }
 
-.slide-right-enter-from {
-  transform: translateX(10%);
+.slide-up-enter-from {
+  transform: translateY(20%);
   opacity: 0;
 }
 
-.slide-right-leave-to {
-  transform: translateX(10%);
+.slide-up-leave-to {
+  transform: translateY(20%);
   opacity: 0;
 }
 
