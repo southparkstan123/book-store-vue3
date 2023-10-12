@@ -34,7 +34,7 @@
           <Transition :appear="false" name="slide-up">
             <ColumnFilter
               v-show="isDisplayColumnFilter && !isMobileView"
-              class="block overflow-scroll sm:w-full h-1/2"
+              class="block overflow-scroll sm:w-full md:w-auto h-1/2"
               :data="data" 
               :presetFields="presetFields" 
               @onChangeColumn="changeColumn"
