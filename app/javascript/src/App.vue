@@ -45,7 +45,7 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text> OK </template>
+            <template #text> {{ (type === 'form') ? 'Close Modal' : 'OK' }} </template>
           </ButtonComponent>
         </div>
       </template>

@@ -36,14 +36,6 @@
       </LabelWrapper>
     </FieldsetWrapper>
   </div>
-
-  <div class="float-right">
-    <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
-      :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
-      <template #text> Close Modal </template>
-    </ButtonComponent>
-  </div>
-
 </template>
 
 <script setup lang="ts">
@@ -53,10 +45,6 @@ import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
 import LabelWrapper from '../inputs/LabelWrapper.vue';
 import ButtonComponent from '../inputs/ButtonComponent.vue';
 import DropdownMenu from '../dropdowns/DropdownMenu.vue';
-
-// Modal
-import { useModalStore } from '@/store/modal';
-const modalStore = useModalStore();
 
 // Theme
 import { useThemeStore } from "@/store/theme"

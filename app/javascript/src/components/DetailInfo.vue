@@ -64,19 +64,19 @@
       </template>
     </CardItem>
   </div>
-  <div class="float-right">
+  <!-- <div class="float-right">
     <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
       :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
       <template #text> Close Modal </template>
     </ButtonComponent>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
-import { useModalStore } from '@/store/modal';
+// import { useModalStore } from '@/store/modal';
 import CardItem from './card/CardItem.vue';
-import ButtonComponent from './inputs/ButtonComponent.vue';
-const modalStore = useModalStore();
+// import ButtonComponent from './inputs/ButtonComponent.vue';
+// const modalStore = useModalStore();
 
 type ItemProps = {
   [key: string]: unknown

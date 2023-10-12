@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="m-2 px-4 py-3 flex flex-row-reverse">
-          <div v-show="type !== 'form'" class="modal-footer">
+          <div class="modal-footer">
             <slot name="footer" :type="type"></slot>
           </div>
         </div>
