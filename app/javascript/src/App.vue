@@ -1,5 +1,5 @@
 <template>
-  <div v-mode class="mx-auto">
+  <div v-body-scroll-lock="true" class="mx-auto">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -45,7 +45,7 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text> OK </template>
+            <template #text> {{ (type === 'content') ? 'Close Modal' : 'OK' }} </template>
           </ButtonComponent>
         </div>
       </template>
@@ -203,7 +203,7 @@ import TemplateForm from "./components/forms/TemplateForm.vue";
 const openTemplateForm = () => {
   modalStore.open({
     title: "Setting",
-    type: "form",
+    type: "content",
     component: TemplateForm,
     message: "",
     props: undefined
@@ -214,6 +214,11 @@ import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
 themeStore.changeValuePerPage();
+
+const vBodyScrollLock = (el: HTMLElement, binding) => {
+  const isBodyScrollLock: boolean = binding.value as boolean
+  document.documentElement.style.overflow = (isBodyScrollLock === true) ? 'hidden' : 'auto';
+}
 </script>
 
 <style lang="scss">
