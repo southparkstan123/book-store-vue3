@@ -7,9 +7,9 @@
         aria-modal="true"
         aria-labelledby="modal-headline"
       >
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 h-fit min-h-72 max-h-full">
           <div :class="(type !== 'form') ? 'sm:flex sm:items-start': ''">
-            <div class="mt-3 text-center sm:mt-0 sm:text-left" :class="(type !== 'form') ? 'sm:ml-4 ': ''">
+            <div class="mt-3 sm:mt-0" :class="(type !== 'form') ? 'sm:ml-4 ': ''">
               <slot name="header">
                 <h3
                   id="modal-headline"
@@ -18,14 +18,14 @@
                   Title
                 </h3>
               </slot>
-              <div class="mt-2">
+              <div class="overflow-scroll h-full max-h-72">
                 <slot v-if="type === 'form'" name="form-body" />
                 <slot v-else name="message-body" />
               </div>
             </div>
           </div>
         </div>
-        <div class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <div class="m-2 px-4 py-3 flex flex-row-reverse">
           <div v-show="type !== 'form'" class="modal-footer">
             <slot name="footer" :type="type"></slot>
           </div>
