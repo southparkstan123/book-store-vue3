@@ -45,7 +45,7 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text> {{ (type === 'form') ? 'Close Modal' : 'OK' }} </template>
+            <template #text> {{ (type === 'content') ? 'Close Modal' : 'OK' }} </template>
           </ButtonComponent>
         </div>
       </template>
@@ -203,7 +203,7 @@ import TemplateForm from "./components/forms/TemplateForm.vue";
 const openTemplateForm = () => {
   modalStore.open({
     title: "Setting",
-    type: "form",
+    type: "content",
     component: TemplateForm,
     message: "",
     props: undefined

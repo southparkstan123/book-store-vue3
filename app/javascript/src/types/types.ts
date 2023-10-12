@@ -118,7 +118,7 @@ export type PublisherFormState = {
 
 export type ModuleType = "book" | "author" | "publisher";
 
-export type ModalType = "alert" | "confirm" | "form";
+export type ModalType = "alert" | "confirm" | "content";
 
 export type ModalState = {
   visible: boolean;

@@ -314,7 +314,7 @@ const action = async (type: ActionType, id: number) => {
       modalStore.open({
         title: `${props.category.toUpperCase()} #${id}`,
         message: "",
-        type: "form",
+        type: "content",
         component: DetailInfo,
         props: {
           item
