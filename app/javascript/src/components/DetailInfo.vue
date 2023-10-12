@@ -1,5 +1,5 @@
 <template>
-  <div :style="'max-height: 500px;'" class="overflow-y-scroll">
+  <div>
     <CardItem :wrapperClass="''" :item="item">
       <template v-slot="{ name, abstract, description, price, books, authors, publisher }">
         <div>

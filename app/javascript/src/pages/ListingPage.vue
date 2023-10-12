@@ -58,17 +58,25 @@
             </template>
             <template #created_at="{ item }">
               <TooltipComponent 
-                :position="!isMobileView ? 'top': 'right'" 
+                v-if="!isMobileView"
+                :position="'top'" 
                 :dataTip="moment(item.created_at).format('lll')"
                 :content="moment(item.created_at).fromNow()">
               </TooltipComponent>
+              <div v-else>
+                {{ moment(item.created_at).format('lll') }}
+              </div>
             </template>
             <template #updated_at="{ item }">
               <TooltipComponent 
-                :position="!isMobileView ? 'top': 'right'" 
+                v-if="!isMobileView"
+                :position="'top'" 
                 :dataTip="moment(item.updated_at).format('lll')"
                 :content="moment(item.updated_at).fromNow()">
               </TooltipComponent>
+              <div v-else>
+                {{ moment(item.created_at).format('lll') }}
+              </div>
             </template>
             <template #books="{ item }">
               <EllipsisInTable :data="item.books" />
