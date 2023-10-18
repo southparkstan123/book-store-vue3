@@ -1,19 +1,18 @@
 <template>
-  <div class="right-0 bottom-0 z-10 m-1">
-    <div class="odd:bg-table-body-1 even:bg-table-body-2" v-for="item in fields">
-      <div class="grid sm:grid-cols-5 grid-cols-1 justify-center">
-        <div class="sm:col-span-5 md:col-span-3">
-          <LabelWrapper
-            :forAttribute="''"
-            :textClass="'text-primary block'"
-            :labelText="`Label for ${item.key}: `"
-          >
-            <InputField :className="'my-1 inline'" :inputType="'text'" :placeholder="`Label of ${item.key}`"
-            :inputValue="item.label" :isDisabled="item.isVisible === false" :inputFieldClass="'text-sm disabled:opacity-25'"
-            @changeValue="(payload) => onChangeLabel(item, payload)"></InputField>
-          </LabelWrapper>
+  <div class="mx-auto inline w-full">
+    <FieldsetWrapper 
+      :wrapperClass="'border border-solid border-info p-3'" 
+      :textClass="'text-sm text-info'"
+      :title="`Label for ${item.key}`"
+      v-for="item in fields"
+    >
+      <div class="grid sm:grid-cols-7 justify-center items-center">
+        <div class="sm:col-span-5">
+          <InputField :className="'my-1 inline'" :inputType="'text'" :placeholder="`${item.key}`"
+          :inputValue="item.label" :isDisabled="item.isVisible === false" :inputFieldClass="'m-1 text-lg disabled:opacity-25'"
+          @changeValue="(payload) => onChangeLabel(item, payload)"></InputField>
         </div>
-        <div class="sm:col-span-5 md:col-span-2 m-2">
+        <div class="sm:col-span-2 m-2">
           <ToggleSwitch 
             class="float-left"
             :forAttribute="item.key"
@@ -23,7 +22,7 @@
           />
         </div>
       </div>
-    </div>
+    </FieldsetWrapper>
   </div>
 </template>
 
@@ -31,6 +30,7 @@
 import { reactive, computed } from 'vue';
 import type { TableItem, TableField } from "@/types/types";
 import InputField from "@/components/inputs/InputField.vue";
+import FieldsetWrapper from '@/components/inputs/FieldsetWrapper.vue';
 import LabelWrapper from '@/components/inputs/LabelWrapper.vue';
 import ToggleSwitch from "@/components/inputs/ToggleSwitch.vue";
 
