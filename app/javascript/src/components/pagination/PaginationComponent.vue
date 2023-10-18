@@ -11,7 +11,7 @@
       {{ index + 1 }}
     </div>
     <div v-if="next !== null" :class="`item ${themeClass}`" @click="toPage(next)">
-      <slot name="prev">＞</slot>
+      <slot name="next">＞</slot>
     </div>
   </div>
 </template>
