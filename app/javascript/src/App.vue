@@ -72,13 +72,13 @@
         </router-link>
       </template>
       <template #footer-content>
-        <a class="cursor-pointer link mx-2 text-menu-item" @click="openTemplateForm">
+        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="openTemplateForm">
           Setting
         </a>
-        <a class="cursor-pointer link mx-2 text-menu-item" @click="showUserInfo">
+        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="showUserInfo">
           User info
         </a>
-        <a class="cursor-pointer link mx-2 text-menu-item" @click="onLogout">
+        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="onLogout">
           Logout
         </a>
       </template>
