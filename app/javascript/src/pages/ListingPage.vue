@@ -5,19 +5,22 @@
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
+        <div class="z-10 block float-right"> 
+          <ButtonComponent
+            class="float-right"
+            @buttonClicked="openPageSettingModal"
+            :buttonType="'button'"
+            :textClass="'text-sm text-white'"
+            :backgroundClass="'bg-info py-3 px-4'"
+          >
+            <template #text> Setting </template>
+          </ButtonComponent>
+        </div>
         <div class="flex items-center justify-between w-full mx-auto">
           <div>
             <router-link :class="'float-left text-primary pr-4 py-3'" :to="`/${category}/add`">
               Add {{ category }}
             </router-link>
-            <ToggleSwitch 
-              v-if="!isMobileView && pagination.total > 0"
-              class="float-left my-3"
-              :forAttribute="'column-filter'"
-              :label="'Show column filter'"
-              :inputValue="isDisplayColumnFilter"
-              @changeValue="toggleColumnFilter"
-            />
           </div>
           <InputField
             v-if="category === 'book'"
@@ -31,16 +34,7 @@
           </InputField>
         </div>
         <div v-if="!isError" ref="container" class="table-container">
-          <Transition :appear="false" name="slide-up">
-            <ColumnFilter
-              v-show="isDisplayColumnFilter && !isMobileView"
-              class="block overflow-scroll sm:w-full md:w-auto h-1/2"
-              :data="data" 
-              :presetFields="presetFields" 
-              @onChangeColumn="changeColumn"
-            />
-          </Transition>
-          <component :is="displayComponent" :data="data" :fields="fields" :style="`width: ${windowWidth * 0.9}px`">
+          <component :is="displayComponent" :data="data" :fields="listingPageSettingStore.getFields" :style="`width: ${windowWidth * 0.9}px;`">
             <template #price="{ item }">
               {{ '$' + item.price }}
             </template>
@@ -220,48 +214,21 @@ const themeStore = useThemeStore();
 import ColumnFilter from "@/components/table/ColumnFilter.vue";
 import DetailInfo from "@/components/DetailInfo.vue";
 
-const presetFields = computed<TableField[] | undefined>(() => {
-  const idField = [{ key: "id", label: "ID" }];
-  const defaultFields = [
-    { key: "created_at", label: "Created at" },
-    { key: "updated_at", label: "Updated at" },
-  ];
+import { useListingPageSettingStore } from "@/store/listingPageSetting";
+const listingPageSettingStore = useListingPageSettingStore();
+listingPageSettingStore.changeCategory(props.category);
 
-  switch (props.category) {
-    case "book":
-      return [
-        ...idField,
-        { key: "name", label: "Name" },
-        { key: "price", label: "Price (USD)" },
-        { key: "authors", label: "Authors" },
-        ...defaultFields,
-      ];
-    case "author":
-      return [
-        ...idField,
-        { key: "name", label: "Name" },
-        { key: "books", label: "Books" },
-        ...defaultFields,
-      ];
-    case "publisher":
-      return [
-        ...idField,
-        { key: "name", label: "Name" },
-        { key: "books", label: "Books" },
-        ...defaultFields,
-      ];
-    default:
-      return undefined;
-  }
-});
-
-const fields = ref<TableField[] | undefined>(presetFields.value);
-const changeColumn = (payload: TableField[] | undefined) => {
-  fields.value = payload
+const openPageSettingModal = () => {
+  modalStore.open({
+    title: `Listing Page Setting`,
+    message: "",
+    type: "content",
+    component: ColumnFilter,
+    props: {
+      data
+    }
+  });
 }
-
-const isDisplayColumnFilter = ref<boolean>(false);
-const toggleColumnFilter = ({ checked, value }) => isDisplayColumnFilter.value = checked;
 
 // Data
 const data = ref<TableItem[]>([]);
@@ -283,15 +250,6 @@ const fetchRecords = async (
       perPage,
     };
 
-    // pagination.value = {
-    //   currentPage: 0,
-    //   pages: 0,
-    //   count: 0,
-    //   total: 0,
-    //   perPage,
-    // };
-
-    
   } catch (error: any) {
     isError.value = true;
     modalStore.open({
@@ -382,6 +340,7 @@ watch(
     [newCategory, newCurrentPage, newPerPage, newKeyword],
     [oldCategory, oldCurrentPage, oldPerPage, oldKeyword],
   ) => {
+    listingPageSettingStore.changeCategory(newCategory);
     if (newKeyword !== oldKeyword || newCategory !== oldCategory || newPerPage !== oldPerPage) {
       fetchRecords(newCategory, 1, newPerPage, newKeyword);
     } else {
