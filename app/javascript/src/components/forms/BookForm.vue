@@ -41,7 +41,7 @@
             <LabelWrapper
               :forAttribute="'year_published'"
               :textClass="'text-gray-700'"
-              :labelText="'Price'"
+              :labelText="'Year'"
               :isRequired="true"
             >
               <InputField
