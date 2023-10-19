@@ -1,7 +1,7 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
     <div v-if="!bookForm.isLoading" class="max-w-xl w-full space-y-8 px-2">
-      <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
+      <!-- <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback> -->
       <slot name="back"></slot>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
@@ -253,11 +253,13 @@ const onSubmit = async () => {
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.statusText,
-      type: "alert",
-      component: "",
-      props: undefined
+      title: `${error.response.status} Error - ${error.response.statusText}`,
+      message: "",
+      type: "content",
+      component: ErrorFeedback,
+      props: {
+        errors
+      }
     });
   }
 };
