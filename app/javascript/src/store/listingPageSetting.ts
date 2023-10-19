@@ -19,6 +19,18 @@ const presetFields: Fields = {
       label: "Price (USD)" 
     },
     { 
+      key: "isbn", 
+      label: "ISBN" 
+    },
+    { 
+      key: "year_published", 
+      label: "Year" 
+    },
+    { 
+      key: "is_published", 
+      label: "Is published?" 
+    },
+    { 
       key: "authors", 
       label: "Authors" 
     },

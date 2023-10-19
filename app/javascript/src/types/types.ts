@@ -100,6 +100,9 @@ export type BookForm = {
   price: number;
   publisher_id: number | null;
   author_ids: Array<number>;
+  isbn: string;
+  is_published: boolean;
+  year_published: number;
 };
 
 export type BookFormState = {

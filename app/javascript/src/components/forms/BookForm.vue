@@ -23,6 +23,55 @@
               ></InputField>
             </LabelWrapper>
             <LabelWrapper
+              :forAttribute="'isbn'"
+              :textClass="'text-gray-700'"
+              :labelText="'ISBN'"
+              :isRequired="true"
+            >
+              <InputField
+                :inputId="'isbn'"
+                :inputValue="bookForm.form.isbn"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputType="'text'"
+                :placeholder="'ISBN'"
+                :isRequired="true"
+                @changeValue="onChangeISBN"
+              ></InputField>
+            </LabelWrapper>
+            <LabelWrapper
+              :forAttribute="'year_published'"
+              :textClass="'text-gray-700'"
+              :labelText="'Price'"
+              :isRequired="true"
+            >
+              <InputField
+                :inputId="'year_published'"
+                :inputValue="bookForm.form.year_published"
+                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputType="'number'"
+                :placeholder="'Year'"
+                :step="1"
+                :min="1900"
+                :max="2023"
+                @changeValue="onChangeYearPublished"
+                :isRequired="true"
+              ></InputField>
+            </LabelWrapper>
+            <LabelWrapper
+              :forAttribute="'is_published'"
+              :textClass="'text-gray-700'"
+              :labelText="'Is Published?'"
+              :isRequired="false"
+            >
+              <ToggleSwitch 
+                class="block w-full mt-1 disabled:opacity-25"
+                :forAttribute="'is_published'"
+                :label="''"
+                :inputValue="bookForm.form.is_published"
+                @changeValue="({ checked }) => onChangeIsPublished(checked)"
+              />
+            </LabelWrapper>
+            <LabelWrapper
               :forAttribute="'publisher'"
               :textClass="'text-gray-700'"
               :labelText="'Publisher'"
@@ -125,6 +174,7 @@ import InputField from "@/components/inputs/InputField.vue";
 import TextArea from "@/components/inputs/TextArea.vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
+import ToggleSwitch from "@/components/inputs/ToggleSwitch.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
@@ -164,6 +214,21 @@ const onChangeForm = (payload) => {
   bookForm.isFormChanged = payload;
   emit("formChanged", payload);
 };
+
+const onChangeYearPublished = (payload) => {
+  bookForm.form.year_published = payload;
+  onChangeForm(true);
+}
+
+const onChangeISBN = (payload) => {
+  bookForm.form.isbn = payload;
+  onChangeForm(true);
+}
+
+const onChangeIsPublished = (payload) => {
+  bookForm.form.is_published = payload;
+  onChangeForm(true);
+}
 
 const onSubmit = async () => {
   try {

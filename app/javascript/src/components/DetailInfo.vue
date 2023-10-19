@@ -1,12 +1,24 @@
 <template>
   <div>
     <CardItem :wrapperClass="''" :item="item">
-      <template v-slot="{ name, abstract, description, price, books, authors, publisher }">
+      <template v-slot="{ name, abstract, description, price, books, authors, publisher, isbn, year_published, is_published }">
         <div>
           <ul>
             <li v-if="name">
               <h1><b>Name: </b></h1>
               {{ name }}
+            </li>
+            <li v-if="isbn">
+              <h1><b>ISBN: </b></h1>
+              {{ isbn }}
+            </li>
+            <li v-if="is_published">
+              <h1><b>Is published? </b></h1>
+              {{ is_published ? 'Yes' : 'No' }}
+            </li>
+            <li v-if="year_published">
+              <h1><b>Year: </b></h1>
+              {{ year_published }}
             </li>
             <li v-if="abstract">
               <h1><b>Abstract: </b></h1>
@@ -64,19 +76,10 @@
       </template>
     </CardItem>
   </div>
-  <!-- <div class="float-right">
-    <ButtonComponent @buttonClicked="modalStore.close()" :buttonType="'button'" :textClass="'text-sm text-white'"
-      :backgroundClass="'bg-warning py-2 px-4 my-3 mx-1'">
-      <template #text> Close Modal </template>
-    </ButtonComponent>
-  </div> -->
 </template>
 
 <script setup lang="ts">
-// import { useModalStore } from '@/store/modal';
 import CardItem from './card/CardItem.vue';
-// import ButtonComponent from './inputs/ButtonComponent.vue';
-// const modalStore = useModalStore();
 
 type ItemProps = {
   [key: string]: unknown

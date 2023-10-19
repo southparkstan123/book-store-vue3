@@ -26,6 +26,9 @@ export const useBookForm = () => {
       abstract: "",
       price: 0,
       publisher_id: null,
+      isbn: "",
+      is_published: false,
+      year_published: new Date().getFullYear(),
       author_ids: [],
     },
     isLoading: false,
@@ -42,6 +45,9 @@ export const useBookForm = () => {
       bookForm.form.price = bookAPI.data.price;
       bookForm.form.abstract = bookAPI.data.abstract;
       bookForm.form.publisher_id = bookAPI.data.publisher.id;
+      bookForm.form.isbn = bookAPI.data.isbn;
+      bookForm.form.is_published = bookAPI.data.is_published;
+      bookForm.form.year_published = bookAPI.data.year_published;
       bookForm.form.author_ids = bookAPI.data.authors.map((e) => e.id);
     } catch (error: any) {
       errors.value = error.response.data.errors;
