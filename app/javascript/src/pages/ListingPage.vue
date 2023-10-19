@@ -125,6 +125,7 @@
             <template #text> Add {{ category }} </template>
           </ButtonComponent>
           <ButtonComponent
+            v-if="data && data.length > 0"
             class="float-left"
             @buttonClicked="openPageSettingModal"
             :buttonType="'button'"
