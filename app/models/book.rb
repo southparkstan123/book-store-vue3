@@ -9,6 +9,11 @@ class Book < ApplicationRecord
   validates :price,
             presence: { message: 'is required' },
             numericality: { only_integer: false, greater_than_or_equal_to: 0 }
+  validates :isbn, 
+            format: { with: /\A(?:\d[\ |-]?){9}[\d|X]\z/, message: "is invalid" }
+  validates :year_published,
+            presence: { message: 'is required' },
+            numericality: { only_integer: true, greater_than_or_equal_to: 1900 }
   
   # A book record can be created and updated by user
   belongs_to :creator, class_name: 'User', foreign_key: :creator_id, inverse_of: :created_books

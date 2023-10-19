@@ -59,7 +59,7 @@ module Api::V1::Book
     private
 
     def book_params
-      params.permit(:name, :abstract, :price, :publisher_id, author_ids: [])
+      params.permit(:name, :abstract, :price, :publisher_id, :isbn, :year_published, :is_published, author_ids: [])
     end
 
   end
