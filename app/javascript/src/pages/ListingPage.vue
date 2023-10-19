@@ -5,28 +5,13 @@
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
-        <div class="z-10 block float-right"> 
-          <ButtonComponent
-            class="float-right"
-            @buttonClicked="openPageSettingModal"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-info py-3 px-4'"
-          >
-            <template #text> Setting </template>
-          </ButtonComponent>
-        </div>
-        <div class="flex items-center justify-between w-full mx-auto">
-          <div>
-            <router-link :class="'float-left text-primary pr-4 py-3'" :to="`/${category}/add`">
-              Add {{ category }}
-            </router-link>
-          </div>
+        <div class="flex items-center justify-between w-full mx-auto my-1">
           <InputField
             v-if="category === 'book'"
+            :className="'w-full sm:w-auto'"
             :inputId="'test'"
             :inputValue="keyword"
-            :inputFieldClass="'float-right disabled:opacity-25'"
+            :inputFieldClass="'w-full sm:w-auto float-left sm:float-right disabled:opacity-25'"
             :inputType="'text'"
             :placeholder="`Search by name`"
             @changeValue="searchKeyword"
@@ -128,6 +113,26 @@
           <div class="text-center">
             <h1 class="text-2xl text-primary">Oops! Error occurs.</h1>
           </div>
+        </div>
+        <div class="flex  mx-auto my-1">
+          <ButtonComponent
+            class="float-left"
+            @buttonClicked="$router.push(`/${category}/add`)"
+            :buttonType="'button'"
+            :textClass="'text-sm text-white'"
+            :backgroundClass="'bg-secondary py-3 px-4 mr-1'"
+          >
+            <template #text> Add {{ category }} </template>
+          </ButtonComponent>
+          <ButtonComponent
+            class="float-left"
+            @buttonClicked="openPageSettingModal"
+            :buttonType="'button'"
+            :textClass="'text-sm text-white'"
+            :backgroundClass="'bg-info py-3 px-4 mx-1'"
+          >
+            <template #text> Setting </template>
+          </ButtonComponent>
         </div>
       </div>
       <div v-else>
