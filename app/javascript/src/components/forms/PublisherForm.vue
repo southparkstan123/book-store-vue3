@@ -1,6 +1,6 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
-    <div v-if="!publisherForm.isLoading" class="max-w-md w-full space-y-8 px-2">
+    <div v-if="!publisherForm.isLoading" class="max-w-xl w-full space-y-8 px-2">
       <ErrorFeedback v-if="errors.length > 0" :errors="errors"></ErrorFeedback>
       <slot name="back"></slot>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
