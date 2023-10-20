@@ -1,5 +1,4 @@
 <template>
-  <ErrorFeedback :errors="errors" />
   <form class="mt-8 space-y-6" @submit.prevent="onRegistration">
     <InputField
       :inputId="'username'"
@@ -129,11 +128,13 @@ const onRegistration = async () => {
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
+      title: `${error.response.status} Error - ${error.response.data.message}`,
+      message: "",
+      type: "content",
+      component: ErrorFeedback,
+      props: {
+        errors
+      },
       isFitContent: true
     });
   }
