@@ -232,7 +232,8 @@ const openPageSettingModal = () => {
     component: ColumnFilter,
     props: {
       data
-    }
+    },
+    isFitContent: false
   });
 }
 
@@ -263,7 +264,8 @@ const fetchRecords = async (
       message: error.response.data.message,
       type: "alert",
       component: "",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
   } finally {
     isLoading.value = false;
@@ -282,7 +284,8 @@ const action = async (type: ActionType, id: number) => {
         component: DetailInfo,
         props: {
           item
-        }
+        },
+        isFitContent: false
       });
     } else if (type === "edit") {
       router.push({ path: `/${props.category}/${type}/${id}`, replace: true });
@@ -292,7 +295,8 @@ const action = async (type: ActionType, id: number) => {
         message: "Are you sure?",
         type: "confirm",
         component: "",
-        props: undefined
+        props: undefined,
+        isFitContent: true
       });
 
       if (confirm) {
@@ -303,7 +307,8 @@ const action = async (type: ActionType, id: number) => {
           message: response.data.message,
           type: "alert",
           component: "",
-          props: undefined
+          props: undefined,
+          isFitContent: true
         });
 
         setTimeout(() => {

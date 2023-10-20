@@ -176,7 +176,8 @@ const onLogout = async () => {
       title: "Logout",
       message: "Are you sure?",
       component: "",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
 
     if (confirm) {
@@ -195,7 +196,8 @@ const showUserInfo = () => {
     message: userStore.getUserInfo.email,
     component: "",
     type: "alert",
-    props: undefined
+    props: undefined,
+    isFitContent: true
   });
 };
 
@@ -206,7 +208,8 @@ const openTemplateForm = () => {
     type: "content",
     component: TemplateForm,
     message: "",
-    props: undefined
+    props: undefined,
+    isFitContent: false
   });
 };
 

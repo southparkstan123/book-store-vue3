@@ -18,7 +18,7 @@
                   Title
                 </h3>
               </slot>
-              <div :class="(type === 'content') ? 'overflow-scroll sm:h-48 h-96 ': ''">
+              <div v-height="{ action: changeModalHeight }" :style="`height:${ (!modalState.isFitContent) ? windowHeight * 0.3 : 'fit-content'}px`" :class="(type === 'content') ? `overflow-scroll`: ''">
                 <slot v-if="type === 'content'" name="form-body" />
                 <slot v-else name="message-body" />
               </div>
@@ -36,12 +36,34 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import type { ModalType } from "@/types/types";
 
 const props = withDefaults(defineProps<{type: ModalType, showModalContent: boolean}>(), {
   type: "alert",
   showModalContent: false
 })
+
+const windowHeight = ref<number>(0);
+const changeModalHeight = (payload: number) => {
+  windowHeight.value = payload;
+}
+
+// Modal
+import { useModalStore } from "@/store/modal";
+const modalStore = useModalStore();
+const modalState = modalStore.getModalObject;
+
+const vHeight = (el, binding) => {
+  const { action } = binding.value;
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const windowHeight = entry.contentRect.height;
+      action(windowHeight);
+    });
+  });
+  resizeObserver.observe(document.body);
+}
 </script>
 
 <style scoped lang="scss">

@@ -255,7 +255,8 @@ const onSubmit = async () => {
       message: response.data.message,
       type: "alert",
       component: "",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
@@ -266,7 +267,8 @@ const onSubmit = async () => {
       component: ErrorFeedback,
       props: {
         errors
-      }
+      },
+      isFitContent: true
     });
   }
 };

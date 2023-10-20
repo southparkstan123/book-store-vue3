@@ -10,7 +10,8 @@ export const useModalStore = defineStore("modal", () => {
     title: "",
     component: "",
     resolvePromise: undefined,
-    props: undefined
+    props: undefined,
+    isFitContent: true
   });
 
   // Getters
@@ -24,6 +25,7 @@ export const useModalStore = defineStore("modal", () => {
     state.component = payload.component;
     state.message = payload.message;
     state.props = payload.props;
+    state.isFitContent = payload.isFitContent;
 
     return new Promise((resolve, reject) => {
       state.resolvePromise = resolve;
@@ -37,6 +39,7 @@ export const useModalStore = defineStore("modal", () => {
     state.component = "";
     state.message = "";
     state.props = undefined;
+    state.isFitContent = true;
   };
 
   const confirm = () => {
@@ -47,6 +50,7 @@ export const useModalStore = defineStore("modal", () => {
     state.message = "";
     state.resolvePromise(true);
     state.props = undefined;
+    state.isFitContent = true;
   };
 
   const reject = () => {

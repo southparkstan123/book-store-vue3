@@ -130,6 +130,7 @@ export type ModalState = {
   title: string;
   component: string;
   resolvePromise: any;
+  isFitContent: boolean;
   props: any;
 };
 
@@ -139,6 +140,7 @@ export type OpenModalPayload = {
   title: string;
   component: Component | "";
   props: any;
+  isFitContent: boolean;
 };
 
 export type ButtonProps = {

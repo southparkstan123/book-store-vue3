@@ -121,7 +121,8 @@ const onRegistration = async () => {
       message: result.data.message,
       type: "alert",
       component: "",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
 
     router.push("/signin");
@@ -132,7 +133,8 @@ const onRegistration = async () => {
       message: error.response.data.message,
       type: "alert",
       component: "",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
   }
 };

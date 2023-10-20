@@ -70,7 +70,8 @@ const confirmDelete = async (index) => {
     title: "Delete",
     message: "Are you sure?",
     component: "",
-    props: undefined
+    props: undefined,
+    isFitContent: true
   });
 
   if (confirm) {

@@ -76,7 +76,8 @@ const onLogin = async () => {
       title: "Error",
       component: "",
       message: "Invalid username or password.",
-      props: undefined
+      props: undefined,
+      isFitContent: true
     });
   } finally {
     disableInputs.value = false;
