@@ -112,22 +112,22 @@
       </template>
 
       <template #close-button>
-        <svg width="50px" height="50px">
+        <svg width="25px" height="25px">
           <line
-            x1="10"
-            y1="40"
-            x2="40"
-            y2="10"
+            x1="5"
+            y1="20"
+            x2="20"
+            y2="5"
             class="stroke-menu-button"
-            stroke-width="3"
+            stroke-width="2"
           />
           <line
-            x1="10"
-            y1="10"
-            x2="40"
-            y2="40"
+            x1="5"
+            y1="5"
+            x2="20"
+            y2="20"
             class="stroke-menu-button"
-            stroke-width="3"
+            stroke-width="2"
           />
         </svg>
       </template>

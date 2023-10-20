@@ -11,10 +11,8 @@ const close = () => emits("closeMenu");
 
 <style scoped>
 .button {
-  width: 50px;
-  height: 50px;
+  margin: 3px;
   cursor: pointer;
-  left: 398px;
   float: right;
 }
 </style>
