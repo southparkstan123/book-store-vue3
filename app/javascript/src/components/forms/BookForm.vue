@@ -36,7 +36,11 @@
                 :placeholder="'ISBN'"
                 :isRequired="true"
                 @changeValue="onChangeISBN"
-              ></InputField>
+              >
+                <template #label>
+                  <span class="text-red-400">Hint: ISBN10 and ISBN13 supported</span>
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'year_published'"
@@ -55,7 +59,11 @@
                 :max="2023"
                 @changeValue="onChangeYearPublished"
                 :isRequired="true"
-              ></InputField>
+              >
+                <template #label>
+                  <span class="text-red-400">Hint: From 1900 to {{ new Date().getFullYear() }}</span>
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'is_published'"
@@ -67,7 +75,7 @@
                 class="block w-full mt-1 disabled:opacity-25"
                 :forAttribute="'is_published'"
                 :label="''"
-                :inputValue="bookForm.form.is_published"
+                :inputValue="bookForm.form.is_published ? bookForm.form.is_published : false"
                 @changeValue="({ checked }) => onChangeIsPublished(checked)"
               />
             </LabelWrapper>
@@ -88,7 +96,7 @@
             <LabelWrapper
               :forAttribute="'price'"
               :textClass="'text-gray-700'"
-              :labelText="'Price'"
+              :labelText="'Price (USD)'"
               :isRequired="true"
             >
               <InputField
