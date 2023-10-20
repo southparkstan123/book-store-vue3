@@ -3,7 +3,7 @@
     <div class="mx-auto">
       <div class="text-center">
         <LabelWrapper :forAttribute="'images'" :labelClass="'text-center inline-block m-1 cursor-pointer bg-info py-2 px-4'"
-          :textClass="'text-sm text-white'" :labelText="'Upload Images'">
+          :textClass="'text-sm text-white'" :labelText="'Upload Images (For Testing)'">
           <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'"
             :inputName="'images'" :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile" :accept="'image/*'">
           </InputField>
@@ -47,7 +47,7 @@
       </div>
       <div v-else class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
         <div class="w-full">
-          <h1 class="text-2xl text-center text-primary">No Images</h1>
+          <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
         </div>
       </div>
 

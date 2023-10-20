@@ -11,6 +11,7 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 - Search records of 'books' by name
 - Pagination for records
 - Switch theme and control the page size of pagination
+- Upload and Preview Images (For Testing only)
 
 ## Technical information
 
