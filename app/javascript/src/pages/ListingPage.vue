@@ -54,7 +54,7 @@
                 :content="moment(item.updated_at).fromNow()">
               </TooltipComponent>
               <div v-else>
-                {{ moment(item.created_at).format('lll') }}
+                {{ moment(item.updated_at).format('lll') }}
               </div>
             </template>
             <template #books="{ item }">
