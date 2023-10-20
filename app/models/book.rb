@@ -10,7 +10,8 @@ class Book < ApplicationRecord
             presence: { message: 'is required' },
             numericality: { only_integer: false, greater_than_or_equal_to: 0 }
   validates :isbn, 
-            format: { with: /\A((?:\d[\ |-]?){9}[\d|X]|(?:\d[\ |-]?){12}[\d])\z/, message: "is invalid" }
+            format: { with: /\A((?:\d[\ |-]?){9}[\d|X]|(?:\d[\ |-]?){12}[\d])\z/, message: "is invalid" },
+            uniqueness: { message: '%{value} is already taken' }
   validates :year_published,
             presence: { message: 'is required' },
             numericality: { only_integer: true, greater_than_or_equal_to: 1900 }
