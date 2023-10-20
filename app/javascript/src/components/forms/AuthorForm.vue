@@ -117,9 +117,9 @@ const onSubmit = async () => {
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
-
+    console.log(error.response);
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText}`,
+      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.message}`,
       message: "",
       type: "content",
       component: ErrorFeedback,
