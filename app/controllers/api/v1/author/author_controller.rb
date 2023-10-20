@@ -7,7 +7,7 @@ module Api::V1::Author
     before_action :authorized, except: [:list, :show, :names]
 
     def list
-      @authors = Author.includes(:books, :creator, :updater)
+      @authors = Author.order(updated_at: :desc).includes(:books, :creator, :updater)
       @pagy, @result = pagy(@authors, items: params[:per])
       pagy_headers_merge(@pagy)
 

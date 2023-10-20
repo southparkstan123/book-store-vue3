@@ -7,7 +7,7 @@ module Api::V1::Book
     before_action :authorized, except: [:list, :show]
 
     def list
-      @books = Book.search_by_name(params[:name]).includes(:authors, :creator, :updater, :publisher)
+      @books = Book.search_by_name(params[:name]).order(updated_at: :desc).includes(:authors, :creator, :updater, :publisher)
       @pagy, @result = pagy(@books, items: params[:per])
       pagy_headers_merge(@pagy)
       render json: @result
