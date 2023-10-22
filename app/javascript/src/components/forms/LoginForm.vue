@@ -79,7 +79,6 @@ const onLogin = async () => {
       props: undefined,
       isFitContent: true
     });
-  } finally {
     disableInputs.value = false;
   }
 };
