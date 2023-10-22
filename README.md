@@ -239,6 +239,8 @@ docker exec my-postgres psql -U postgres -c "\l"
 host: <%= ENV.fetch("DATABASE_HOST") { "postgres" } %>
 ```
 
+[Database relationship diagram](https://dbdiagram.io/d/Book-Store-64ecd2b502bd1c4a5e8c6419)
+
 ## Staging environment
 
 [https://book-store-vue3.onrender.com](https://book-store-vue3.onrender.com)
