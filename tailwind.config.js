@@ -11,6 +11,11 @@ module.exports = {
   ],
   theme: {
     fontFamily: {},
+    backgroundImage: {
+      'hero-image-1': "url('./images/bg01.jpeg')",
+      'hero-image-2': "url('./images/bg02.jpeg')",
+      'hero-image-3': "url('./images/bg03.jpeg')"
+    },
     extend: {
       colors: {
         'info': 'var(--color-info)',
