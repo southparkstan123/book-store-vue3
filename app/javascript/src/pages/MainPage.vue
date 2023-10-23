@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
-    <div class="mx-auto">
+    <div class="mx-auto md:bg-gray-100 md:bg-opacity-30 bg-transparent">
       <div class="text-center">
         <LabelWrapper :forAttribute="'images'" :labelClass="'text-center inline-block m-1 cursor-pointer bg-info py-2 px-4'"
           :textClass="'text-sm text-white'" :labelText="'Upload Images (For Testing)'">
@@ -52,8 +52,8 @@
       </div>
 
       <div class="flex items-center justify-between w-full mx-auto" v-if="imageData.length > 0 && imageData !== undefined">
-        <span class="float-right">Total Size: {{ displaySize(totalFileSize as number) }}</span>
-        <span class="float-left">{{ information }}</span>
+        <span class="float-right text-white">Total Size: {{ displaySize(totalFileSize as number) }}</span>
+        <span class="float-left text-white">{{ information }}</span>
       </div>
     </div>
   </div>

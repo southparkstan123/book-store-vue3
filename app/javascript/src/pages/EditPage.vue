@@ -3,7 +3,7 @@
     <Transition :appear="true" name="fade">
       <component
         :style="{ 'height': '500px'}"
-        class="overflow-scroll"
+        class="overflow-scroll bg-gray-200 bg-opacity-70 p-3"
         :is="formComponent"
         :id="id"
         @formChanged="formChanged"

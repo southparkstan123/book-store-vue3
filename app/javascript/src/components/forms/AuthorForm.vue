@@ -1,6 +1,6 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
-    <div v-if="!authorForm.isLoading" class="max-w-xl w-full space-y-8 px-2">
+    <div v-if="!authorForm.isLoading">
       <slot name="back"></slot>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">

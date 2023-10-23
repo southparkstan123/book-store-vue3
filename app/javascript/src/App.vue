@@ -1,5 +1,5 @@
 <template>
-  <div v-body-scroll-lock="modalState.visible" class="mx-auto">
+  <div v-body-scroll-lock="modalState.visible" class="mx-auto bg-fixed bg-no-repeat bg-cover md:bg-center bg-right-bottom bg-hero-image-3">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
