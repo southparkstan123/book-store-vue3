@@ -242,6 +242,6 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
 }
 
 html * {
-  @apply transition-colors duration-500;
+  @apply transition-all duration-500;
 }
 </style>

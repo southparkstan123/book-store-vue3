@@ -49,10 +49,11 @@
             :checked="item.className === selectedImages" @changeValue="themeStore.changeBackgroundImage">
             <template #label>
               <label 
-                :for="item.className" :class="`${item.className} bg-fixed bg-no-repeat bg-cover bg-center`"
-                class="border border-primary cursor-pointer inline-flex items-center justify-between w-full p-5 rounded bg-100% hover:bg-110%">
+                :for="item.className" 
+                :class="`${item.className} bg-fixed bg-no-repeat bg-cover bg-center border border-solid border-transparent peer-checked:border-double peer-checked:border-primary text-primary cursor-pointer inline-flex items-center justify-between w-full p-5 rounded bg-100% hover:bg-110% peer-checked:bg-110%`"
+              >
                 <div class="block">
-                  <div class="w-full text-xs text-primary font-semibold peer-checked:text-white">{{ item.label }}</div>
+                  <div class="w-full text-xs font-semibold">{{ item.label }}</div>
                 </div>
               </label>
             </template>
