@@ -3,18 +3,39 @@ import { reactive, computed } from "vue";
 import type { Theme, PaginationSetting } from "@/types/types";
 
 export const useThemeStore = defineStore("theme", () => {
-  const state = reactive<{theme: getTheme; allThemes: Theme[]; pagination: PaginationSetting}>({
+  const state = reactive<{theme: getTheme; allThemes: Theme[]; pagination: PaginationSetting; backgroundImages: { className: string; label: string }[], selectedBackgroundImageClass: string}>({
     theme: "default",
     allThemes: ["default", "shoujyo"],
     pagination: {
       perPage: 10
-    }
+    },
+    backgroundImages: [
+      {
+        className: 'bg-none',
+        label: 'None'
+      },
+      {
+        className: 'bg-hero-image-1',
+        label: 'Lake Mashu'
+      },
+      {
+        className: 'bg-hero-image-2',
+        label: 'Ishikari lighthouse'
+      },
+      {
+        className: 'bg-hero-image-3',
+        label: 'Lake Kussharo'
+      }
+    ],
+    selectedBackgroundImageClass: 'bg-none'
   })
 
   // Getters
   const getTheme = computed<Theme>(() => state.theme);
   const getAllThemes = computed<Theme[]>(() => state.allThemes);
   const getPerPage = computed<number>(() => state.pagination.perPage);
+  const getAllbackgroundImages = computed<{className: string; label: string}[]>(() => state.backgroundImages);
+  const getBackgroundImageClass = computed<string>(() => state.selectedBackgroundImageClass);
 
   // Actions
   const onToggleTheme = (payload?: Theme) => {
@@ -34,11 +55,21 @@ export const useThemeStore = defineStore("theme", () => {
     state.pagination.perPage = value;
   }
 
+  const changeBackgroundImage = (payload?: string) => {
+    const backgroundImageClass: string = localStorage.getItem('background');
+    const value = payload ? payload : (backgroundImageClass ? backgroundImageClass : state.selectedBackgroundImageClass );
+    localStorage.setItem('background', value);
+    state.selectedBackgroundImageClass = value;
+  }
+
   return {
     getTheme,
     getAllThemes,
     getPerPage,
+    getAllbackgroundImages,
+    getBackgroundImageClass,
     onToggleTheme,
-    changeValuePerPage
+    changeValuePerPage,
+    changeBackgroundImage
   };
 })

@@ -16,6 +16,10 @@ module.exports = {
       'hero-image-2': "url('./images/bg02.jpeg')",
       'hero-image-3': "url('./images/bg03.jpeg')"
     },
+    backgroundSize: {
+      '100%': "100%",
+      '110%': "110%"
+    },
     extend: {
       colors: {
         'info': 'var(--color-info)',

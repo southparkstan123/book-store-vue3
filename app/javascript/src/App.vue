@@ -1,5 +1,5 @@
 <template>
-  <div v-body-scroll-lock="modalState.visible" class="mx-auto bg-fixed bg-no-repeat bg-cover md:bg-center bg-right-bottom bg-hero-image-3">
+  <div v-body-scroll-lock="modalState.visible" :class="`mx-auto ${themeStore.getBackgroundImageClass} bg-fixed bg-no-repeat bg-cover md:bg-center bg-right`">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -217,6 +217,7 @@ import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
 themeStore.changeValuePerPage();
+themeStore.changeBackgroundImage();
 
 const vBodyScrollLock = (el: HTMLElement, binding) => {
   const isBodyScrollLock: boolean = binding.value as boolean
