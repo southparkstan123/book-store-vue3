@@ -65,54 +65,39 @@
               <th>Actions</th>
             </template>
             <template #addition-content="{ item }">
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'View'"
+              <ButtonComponent
+                @buttonClicked="action('view', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-success py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('view', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-success py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    <font-awesome-icon icon="fa-regular fa-eye" />
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'Edit'"
+                <template #text>
+                  <font-awesome-icon icon="fa-regular fa-eye" />
+                </template>
+              </ButtonComponent>
+              <ButtonComponent
+                @buttonClicked="action('edit', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-info py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('edit', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-info py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    <font-awesome-icon icon="fa-regular fa-edit" />
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'Delete'"
+                <template #text>
+                  <font-awesome-icon icon="fa-regular fa-edit" />
+                </template>
+              </ButtonComponent>
+              <ButtonComponent
+                @buttonClicked="action('delete', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-danger py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('delete', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-danger py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    <font-awesome-icon icon="fa-solid fa-remove" />
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
+                <template #text>
+                  <font-awesome-icon icon="fa-solid fa-remove" />
+                </template>
+              </ButtonComponent>
             </template>
             <template #footer>
               <div class="footer-item text-table-footer-text">
