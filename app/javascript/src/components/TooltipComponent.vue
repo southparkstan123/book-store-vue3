@@ -1,5 +1,7 @@
 <template>
-  <span :class="`tooltip ${beforeClass} ${afterClass} ${position}`" :data-tip="dataTip">{{ content }}</span>
+  <span :class="`tooltip ${beforeClass} ${afterClass} ${position}`" :data-tip="dataTip">
+    <slot>{{ content }}</slot>
+  </span>
 </template>
 
 <script setup lang="ts">
