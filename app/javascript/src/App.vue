@@ -53,7 +53,6 @@
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
       :backgroundClass="'bg-navbar'"
-      :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
       <template #brand>
         <router-link class="cursor-pointer link" :class="route.path === '/' ? 'text-muted' : 'text-menu-brand'" to="/">
@@ -62,24 +61,24 @@
       </template>
       <template #body-content>
         <router-link class="cursor-pointer link" :class="route.path === '/book/list' ? 'text-muted' : 'text-menu-item'" to="/book/list">
-          Book
+          <font-awesome-icon icon="fa-solid fa-book" /> Book
         </router-link>
         <router-link class="cursor-pointer link" to="/publisher/list" :class="route.path === '/publisher/list' ? 'text-muted' : 'text-menu-item'">
-          Publisher
+          <font-awesome-icon icon="fa-solid fa-building" /> Publisher
         </router-link>
         <router-link class="cursor-pointer link" :class="route.path === '/author/list' ? 'text-muted' : 'text-menu-item'" to="/author/list">
-          Author
+          <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
         </router-link>
       </template>
       <template #footer-content>
         <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="openTemplateForm">
-          Setting
+          <font-awesome-icon icon="fa-solid fa-gear" /> Setting
         </a>
         <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="showUserInfo">
-          User info
+          <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
         </a>
         <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="onLogout">
-          Logout
+          <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
         </a>
       </template>
       <template #open-button>
@@ -156,8 +155,6 @@ const modalState = modalStore.getModalObject;
 
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
-import { useNavBar } from "@/hooks/useNavBar";
-const { percentageOfWidthOfMoblieMenu } = useNavBar();
 
 // UserInfo
 import { useUserStore } from "@/store/user";

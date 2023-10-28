@@ -4,6 +4,9 @@
       <div class="text-center">
         <LabelWrapper :forAttribute="'images'" :labelClass="'text-center inline-block m-1 cursor-pointer bg-info py-2 px-4'"
           :textClass="'text-sm text-white'" :labelText="'Upload Images (For Testing)'">
+          <template #icon>
+            <font-awesome-icon icon="fa-solid fa-upload" />
+          </template>
           <InputField :inputId="'images'" :className="''" :inputValue="''" :inputFieldClass="'hidden'"
             :inputName="'images'" :inputType="'file'" :isMultiple="true" @changeValue="onChangeFile" :accept="'image/*'">
           </InputField>
@@ -19,7 +22,7 @@
                   :class="'float-right cursor-pointer p-3 text-lg'" 
                   @click="confirmDelete(index)"
                 >
-                  x
+                  <font-awesome-icon icon="fa-solid fa-remove" />
                 </div>
               </template>
               <template v-slot="{ name, src, type, createdAt, size }">

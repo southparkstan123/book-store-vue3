@@ -18,7 +18,7 @@
       :showMenuContent="showMenuContent"
       @closeMenu="closeMenu"
       :backgroundClass="backgroundClass"
-      :width="mobileMenuWidth"
+      :width="'200px'"
     >
       <template #brand>
         <slot name="brand"></slot>
@@ -45,12 +45,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 import MobileMenu from "@/components/menu/MobileMenu.vue";
 import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
-import isValidColorValue from "@/utils/isValidColorValue";
 
 export default defineComponent({
   components: {
@@ -66,14 +65,9 @@ export default defineComponent({
     breakpoint: {
       type: Number,
       default: 1024,
-    },
-    percentageOfWidthOfMoblieMenu: {
-      type: Number,
-      default: 100,
-      validator: (value: number) => value <= 100 && value >= 10,
-    },
+    }
   },
-  setup(props, context) {
+  setup(_, context) {
     const windowWidth = ref<number>(0);
     const isMobileView = ref<boolean>(false);
 
@@ -112,16 +106,9 @@ export default defineComponent({
       isMobileView.value = payload.isMobileView;
     };
 
-    const mobileMenuWidth = computed<string>(() => {
-      const width =
-        (props.percentageOfWidthOfMoblieMenu / 100) * windowWidth.value;
-      return width.toString() + "px";
-    });
-
     return {
       windowWidth,
       isMobileView,
-      mobileMenuWidth,
       openMenu,
       closeMenu,
       onChangeView,

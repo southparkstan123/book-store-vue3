@@ -1,8 +1,10 @@
 <template>
   <div class="content">
     <slot name="button"></slot>
+
+    <slot name="brand"></slot>
     <div class="items">
-      <slot name="brand"></slot>
+      
       <slot name="body-content"></slot>
     </div>
     <div class="items">
@@ -23,9 +25,8 @@
     :deep(a) {
       display: block;
       text-decoration: none;
-      text-align: center;
       font-size: 1.5rem;
-      margin: 0.75rem 0;
+      margin: 0.75rem 1rem;
     }
   }
 }
