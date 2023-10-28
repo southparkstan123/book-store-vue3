@@ -1,6 +1,7 @@
 <template>
   <label :class="labelClass" :for="forAttribute">
     <span :class="textClass">
+      <slot name="icon"></slot>
       {{ labelText }}
       <slot name="required">
         <span v-if="isRequired" :style="'color: red;'">*</span>

@@ -72,7 +72,7 @@
                 :backgroundClass="'bg-primary py-2 px-4 my-1'"
                 :isDisable="false"
               >
-                <template #text> View </template>
+                <template #text><font-awesome-icon icon="fa-regular fa-eye" /> View </template>
               </ButtonComponent>
               <ButtonComponent
                 @buttonClicked="action('edit', item.id)"
@@ -81,7 +81,7 @@
                 :backgroundClass="'bg-info py-2 px-4 my-1'"
                 :isDisable="false"
               >
-                <template #text> Edit </template>
+                <template #text><font-awesome-icon icon="fa-regular fa-edit" /> Edit </template>
               </ButtonComponent>
               <ButtonComponent
                 @buttonClicked="action('delete', item.id)"
@@ -90,7 +90,7 @@
                 :backgroundClass="'bg-danger py-2 px-4 my-1'"
                 :isDisable="false"
               >
-                <template #text> Delete </template>
+                <template #text><font-awesome-icon icon="fa-solid fa-remove" /> Delete </template>
               </ButtonComponent>
             </template>
             <template #footer>
@@ -122,7 +122,9 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-secondary py-3 px-4 mr-1'"
           >
-            <template #text> Add {{ category }} </template>
+            <template #text>  
+              <font-awesome-icon icon="fa-solid fa-plus"/> Add {{ category }} 
+            </template>
           </ButtonComponent>
           <ButtonComponent
             v-if="data && data.length > 0"
@@ -132,7 +134,9 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-info py-3 px-4 mx-1'"
           >
-            <template #text> Setting </template>
+            <template #text>
+              <font-awesome-icon icon="fa-solid fa-gear"/> Page Setting 
+            </template>
           </ButtonComponent>
         </div>
       </div>
