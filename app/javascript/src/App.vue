@@ -53,7 +53,6 @@
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
       :backgroundClass="'bg-navbar'"
-      :percentageOfWidthOfMoblieMenu="percentageOfWidthOfMoblieMenu"
     >
       <template #brand>
         <router-link class="cursor-pointer link" :class="route.path === '/' ? 'text-muted' : 'text-menu-brand'" to="/">
@@ -156,8 +155,6 @@ const modalState = modalStore.getModalObject;
 
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
-import { useNavBar } from "@/hooks/useNavBar";
-const { percentageOfWidthOfMoblieMenu } = useNavBar();
 
 // UserInfo
 import { useUserStore } from "@/store/user";
