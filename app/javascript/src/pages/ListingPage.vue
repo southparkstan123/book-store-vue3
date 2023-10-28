@@ -93,9 +93,7 @@
                   :isDisable="false"
                 >
                   <template #text>
-                    
-                      <font-awesome-icon icon="fa-regular fa-edit" />
-                    
+                    <font-awesome-icon icon="fa-regular fa-edit" />
                   </template>
                 </ButtonComponent>
               </TooltipComponent>
