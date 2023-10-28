@@ -55,18 +55,18 @@
       :backgroundClass="'bg-navbar'"
     >
       <template #brand>
-        <router-link class="cursor-pointer link" :class="route.path === '/' ? 'text-muted' : 'text-menu-brand'" to="/">
+        <router-link class="cursor-pointer link text-menu-brand" to="/">
           Book Store
         </router-link>
       </template>
       <template #body-content>
-        <router-link class="cursor-pointer link" :class="route.path === '/book/list' ? 'text-muted' : 'text-menu-item'" to="/book/list">
+        <router-link class="cursor-pointer link text-menu-item" to="/book/list">
           <font-awesome-icon icon="fa-solid fa-book" /> Book
         </router-link>
-        <router-link class="cursor-pointer link" to="/publisher/list" :class="route.path === '/publisher/list' ? 'text-muted' : 'text-menu-item'">
+        <router-link class="cursor-pointer link text-menu-item" to="/publisher/list">
           <font-awesome-icon icon="fa-solid fa-building" /> Publisher
         </router-link>
-        <router-link class="cursor-pointer link" :class="route.path === '/author/list' ? 'text-muted' : 'text-menu-item'" to="/author/list">
+        <router-link class="cursor-pointer link text-menu-item" to="/author/list">
           <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
         </router-link>
       </template>
