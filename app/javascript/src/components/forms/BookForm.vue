@@ -157,8 +157,8 @@
         </div>
       </form>
     </div>
-    <div v-else>
-      <h1 class="text-center text-2xl text-red-500">Loading...</h1>
+    <div class="flex items-center justify-center" v-else>
+      <h1 class="text-center text-2xl text-primary">Loading...</h1>
     </div>
   </Transition>
 </template>

@@ -1,24 +1,24 @@
 <template>
   <div
     v-change-table-view="{ breakpoint: 1024, action: toogleDisplayView }"
-    class="min-h-screen flex items-center justify-center"
+    class="min-h-screen flex justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
-        <div class="flex items-center justify-between w-full mx-auto my-1">
+        <div class="z-10 sticky md:top-12 top-0 items-center justify-between w-full ">
           <InputField
             v-if="category === 'book'"
-            :className="'w-full sm:w-auto'"
+            :className="'w-full float-right bg-table'"
             :inputId="'test'"
             :inputValue="keyword"
-            :inputFieldClass="'w-full sm:w-auto float-left sm:float-right disabled:opacity-25'"
+            :inputFieldClass="'w-1/2 sm:w-4/5 float-right disabled:opacity-25'"
             :inputType="'text'"
             :placeholder="`Search by name`"
             @changeValue="searchKeyword"
           >
           </InputField>
         </div>
-        <div v-if="!isError" ref="container" class="table-container">
+        <div v-if="!isError">
           <component :is="displayComponent" :data="data" :fields="listingPageSettingStore.getFields" :style="`width: ${windowWidth * 0.9}px;`">
             <template #price="{ item }">
               {{ '$' + item.price }}
@@ -109,7 +109,7 @@
               <PaginationComponent
                 :page="pagination.currentPage"
                 :pages="pagination.pages"
-                @toPage="(payload) => changeCurrentPage(payload, scrollToTop(container))"
+                @toPage="(payload) => changeCurrentPage(payload, scrollToTop())"
               >
               </PaginationComponent>
             </template>
@@ -120,36 +120,39 @@
             <h1 class="text-2xl text-primary">Oops! Error occurs.</h1>
           </div>
         </div>
-        <div class="flex  mx-auto my-1">
-          <ButtonComponent
-            class="float-left"
-            @buttonClicked="$router.push(`/${category}/add`)"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-secondary py-3 px-4 mr-1'"
-          >
-            <template #text>  
-              <font-awesome-icon icon="fa-solid fa-plus"/> Add {{ category }} 
-            </template>
-          </ButtonComponent>
-          <ButtonComponent
-            v-if="data && data.length > 0"
-            class="float-left"
-            @buttonClicked="openPageSettingModal"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-info py-3 px-4 mx-1'"
-          >
-            <template #text>
-              <font-awesome-icon icon="fa-solid fa-gear"/> Page Setting 
-            </template>
-          </ButtonComponent>
-        </div>
       </div>
-      <div v-else>
+      <div class="flex items-center justify-center" v-else>
         <h1 class="text-center text-2xl text-primary">Loading...</h1>
       </div>
     </Transition>
+
+    <div class="z-10 fixed bottom-0 right-1 p-1">
+      <ButtonComponent
+        class="block"
+        @buttonClicked="$router.push(`/${category}/add`)"
+        :buttonType="'button'"
+        :textClass="'text-white'"
+        :backgroundClass="'bg-secondary py-3 px-4 m-1 rounnded rounded-full'"
+      >
+        <template #text>  
+          <font-awesome-icon icon="fa-solid fa-plus"/>
+        </template>
+      </ButtonComponent>
+      <ButtonComponent
+        v-if="data && data.length > 0"
+        class="block"
+        @buttonClicked="openPageSettingModal"
+        :buttonType="'button'"
+        :textClass="'text-white'"
+        :backgroundClass="'bg-info py-3 px-4 m-1 rounnded rounded-full'"
+      >
+        <template #text>
+          <font-awesome-icon icon="fa-solid fa-gear"/>
+        </template>
+      </ButtonComponent>
+    </div>
+
+
   </div>
 </template>
 
@@ -215,8 +218,8 @@ const toogleDisplayView = (payload) => {
 // Pagination
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
-const scrollToTop = (ref: any) => {
-  ref.scrollTo({
+const scrollToTop = () => {
+  window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
@@ -372,6 +375,7 @@ watch(
         newKeyword,
       );
     }
+    scrollToTop();
   },
 );
 
@@ -435,11 +439,5 @@ const vChangeTableView = (el, binding) => {
   padding: 2px;
   height: 30px;
   margin: 3px 1px;
-}
-
-.table-container {
-  overflow-y: scroll;
-  max-height: 500px;
-  display: block;
 }
 </style>
