@@ -4,7 +4,7 @@
     class="min-h-screen flex justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading" class="my-12 p-1">
+      <div v-if="!isLoading" class="mt-12 p-1">
         <div class="z-10 items-center justify-between w-full ">
           <InputField
             v-if="category === 'book'"
