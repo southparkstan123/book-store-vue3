@@ -1,6 +1,9 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
     <div v-if="!publisherForm.isLoading" class="max-w-xl w-full space-y-8 px-2">
+      <div class="float-right">
+        <slot name="back"></slot>
+      </div>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid grid-cols-1 gap-6">
@@ -48,9 +51,6 @@
           >
             <template #text> Submit </template>
           </ButtonComponent>
-          <div class="float-right">
-            <slot name="back"></slot>
-          </div>  
         </div>
       </form>
     </div>
