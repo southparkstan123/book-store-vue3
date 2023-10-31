@@ -8,7 +8,7 @@
             :inputFieldClass="'hidden peer'" :inputName="'language'" :inputType="'radio'"
             :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
             <template #label>
-              <label :for="item" class="border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
+              <label :for="item" class="transition duration-500 border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
                 <div class="block">
                   <div class="w-full text-lg font-semibold">{{ item }}</div>
                 </div>
