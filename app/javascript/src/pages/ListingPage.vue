@@ -1,24 +1,24 @@
 <template>
   <div
     v-change-table-view="{ breakpoint: 1024, action: toogleDisplayView }"
-    class="min-h-screen flex items-center justify-center"
+    class="min-h-screen flex justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading" class="my-12">
-        <div class="flex items-center justify-between w-full mx-auto my-1">
+      <div v-if="!isLoading" class="mt-12 p-1">
+        <div class="z-10 items-center justify-between w-full ">
           <InputField
             v-if="category === 'book'"
-            :className="'w-full sm:w-auto'"
+            :className="'w-full float-right bg-table md:py-1 md:pr-1 p-1'"
             :inputId="'test'"
             :inputValue="keyword"
-            :inputFieldClass="'w-full sm:w-auto float-left sm:float-right disabled:opacity-25'"
+            :inputFieldClass="'w-full sm:w-1/2 float-right disabled:opacity-25'"
             :inputType="'text'"
             :placeholder="`Search by name`"
             @changeValue="searchKeyword"
           >
           </InputField>
         </div>
-        <div v-if="!isError" ref="container" class="table-container">
+        <div v-if="!isError">
           <component :is="displayComponent" :data="data" :fields="listingPageSettingStore.getFields" :style="`width: ${windowWidth * 0.9}px;`">
             <template #price="{ item }">
               {{ '$' + item.price }}
@@ -65,56 +65,39 @@
               <th>Actions</th>
             </template>
             <template #addition-content="{ item }">
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'View'"
+              <ButtonComponent
+                @buttonClicked="action('view', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-success py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('view', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-success py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    <font-awesome-icon icon="fa-regular fa-eye" />
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'Edit'"
+                <template #text>
+                  <font-awesome-icon icon="fa-regular fa-eye" />
+                </template>
+              </ButtonComponent>
+              <ButtonComponent
+                @buttonClicked="action('edit', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-info py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('edit', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-info py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    
-                      <font-awesome-icon icon="fa-regular fa-edit" />
-                    
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
-              <TooltipComponent 
-                :position="'top'" 
-                :dataTip="'Delete'"
+                <template #text>
+                  <font-awesome-icon icon="fa-regular fa-edit" />
+                </template>
+              </ButtonComponent>
+              <ButtonComponent
+                @buttonClicked="action('delete', item.id)"
+                :buttonType="'button'"
+                :textClass="'text-sm text-white'"
+                :backgroundClass="'bg-danger py-2 px-4 my-1'"
+                :isDisable="false"
               >
-                <ButtonComponent
-                  @buttonClicked="action('delete', item.id)"
-                  :buttonType="'button'"
-                  :textClass="'text-sm text-white'"
-                  :backgroundClass="'bg-danger py-2 px-4 my-1'"
-                  :isDisable="false"
-                >
-                  <template #text>
-                    <font-awesome-icon icon="fa-solid fa-remove" />
-                  </template>
-                </ButtonComponent>
-              </TooltipComponent>
+                <template #text>
+                  <font-awesome-icon icon="fa-solid fa-remove" />
+                </template>
+              </ButtonComponent>
             </template>
             <template #footer>
               <div class="footer-item text-table-footer-text">
@@ -126,7 +109,7 @@
               <PaginationComponent
                 :page="pagination.currentPage"
                 :pages="pagination.pages"
-                @toPage="(payload) => changeCurrentPage(payload, scrollToTop(container))"
+                @toPage="(payload) => changeCurrentPage(payload, scrollToTop())"
               >
               </PaginationComponent>
             </template>
@@ -137,36 +120,39 @@
             <h1 class="text-2xl text-primary">Oops! Error occurs.</h1>
           </div>
         </div>
-        <div class="flex  mx-auto my-1">
-          <ButtonComponent
-            class="float-left"
-            @buttonClicked="$router.push(`/${category}/add`)"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-secondary py-3 px-4 mr-1'"
-          >
-            <template #text>  
-              <font-awesome-icon icon="fa-solid fa-plus"/> Add {{ category }} 
-            </template>
-          </ButtonComponent>
-          <ButtonComponent
-            v-if="data && data.length > 0"
-            class="float-left"
-            @buttonClicked="openPageSettingModal"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-info py-3 px-4 mx-1'"
-          >
-            <template #text>
-              <font-awesome-icon icon="fa-solid fa-gear"/> Page Setting 
-            </template>
-          </ButtonComponent>
-        </div>
       </div>
-      <div v-else>
+      <div class="flex items-center justify-center" v-else>
         <h1 class="text-center text-2xl text-primary">Loading...</h1>
       </div>
     </Transition>
+
+    <div class="z-10 fixed bottom-10 right-1 p-1">
+      <ButtonComponent
+        class="block"
+        @buttonClicked="$router.push(`/${category}/add`)"
+        :buttonType="'button'"
+        :textClass="'text-white'"
+        :backgroundClass="'bg-secondary py-3 px-4 m-1 rounnded rounded-full'"
+      >
+        <template #text>  
+          <font-awesome-icon icon="fa-solid fa-plus"/>
+        </template>
+      </ButtonComponent>
+      <ButtonComponent
+        v-if="data && data.length > 0"
+        class="block"
+        @buttonClicked="openPageSettingModal"
+        :buttonType="'button'"
+        :textClass="'text-white'"
+        :backgroundClass="'bg-info py-3 px-4 m-1 rounnded rounded-full'"
+      >
+        <template #text>
+          <font-awesome-icon icon="fa-solid fa-gear"/>
+        </template>
+      </ButtonComponent>
+    </div>
+
+
   </div>
 </template>
 
@@ -232,8 +218,8 @@ const toogleDisplayView = (payload) => {
 // Pagination
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
-const scrollToTop = (ref: any) => {
-  ref.scrollTo({
+const scrollToTop = () => {
+  window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
@@ -389,6 +375,7 @@ watch(
         newKeyword,
       );
     }
+    scrollToTop();
   },
 );
 
@@ -452,11 +439,5 @@ const vChangeTableView = (el, binding) => {
   padding: 2px;
   height: 30px;
   margin: 3px 1px;
-}
-
-.table-container {
-  overflow-y: scroll;
-  max-height: 500px;
-  display: block;
 }
 </style>

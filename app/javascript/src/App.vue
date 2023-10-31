@@ -1,5 +1,5 @@
 <template>
-  <div v-body-scroll-lock="modalState.visible" :class="`mx-auto ${themeStore.getBackgroundImageClass} bg-fixed bg-no-repeat bg-cover md:bg-center bg-right`">
+  <div v-body-scroll-lock="modalState.visible || isOpenMenu" :class="`mx-auto ${themeStore.getBackgroundImageClass} bg-fixed bg-no-repeat bg-cover md:bg-center bg-right`">
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -53,6 +53,7 @@
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
       :backgroundClass="'bg-navbar'"
+      @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
         <router-link class="cursor-pointer link text-menu-brand" to="/">
@@ -211,10 +212,14 @@ const openTemplateForm = () => {
 };
 
 import { useThemeStore } from "@/store/theme";
+import { ref } from "vue";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
 themeStore.changeValuePerPage();
 themeStore.changeBackgroundImage();
+
+const isOpenMenu = ref<boolean>(false);
+const onBodyScrollLock = (payload: boolean) => isOpenMenu.value = payload;
 
 const vBodyScrollLock = (el: HTMLElement, binding) => {
   const isBodyScrollLock: boolean = binding.value as boolean

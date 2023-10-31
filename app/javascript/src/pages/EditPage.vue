@@ -2,8 +2,7 @@
   <div class="min-h-screen flex items-center justify-center">
     <Transition :appear="true" name="fade">
       <component
-        :style="{ 'height': '500px'}"
-        class="overflow-scroll bg-gray-200 bg-opacity-70 p-3"
+        class="overflow-scroll p-2 my-12"
         :is="formComponent"
         :id="id"
         @formChanged="formChanged"

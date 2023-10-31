@@ -37,6 +37,7 @@
       <MobileMenuBurgerButton
         v-if="!isMenuOpen && isMobileView"
         @openMenu="openMenu"
+        :style="`z-index:40;`"
       >
         <slot name="open-button"></slot>
       </MobileMenuBurgerButton>

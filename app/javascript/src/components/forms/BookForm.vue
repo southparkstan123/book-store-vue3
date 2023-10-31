@@ -1,7 +1,9 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
-    <div v-if="!bookForm.isLoading">
-      <slot name="back"></slot>
+    <div v-if="!bookForm.isLoading" class="max-w-xl w-full space-y-8 px-2">
+      <div class="float-right">
+        <slot name="back"></slot>
+      </div>
       <form class="mt-8 space-y-6" @submit.prevent="onSubmit">
         <div class="mt-8 grid grid-cols-1 gap-6 items-start">
           <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
@@ -101,15 +103,19 @@
               <InputField
                 :inputId="'price'"
                 :inputValue="bookForm.form.price"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
-                :inputType="'number'"
+                :inputFieldClass="'range w-full h-2 mt-1 disabled:opacity-25 accent-primary'"
+                :inputType="'range'"
                 :placeholder="'Price (USD)'"
-                :step="0.1"
-                :min="0"
-                :max="1000"
+                :step="1"
+                :min="10"
+                :max="100"
                 @changeValue="onChangePrice"
                 :isRequired="true"
-              ></InputField>
+              >
+                <template #label>
+                  <span class="float-left w-1/5">${{ bookForm.form.price }}</span>
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'authors'"
@@ -157,8 +163,8 @@
         </div>
       </form>
     </div>
-    <div v-else>
-      <h1 class="text-center text-2xl text-red-500">Loading...</h1>
+    <div class="flex items-center justify-center" v-else>
+      <h1 class="text-center text-2xl text-primary">Loading...</h1>
     </div>
   </Transition>
 </template>

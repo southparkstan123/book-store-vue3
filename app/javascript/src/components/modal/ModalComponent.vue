@@ -6,6 +6,8 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline"
+        :style="`height:${ (!modalState.isFitContent) ? '70%' : 'fit-content'}`" 
+        :class="(type === 'content') ? `overflow-scroll`: ''"
       >
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div :class="(type !== 'content') ? 'sm:flex sm:items-start': ''">
@@ -18,7 +20,7 @@
                   Title
                 </h3>
               </slot>
-              <div v-height="{ action: changeModalHeight }" :style="`height:${ (!modalState.isFitContent) ? windowHeight * 0.3 : 'fit-content'}px`" :class="(type === 'content') ? `overflow-scroll`: ''">
+              <div>
                 <slot v-if="type === 'content'" name="form-body" />
                 <slot v-else name="message-body" />
               </div>
@@ -36,7 +38,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import type { ModalType } from "@/types/types";
 
 const props = withDefaults(defineProps<{type: ModalType, showModalContent: boolean}>(), {
@@ -44,26 +45,11 @@ const props = withDefaults(defineProps<{type: ModalType, showModalContent: boole
   showModalContent: false
 })
 
-const windowHeight = ref<number>(0);
-const changeModalHeight = (payload: number) => {
-  windowHeight.value = payload;
-}
-
 // Modal
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 const modalState = modalStore.getModalObject;
 
-const vHeight = (el, binding) => {
-  const { action } = binding.value;
-  const resizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
-      const windowHeight = entry.contentRect.height;
-      action(windowHeight);
-    });
-  });
-  resizeObserver.observe(document.body);
-}
 </script>
 
 <style scoped lang="scss">
