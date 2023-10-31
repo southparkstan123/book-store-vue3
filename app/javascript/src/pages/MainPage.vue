@@ -26,23 +26,13 @@
                 </div>
               </template>
               <template v-slot="{ name, src, type, createdAt, size }">
-                <div :style="`
-                  background-image:url(${src});
-                  height: 200px;
-                  background-position: 50% 50%;
-                  background-size: cover;
-                  background-repeat: no-repeat;`"
-                >
-                  <div 
-                    class="p-2" 
-                    :style="`background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0))`"
-                  >
-                    <div :style="{ overflow: 'scroll'}">{{ name }}</div>
-                    <div>Type: {{ type }}</div>
-                    <div>Size: {{ displaySize(size as number) }}</div>
-                    <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
-                  </div>
-                </div>
+                <ImageCard
+                  :name="(name as string)"
+                  :src="(src as string)"
+                  :type="(type as string)"
+                  :createdAt="(createdAt as number)"
+                  :size="(size as number)"
+                />
               </template>
             </CardItem>
           </template>
@@ -91,9 +81,9 @@ import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
 
 // Upload Files
-import moment from 'moment';
 import type { ImageFile } from '@/types/types';
 import { useUploadFile } from '@/hooks/useUploadFile';
+import ImageCard from "@/components/card/ImageCard.vue";
 const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize } = useUploadFile();
 
 </script>
