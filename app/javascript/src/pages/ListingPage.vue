@@ -126,7 +126,7 @@
       </div>
     </Transition>
 
-    <div class="z-10 fixed bottom-0 right-1 p-1">
+    <div class="z-10 fixed bottom-10 right-1 p-1">
       <ButtonComponent
         class="block"
         @buttonClicked="$router.push(`/${category}/add`)"
