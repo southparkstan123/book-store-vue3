@@ -16,7 +16,7 @@ export const useThemeStore = defineStore("theme", () => {
       },
       {
         className: 'bg-hero-image-1',
-        label: 'Lake Mashu'
+        label: 'Lake Kussharo'
       },
       {
         className: 'bg-hero-image-2',
@@ -24,7 +24,7 @@ export const useThemeStore = defineStore("theme", () => {
       },
       {
         className: 'bg-hero-image-3',
-        label: 'Lake Kussharo'
+        label: 'Lake Mashu'
       }
     ],
     selectedBackgroundImageClass: 'bg-none'
