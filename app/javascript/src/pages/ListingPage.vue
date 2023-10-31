@@ -5,13 +5,13 @@
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="my-12">
-        <div class="z-10 sticky md:top-12 top-0 items-center justify-between w-full ">
+        <div class="z-10 items-center justify-between w-full ">
           <InputField
             v-if="category === 'book'"
-            :className="'w-full float-right bg-table'"
+            :className="'w-full float-right bg-table md:py-1 md:pr-1 p-1'"
             :inputId="'test'"
             :inputValue="keyword"
-            :inputFieldClass="'w-1/2 sm:w-4/5 float-right disabled:opacity-25'"
+            :inputFieldClass="'w-full sm:w-1/2 float-right disabled:opacity-25'"
             :inputType="'text'"
             :placeholder="`Search by name`"
             @changeValue="searchKeyword"
