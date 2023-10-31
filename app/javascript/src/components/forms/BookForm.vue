@@ -100,15 +100,19 @@
               <InputField
                 :inputId="'price'"
                 :inputValue="bookForm.form.price"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
-                :inputType="'number'"
+                :inputFieldClass="'range w-full h-2 mt-1 disabled:opacity-25 accent-primary'"
+                :inputType="'range'"
                 :placeholder="'Price (USD)'"
-                :step="0.1"
-                :min="0"
-                :max="1000"
+                :step="1"
+                :min="10"
+                :max="100"
                 @changeValue="onChangePrice"
                 :isRequired="true"
-              ></InputField>
+              >
+                <template #label>
+                  <span class="float-left w-1/5">${{ bookForm.form.price }}</span>
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'authors'"

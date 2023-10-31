@@ -12,7 +12,7 @@ export type TableField = {
 export type DropdownItem = [ key: string | number, value: string | number ];
 
 // Inputs
-export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file";
+export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file" | "range";
 
 export type InputFieldProps = {
   inputId: string;
