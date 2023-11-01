@@ -10,16 +10,10 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: {
-    backgroundClass: {
-      type: String
-    },
-  },
-});
+<script setup lang="ts">
+withDefaults(defineProps<{backgroundClass: string}>(),{
+  backgroundClass: ''
+})
 </script>
 
 <style scoped lang="scss">

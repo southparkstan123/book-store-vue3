@@ -17,123 +17,105 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import AuthorForm from "@/components/forms/AuthorForm.vue";
 import BookForm from "@/components/forms/BookForm.vue";
 import PublisherForm from "@/components/forms/PublisherForm.vue";
-import { ref, computed, defineComponent, type PropType } from "vue";
+
+import { ref, computed } from "vue";
 import { useUserStore } from "@/store/user";
 import { useModalStore } from "@/store/modal";
 import { onBeforeRouteLeave } from "vue-router";
 import type { ModuleType } from "@/types/types";
 
-export default defineComponent({
-  props: {
-    module: {
-      type: String as PropType<ModuleType>,
-      default: "book",
-    },
-    id: {
-      type: Number,
-    },
-  },
-  components: {
-    AuthorForm,
-    BookForm,
-    PublisherForm,
-  },
-  setup(props) {
-    const isFormChanged = ref(false);
+const props = withDefaults(defineProps<{ module: ModuleType; id: number}>(), {
+  module: "book",
+})
 
-    const { open } = useModalStore();
-    const { signout } = useUserStore();
+const isFormChanged = ref(false);
 
-    const formComponent = computed(() => {
-      switch (props.module) {
-        case "book":
-          return "book-form";
-        case "author":
-          return "author-form";
-        case "publisher":
-          return "publisher-form";
-        default:
-          return "book-form";
-      }
-    });
+const { open } = useModalStore();
+const { signout } = useUserStore();
 
-    const formChanged = (payload) => {
-      isFormChanged.value = payload;
-    };
-
-    onBeforeRouteLeave(async (to, from, next) => {
-      if (
-        to.matched.some((record) => record.meta.forVisitorOnly) &&
-        isFormChanged.value
-      ) {
-        const isLeave = await open({
-          title: "Unsaved changes",
-          message: "Do you really want to leave?",
-          type: "confirm",
-          component: "",
-          props: undefined,
-          isFitContent: true
-        });
-
-        if (isLeave) {
-          const isLogout = await open({
-            title: "Logout",
-            message: "Are you sure?",
-            type: "confirm",
-            component: "",
-            props: undefined,
-            isFitContent: true
-          });
-
-          if (isLogout) {
-            await signout();
-            next();
-          } else {
-            next({ path: "/" });
-          }
-        }
-      } else if (isFormChanged.value) {
-        const isLeave = await open({
-          title: "Unsaved changes",
-          message: "Do you really want to leave?",
-          type: "confirm",
-          component: "",
-          props: undefined,
-          isFitContent: true
-        });
-
-        if (isLeave) {
-          next();
-        }
-      } else if (to.matched.some((record) => record.meta.forVisitorOnly)) {
-        const isLogout = await open({
-          title: "Logout",
-          message: "Are you sure?",
-          type: "confirm",
-          component: "",
-          props: undefined,
-          isFitContent: true
-        });
-
-        if (isLogout) {
-          await signout();
-          next();
-        }
-      } else {
-        next();
-      }
-    });
-
-    return {
-      isFormChanged,
-      formComponent,
-      formChanged,
-    };
-  },
+const formComponent = computed(() => {
+  switch (props.module) {
+    case "book":
+      return BookForm;
+    case "author":
+      return AuthorForm;
+    case "publisher":
+      return PublisherForm;
+    default:
+      return BookForm;
+  }
 });
+
+const formChanged = (payload) => {
+  isFormChanged.value = payload;
+};
+
+onBeforeRouteLeave(async (to, from, next) => {
+  if (
+    to.matched.some((record) => record.meta.forVisitorOnly) &&
+    isFormChanged.value
+  ) {
+    const isLeave = await open({
+      title: "Unsaved changes",
+      message: "Do you really want to leave?",
+      type: "confirm",
+      component: "",
+      props: undefined,
+      isFitContent: true
+    });
+
+    if (isLeave) {
+      const isLogout = await open({
+        title: "Logout",
+        message: "Are you sure?",
+        type: "confirm",
+        component: "",
+        props: undefined,
+        isFitContent: true
+      });
+
+      if (isLogout) {
+        await signout();
+        next();
+      } else {
+        next({ path: "/" });
+      }
+    }
+  } else if (isFormChanged.value) {
+    const isLeave = await open({
+      title: "Unsaved changes",
+      message: "Do you really want to leave?",
+      type: "confirm",
+      component: "",
+      props: undefined,
+      isFitContent: true
+    });
+
+    if (isLeave) {
+      next();
+    }
+  } else if (to.matched.some((record) => record.meta.forVisitorOnly)) {
+    const isLogout = await open({
+      title: "Logout",
+      message: "Are you sure?",
+      type: "confirm",
+      component: "",
+      props: undefined,
+      isFitContent: true
+    });
+
+    if (isLogout) {
+      await signout();
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
 </script>
 <style scoped></style>
