@@ -8,7 +8,7 @@
         <div class="z-10 items-center justify-between w-full ">
           <InputField
             v-if="category === 'book'"
-            :className="'w-full float-right bg-table md:py-1 md:pr-1 p-1'"
+            :className="'w-full float-right bg-table-header md:py-1 md:pr-1 p-1'"
             :inputId="'test'"
             :inputValue="keyword"
             :inputFieldClass="'w-full sm:w-1/2 float-right disabled:opacity-25'"
