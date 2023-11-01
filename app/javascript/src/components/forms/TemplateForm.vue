@@ -18,33 +18,12 @@
         </li>
       </ul>
     </FieldsetWrapper>
-
-    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
-      :title="'Pagination'">
-      <LabelWrapper
-        :forAttribute="'per-page'"
-        :textClass="''"
-        :labelText="'Page size:'"
-      >
-        <DropdownMenu
-          :data="[[10, 10],[20, 20],[50, 50]]"
-          :placeholder="'Please select the page size'"
-          :selectedItem="themeStore.getPerPage"
-          @selectedItem="(payload: number) => themeStore.changeValuePerPage(payload)"
-        >
-        </DropdownMenu>
-      </LabelWrapper>
-    </FieldsetWrapper>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
-import LabelWrapper from '../inputs/LabelWrapper.vue';
-import ButtonComponent from '../inputs/ButtonComponent.vue';
-import DropdownMenu from '../dropdowns/DropdownMenu.vue';
 
 // Theme
 import { useThemeStore } from "@/store/theme"
