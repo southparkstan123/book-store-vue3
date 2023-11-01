@@ -141,8 +141,6 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-
 // Router
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -207,7 +205,7 @@ const openTemplateForm = () => {
     component: TemplateForm,
     message: "",
     props: undefined,
-    isFitContent: false
+    isFitContent: true
   });
 };
 

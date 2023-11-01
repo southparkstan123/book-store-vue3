@@ -151,8 +151,6 @@
         </template>
       </ButtonComponent>
     </div>
-
-
   </div>
 </template>
 
@@ -161,7 +159,6 @@
 import type {
   ActionType,
   TableItem,
-  TableField,
   ModuleType,
 } from "@/types/types";
 
@@ -181,7 +178,6 @@ import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 import InputField from "@/components/inputs/InputField.vue";
 import TooltipComponent from "@/components/TooltipComponent.vue";
-import ToggleSwitch from "@/components/inputs/ToggleSwitch.vue";
 
 // Props
 const props = defineProps<{ category: ModuleType }>();
@@ -341,8 +337,6 @@ const action = async (type: ActionType, id: number) => {
 
 const isLoading = ref<boolean>(true);
 const isError = ref<boolean>(false);
-
-const container = ref()
 
 onMounted(() => {
   fetchRecords(
