@@ -56,29 +56,29 @@
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
-        <router-link class="cursor-pointer link text-menu-brand" to="/">
+        <router-link class="nav-brand-item" to="/">
           Book Store
         </router-link>
       </template>
       <template #body-content>
-        <router-link class="cursor-pointer link text-menu-item" to="/book/list">
+        <router-link class="nav-main-item" to="/book/list">
           <font-awesome-icon icon="fa-solid fa-book" /> Book
         </router-link>
-        <router-link class="cursor-pointer link text-menu-item" to="/publisher/list">
+        <router-link class="nav-main-item" to="/publisher/list">
           <font-awesome-icon icon="fa-solid fa-building" /> Publisher
         </router-link>
-        <router-link class="cursor-pointer link text-menu-item" to="/author/list">
+        <router-link class="nav-main-item" to="/author/list">
           <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
         </router-link>
       </template>
       <template #footer-content>
-        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="openTemplateForm">
+        <a class="nav-footer-item" @click="openTemplateForm">
           <font-awesome-icon icon="fa-solid fa-gear" /> Setting
         </a>
-        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="showUserInfo">
+        <a class="nav-footer-item" @click="showUserInfo">
           <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
         </a>
-        <a class="cursor-pointer link mx-2 text-sm text-menu-item" @click="onLogout">
+        <a class="nav-footer-item" @click="onLogout">
           <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
         </a>
       </template>
@@ -141,8 +141,6 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-
 // Router
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -207,7 +205,7 @@ const openTemplateForm = () => {
     component: TemplateForm,
     message: "",
     props: undefined,
-    isFitContent: false
+    isFitContent: true
   });
 };
 
@@ -241,9 +239,5 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
 .slide-upward-leave-to {
   transform: translateY(10%);
   opacity: 0;
-}
-
-html * {
-  @apply transition-all duration-500;
 }
 </style>

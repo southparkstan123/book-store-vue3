@@ -8,7 +8,7 @@
             :inputFieldClass="'hidden peer'" :inputName="'language'" :inputType="'radio'"
             :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
             <template #label>
-              <label :for="item" class="border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
+              <label :for="item" class="transition duration-500 border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
                 <div class="block">
                   <div class="w-full text-lg font-semibold">{{ item }}</div>
                 </div>
@@ -17,23 +17,6 @@
           </InputField>
         </li>
       </ul>
-    </FieldsetWrapper>
-
-    <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'"
-      :title="'Pagination'">
-      <LabelWrapper
-        :forAttribute="'per-page'"
-        :textClass="''"
-        :labelText="'Page size:'"
-      >
-        <DropdownMenu
-          :data="[[10, 10],[20, 20],[50, 50]]"
-          :placeholder="'Please select the page size'"
-          :selectedItem="themeStore.getPerPage"
-          @selectedItem="(payload: number) => themeStore.changeValuePerPage(payload)"
-        >
-        </DropdownMenu>
-      </LabelWrapper>
     </FieldsetWrapper>
 
     <FieldsetWrapper :wrapperClass="'border border-solid border-info p-3'" :textClass="'text-sm text-info'" :title="'Background image'">
@@ -69,7 +52,6 @@
 import InputField from "@/components/inputs/InputField.vue";
 import FieldsetWrapper from '../inputs/FieldsetWrapper.vue';
 import LabelWrapper from '../inputs/LabelWrapper.vue';
-import DropdownMenu from '../dropdowns/DropdownMenu.vue';
 
 // Theme
 import { useThemeStore } from "@/store/theme"

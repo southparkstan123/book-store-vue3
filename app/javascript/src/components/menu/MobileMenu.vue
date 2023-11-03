@@ -30,51 +30,35 @@
   </Transition>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
+<script setup lang="ts">
 import MobileMenuCloseButton from "@/components/menu/MobileMenuCloseButton.vue";
 import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
 import isValidColorValue from "@/utils/isValidColorValue";
 
-export default defineComponent({
-  components: {
-    MobileMenuBody,
-    MobileMenuCloseButton,
-  },
-  props: {
-    backgroundClass: {
-      type: String
-    },
-    width: {
-      type: String,
-      default: "100%",
-    },
-    showMenuContent: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, context) {
-    const closeMenu = () => {
-      context.emit("showMenuContent", false);
-      context.emit("closeMenu");
-    };
+withDefaults(defineProps<{ backgroundClass: string;width: string; showMenuContent: boolean }>(), {
+  backgroundClass: '',
+  width: "100%",
+  showMenuContent: false
+})
 
-    const clickOutsideMenu = (event: any) => {
-      if (event.target.className === "overlay") {
-        closeMenu();
-      }
-    };
+const emit = defineEmits<{
+  (e: 'showMenuContent', payload: boolean): void
+  (e: 'closeMenu'): void
+}>();
 
-    context.emit("showMenuContent", true);
+const closeMenu = () => {
+  emit("showMenuContent", false);
+  emit("closeMenu");
+};
 
-    return {
-      clickOutsideMenu,
-      closeMenu,
-    };
-  },
-});
+const clickOutsideMenu = (event: any) => {
+  if (event.target.className === "overlay") {
+    closeMenu();
+  }
+};
+
+emit("showMenuContent", true);
+
 </script>
 
 <style scoped lang="scss">
