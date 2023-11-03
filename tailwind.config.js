@@ -12,9 +12,9 @@ module.exports = {
   theme: {
     fontFamily: {},
     backgroundImage: {
-      'hero-image-1': "url('./images/bg01.jpeg')",
-      'hero-image-2': "url('./images/bg02.jpeg')",
-      'hero-image-3': "url('./images/bg03.jpeg')"
+      'hero-image-1': "url('https://i.imgur.com/YB0RXrr.jpeg')",
+      'hero-image-2': "url('https://i.imgur.com/KDi6XGN.jpeg')",
+      'hero-image-3': "url('https://i.imgur.com/OX0dgpx.jpeg')"
     },
     backgroundSize: {
       '100%': "100%",
