@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { usePublisherForm } from "@/hooks/usePublisherForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
@@ -82,24 +82,17 @@ const modalStore = useModalStore();
 
 const router = useRouter();
 
-const onChangeForm = (payload) => {
-  publisherForm.isFormChanged = payload;
-  emit("formChanged", payload);
-};
-
 const onChangeName = (payload) => {
   publisherForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeDescription = (payload) => {
   publisherForm.form.description = payload;
-  onChangeForm(true);
 };
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    publisherForm.isFormChanged = false;
     let response: any = {};
 
     if (publisherForm.mode === "edit") {
@@ -143,6 +136,13 @@ onMounted(() => {
     fetchById(props.id);
   }
 });
+
+watch(publisherForm.form, () => {
+  publisherForm.isFormChanged = true;
+  emit("formChanged", true);
+}, { 
+  deep: true 
+})
 </script>
 
 <style scoped></style>

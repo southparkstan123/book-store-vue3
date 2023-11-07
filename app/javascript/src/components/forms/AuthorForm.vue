@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { useAuthorForm } from "@/hooks/useAuthorForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
@@ -84,22 +84,15 @@ const router = useRouter();
 
 const onChangeName = (payload) => {
   authorForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeDescription = (payload) => {
   authorForm.form.description = payload;
-  onChangeForm(true);
-};
-
-const onChangeForm = (payload) => {
-  authorForm.isFormChanged = payload;
-  emit("formChanged", payload);
 };
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    authorForm.isFormChanged = false;
     let response: any = {};
 
     if (authorForm.mode === "edit") {
@@ -139,6 +132,13 @@ onMounted(() => {
     fetchById(props.id);
   }
 });
+
+watch(authorForm.form, () => {
+  authorForm.isFormChanged = true;
+  emit("formChanged", true);
+}, { 
+  deep: true 
+})
 </script>
 
 <style scoped></style>

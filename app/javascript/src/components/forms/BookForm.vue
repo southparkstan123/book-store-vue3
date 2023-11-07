@@ -170,7 +170,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { useBookForm } from "@/hooks/useBookForm";
 import { useModalStore } from "@/store/modal";
 import { useRouter } from "vue-router";
@@ -200,52 +200,39 @@ const { errors, bookForm, fetchById, authors, publishers, fetchForDropdowns } =
 
 const onChangeName = (payload) => {
   bookForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeAbstract = (payload) => {
   bookForm.form.abstract = payload;
-  onChangeForm(true);
 };
 
 const onChangePrice = (payload) => {
   bookForm.form.price = payload;
-  onChangeForm(true);
 };
 
 const onChangePublisher = (payload) => {
   bookForm.form.publisher_id = payload;
-  onChangeForm(true);
 };
 
 const onChangeAuthors = (payload) => {
   bookForm.form.author_ids = payload;
-  onChangeForm(true);
-};
-
-const onChangeForm = (payload) => {
-  bookForm.isFormChanged = payload;
-  emit("formChanged", payload);
 };
 
 const onChangeYearPublished = (payload) => {
   bookForm.form.year_published = payload;
-  onChangeForm(true);
 }
 
 const onChangeISBN = (payload) => {
   bookForm.form.isbn = payload;
-  onChangeForm(true);
 }
 
 const onChangeIsPublished = (payload) => {
   bookForm.form.is_published = payload;
-  onChangeForm(true);
 }
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    bookForm.isFormChanged = false;
     let response: any = {};
 
     if (bookForm.mode === "edit") {
@@ -286,6 +273,13 @@ onMounted(() => {
   }
   fetchForDropdowns();
 });
+
+watch(bookForm.form, () => {
+  bookForm.isFormChanged = true;
+  emit("formChanged", true);
+}, { 
+  deep: true 
+})
 </script>
 
 <style scoped></style>
