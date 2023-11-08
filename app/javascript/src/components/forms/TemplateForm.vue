@@ -5,7 +5,7 @@
       <ul class="grid w-full gap-6 grid-cols-2">
         <li v-for="item in allThemes">
           <InputField  :inputId="item" :className="'my-3 inline'" :inputValue="item"
-            :inputFieldClass="'hidden peer'" :inputName="'language'" :inputType="'radio'"
+            :inputFieldClass="'hidden peer'" :inputName="'theme'" :inputType="'radio'"
             :checked="item === selectedTheme" @changeValue="themeStore.onToggleTheme(item)">
             <template #label>
               <label :for="item" class="transition duration-500 border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded">
