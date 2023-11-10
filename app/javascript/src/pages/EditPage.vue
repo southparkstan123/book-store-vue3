@@ -57,7 +57,7 @@ const formChanged = (payload) => {
 onBeforeRouteLeave(async (to, from, next) => {
   if (
     to.matched.some((record) => record.meta.forVisitorOnly) &&
-    isFormChanged.value
+    isFormChanged.value === true
   ) {
     const isLeave = await open({
       title: "Unsaved changes",
@@ -85,7 +85,7 @@ onBeforeRouteLeave(async (to, from, next) => {
         next({ path: "/" });
       }
     }
-  } else if (isFormChanged.value !== true) {
+  } else if (isFormChanged.value === true) {
     const isLeave = await open({
       title: "Unsaved changes",
       message: "Do you really want to leave?",

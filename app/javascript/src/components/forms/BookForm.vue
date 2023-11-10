@@ -153,7 +153,7 @@
         </div>
         <div class="block">
           <ButtonComponent
-            :isDisabled="!bookForm.isFormChanged"
+            :isDisabled="isValidated === false"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -170,7 +170,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from "vue";
+import { onMounted, watch, computed } from "vue";
 import { useBookForm } from "@/hooks/useBookForm";
 import { useModalStore } from "@/store/modal";
 import { useRouter } from "vue-router";
@@ -233,6 +233,7 @@ const onChangeIsPublished = (payload) => {
 const onSubmit = async () => {
   try {
     bookForm.isFormChanged = false;
+    emit("formChanged", false);
     let response: any = {};
 
     if (bookForm.mode === "edit") {
@@ -266,12 +267,17 @@ const onSubmit = async () => {
   }
 };
 
-onMounted(() => {
+const isValidated = computed(() => bookForm.isFormChanged !== false)
+
+onMounted(async () => {
   if (props.id) {
     bookForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
-  fetchForDropdowns();
+  await fetchForDropdowns();
+
+  bookForm.isFormChanged = false;
+  emit("formChanged", false);
 });
 
 watch(bookForm.form, () => {

@@ -93,6 +93,7 @@ const onChangeDescription = (payload) => {
 const onSubmit = async () => {
   try {
     publisherForm.isFormChanged = false;
+    emit("formChanged", false);
     let response: any = {};
 
     if (publisherForm.mode === "edit") {
@@ -130,11 +131,13 @@ const onSubmit = async () => {
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (props.id) {
     publisherForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
+  publisherForm.isFormChanged = false;
+  emit("formChanged", false);
 });
 
 watch(publisherForm.form, () => {

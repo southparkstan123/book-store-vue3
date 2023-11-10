@@ -38,13 +38,17 @@
                 :isRequired="true"
                 :rows="'5'"
                 @changeValue="onChangeDescription"
-              ></TextArea>
+              >
+              <template #hints>
+                <span class="text-sm text-warning">{{ hints }}</span>
+              </template>
+            </TextArea>
             </LabelWrapper>
           </div>
         </div>
         <div class="block">
           <ButtonComponent
-            :isDisabled="!authorForm.isFormChanged"
+            :isDisabled="isValidated === false"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -61,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from "vue";
+import { onMounted, watch, computed } from "vue";
 import { useAuthorForm } from "@/hooks/useAuthorForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
@@ -77,7 +81,7 @@ import ErrorFeedback from "@/components/ErrorFeedback.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
-const { errors, authorForm, fetchById } = useAuthorForm();
+const { errors, authorForm, fetchById, hints, limit } = useAuthorForm();
 const modalStore = useModalStore();
 
 const router = useRouter();
@@ -93,6 +97,8 @@ const onChangeDescription = (payload) => {
 const onSubmit = async () => {
   try {
     authorForm.isFormChanged = false;
+    emit("formChanged", false);
+
     let response: any = {};
 
     if (authorForm.mode === "edit") {
@@ -126,12 +132,17 @@ const onSubmit = async () => {
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (props.id) {
     authorForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
+
+  authorForm.isFormChanged = false;
+  emit("formChanged", false);
 });
+
+const isValidated = computed(() => authorForm.isFormChanged !== false && authorForm.form.description.length < limit.value)
 
 watch(authorForm.form, () => {
   authorForm.isFormChanged = true;
