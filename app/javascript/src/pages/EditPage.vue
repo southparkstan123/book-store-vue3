@@ -85,7 +85,7 @@ onBeforeRouteLeave(async (to, from, next) => {
         next({ path: "/" });
       }
     }
-  } else if (isFormChanged.value) {
+  } else if (isFormChanged.value !== true) {
     const isLeave = await open({
       title: "Unsaved changes",
       message: "Do you really want to leave?",
