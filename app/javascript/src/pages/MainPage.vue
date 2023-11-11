@@ -25,13 +25,15 @@
                   <font-awesome-icon icon="fa-solid fa-remove" />
                 </div>
               </template>
-              <template v-slot="{ name, src, type, createdAt, size }">
+              <template v-slot="{ name, src, type, createdAt, size, width, height }">
                 <ImageCard
                   :name="(name as string)"
                   :src="(src as string)"
                   :type="(type as string)"
                   :createdAt="(createdAt as number)"
                   :size="(size as number)"
+                  :width="(width as number)"
+                  :height="(height as number)"
                 />
               </template>
             </CardItem>

@@ -172,6 +172,8 @@ export type ImageFile = {
   type: string;
   size: number;
   createdAt: number;
+  width: number;
+  height: number;
 }
 
 export type Theme = "default" | "shoujyo";

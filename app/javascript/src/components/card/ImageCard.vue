@@ -3,7 +3,7 @@
     background-image:url(${src});
     height: 200px;
     background-position: 50% 50%;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;`"
   >
     <div class="p-2" :style="`background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0))`">
@@ -11,6 +11,7 @@
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
       <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
+      <div>{{ width }} x {{ height }} px</div>
     </div>
   </div>
 </template>
@@ -26,7 +27,9 @@ const props = withDefaults(defineProps<ImageFile>(), {
   src: "",
   type: "image/png",
   createdAt: 0,
-  size: 0
+  size: 0,
+  width: 0,
+  height: 0
 });
 </script>
 
