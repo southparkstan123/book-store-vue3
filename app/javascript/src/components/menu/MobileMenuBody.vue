@@ -4,7 +4,6 @@
 
     <slot name="brand"></slot>
     <div class="items">
-      
       <slot name="body-content"></slot>
     </div>
     <div class="items">
@@ -13,8 +12,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
 .content {

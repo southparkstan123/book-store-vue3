@@ -38,13 +38,17 @@
                 :isRequired="true"
                 :rows="'5'"
                 @changeValue="onChangeDescription"
-              ></TextArea>
+              >
+                <template #hints>
+                  <span class="text-sm text-warning">{{ hints }}</span>
+                </template>
+              </TextArea>
             </LabelWrapper>
           </div>
         </div>
         <div class="block">
           <ButtonComponent
-            :isDisabled="!authorForm.isFormChanged"
+            :isDisabled="isValidated === false"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -55,13 +59,17 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <h1 class="text-center text-2xl text-primary">Loading...</h1>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch, computed } from "vue";
 import { useAuthorForm } from "@/hooks/useAuthorForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
@@ -74,32 +82,28 @@ import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
-const { errors, authorForm, fetchById } = useAuthorForm();
+const { errors, authorForm, fetchById, hints, limit } = useAuthorForm();
 const modalStore = useModalStore();
 
 const router = useRouter();
 
 const onChangeName = (payload) => {
   authorForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeDescription = (payload) => {
   authorForm.form.description = payload;
-  onChangeForm(true);
-};
-
-const onChangeForm = (payload) => {
-  authorForm.isFormChanged = payload;
-  emit("formChanged", payload);
 };
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    authorForm.isFormChanged = false;
+    emit("formChanged", false);
+
     let response: any = {};
 
     if (authorForm.mode === "edit") {
@@ -116,29 +120,53 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (props.id) {
     authorForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
+
+  authorForm.isFormChanged = false;
+  emit("formChanged", false);
 });
+
+const isValidated = computed(
+  () =>
+    authorForm.isFormChanged !== false &&
+    authorForm.form.description.length < limit.value,
+);
+
+watch(
+  authorForm.form,
+  () => {
+    authorForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>

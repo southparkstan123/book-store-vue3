@@ -39,7 +39,9 @@
                 @changeValue="onChangeISBN"
               >
                 <template #label>
-                  <span class="text-red-400">Hint: ISBN10 and ISBN13 supported</span>
+                  <span class="text-red-400"
+                    >Hint: ISBN10 and ISBN13 supported</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -62,7 +64,9 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="text-red-400">Hint: From 1900 to {{ new Date().getFullYear() }}</span>
+                  <span class="text-red-400"
+                    >Hint: From 1900 to {{ new Date().getFullYear() }}</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -72,11 +76,15 @@
               :labelText="'Is Published?'"
               :isRequired="false"
             >
-              <ToggleSwitch 
+              <ToggleSwitch
                 class="block w-full mt-1 disabled:opacity-25"
                 :forAttribute="'is_published'"
                 :label="''"
-                :inputValue="bookForm.form.is_published ? bookForm.form.is_published : false"
+                :inputValue="
+                  bookForm.form.is_published
+                    ? bookForm.form.is_published
+                    : false
+                "
                 @changeValue="({ checked }) => onChangeIsPublished(checked)"
               />
             </LabelWrapper>
@@ -113,7 +121,9 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="float-left w-1/5">${{ bookForm.form.price }}</span>
+                  <span class="float-left w-1/5"
+                    >${{ bookForm.form.price }}</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -153,7 +163,7 @@
         </div>
         <div class="block">
           <ButtonComponent
-            :isDisabled="!bookForm.isFormChanged"
+            :isDisabled="isValidated === false"
             :buttonType="'submit'"
             :textClass="'text-sm font-medium justify-center text-white'"
             :backgroundClass="'disabled:opacity-25 group relative bg-success w-full flex py-2 px-4 border border-transparent rounded-md'"
@@ -164,13 +174,17 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <h1 class="text-center text-2xl text-primary">Loading...</h1>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch, computed } from "vue";
 import { useBookForm } from "@/hooks/useBookForm";
 import { useModalStore } from "@/store/modal";
 import { useRouter } from "vue-router";
@@ -181,6 +195,7 @@ import ErrorFeedback from "@/components/ErrorFeedback.vue";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
 
 import MultiSelectDropdown from "@/components/dropdowns/MultiSelectDropdown.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 // Inputs
 import InputField from "@/components/inputs/InputField.vue";
@@ -200,52 +215,40 @@ const { errors, bookForm, fetchById, authors, publishers, fetchForDropdowns } =
 
 const onChangeName = (payload) => {
   bookForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeAbstract = (payload) => {
   bookForm.form.abstract = payload;
-  onChangeForm(true);
 };
 
 const onChangePrice = (payload) => {
   bookForm.form.price = payload;
-  onChangeForm(true);
 };
 
 const onChangePublisher = (payload) => {
   bookForm.form.publisher_id = payload;
-  onChangeForm(true);
 };
 
 const onChangeAuthors = (payload) => {
   bookForm.form.author_ids = payload;
-  onChangeForm(true);
-};
-
-const onChangeForm = (payload) => {
-  bookForm.isFormChanged = payload;
-  emit("formChanged", payload);
 };
 
 const onChangeYearPublished = (payload) => {
   bookForm.form.year_published = payload;
-  onChangeForm(true);
-}
+};
 
 const onChangeISBN = (payload) => {
   bookForm.form.isbn = payload;
-  onChangeForm(true);
-}
+};
 
 const onChangeIsPublished = (payload) => {
   bookForm.form.is_published = payload;
-  onChangeForm(true);
-}
+};
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    bookForm.isFormChanged = false;
+    emit("formChanged", false);
     let response: any = {};
 
     if (bookForm.mode === "edit") {
@@ -262,30 +265,50 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
 
-onMounted(() => {
+const isValidated = computed(() => bookForm.isFormChanged !== false);
+
+onMounted(async () => {
   if (props.id) {
     bookForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
-  fetchForDropdowns();
+  await fetchForDropdowns();
+
+  bookForm.isFormChanged = false;
+  emit("formChanged", false);
 });
+
+watch(
+  bookForm.form,
+  () => {
+    bookForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>

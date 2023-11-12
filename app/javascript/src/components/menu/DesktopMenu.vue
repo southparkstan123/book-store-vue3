@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{backgroundClass: string}>(),{
-  backgroundClass: ''
-})
+withDefaults(defineProps<{ backgroundClass: string }>(), {
+  backgroundClass: "",
+});
 </script>
 
 <style scoped lang="scss">

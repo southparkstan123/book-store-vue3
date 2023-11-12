@@ -23,18 +23,24 @@
 <script setup lang="ts">
 import type { DropdownItem } from "@/types/types";
 
-withDefaults(defineProps<{data: DropdownItem[]; selectedItem: number | null; placeholder: string}>(), {
-  data: () => [],
-  selectedItem: null,
-  placeholder: '',
-})
+withDefaults(
+  defineProps<{
+    data: DropdownItem[];
+    selectedItem: number | null;
+    placeholder: string;
+  }>(),
+  {
+    data: () => [],
+    selectedItem: null,
+    placeholder: "",
+  },
+);
 
-const emit = defineEmits<{e; "selectedItem"}>()
+const emit = defineEmits<{ e; selectedItem }>();
 
 const onChange = (event: any) => {
   emit("selectedItem", parseInt(event.target.value, 10));
 };
-
 </script>
 
 <style scoped></style>

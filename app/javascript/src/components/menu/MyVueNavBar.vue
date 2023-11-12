@@ -52,10 +52,13 @@ import MobileMenu from "@/components/menu/MobileMenu.vue";
 import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
 
-withDefaults(defineProps<{backgroundClass: 'bg-navbar'; breakpoint: number}>(), {
-  backgroundClass: 'bg-navbar',
-  breakpoint: 1024,
-})
+withDefaults(
+  defineProps<{ backgroundClass: "bg-navbar"; breakpoint: number }>(),
+  {
+    backgroundClass: "bg-navbar",
+    breakpoint: 1024,
+  },
+);
 
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
@@ -64,9 +67,9 @@ const isMenuOpen = ref<boolean>(false);
 const showMenuContent = ref<boolean>(false);
 
 const emit = defineEmits<{
-  (e: 'bodyScrollLock', payload: boolean): void
-  (e: 'closeMenu'): void
-}>()
+  (e: "bodyScrollLock", payload: boolean): void;
+  (e: "closeMenu"): void;
+}>();
 
 const closeMenu = () => {
   setTimeout(() => {
@@ -104,14 +107,12 @@ const vOnResize = (el, binding) => {
   const resizeObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
       const windowWidth = entry.contentRect.width;
-      const isMobileView =
-        entry.contentRect.width < binding.value.breakpoint;
+      const isMobileView = entry.contentRect.width < binding.value.breakpoint;
       binding.value.action({ isMobileView, windowWidth });
     });
   });
   resizeObserver.observe(document.body);
-}
-
+};
 </script>
 
 <style scoped></style>

@@ -1,5 +1,8 @@
 <template>
-  <div v-body-scroll-lock="modalState.visible || isOpenMenu" :class="`mx-auto ${themeStore.getBackgroundImageClass} bg-fixed bg-no-repeat bg-cover md:bg-center bg-right`">
+  <div
+    v-body-scroll-lock="modalState.visible || isOpenMenu"
+    :class="`mx-auto ${themeStore.getBackgroundImageClass} bg-fixed bg-no-repeat bg-cover md:bg-center bg-right`"
+  >
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -16,7 +19,7 @@
       </template>
 
       <template #form-body>
-        <component :is="modalState.component" v-bind="modalState.props"/>
+        <component :is="modalState.component" v-bind="modalState.props" />
       </template>
 
       <template #footer="{ type }">
@@ -45,7 +48,9 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text> {{ (type === 'content') ? 'Close Modal' : 'OK' }} </template>
+            <template #text>
+              {{ type === "content" ? "Close Modal" : "OK" }}
+            </template>
           </ButtonComponent>
         </div>
       </template>
@@ -56,9 +61,7 @@
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
-        <router-link class="nav-brand-item" to="/">
-          Book Store
-        </router-link>
+        <router-link class="nav-brand-item" to="/"> Book Store </router-link>
       </template>
       <template #body-content>
         <router-link class="nav-main-item" to="/book/list">
@@ -173,7 +176,7 @@ const onLogout = async () => {
       message: "Are you sure?",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
 
     if (confirm) {
@@ -193,7 +196,7 @@ const showUserInfo = () => {
     component: "",
     type: "alert",
     props: undefined,
-    isFitContent: true
+    isFitContent: true,
   });
 };
 
@@ -205,7 +208,7 @@ const openTemplateForm = () => {
     component: TemplateForm,
     message: "",
     props: undefined,
-    isFitContent: true
+    isFitContent: true,
   });
 };
 
@@ -217,12 +220,13 @@ themeStore.changeValuePerPage();
 themeStore.changeBackgroundImage();
 
 const isOpenMenu = ref<boolean>(false);
-const onBodyScrollLock = (payload: boolean) => isOpenMenu.value = payload;
+const onBodyScrollLock = (payload: boolean) => (isOpenMenu.value = payload);
 
 const vBodyScrollLock = (el: HTMLElement, binding) => {
-  const isBodyScrollLock: boolean = binding.value as boolean
-  document.documentElement.style.overflow = (isBodyScrollLock === true) ? 'hidden' : 'auto';
-}
+  const isBodyScrollLock: boolean = binding.value as boolean;
+  document.documentElement.style.overflow =
+    isBodyScrollLock === true ? "hidden" : "auto";
+};
 </script>
 
 <style lang="scss">

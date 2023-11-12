@@ -5,13 +5,26 @@
       <slot name="search-bar"></slot>
     </caption>
     <tbody>
-      <tr class="odd:bg-table-body-1 even:bg-table-body-2" v-for="item in displayedRecords">
-        <td class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header" v-if="fields" v-for="field in fields" :data-label="field.label">
+      <tr
+        class="odd:bg-table-body-1 even:bg-table-body-2"
+        v-for="item in displayedRecords"
+      >
+        <td
+          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
+          v-if="fields"
+          v-for="field in fields"
+          :data-label="field.label"
+        >
           <slot :name="field.key" :item="item">
             {{ item[field.key] }}
           </slot>
         </td>
-        <td class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header" v-else v-for="field in displayedfields" :data-label="field">
+        <td
+          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
+          v-else
+          v-for="field in displayedfields"
+          :data-label="field"
+        >
           <slot :name="field" :item="item">
             {{ item[field] }}
           </slot>

@@ -1,7 +1,20 @@
 <template>
   <div>
     <CardItem :wrapperClass="''" :item="item">
-      <template v-slot="{ name, abstract, description, price, books, authors, publisher, isbn, year_published, is_published }">
+      <template
+        v-slot="{
+          name,
+          abstract,
+          description,
+          price,
+          books,
+          authors,
+          publisher,
+          isbn,
+          year_published,
+          is_published,
+        }"
+      >
         <div>
           <ul>
             <li v-if="name">
@@ -14,7 +27,7 @@
             </li>
             <li v-if="is_published">
               <h1><b>Is published? </b></h1>
-              {{ is_published ? 'Yes' : 'No' }}
+              {{ is_published ? "Yes" : "No" }}
             </li>
             <li v-if="year_published">
               <h1><b>Year: </b></h1>
@@ -35,19 +48,22 @@
             <li v-if="books && Object.keys(books).length > 0">
               <h1><b>Books: </b></h1>
               <ol>
-                <li v-for="item in books" class="odd:bg-table-body-1 even:bg-table-body-2">
-                  <div class="w-full grid grid-cols-8 py-1" >
+                <li
+                  v-for="item in books"
+                  class="odd:bg-table-body-1 even:bg-table-body-2"
+                >
+                  <div class="w-full grid grid-cols-8 py-1">
                     <div class="col-span-7">
-                      <h1 class="float-left italic">Title: {{ item['name'] }}</h1>
+                      <h1 class="float-left italic">
+                        Title: {{ item["name"] }}
+                      </h1>
                     </div>
                     <div class="float-right">
-                      <b>
-                        ${{ item['price'] }}
-                      </b>
+                      <b> ${{ item["price"] }} </b>
                     </div>
                   </div>
                   <div class="w-full grid grid-cols-1">
-                    <span>Abstract: {{ item['abstract'] }}</span>
+                    <span>Abstract: {{ item["abstract"] }}</span>
                   </div>
                 </li>
               </ol>
@@ -55,9 +71,16 @@
             <li v-if="authors && Object.keys(authors).length > 0">
               <b>Authors: </b>
               <ol>
-                <li v-for="item in authors" class="odd:bg-table-body-1 even:bg-table-body-2 py-1">
-                  <div class="w-full grid grid-cols-1 italic">{{ item['name'] }}</div>
-                  <div class="w-full grid grid-cols-1">{{ item['description'] }}</div>
+                <li
+                  v-for="item in authors"
+                  class="odd:bg-table-body-1 even:bg-table-body-2 py-1"
+                >
+                  <div class="w-full grid grid-cols-1 italic">
+                    {{ item["name"] }}
+                  </div>
+                  <div class="w-full grid grid-cols-1">
+                    {{ item["description"] }}
+                  </div>
                 </li>
               </ol>
             </li>
@@ -66,7 +89,7 @@
               <ul>
                 <li>
                   <div class="italic">
-                    {{ publisher['name'] }}
+                    {{ publisher["name"] }}
                   </div>
                 </li>
               </ul>
@@ -79,16 +102,18 @@
 </template>
 
 <script setup lang="ts">
-import CardItem from './card/CardItem.vue';
+import CardItem from "./card/CardItem.vue";
 
 type ItemProps = {
-  [key: string]: unknown
-}
+  [key: string]: unknown;
+};
 
-const props = withDefaults(defineProps<{ wrapperClass: string | undefined; item: ItemProps }>(), {
-  wrapperClass: ''
-})
-
+const props = withDefaults(
+  defineProps<{ wrapperClass: string | undefined; item: ItemProps }>(),
+  {
+    wrapperClass: "",
+  },
+);
 </script>
 
 <style scoped></style>

@@ -1,10 +1,7 @@
 <template>
   <Transition :duration="1000" :appear="true" name="menu">
     <div class="overlay" @click="clickOutsideMenu" v-if="showMenuContent">
-      <div
-        :class="`inner ${backgroundClass}`"
-        :style="{ width }"
-      >
+      <div :class="`inner ${backgroundClass}`" :style="{ width }">
         <MobileMenuBody>
           <template #button>
             <MobileMenuCloseButton @closeMenu="closeMenu" class="close">
@@ -35,15 +32,22 @@ import MobileMenuCloseButton from "@/components/menu/MobileMenuCloseButton.vue";
 import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
 import isValidColorValue from "@/utils/isValidColorValue";
 
-withDefaults(defineProps<{ backgroundClass: string;width: string; showMenuContent: boolean }>(), {
-  backgroundClass: '',
-  width: "100%",
-  showMenuContent: false
-})
+withDefaults(
+  defineProps<{
+    backgroundClass: string;
+    width: string;
+    showMenuContent: boolean;
+  }>(),
+  {
+    backgroundClass: "",
+    width: "100%",
+    showMenuContent: false,
+  },
+);
 
 const emit = defineEmits<{
-  (e: 'showMenuContent', payload: boolean): void
-  (e: 'closeMenu'): void
+  (e: "showMenuContent", payload: boolean): void;
+  (e: "closeMenu"): void;
 }>();
 
 const closeMenu = () => {
@@ -58,7 +62,6 @@ const clickOutsideMenu = (event: any) => {
 };
 
 emit("showMenuContent", true);
-
 </script>
 
 <style scoped lang="scss">

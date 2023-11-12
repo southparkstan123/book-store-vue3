@@ -8,7 +8,10 @@
         @formChanged="formChanged"
       >
         <template #back>
-          <router-link class="cursor-pointer link text-info" :to="`/${module}/list`">
+          <router-link
+            class="cursor-pointer link text-info"
+            :to="`/${module}/list`"
+          >
             Back to Listing page
           </router-link>
         </template>
@@ -28,9 +31,9 @@ import { useModalStore } from "@/store/modal";
 import { onBeforeRouteLeave } from "vue-router";
 import type { ModuleType } from "@/types/types";
 
-const props = withDefaults(defineProps<{ module: ModuleType; id: number}>(), {
+const props = withDefaults(defineProps<{ module: ModuleType; id: number }>(), {
   module: "book",
-})
+});
 
 const isFormChanged = ref(false);
 
@@ -57,7 +60,7 @@ const formChanged = (payload) => {
 onBeforeRouteLeave(async (to, from, next) => {
   if (
     to.matched.some((record) => record.meta.forVisitorOnly) &&
-    isFormChanged.value
+    isFormChanged.value === true
   ) {
     const isLeave = await open({
       title: "Unsaved changes",
@@ -65,7 +68,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       type: "confirm",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
 
     if (isLeave) {
@@ -75,7 +78,7 @@ onBeforeRouteLeave(async (to, from, next) => {
         type: "confirm",
         component: "",
         props: undefined,
-        isFitContent: true
+        isFitContent: true,
       });
 
       if (isLogout) {
@@ -85,14 +88,14 @@ onBeforeRouteLeave(async (to, from, next) => {
         next({ path: "/" });
       }
     }
-  } else if (isFormChanged.value) {
+  } else if (isFormChanged.value === true) {
     const isLeave = await open({
       title: "Unsaved changes",
       message: "Do you really want to leave?",
       type: "confirm",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
 
     if (isLeave) {
@@ -105,7 +108,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       type: "confirm",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
 
     if (isLogout) {
@@ -116,6 +119,5 @@ onBeforeRouteLeave(async (to, from, next) => {
     next();
   }
 });
-
 </script>
 <style scoped></style>

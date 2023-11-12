@@ -6,13 +6,14 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ wrapperClass: string, textClass: string, title: string }>(), {
-  wrapperClass: '',
-  textClass: '',
-  title: ''
-})
+const props = withDefaults(
+  defineProps<{ wrapperClass: string; textClass: string; title: string }>(),
+  {
+    wrapperClass: "",
+    textClass: "",
+    title: "",
+  },
+);
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

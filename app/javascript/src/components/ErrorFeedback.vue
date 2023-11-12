@@ -9,9 +9,12 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ errors: Array<string>, textClass: string }>(), {
-  textClass: 'text-danger text-sm w-full'
-});
+const props = withDefaults(
+  defineProps<{ errors: Array<string>; textClass: string }>(),
+  {
+    textClass: "text-danger text-sm w-full",
+  },
+);
 </script>
 
 <style scoped lang="scss">

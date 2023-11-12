@@ -9,10 +9,18 @@ export type TableField = {
   key: string;
 };
 
-export type DropdownItem = [ key: string | number, value: string | number ];
+export type DropdownItem = [key: string | number, value: string | number];
 
 // Inputs
-export type InputType = "text" | "email" | "password" | "number" | "checkbox" | "radio" | "file" | "range";
+export type InputType =
+  | "text"
+  | "email"
+  | "password"
+  | "number"
+  | "checkbox"
+  | "radio"
+  | "file"
+  | "range";
 
 export type InputFieldProps = {
   inputId: string;
@@ -38,17 +46,17 @@ export type TextareaFieldProps = InputFieldProps & {
 };
 
 export type RadioButtonProps = InputFieldProps & {
-  checked: boolean 
-}
+  checked: boolean;
+};
 
 export type CheckboxProps = InputFieldProps & {
-  checked: boolean 
-}
+  checked: boolean;
+};
 
 export type FileProps = InputFieldProps & {
   isMultiple: boolean | undefined;
   accept: string | undefined;
-}
+};
 
 export type AuthorForm = {
   name: string;
@@ -172,7 +180,9 @@ export type ImageFile = {
   type: string;
   size: number;
   createdAt: number;
-}
+  width: number;
+  height: number;
+};
 
 export type Theme = "default" | "shoujyo";
 

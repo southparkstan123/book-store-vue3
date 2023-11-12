@@ -55,18 +55,24 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <h1 class="text-center text-2xl text-primary">Loading...</h1>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
 import { usePublisherForm } from "@/hooks/usePublisherForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
-import ErrorFeedback from "@/components/ErrorFeedback.vue";
 import { useRouter } from "vue-router";
+
+import ErrorFeedback from "@/components/ErrorFeedback.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 // Inputs
 import InputField from "@/components/inputs/InputField.vue";
@@ -82,24 +88,18 @@ const modalStore = useModalStore();
 
 const router = useRouter();
 
-const onChangeForm = (payload) => {
-  publisherForm.isFormChanged = payload;
-  emit("formChanged", payload);
-};
-
 const onChangeName = (payload) => {
   publisherForm.form.name = payload;
-  onChangeForm(true);
 };
 
 const onChangeDescription = (payload) => {
   publisherForm.form.description = payload;
-  onChangeForm(true);
 };
 
 const onSubmit = async () => {
   try {
-    onChangeForm(false);
+    publisherForm.isFormChanged = false;
+    emit("formChanged", false);
     let response: any = {};
 
     if (publisherForm.mode === "edit") {
@@ -120,29 +120,46 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.data.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.data.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (props.id) {
     publisherForm.mode = "edit";
-    fetchById(props.id);
+    await fetchById(props.id);
   }
+  publisherForm.isFormChanged = false;
+  emit("formChanged", false);
 });
+
+watch(
+  publisherForm.form,
+  () => {
+    publisherForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>

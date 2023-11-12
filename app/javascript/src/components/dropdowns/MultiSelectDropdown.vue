@@ -11,7 +11,9 @@
           v-for="[key, value] in data"
           :value="key"
           :key="key"
-          :selected="selectedItems ? selectedItems.includes(key as number) : false"
+          :selected="
+            selectedItems ? selectedItems.includes(key as number) : false
+          "
         >
           {{ value }}
         </option>
@@ -23,12 +25,12 @@
 <script setup lang="ts">
 import type { DropdownItem } from "@/types/types";
 
-withDefaults(defineProps<{data: DropdownItem[]; selectedItems: number[]}>(), {
+withDefaults(defineProps<{ data: DropdownItem[]; selectedItems: number[] }>(), {
   data: () => [],
   selectedItems: () => [],
-})
+});
 
-const emit = defineEmits<{e: number[]; "selectedItems"}>()
+const emit = defineEmits<{ e: number[]; selectedItems }>();
 
 const onChange = (event: any) => {
   let ids: Array<number> = [];
@@ -41,7 +43,6 @@ const onChange = (event: any) => {
   }
   emit("selectedItems", ids);
 };
-
 </script>
 
 <style scoped></style>
