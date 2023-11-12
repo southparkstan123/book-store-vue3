@@ -122,7 +122,7 @@
         </div>
       </div>
       <div class="flex items-center justify-center" v-else>
-        <h1 class="text-center text-2xl text-primary">Loading...</h1>
+        <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'wavy'"/>
       </div>
     </Transition>
 
@@ -178,6 +178,7 @@ import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import PaginationComponent from "@/components/pagination/PaginationComponent.vue";
 import InputField from "@/components/inputs/InputField.vue";
 import TooltipComponent from "@/components/TooltipComponent.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 // Props
 const props = defineProps<{ category: ModuleType }>();

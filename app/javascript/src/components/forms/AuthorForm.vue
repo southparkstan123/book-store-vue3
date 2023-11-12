@@ -59,7 +59,7 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <h1 class="text-center text-2xl text-primary">Loading...</h1>
+      <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'fade-in-zoom-in'"/>
     </div>
   </Transition>
 </template>
@@ -78,6 +78,7 @@ import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();

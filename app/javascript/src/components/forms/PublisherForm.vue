@@ -55,7 +55,7 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <h1 class="text-center text-2xl text-primary">Loading...</h1>
+      <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'fade-in-zoom-in'"/>
     </div>
   </Transition>
 </template>
@@ -65,8 +65,10 @@ import { onMounted, watch } from "vue";
 import { usePublisherForm } from "@/hooks/usePublisherForm";
 import { useModalStore } from "@/store/modal";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
-import ErrorFeedback from "@/components/ErrorFeedback.vue";
 import { useRouter } from "vue-router";
+
+import ErrorFeedback from "@/components/ErrorFeedback.vue";
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 // Inputs
 import InputField from "@/components/inputs/InputField.vue";
