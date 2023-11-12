@@ -23,10 +23,22 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { InputType, InputFieldProps, RangeProps, CheckboxProps, RadioButtonProps, FileProps } from "@/types/types";
+import type {
+  InputType,
+  InputFieldProps,
+  RangeProps,
+  CheckboxProps,
+  RadioButtonProps,
+  FileProps,
+} from "@/types/types";
 
 const props = withDefaults(
-  defineProps<InputFieldProps & { inputType: InputType } & RangeProps & CheckboxProps & RadioButtonProps & FileProps>(),
+  defineProps<
+    InputFieldProps & { inputType: InputType } & RangeProps &
+      CheckboxProps &
+      RadioButtonProps &
+      FileProps
+  >(),
   {
     inputId: "",
     className: "",
@@ -42,7 +54,7 @@ const props = withDefaults(
     max: undefined,
     checked: false,
     isMultiple: undefined,
-    accept: undefined
+    accept: undefined,
   },
 );
 
@@ -57,12 +69,12 @@ const emit = defineEmits<{
 }>();
 
 const changeValue = (event) => {
-  if(props.inputType === 'checkbox'){
+  if (props.inputType === "checkbox") {
     const { checked, value } = event.target;
     emit("changeValue", { checked, value });
-  } else if (props.inputType === 'file') {
+  } else if (props.inputType === "file") {
     const { files } = event.target;
-    emit("changeValue", files );
+    emit("changeValue", files);
   } else {
     emit("changeValue", event.target.value);
   }

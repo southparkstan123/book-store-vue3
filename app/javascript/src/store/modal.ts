@@ -11,7 +11,7 @@ export const useModalStore = defineStore("modal", () => {
     component: "",
     resolvePromise: undefined,
     props: undefined,
-    isFitContent: true
+    isFitContent: true,
   });
 
   // Getters

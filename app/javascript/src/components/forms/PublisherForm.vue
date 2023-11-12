@@ -55,7 +55,11 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'fade-in-zoom-in'"/>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
@@ -116,19 +120,23 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.data.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.data.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
@@ -142,12 +150,16 @@ onMounted(async () => {
   emit("formChanged", false);
 });
 
-watch(publisherForm.form, () => {
-  publisherForm.isFormChanged = true;
-  emit("formChanged", true);
-}, { 
-  deep: true 
-})
+watch(
+  publisherForm.form,
+  () => {
+    publisherForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>

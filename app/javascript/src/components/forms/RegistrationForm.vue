@@ -121,7 +121,7 @@ const onRegistration = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
 
     router.push("/signin");
@@ -133,9 +133,9 @@ const onRegistration = async () => {
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };

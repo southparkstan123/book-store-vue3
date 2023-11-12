@@ -6,12 +6,15 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-headline"
-        :style="`height:${ (!modalState.isFitContent) ? '70%' : 'fit-content'}`" 
-        :class="(type === 'content') ? `overflow-scroll`: ''"
+        :style="`height:${!modalState.isFitContent ? '70%' : 'fit-content'}`"
+        :class="type === 'content' ? `overflow-scroll` : ''"
       >
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div :class="(type !== 'content') ? 'sm:flex sm:items-start': ''">
-            <div class="mt-3 sm:mt-0" :class="(type !== 'content') ? 'sm:ml-4 ': ''">
+          <div :class="type !== 'content' ? 'sm:flex sm:items-start' : ''">
+            <div
+              class="mt-3 sm:mt-0"
+              :class="type !== 'content' ? 'sm:ml-4 ' : ''"
+            >
               <slot name="header">
                 <h3
                   id="modal-headline"
@@ -40,16 +43,18 @@
 <script setup lang="ts">
 import type { ModalType } from "@/types/types";
 
-const props = withDefaults(defineProps<{type: ModalType, showModalContent: boolean}>(), {
-  type: "alert",
-  showModalContent: false
-})
+const props = withDefaults(
+  defineProps<{ type: ModalType; showModalContent: boolean }>(),
+  {
+    type: "alert",
+    showModalContent: false,
+  },
+);
 
 // Modal
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 const modalState = modalStore.getModalObject;
-
 </script>
 
 <style scoped lang="scss">

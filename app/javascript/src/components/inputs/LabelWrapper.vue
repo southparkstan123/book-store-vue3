@@ -12,16 +12,19 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{
-  labelText: string;
-  textClass: string;
-  forAttribute: string;
-  labelClass: string;
-  isRequired: boolean;
-}>(), {
-  labelClass: 'block',
-  isRequired: false
-});
+const props = withDefaults(
+  defineProps<{
+    labelText: string;
+    textClass: string;
+    forAttribute: string;
+    labelClass: string;
+    isRequired: boolean;
+  }>(),
+  {
+    labelClass: "block",
+    isRequired: false,
+  },
+);
 </script>
 
 <style scoped></style>

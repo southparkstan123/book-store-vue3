@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-const emits = defineEmits<{e; "openMenu"}>()
+const emits = defineEmits<{ e; openMenu }>();
 const open = () => emits("openMenu");
 </script>
 

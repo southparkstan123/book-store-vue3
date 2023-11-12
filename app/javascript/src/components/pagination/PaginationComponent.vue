@@ -1,16 +1,28 @@
 <template>
   <div class="list">
-    <div v-if="prev !== null" :class="`item ${themeClass}`" @click="toPage(prev)">
+    <div
+      v-if="prev !== null"
+      :class="`item ${themeClass}`"
+      @click="toPage(prev)"
+    >
       <slot name="prev">＜</slot>
     </div>
     <div
       v-for="(e, index) in pages"
-      :class="index + 1 === page ? `item ${themeClass} ${activeClass}` : `item ${themeClass}`"
+      :class="
+        index + 1 === page
+          ? `item ${themeClass} ${activeClass}`
+          : `item ${themeClass}`
+      "
       @click="toPage(index + 1)"
     >
       {{ index + 1 }}
     </div>
-    <div v-if="next !== null" :class="`item ${themeClass}`" @click="toPage(next)">
+    <div
+      v-if="next !== null"
+      :class="`item ${themeClass}`"
+      @click="toPage(next)"
+    >
       <slot name="next">＞</slot>
     </div>
   </div>
@@ -40,13 +52,12 @@ const next = computed<number | null>(() =>
 );
 
 const themeClass = computed(() => {
-  return 'text-table-footer-text bg-primary hover:bg-secondary'
-})
+  return "text-table-footer-text bg-primary hover:bg-secondary";
+});
 
 const activeClass = computed(() => {
-  return 'text-gray bg-secondary hover:bg-primary'
-})
-
+  return "text-gray bg-secondary hover:bg-primary";
+});
 </script>
 
 <style scoped lang="scss">

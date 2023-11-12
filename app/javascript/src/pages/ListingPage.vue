@@ -5,7 +5,7 @@
   >
     <Transition :appear="true" name="fade" mode="out-in">
       <div v-if="!isLoading" class="mt-12 p-1">
-        <div class="z-10 items-center justify-between w-full ">
+        <div class="z-10 items-center justify-between w-full">
           <InputField
             v-if="category === 'book'"
             :className="'w-full float-right bg-table-header md:py-1 md:pr-1 p-1'"
@@ -19,9 +19,14 @@
           </InputField>
         </div>
         <div v-if="!isError">
-          <component :is="displayComponent" :data="data" :fields="listingPageSettingStore.getFields" :style="`width: ${windowWidth * 0.9}px;`">
+          <component
+            :is="displayComponent"
+            :data="data"
+            :fields="listingPageSettingStore.getFields"
+            :style="`width: ${windowWidth * 0.9}px;`"
+          >
             <template #price="{ item }">
-              {{ '$' + item.price }}
+              {{ "$" + item.price }}
             </template>
             <template #creator="{ item }">
               {{ item.creator.username }}
@@ -36,25 +41,27 @@
               <EllipsisInTable :data="item.authors" />
             </template>
             <template #created_at="{ item }">
-              <TooltipComponent 
+              <TooltipComponent
                 v-if="!isMobileView"
-                :position="'top'" 
+                :position="'top'"
                 :dataTip="moment(item.created_at).format('lll')"
-                :content="moment(item.created_at).fromNow()">
+                :content="moment(item.created_at).fromNow()"
+              >
               </TooltipComponent>
               <div v-else>
-                {{ moment(item.created_at).format('lll') }}
+                {{ moment(item.created_at).format("lll") }}
               </div>
             </template>
             <template #updated_at="{ item }">
-              <TooltipComponent 
+              <TooltipComponent
                 v-if="!isMobileView"
-                :position="'top'" 
+                :position="'top'"
                 :dataTip="moment(item.updated_at).format('lll')"
-                :content="moment(item.updated_at).fromNow()">
+                :content="moment(item.updated_at).fromNow()"
+              >
               </TooltipComponent>
               <div v-else>
-                {{ moment(item.updated_at).format('lll') }}
+                {{ moment(item.updated_at).format("lll") }}
               </div>
             </template>
             <template #books="{ item }">
@@ -122,7 +129,11 @@
         </div>
       </div>
       <div class="flex items-center justify-center" v-else>
-        <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'wavy'"/>
+        <LoadingComponent
+          class="text-2xl text-primary"
+          :text="'Loading...'"
+          :animationType="'wavy'"
+        />
       </div>
     </Transition>
 
@@ -134,8 +145,8 @@
         :textClass="'text-white'"
         :backgroundClass="'bg-secondary py-3 px-4 m-1 rounnded rounded-full'"
       >
-        <template #text>  
-          <font-awesome-icon icon="fa-solid fa-plus"/>
+        <template #text>
+          <font-awesome-icon icon="fa-solid fa-plus" />
         </template>
       </ButtonComponent>
       <ButtonComponent
@@ -147,7 +158,7 @@
         :backgroundClass="'bg-info py-3 px-4 m-1 rounnded rounded-full'"
       >
         <template #text>
-          <font-awesome-icon icon="fa-solid fa-gear"/>
+          <font-awesome-icon icon="fa-solid fa-gear" />
         </template>
       </ButtonComponent>
     </div>
@@ -156,11 +167,7 @@
 
 <script setup lang="ts">
 // Types
-import type {
-  ActionType,
-  TableItem,
-  ModuleType,
-} from "@/types/types";
+import type { ActionType, TableItem, ModuleType } from "@/types/types";
 
 // External imports
 import moment from "moment";
@@ -220,10 +227,10 @@ const scrollToTop = () => {
     top: 0,
     behavior: "smooth",
   });
-}
+};
 
 // Theme
-import { useThemeStore } from "@/store/theme"
+import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 
 // Custom fields
@@ -241,11 +248,11 @@ const openPageSettingModal = () => {
     type: "content",
     component: ColumnFilter,
     props: {
-      data
+      data,
     },
-    isFitContent: false
+    isFitContent: false,
   });
-}
+};
 
 // Data
 const data = ref<TableItem[]>([]);
@@ -266,7 +273,6 @@ const fetchRecords = async (
       total: parseInt(response.headers["total-count"], 10),
       perPage,
     };
-
   } catch (error: any) {
     isError.value = true;
     modalStore.open({
@@ -275,7 +281,7 @@ const fetchRecords = async (
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } finally {
     isLoading.value = false;
@@ -285,17 +291,17 @@ const fetchRecords = async (
 // Actions
 const action = async (type: ActionType, id: number) => {
   try {
-    if(type === "view") {
-      const item = data.value.filter(item => item.id === id).pop();
+    if (type === "view") {
+      const item = data.value.filter((item) => item.id === id).pop();
       modalStore.open({
         title: `${props.category.toUpperCase()} #${id}`,
         message: "",
         type: "content",
         component: DetailInfo,
         props: {
-          item
+          item,
         },
-        isFitContent: false
+        isFitContent: false,
       });
     } else if (type === "edit") {
       router.push({ path: `/${props.category}/${type}/${id}`, replace: true });
@@ -306,7 +312,7 @@ const action = async (type: ActionType, id: number) => {
         type: "confirm",
         component: "",
         props: undefined,
-        isFitContent: true
+        isFitContent: true,
       });
 
       if (confirm) {
@@ -318,7 +324,7 @@ const action = async (type: ActionType, id: number) => {
           type: "alert",
           component: "",
           props: undefined,
-          isFitContent: true
+          isFitContent: true,
         });
 
         setTimeout(() => {
@@ -360,7 +366,11 @@ watch(
     [oldCategory, oldCurrentPage, oldPerPage, oldKeyword],
   ) => {
     listingPageSettingStore.changeCategory(newCategory);
-    if (newKeyword !== oldKeyword || newCategory !== oldCategory || newPerPage !== oldPerPage) {
+    if (
+      newKeyword !== oldKeyword ||
+      newCategory !== oldCategory ||
+      newPerPage !== oldPerPage
+    ) {
       fetchRecords(newCategory, 1, newPerPage, newKeyword);
     } else {
       fetchRecords(
@@ -392,7 +402,7 @@ const vChangeTableView = (el, binding) => {
     });
   });
   resizeObserver.observe(document.body);
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -32,7 +32,7 @@ export const useAuthorForm = () => {
         message: error.response.data.message,
         type: "alert",
         component: "",
-        props: undefined
+        props: undefined,
       });
     } finally {
       authorForm.isLoading = false;
@@ -41,14 +41,20 @@ export const useAuthorForm = () => {
 
   const hints = computed(() => {
     const remaining = limit.value - authorForm.form.description.length;
-    return (remaining >= 50) ? '' : (remaining < 50 && remaining > 1) ? `Remaining ${remaining} characters` : ( remaining === 1 || remaining === 0) ? `Remaining ${remaining} character` : `Exceed the limit`;
-  })
+    return remaining >= 50
+      ? ""
+      : remaining < 50 && remaining > 1
+      ? `Remaining ${remaining} characters`
+      : remaining === 1 || remaining === 0
+      ? `Remaining ${remaining} character`
+      : `Exceed the limit`;
+  });
 
   return {
     errors,
     authorForm,
     fetchById,
     limit,
-    hints
+    hints,
   };
 };

@@ -1,41 +1,43 @@
 <template>
-  <span :class="`tooltip ${beforeClass} ${afterClass} ${position}`" :data-tip="dataTip">
+  <span
+    :class="`tooltip ${beforeClass} ${afterClass} ${position}`"
+    :data-tip="dataTip"
+  >
     <slot>{{ content }}</slot>
   </span>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
 type TooltipProps = {
-  position: 'top' | 'bottom' | 'left' | 'right';
+  position: "top" | "bottom" | "left" | "right";
   content: string;
   dataTip: string;
-}
+};
 
 const props = withDefaults(defineProps<TooltipProps>(), {
-  position: 'top',
-  content: '',
-  dataTip: 'Hover'
-})
+  position: "top",
+  content: "",
+  dataTip: "Hover",
+});
 
 const beforeClass = computed(() => {
-  return `before:bg-primary before:text-white`
-})
+  return `before:bg-primary before:text-white`;
+});
 
 const afterClass = computed(() => {
   switch (props.position) {
-    case 'top':
+    case "top":
       return `after:border-transparent after:border-t-primary`;
-    case 'bottom':
+    case "bottom":
       return `after:border-transparent after:border-b-primary`;
-    case 'left':
+    case "left":
       return `after:border-transparent after:border-l-primary`;
-    case 'right':
+    case "right":
       return `after:border-transparent after:border-r-primary`;
   }
 });
-
 </script>
 
 <style lang="scss" scoped>
@@ -51,7 +53,7 @@ const afterClass = computed(() => {
       top: -20%;
       right: 106%;
     }
- 
+
     &::after {
       opacity: 1;
       content: "";
@@ -83,7 +85,7 @@ const afterClass = computed(() => {
     &::before {
       visibility: visible;
       bottom: 100%;
-      
+
       margin-left: -60px;
     }
 
@@ -130,5 +132,4 @@ const afterClass = computed(() => {
     position: absolute;
   }
 }
-
 </style>

@@ -1,31 +1,39 @@
 <template>
   <div>
-    <div class="character" :class="animationType" v-for="(char, index) in textArray">
+    <div
+      class="character"
+      :class="animationType"
+      v-for="(char, index) in textArray"
+    >
       {{ char }}
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed, onMounted } from "vue";
 
-const props = withDefaults(defineProps<{ text: string; animationType: 'fade-in-zoom-out' | 'fade-in-zoom-in' | 'wavy' }>(), {
-  text: "Text",
-  animationType: "wavy"
-});
+const props = withDefaults(
+  defineProps<{
+    text: string;
+    animationType: "fade-in-zoom-out" | "fade-in-zoom-in" | "wavy";
+  }>(),
+  {
+    text: "Text",
+    animationType: "wavy",
+  },
+);
 
-const textArray = computed(() => props.text.split(''));
-
+const textArray = computed(() => props.text.split(""));
 
 onMounted(() => {
-  document.documentElement.style.setProperty('--content', props.text);
-})
-
+  document.documentElement.style.setProperty("--content", props.text);
+});
 </script>
 
 <style scoped lang="scss">
 :root {
-  --content: '';
+  --content: "";
 }
 
 $length: str-length(var(--content));
@@ -98,4 +106,5 @@ $duration: $length * $factor;
   100% {
     transform: translateY(0);
   }
-}</style>
+}
+</style>

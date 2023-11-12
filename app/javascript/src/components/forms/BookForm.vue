@@ -39,7 +39,9 @@
                 @changeValue="onChangeISBN"
               >
                 <template #label>
-                  <span class="text-red-400">Hint: ISBN10 and ISBN13 supported</span>
+                  <span class="text-red-400"
+                    >Hint: ISBN10 and ISBN13 supported</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -62,7 +64,9 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="text-red-400">Hint: From 1900 to {{ new Date().getFullYear() }}</span>
+                  <span class="text-red-400"
+                    >Hint: From 1900 to {{ new Date().getFullYear() }}</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -72,11 +76,15 @@
               :labelText="'Is Published?'"
               :isRequired="false"
             >
-              <ToggleSwitch 
+              <ToggleSwitch
                 class="block w-full mt-1 disabled:opacity-25"
                 :forAttribute="'is_published'"
                 :label="''"
-                :inputValue="bookForm.form.is_published ? bookForm.form.is_published : false"
+                :inputValue="
+                  bookForm.form.is_published
+                    ? bookForm.form.is_published
+                    : false
+                "
                 @changeValue="({ checked }) => onChangeIsPublished(checked)"
               />
             </LabelWrapper>
@@ -113,7 +121,9 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="float-left w-1/5">${{ bookForm.form.price }}</span>
+                  <span class="float-left w-1/5"
+                    >${{ bookForm.form.price }}</span
+                  >
                 </template>
               </InputField>
             </LabelWrapper>
@@ -164,7 +174,11 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'fade-in-zoom-in'"/>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
@@ -221,15 +235,15 @@ const onChangeAuthors = (payload) => {
 
 const onChangeYearPublished = (payload) => {
   bookForm.form.year_published = payload;
-}
+};
 
 const onChangeISBN = (payload) => {
   bookForm.form.isbn = payload;
-}
+};
 
 const onChangeIsPublished = (payload) => {
   bookForm.form.is_published = payload;
-}
+};
 
 const onSubmit = async () => {
   try {
@@ -251,24 +265,28 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
 
-const isValidated = computed(() => bookForm.isFormChanged !== false)
+const isValidated = computed(() => bookForm.isFormChanged !== false);
 
 onMounted(async () => {
   if (props.id) {
@@ -281,12 +299,16 @@ onMounted(async () => {
   emit("formChanged", false);
 });
 
-watch(bookForm.form, () => {
-  bookForm.isFormChanged = true;
-  emit("formChanged", true);
-}, { 
-  deep: true 
-})
+watch(
+  bookForm.form,
+  () => {
+    bookForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>

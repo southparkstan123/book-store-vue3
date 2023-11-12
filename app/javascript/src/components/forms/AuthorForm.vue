@@ -39,10 +39,10 @@
                 :rows="'5'"
                 @changeValue="onChangeDescription"
               >
-              <template #hints>
-                <span class="text-sm text-warning">{{ hints }}</span>
-              </template>
-            </TextArea>
+                <template #hints>
+                  <span class="text-sm text-warning">{{ hints }}</span>
+                </template>
+              </TextArea>
             </LabelWrapper>
           </div>
         </div>
@@ -59,7 +59,11 @@
       </form>
     </div>
     <div class="flex items-center justify-center" v-else>
-      <LoadingComponent class="text-2xl text-primary" :text="'Loading...'" :animationType="'fade-in-zoom-in'"/>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </Transition>
 </template>
@@ -116,19 +120,23 @@ const onSubmit = async () => {
       type: "alert",
       component: "",
       props: undefined,
-      isFitContent: true
+      isFitContent: true,
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
     modalStore.open({
-      title: `${error.response.status} Error - ${error.response.statusText ? error.response.statusText: error.response.message}`,
+      title: `${error.response.status} Error - ${
+        error.response.statusText
+          ? error.response.statusText
+          : error.response.message
+      }`,
       message: "",
       type: "content",
       component: ErrorFeedback,
       props: {
-        errors
+        errors,
       },
-      isFitContent: true
+      isFitContent: true,
     });
   }
 };
@@ -143,14 +151,22 @@ onMounted(async () => {
   emit("formChanged", false);
 });
 
-const isValidated = computed(() => authorForm.isFormChanged !== false && authorForm.form.description.length < limit.value)
+const isValidated = computed(
+  () =>
+    authorForm.isFormChanged !== false &&
+    authorForm.form.description.length < limit.value,
+);
 
-watch(authorForm.form, () => {
-  authorForm.isFormChanged = true;
-  emit("formChanged", true);
-}, { 
-  deep: true 
-})
+watch(
+  authorForm.form,
+  () => {
+    authorForm.isFormChanged = true;
+    emit("formChanged", true);
+  },
+  {
+    deep: true,
+  },
+);
 </script>
 
 <style scoped></style>
