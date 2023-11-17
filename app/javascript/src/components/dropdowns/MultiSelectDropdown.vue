@@ -19,6 +19,10 @@
         </option>
       </slot>
     </select>
+    <slot name="hints"></slot>
+    <div class="block">
+      <slot name="error-feedback"></slot>
+    </div>
   </div>
 </template>
 

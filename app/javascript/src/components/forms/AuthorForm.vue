@@ -16,12 +16,18 @@
               <InputField
                 :inputId="'name'"
                 :inputValue="authorForm.form.name"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.name ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 :isRequired="true"
                 @changeValue="onChangeName"
-              ></InputField>
+              >
+                <template #error-feedback>
+                  <ErrorFeedback v-if="errors.name" :errors="errors.name" />
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'description'"
@@ -32,7 +38,9 @@
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
-                :inputFieldClass="'block w-full mt-1'"
+                :inputFieldClass="`${
+                  errors.description ? 'border border-danger' : ''
+                } block w-full mt-1`"
                 :inputValue="authorForm.form.description"
                 :placeholder="'Description'"
                 :isRequired="true"
@@ -41,6 +49,13 @@
               >
                 <template #hints>
                   <span class="text-sm text-warning">{{ hints }}</span>
+                </template>
+
+                <template #error-feedback>
+                  <ErrorFeedback
+                    v-if="errors.description"
+                    :errors="errors.description"
+                  />
                 </template>
               </TextArea>
             </LabelWrapper>
@@ -128,14 +143,12 @@ const onSubmit = async () => {
       title: `${error.response.status} Error - ${
         error.response.statusText
           ? error.response.statusText
-          : error.response.message
+          : error.response.data.message
       }`,
-      message: "",
-      type: "content",
-      component: ErrorFeedback,
-      props: {
-        errors,
-      },
+      message: error.response.data.message,
+      type: "alert",
+      component: "",
+      props: undefined,
       isFitContent: true,
     });
   }

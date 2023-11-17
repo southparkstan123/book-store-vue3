@@ -18,6 +18,9 @@
       :accept="accept"
     />
     <slot name="label"></slot>
+    <div class="block">
+      <slot name="error-feedback"></slot>
+    </div>
   </div>
 </template>
 

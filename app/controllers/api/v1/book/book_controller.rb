@@ -30,7 +30,7 @@ module Api::V1::Book
       if @book.save
         render json: @book, status: :created
       else
-        render json: { message: 'Error occurs!', errors: @book.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @book.errors.as_json(full_messages: true) }, status: 422
       end
     end
 
@@ -42,7 +42,7 @@ module Api::V1::Book
       if @book.update(book_params)
         render json: { message: "Book \"#{@book.name}\" is updated" }
       else
-        render json: { message: 'Error occurs!', errors: @book.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @book.errors.as_json(full_messages: true) }, status: 422
       end
     end
 
