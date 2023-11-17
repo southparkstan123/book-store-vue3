@@ -9,7 +9,7 @@
       >
         <template #back>
           <router-link
-            class="cursor-pointer link text-info"
+            class="cursor-pointer link text-primary"
             :to="`/${module}/list`"
           >
             Back to Listing page
