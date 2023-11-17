@@ -16,12 +16,18 @@
               <InputField
                 :inputId="'name'"
                 :inputValue="bookForm.form.name"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.name ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 :isRequired="true"
                 @changeValue="onChangeName"
-              ></InputField>
+              >
+                <template #error-feedback>
+                  <ErrorFeedback v-if="errors.name" :errors="errors.name" />
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'isbn'"
@@ -32,7 +38,9 @@
               <InputField
                 :inputId="'isbn'"
                 :inputValue="bookForm.form.isbn"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.isbn ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputType="'text'"
                 :placeholder="'ISBN'"
                 :isRequired="true"
@@ -42,6 +50,9 @@
                   <span class="text-red-400"
                     >Hint: ISBN10 and ISBN13 supported</span
                   >
+                </template>
+                <template #error-feedback>
+                  <ErrorFeedback v-if="errors.isbn" :errors="errors.isbn" />
                 </template>
               </InputField>
             </LabelWrapper>
@@ -54,7 +65,9 @@
               <InputField
                 :inputId="'year_published'"
                 :inputValue="bookForm.form.year_published"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.year_published ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputType="'number'"
                 :placeholder="'Year'"
                 :step="1"
@@ -67,6 +80,12 @@
                   <span class="text-red-400"
                     >Hint: From 1900 to {{ new Date().getFullYear() }}</span
                   >
+                </template>
+                <template #error-feedback>
+                  <ErrorFeedback
+                    v-if="errors.year_published"
+                    :errors="errors.year_published"
+                  />
                 </template>
               </InputField>
             </LabelWrapper>
@@ -98,8 +117,26 @@
                 :data="publishers"
                 :placeholder="'Please select the publisher'"
                 :selectedItem="bookForm.form.publisher_id"
+                :fieldClass="`${
+                  errors.publisher ? 'border border-danger' : ''
+                } block w-full mt-1`"
                 @selectedItem="onChangePublisher"
               >
+                <template #hints>
+                  <router-link
+                    v-if="publishers"
+                    class="cursor-pointer link text-info"
+                    :to="`/publisher/add`"
+                  >
+                    Add Publisher
+                  </router-link>
+                </template>
+                <template #error-feedback>
+                  <ErrorFeedback
+                    v-if="errors.publisher"
+                    :errors="errors.publisher"
+                  />
+                </template>
               </DropdownMenu>
             </LabelWrapper>
             <LabelWrapper
@@ -111,7 +148,9 @@
               <InputField
                 :inputId="'price'"
                 :inputValue="bookForm.form.price"
-                :inputFieldClass="'range w-full h-2 mt-1 disabled:opacity-25 accent-primary'"
+                :inputFieldClass="`range w-full h-2 mt-1 disabled:opacity-25 accent-primary ${
+                  errors.price ? 'accent-danger' : ''
+                }`"
                 :inputType="'range'"
                 :placeholder="'Price (USD)'"
                 :step="1"
@@ -121,9 +160,10 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="float-left w-1/5"
-                    >${{ bookForm.form.price }}</span
-                  >
+                  <div class="block">${{ bookForm.form.price }}</div>
+                </template>
+                <template #error-feedback>
+                  <ErrorFeedback v-if="errors.price" :errors="errors.price" />
                 </template>
               </InputField>
             </LabelWrapper>
@@ -138,6 +178,15 @@
                 :selectedItems="bookForm.form.author_ids"
                 @selectedItems="onChangeAuthors"
               >
+                <template #hints>
+                  <router-link
+                    v-if="publishers"
+                    class="cursor-pointer link text-info"
+                    :to="`/author/add`"
+                  >
+                    Add Author
+                  </router-link>
+                </template>
               </MultiSelectDropdown>
             </LabelWrapper>
           </div>
@@ -151,13 +200,22 @@
               <TextArea
                 :inputId="'abstract'"
                 :inputName="'abstract'"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.abstract ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputValue="bookForm.form.abstract"
                 :placeholder="'Abstract'"
                 :rows="'5'"
                 :isRequired="true"
                 @changeValue="onChangeAbstract"
-              ></TextArea>
+              >
+                <template #error-feedback>
+                  <ErrorFeedback
+                    v-if="errors.abstract"
+                    :errors="errors.abstract"
+                  />
+                </template>
+              </TextArea>
             </LabelWrapper>
           </div>
         </div>
@@ -273,14 +331,12 @@ const onSubmit = async () => {
       title: `${error.response.status} Error - ${
         error.response.statusText
           ? error.response.statusText
-          : error.response.message
+          : error.response.data.message
       }`,
-      message: "",
-      type: "content",
-      component: ErrorFeedback,
-      props: {
-        errors,
-      },
+      message: error.response.data.message,
+      type: "alert",
+      component: "",
+      props: undefined,
       isFitContent: true,
     });
   }

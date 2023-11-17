@@ -35,7 +35,7 @@ module Api::V1::Publisher
       if @publisher.save
         render json: @publisher, status: :created
       else
-        render json: { message: 'Error occurs!', errors: @publisher.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @publisher.errors.as_json(full_messages: true) }, status: 422
       end
     end
 
@@ -47,7 +47,7 @@ module Api::V1::Publisher
       if @publisher.update(publisher_params)
         render json: { message: "Publisher \"#{@publisher.name}\" is updated" }
       else
-        render json: { message: 'Error occurs!', errors: @publisher.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @publisher.errors.as_json(full_messages: true) }, status: 422
       end
     end
 

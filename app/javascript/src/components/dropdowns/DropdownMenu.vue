@@ -2,7 +2,7 @@
   <div>
     <select
       v-if="data && data.length > 0"
-      class="block w-full mt-1"
+      :class="fieldClass"
       @change="onChange"
     >
       <slot name="options" v-bind="data">
@@ -17,6 +17,10 @@
         </option>
       </slot>
     </select>
+    <slot name="hints"></slot>
+    <div class="block">
+      <slot name="error-feedback"></slot>
+    </div>
   </div>
 </template>
 
@@ -28,11 +32,13 @@ withDefaults(
     data: DropdownItem[];
     selectedItem: number | null;
     placeholder: string;
+    fieldClass: string;
   }>(),
   {
     data: () => [],
     selectedItem: null,
     placeholder: "",
+    fieldClass: "",
   },
 );
 

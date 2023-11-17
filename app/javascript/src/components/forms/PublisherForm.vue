@@ -16,12 +16,18 @@
               <InputField
                 :inputId="'name'"
                 :inputValue="publisherForm.form.name"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.name ? 'border border-danger' : ''
+                } block w-full mt-1 disabled:opacity-25`"
                 :inputType="'text'"
                 :placeholder="'Name'"
                 :isRequired="true"
                 @changeValue="onChangeName"
-              ></InputField>
+              >
+                <template #error-feedback>
+                  <ErrorFeedback v-if="errors.name" :errors="errors.name" />
+                </template>
+              </InputField>
             </LabelWrapper>
             <LabelWrapper
               :forAttribute="'description'"
@@ -32,13 +38,22 @@
               <TextArea
                 :inputId="'description'"
                 :inputName="'description'"
-                :inputFieldClass="'block w-full mt-1 disabled:opacity-25'"
+                :inputFieldClass="`${
+                  errors.description ? 'border border-danger' : ''
+                } block w-full mt-1`"
                 :inputValue="publisherForm.form.description"
                 :placeholder="'Description'"
                 :rows="'5'"
                 :isRequired="true"
                 @changeValue="onChangeDescription"
-              ></TextArea>
+              >
+                <template #error-feedback>
+                  <ErrorFeedback
+                    v-if="errors.description"
+                    :errors="errors.description"
+                  />
+                </template>
+              </TextArea>
             </LabelWrapper>
           </div>
         </div>
@@ -130,12 +145,10 @@ const onSubmit = async () => {
           ? error.response.statusText
           : error.response.data.message
       }`,
-      message: "",
-      type: "content",
-      component: ErrorFeedback,
-      props: {
-        errors,
-      },
+      message: error.response.data.message,
+      type: "alert",
+      component: "",
+      props: undefined,
       isFitContent: true,
     });
   }

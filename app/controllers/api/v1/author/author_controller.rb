@@ -36,7 +36,7 @@ module Api::V1::Author
       if @author.save
         render json: @author, status: :created
       else
-        render json: { message: 'Error occurs!', errors: @author.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @author.errors.as_json(full_messages: true) }, status: 422
       end
     end
 
@@ -48,7 +48,7 @@ module Api::V1::Author
       if @author.update(author_params)
         render json: { message: "Author \"#{@author.name}\" is updated" }
       else
-        render json: { message: 'Error occurs!', errors: @author.errors.full_messages.uniq }, status: 422
+        render json: { message: 'Error occurs!', errors: @author.errors.as_json(full_messages: true) }, status: 422
       end
     end
 
