@@ -6,9 +6,15 @@
       @closeMenu="closeModal"
     >
       <template #header>
-        <h1 class="modal-title text-primary text-xl font-extrabold">
+        <span class="float-left modal-title text-primary text-xl font-extrabold">
           {{ modalState.title }}
-        </h1>
+        </span>
+      </template>
+
+      <template #close-button>
+        <div class="cursor-pointer" @click="closeModal">
+          <font-awesome-icon icon="fa-solid fa-remove" />
+        </div>
       </template>
 
       <template #message-body>
@@ -30,7 +36,7 @@
             <template #text> OK </template>
           </ButtonComponent>
           <ButtonComponent
-            @buttonClicked="modalStore.close()"
+            @buttonClicked="closeModal"
             :buttonType="'button'"
             :textClass="'text-sm'"
             :backgroundClass="'bg-white py-2 px-4'"
@@ -40,13 +46,13 @@
         </div>
         <div v-else>
           <ButtonComponent
-            @buttonClicked="modalStore.close()"
+            @buttonClicked="closeModal"
             :buttonType="'button'"
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
             <template #text>
-              {{ type === "content" ? "Close Modal" : "OK" }}
+              {{ type === "content" ? "Close" : "OK" }}
             </template>
           </ButtonComponent>
         </div>

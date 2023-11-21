@@ -1,34 +1,32 @@
 <template>
   <Transition :duration="1000" name="modal">
-    <div class="overlay flex items-center" v-if="showModalContent">
-      <div
-        class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-headline"
-        :style="`height:${!modalState.isFitContent ? '70%' : 'fit-content'}`"
-        :class="type === 'content' ? `overflow-scroll` : ''"
+    <div class="overlay modal" v-if="showModalContent">
+      <div 
+        class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm"
+        :style="`height:${!modalState.isFitContent ? '75%' : 'fit-content'}`"
       >
-        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-          <div :class="type !== 'content' ? 'sm:flex sm:items-start' : ''">
-            <div
-              class="mt-3 sm:mt-0"
-              :class="type !== 'content' ? 'sm:ml-4 ' : ''"
+        <div
+          class="mt-3 sm:mt-0 px-4 pt-5 sm:p-6 sm:pb-4 flex items-center justify-between"
+        >
+          <slot name="header">
+            <span
+              id="modal-headline"
+              class="float-left text-lg leading-6 font-medium text-gray-900"
             >
-              <slot name="header">
-                <h3
-                  id="modal-headline"
-                  class="text-lg leading-6 font-medium text-gray-900"
-                >
-                  Title
-                </h3>
-              </slot>
-              <div>
-                <slot v-if="type === 'content'" name="form-body" />
-                <slot v-else name="message-body" />
-              </div>
-            </div>
+              Title
+            </span>
+          </slot>
+          <div class="float-right">
+            <slot name="close-button"></slot>
           </div>
+        </div>
+        <div 
+          class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4  border-gray-100 border-y-2"
+          :style="`height:${!modalState.isFitContent ? 'inherit' : 'fit-content'}`"
+          :class="type === 'content' ? `overflow-scroll` : ''"
+        >
+          <slot v-if="type === 'content'" name="form-body"></slot>
+          <slot v-else name="message-body"></slot>
         </div>
         <div class="m-2 px-4 py-3 flex flex-row-reverse">
           <div class="modal-footer">
@@ -62,21 +60,6 @@ const modalState = modalStore.getModalObject;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-
-  &.modal-content {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    width: 100%;
-    pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: none;
-    border-radius: 0.3rem;
-    outline: 0;
-  }
 }
 
 .overlay {
