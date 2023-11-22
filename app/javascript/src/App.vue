@@ -52,7 +52,7 @@
             :backgroundClass="'bg-success py-2 px-4'"
           >
             <template #text>
-              {{ type === "content" ? "Close" : "OK" }}
+              Close
             </template>
           </ButtonComponent>
         </div>

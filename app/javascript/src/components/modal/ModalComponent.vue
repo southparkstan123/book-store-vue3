@@ -2,11 +2,11 @@
   <Transition :duration="1000" name="modal">
     <div class="overlay modal" v-if="showModalContent">
       <div 
-        class="dialog inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm"
-        :style="`height:${!modalState.isFitContent ? '75%' : 'fit-content'}`"
+        class="dialog inline-block align-bottom bg-gray-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm"
+        :style="`height:${(modalState.isFitContent === false) ? '70%' : 'fit-content'}; ${(modalState.type === 'content') ? 'min-height:280px' : ''}`"
       >
         <div
-          class="mt-3 sm:mt-0 px-4 pt-5 sm:p-6 sm:pb-4 flex items-center justify-between"
+          class="mt-3 sm:mt-2 px-4 py-6 sm:py-0 flex items-center justify-between"
         >
           <slot name="header">
             <span
@@ -21,17 +21,20 @@
           </div>
         </div>
         <div 
-          class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4  border-gray-100 border-y-2"
+          class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:mb-4"
           :style="`height:${!modalState.isFitContent ? 'inherit' : 'fit-content'}`"
           :class="type === 'content' ? `overflow-scroll` : ''"
         >
           <slot v-if="type === 'content'" name="form-body"></slot>
           <slot v-else name="message-body"></slot>
-        </div>
-        <div class="m-2 px-4 py-3 flex flex-row-reverse">
-          <div class="modal-footer">
-            <slot name="footer" :type="type"></slot>
+          <div v-if="type === 'content'" class="w-full fixed right-0 bottom-0 bg-gray-100 mt-1">
+            <div class="md:my-2 px-4 my-0 md:py-3 pt-1 pb-1 flex flex-row-reverse">
+              <slot name="footer" :type="type"></slot>
+            </div>
           </div>
+        </div>
+        <div v-if="type !== 'content'" class="m-2 px-4 py-3 flex flex-row-reverse">
+          <slot name="footer" :type="type"></slot>
         </div>
       </div>
     </div>
@@ -74,16 +77,6 @@ const modalState = modalStore.getModalObject;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.btn-close {
-  border: none 0;
-  font-size: 20px;
-  padding: 0px;
-  cursor: pointer;
-  font-weight: bold;
-  color: gray;
-  background-color: transparent;
 }
 
 .modal-enter-active,
