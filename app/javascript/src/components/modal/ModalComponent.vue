@@ -6,7 +6,7 @@
         :style="`height:${(modalState.isFitContent === false) ? '70%' : 'fit-content'}; ${(modalState.type === 'content') ? 'min-height:280px' : ''}`"
       >
         <div
-          class="mt-3 sm:mt-2 px-4 py-6 sm:py-0 flex items-center justify-between"
+          class="mt-3 sm:mt-2 px-4 py-6 flex items-center justify-between"
         >
           <slot name="header">
             <span
