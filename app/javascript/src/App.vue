@@ -6,7 +6,9 @@
       @closeMenu="closeModal"
     >
       <template #header>
-        <span class="float-left modal-title text-primary text-xl font-extrabold">
+        <span
+          class="float-left modal-title text-primary text-xl font-extrabold"
+        >
           {{ modalState.title }}
         </span>
       </template>
@@ -51,9 +53,7 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text>
-              Close
-            </template>
+            <template #text> Close </template>
           </ButtonComponent>
         </div>
       </template>
@@ -79,7 +79,7 @@
       </template>
       <template #footer-content>
         <a class="nav-footer-item" @click="openTemplateForm">
-          <font-awesome-icon icon="fa-solid fa-gear" /> Setting
+          <font-awesome-icon icon="fa-solid fa-palette" /> Setting
         </a>
         <a class="nav-footer-item" @click="showUserInfo">
           <font-awesome-icon icon="fa-solid fa-user-secret" /> User info

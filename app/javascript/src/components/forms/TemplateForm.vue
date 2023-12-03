@@ -23,7 +23,16 @@
                 class="transition duration-500 border border-dark cursor-pointer peer-checked:bg-secondary peer-checked:border-primary inline-flex items-center justify-between w-full p-5 rounded"
               >
                 <div class="block">
-                  <div class="w-full text-lg font-semibold">{{ item }}</div>
+                  <div class="w-full text-lg font-semibold">
+                    <font-awesome-icon
+                      :icon="
+                        item === 'default'
+                          ? 'fa-solid fa-desktop'
+                          : 'fa-solid fa-venus'
+                      "
+                    />
+                    {{ item }}
+                  </div>
                 </div>
               </label>
             </template>
