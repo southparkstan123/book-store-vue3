@@ -377,7 +377,7 @@ watch(
         newKeyword,
       );
     }
-    scrollToTop();
+    scrollToTop("smooth");
   },
 );
 
