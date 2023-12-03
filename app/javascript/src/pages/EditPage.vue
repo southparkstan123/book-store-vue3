@@ -37,7 +37,7 @@ const props = withDefaults(defineProps<{ module: ModuleType; id: number }>(), {
 });
 
 onMounted(() => {
-  scrollToTop("auto", 1000);
+  scrollToTop("smooth", 1000);
 });
 
 const isFormChanged = ref(false);
