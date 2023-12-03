@@ -222,12 +222,9 @@ const toogleDisplayView = (payload) => {
 // Pagination
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+
+// Scroll to top
+import scrollToTop from "@/utils/scrollToTop"
 
 // Theme
 import { useThemeStore } from "@/store/theme";
