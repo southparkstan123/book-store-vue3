@@ -79,7 +79,7 @@
       </template>
       <template #footer-content="{ isMobileView }">
         <div v-if="!isMobileView" class="dropdown inline-block relative">
-          <DropdownSideMenu :buttonClass="'text-menu-item cursor-pointer'">
+          <DropdownSideMenu :isAnimated="true" :wrapperClass="'mx-1'" :buttonClass="'text-menu-item cursor-pointer'">
             <template #button="{ isOpenFooterMenu }">
               Hi, {{ userStore.getUserInfo.username }} 
               <div class="float-right px-1">
