@@ -46,6 +46,7 @@ const afterClass = computed(() => {
   &:hover {
     .tooltiptext {
       visibility: visible;
+      opacity: 1;
     }
   }
   .tooltiptext {
@@ -55,6 +56,8 @@ const afterClass = computed(() => {
     padding: 5px 0;
     position: absolute;
     z-index: 1;
+    opacity: 0;
+    transition: opacity 0.5s;
 
     &.bottom {
       top: 150%;
