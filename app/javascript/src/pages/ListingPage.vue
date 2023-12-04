@@ -148,7 +148,13 @@
         :backgroundClass="'bg-secondary py-3 px-4 m-1 rounnded rounded-full'"
       >
         <template #text>
-          <font-awesome-icon icon="fa-solid fa-plus" />
+          <TooltipComponent
+            :position="'left'"
+            :dataTip="'Add ' + category.toUpperCase()"
+            :textClass="'text-sm text-white'"
+          >
+            <font-awesome-icon icon="fa-solid fa-plus" />
+          </TooltipComponent>
         </template>
       </ButtonComponent>
       <ButtonComponent
@@ -160,7 +166,13 @@
         :backgroundClass="'bg-info py-3 px-4 m-1 rounnded rounded-full'"
       >
         <template #text>
-          <font-awesome-icon icon="fa-solid fa-gear" />
+          <TooltipComponent
+            :position="'left'"
+            :dataTip="'Setting'"
+            :textClass="'text-sm text-white'"
+          >
+            <font-awesome-icon icon="fa-solid fa-gear" />
+          </TooltipComponent>
         </template>
       </ButtonComponent>
     </div>
