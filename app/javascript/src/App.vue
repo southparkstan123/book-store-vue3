@@ -79,39 +79,44 @@
       </template>
       <template #footer-content="{ isMobileView }">
         <div v-if="!isMobileView" class="dropdown inline-block relative">
-          <ButtonComponent
-            :buttonType="'button'"
-            :textClass="'nav-main-item'"
-            :backgroundClass="'px-4'"
-          >
-            <template #text>Hi, {{ userStore.getUserInfo.username }}</template>
-          </ButtonComponent>
-          <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 right-0 bg-navbar w-40 text-right">
-            <li class="">
-              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="openTemplateForm">
-                <font-awesome-icon icon="fa-solid fa-palette" /> Setting
-              </a>
-            </li>
-            <li class="">
-              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="showUserInfo">
-                <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
-              </a>
-            </li>
-            <li class="">
-              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="onLogout">
-                <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
-              </a>
-            </li>
-          </ul>
+          <DropdownSideMenu :buttonClass="'text-menu-item cursor-pointer'">
+            <template #button="{ isOpenFooterMenu }">
+              Hi, {{ userStore.getUserInfo.username }} 
+              <div class="float-right px-1">
+                <font-awesome-icon v-if="isOpenFooterMenu"  icon="fa-solid fa-caret-up" />
+                <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+              </div>
+            </template>
+
+            <template #content="{ isOpenFooterMenu }">
+              <ul v-if="isOpenFooterMenu === true" class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar w-40 text-right">
+                <li class="">
+                  <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="openTemplateForm">
+                    <font-awesome-icon icon="fa-solid fa-palette" /> Setting
+                  </a>
+                </li>
+                <li class="">
+                  <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="showUserInfo">
+                    <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+                  </a>
+                </li>
+                <li class="">
+                  <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="onLogout">
+                    <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
+                  </a>
+                </li>
+              </ul>
+            </template>
+          </DropdownSideMenu>
         </div>
         <div v-else>
-          <a class="nav-footer-item" @click="openTemplateForm">
+          <a class="nav-footer-item my-1" @click="openTemplateForm">
             <font-awesome-icon icon="fa-solid fa-palette" /> Setting
           </a>
-          <a class="nav-footer-item" @click="showUserInfo">
+          <a class="nav-footer-item my-1" @click="showUserInfo">
             <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
           </a>
-          <a class="nav-footer-item" @click="onLogout">
+          <a class="nav-footer-item my-1" @click="onLogout">
             <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
           </a>
         </div>
@@ -188,6 +193,7 @@ const modalState = modalStore.getModalObject;
 
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
+import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
 
 // UserInfo
 import { useUserStore } from "@/store/user";
@@ -275,7 +281,4 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
   opacity: 0;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
 </style>

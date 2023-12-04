@@ -35,6 +35,8 @@ import {
   faPalette,
   faDesktop,
   faVenus,
+  faCaretUp,
+  faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit } from "@fortawesome/free-regular-svg-icons";
 
@@ -54,6 +56,8 @@ library.add(faUpload as IconDefinition);
 library.add(faPalette as IconDefinition);
 library.add(faDesktop as IconDefinition);
 library.add(faVenus as IconDefinition);
+library.add(faCaretUp as IconDefinition);
+library.add(faCaretDown as IconDefinition);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = createApp(App);
