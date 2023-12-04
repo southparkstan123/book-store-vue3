@@ -45,8 +45,9 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.created_at).format('lll')"
-                :content="moment(item.created_at).fromNow()"
+                :textClass="'text-sm text-white'"
               >
+                {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
               <div v-else>
                 {{ moment(item.created_at).format("lll") }}
@@ -57,8 +58,9 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.updated_at).format('lll')"
-                :content="moment(item.updated_at).fromNow()"
+                :textClass="'text-sm text-white'"
               >
+                {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
               <div v-else>
                 {{ moment(item.updated_at).format("lll") }}
