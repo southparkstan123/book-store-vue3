@@ -92,7 +92,7 @@
               <ul v-if="isOpenFooterMenu === true" class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar w-40 text-right">
                 <li class="">
                   <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="openTemplateForm">
-                    <font-awesome-icon icon="fa-solid fa-palette" /> Setting
+                    <font-awesome-icon icon="fa-solid fa-palette" /> Theme
                   </a>
                 </li>
                 <li class="">
@@ -111,7 +111,7 @@
         </div>
         <div v-else>
           <a class="nav-footer-item my-1" @click="openTemplateForm">
-            <font-awesome-icon icon="fa-solid fa-palette" /> Setting
+            <font-awesome-icon icon="fa-solid fa-palette" /> Theme
           </a>
           <a class="nav-footer-item my-1" @click="showUserInfo">
             <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
@@ -240,7 +240,7 @@ const showUserInfo = () => {
 import TemplateForm from "./components/forms/TemplateForm.vue";
 const openTemplateForm = () => {
   modalStore.open({
-    title: "Setting",
+    title: "Theme",
     type: "content",
     component: TemplateForm,
     message: "",
