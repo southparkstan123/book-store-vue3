@@ -27,7 +27,7 @@
         <slot name="body-content"></slot>
       </template>
       <template #footer-content>
-        <slot name="footer-content"></slot>
+        <slot name="footer-content" :isMobileView="isMobileView"></slot>
       </template>
       <template #close-button>
         <slot name="close-button"></slot>

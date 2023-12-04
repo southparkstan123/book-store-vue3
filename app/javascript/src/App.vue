@@ -77,16 +77,44 @@
           <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
         </router-link>
       </template>
-      <template #footer-content>
-        <a class="nav-footer-item" @click="openTemplateForm">
-          <font-awesome-icon icon="fa-solid fa-palette" /> Setting
-        </a>
-        <a class="nav-footer-item" @click="showUserInfo">
-          <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
-        </a>
-        <a class="nav-footer-item" @click="onLogout">
-          <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
-        </a>
+      <template #footer-content="{ isMobileView }">
+        <div v-if="!isMobileView" class="dropdown inline-block relative">
+          <ButtonComponent
+            :buttonType="'button'"
+            :textClass="'nav-main-item'"
+            :backgroundClass="'px-4'"
+          >
+            <template #text>Hi, {{ userStore.getUserInfo.username }}</template>
+          </ButtonComponent>
+          <ul class="dropdown-menu absolute hidden text-gray-700 pt-1 right-0 bg-navbar w-40 text-right">
+            <li class="">
+              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="openTemplateForm">
+                <font-awesome-icon icon="fa-solid fa-palette" /> Setting
+              </a>
+            </li>
+            <li class="">
+              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="showUserInfo">
+                <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+              </a>
+            </li>
+            <li class="">
+              <a class="nav-footer-item text-lg py-2 px-4 block whitespace-no-wrap cursor-pointer" @click="onLogout">
+                <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <a class="nav-footer-item" @click="openTemplateForm">
+            <font-awesome-icon icon="fa-solid fa-palette" /> Setting
+          </a>
+          <a class="nav-footer-item" @click="showUserInfo">
+            <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+          </a>
+          <a class="nav-footer-item" @click="onLogout">
+            <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
+          </a>
+        </div>
       </template>
       <template #open-button>
         <svg width="50px" height="50px">
@@ -245,5 +273,9 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
 .slide-upward-leave-to {
   transform: translateY(10%);
   opacity: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
 </style>
