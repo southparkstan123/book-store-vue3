@@ -5,10 +5,10 @@
         <slot name="brand"></slot>
       </template>
       <template #body-content>
-        <slot name="body-content"></slot>
+        <slot name="body-content" :isMobileView="isMobileView"></slot>
       </template>
       <template #footer-content>
-        <slot name="footer-content"></slot>
+        <slot name="footer-content" :isMobileView="isMobileView"></slot>
       </template>
     </DesktopMenu>
     <MobileMenu
@@ -24,10 +24,10 @@
         <slot name="brand"></slot>
       </template>
       <template #body-content>
-        <slot name="body-content"></slot>
+        <slot name="body-content" :isMobileView="isMobileView"></slot>
       </template>
       <template #footer-content>
-        <slot name="footer-content"></slot>
+        <slot name="footer-content" :isMobileView="isMobileView"></slot>
       </template>
       <template #close-button>
         <slot name="close-button"></slot>
@@ -53,7 +53,7 @@ import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
 
 withDefaults(
-  defineProps<{ backgroundClass: "bg-navbar"; breakpoint: number }>(),
+  defineProps<{ backgroundClass: string; breakpoint: number }>(),
   {
     backgroundClass: "bg-navbar",
     breakpoint: 1024,

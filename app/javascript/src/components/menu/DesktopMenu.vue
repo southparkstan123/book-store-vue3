@@ -20,11 +20,8 @@ withDefaults(defineProps<{ backgroundClass: string }>(), {
 nav {
   position: fixed;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   flex-wrap: wrap;
   padding: 0.75rem 0;
-  position: fixed;
   width: 100%;
   z-index: 50;
   -webkit-box-pack: justify;
