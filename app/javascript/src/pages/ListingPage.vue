@@ -238,7 +238,7 @@ import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
 
 // Scroll to top
-import scrollToTop from "@/utils/scrollToTop"
+import scrollToTop from "@/utils/scrollToTop";
 
 // Theme
 import { useThemeStore } from "@/store/theme";

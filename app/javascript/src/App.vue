@@ -67,152 +67,228 @@
         <router-link class="nav-brand-item" to="/"> Book Store </router-link>
       </template>
       <template #body-content="{ isMobileView }">
-        <DropdownSideMenu v-if="!isMobileView" :isAnimated="true" :wrapperClass="'inline-block'" :buttonClass="'nav-main-item'">
-          <template #button="{ isOpenFooterMenu }">
-            <div class="">
-              <font-awesome-icon icon="fa-solid fa-book" /> Book
-              <font-awesome-icon v-if="isOpenFooterMenu" icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
-            </div>
-          </template>
-          <template #content="{ isOpenFooterMenu }">
-            <ul v-if="isOpenFooterMenu === true" class="fixed grid text-gray-700 pt-1 bg-navbar w-40">
-              <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap" to="/book/list">
-                  <font-awesome-icon icon="fa-solid fa-palette" /> List
-                </router-link>
-              </li>
-              <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap" to="/book/add">
-                  <font-awesome-icon icon="fa-solid fa-plus" /> Add
-                </router-link>
-              </li>
-            </ul>
-          </template>
-        </DropdownSideMenu>
-        <DropdownSideMenu 
-          v-else 
-          :isAnimated="false"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'" 
-          :buttonClass="'block float-left px-4 my-2 w-full'">
-          <template #button="{ isOpenFooterMenu }">
-            <span class="float-left text-2xl">
-              <font-awesome-icon icon="fa-solid fa-book" /> Book
-            </span>
-            <span class="float-right">
-              <font-awesome-icon v-if="isOpenFooterMenu" icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
-            </span>
-          </template>
-          <template #content="{ isOpenFooterMenu }">
-            <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/book/list">
-                <font-awesome-icon icon="fa-solid fa-palette" /> List
-              </router-link>
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/book/add">
-                <font-awesome-icon icon="fa-solid fa-plus" /> Add
-              </router-link>
-            </div>
-          </template>
-        </DropdownSideMenu>
-        
-        <DropdownSideMenu 
-          v-if="!isMobileView" 
-          :isAnimated="true" 
-          :wrapperClass="'inline-block'" 
+        <DropdownSideMenu
+          v-if="!isMobileView"
+          :isAnimated="true"
+          :wrapperClass="'inline-block'"
           :buttonClass="'nav-main-item'"
         >
           <template #button="{ isOpenFooterMenu }">
             <div class="">
-              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
-              <font-awesome-icon v-if="isOpenFooterMenu"  icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+              <font-awesome-icon icon="fa-solid fa-book" /> Book
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
             </div>
           </template>
           <template #content="{ isOpenFooterMenu }">
-            <ul v-if="isOpenFooterMenu === true" class="fixed grid text-gray-700 pt-1 bg-navbar w-40">
+            <ul
+              v-if="isOpenFooterMenu === true"
+              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+            >
               <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap px-2" to="/author/list">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap"
+                  to="/book/list"
+                >
                   <font-awesome-icon icon="fa-solid fa-palette" /> List
                 </router-link>
               </li>
               <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap px-2" to="/author/add">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap"
+                  to="/book/add"
+                >
                   <font-awesome-icon icon="fa-solid fa-plus" /> Add
                 </router-link>
               </li>
             </ul>
           </template>
         </DropdownSideMenu>
-        <DropdownSideMenu 
-          v-else 
-          :isAnimated="false"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'" 
-          :buttonClass="'block float-left px-4 my-2 w-full'">
+        <DropdownSideMenu
+          v-else
+          :isAnimated="true"
+          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :buttonClass="'block float-left px-4 my-2 w-full'"
+        >
           <template #button="{ isOpenFooterMenu }">
             <span class="float-left text-2xl">
-              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
+              <font-awesome-icon icon="fa-solid fa-book" /> Book
             </span>
             <span class="float-right">
-              <font-awesome-icon v-if="isOpenFooterMenu"  icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
             </span>
           </template>
           <template #content="{ isOpenFooterMenu }">
             <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/author/list">
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/book/list"
+              >
                 <font-awesome-icon icon="fa-solid fa-palette" /> List
               </router-link>
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/author/add">
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/book/add"
+              >
                 <font-awesome-icon icon="fa-solid fa-plus" /> Add
               </router-link>
             </div>
           </template>
         </DropdownSideMenu>
 
-        <DropdownSideMenu v-if="!isMobileView" :isAnimated="true" :wrapperClass="'inline-block'" :buttonClass="'nav-main-item'">
+        <DropdownSideMenu
+          v-if="!isMobileView"
+          :isAnimated="true"
+          :wrapperClass="'inline-block'"
+          :buttonClass="'nav-main-item'"
+        >
           <template #button="{ isOpenFooterMenu }">
             <div class="">
-              <font-awesome-icon icon="fa-solid fa-building" /> Publisher
-              <font-awesome-icon v-if="isOpenFooterMenu" icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
             </div>
           </template>
           <template #content="{ isOpenFooterMenu }">
-            <ul v-if="isOpenFooterMenu === true" class="fixed grid text-gray-700 pt-1 bg-navbar w-40">
+            <ul
+              v-if="isOpenFooterMenu === true"
+              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+            >
               <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap px-2" to="/publisher/list">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap px-2"
+                  to="/author/list"
+                >
                   <font-awesome-icon icon="fa-solid fa-palette" /> List
                 </router-link>
               </li>
               <li class="mx-1 my-3">
-                <router-link class="nav-main-item whitespace-no-wrap px-2" to="/publisher/add">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap px-2"
+                  to="/author/add"
+                >
                   <font-awesome-icon icon="fa-solid fa-plus" /> Add
                 </router-link>
               </li>
             </ul>
           </template>
         </DropdownSideMenu>
-        <DropdownSideMenu 
-          v-else 
-          :isAnimated="false"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'" 
-          :buttonClass="'block float-left px-4 my-2 w-full'">
+        <DropdownSideMenu
+          v-else
+          :isAnimated="true"
+          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :buttonClass="'block float-left px-4 my-2 w-full'"
+        >
+          <template #button="{ isOpenFooterMenu }">
+            <span class="float-left text-2xl">
+              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
+            </span>
+            <span class="float-right">
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
+            </span>
+          </template>
+          <template #content="{ isOpenFooterMenu }">
+            <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/author/list"
+              >
+                <font-awesome-icon icon="fa-solid fa-palette" /> List
+              </router-link>
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/author/add"
+              >
+                <font-awesome-icon icon="fa-solid fa-plus" /> Add
+              </router-link>
+            </div>
+          </template>
+        </DropdownSideMenu>
+
+        <DropdownSideMenu
+          v-if="!isMobileView"
+          :isAnimated="true"
+          :wrapperClass="'inline-block'"
+          :buttonClass="'nav-main-item'"
+        >
+          <template #button="{ isOpenFooterMenu }">
+            <div class="">
+              <font-awesome-icon icon="fa-solid fa-building" /> Publisher
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
+            </div>
+          </template>
+          <template #content="{ isOpenFooterMenu }">
+            <ul
+              v-if="isOpenFooterMenu === true"
+              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+            >
+              <li class="mx-1 my-3">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap px-2"
+                  to="/publisher/list"
+                >
+                  <font-awesome-icon icon="fa-solid fa-palette" /> List
+                </router-link>
+              </li>
+              <li class="mx-1 my-3">
+                <router-link
+                  class="nav-main-item whitespace-no-wrap px-2"
+                  to="/publisher/add"
+                >
+                  <font-awesome-icon icon="fa-solid fa-plus" /> Add
+                </router-link>
+              </li>
+            </ul>
+          </template>
+        </DropdownSideMenu>
+        <DropdownSideMenu
+          v-else
+          :isAnimated="true"
+          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :buttonClass="'block float-left px-4 my-2 w-full'"
+        >
           <template #button="{ isOpenFooterMenu }">
             <span class="float-left text-2xl">
               <font-awesome-icon icon="fa-solid fa-building" /> Publisher
             </span>
             <span class="float-right">
-              <font-awesome-icon v-if="isOpenFooterMenu" icon="fa-solid fa-caret-up" />
-              <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+              <font-awesome-icon
+                v-if="isOpenFooterMenu"
+                icon="fa-solid fa-caret-up"
+              />
+              <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
             </span>
           </template>
           <template #content="{ isOpenFooterMenu }">
             <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/publisher/list">
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/publisher/list"
+              >
                 <font-awesome-icon icon="fa-solid fa-palette" /> List
               </router-link>
-              <router-link class="nav-main-item whitespace-no-wrap px-2" to="/publisher/add">
+              <router-link
+                class="nav-main-item whitespace-no-wrap px-2"
+                to="/publisher/add"
+              >
                 <font-awesome-icon icon="fa-solid fa-plus" /> Add
               </router-link>
             </div>
@@ -221,29 +297,49 @@
       </template>
       <template #footer-content="{ isMobileView }">
         <div v-if="!isMobileView" class="dropdown inline-block relative">
-          <DropdownSideMenu :isAnimated="true" :wrapperClass="'mx-1'" :buttonClass="'text-menu-item cursor-pointer'">
+          <DropdownSideMenu
+            :isAnimated="true"
+            :wrapperClass="'mx-1'"
+            :buttonClass="'text-menu-item cursor-pointer'"
+          >
             <template #button="{ isOpenFooterMenu }">
-              Hi, {{ userStore.getUserInfo.username }} 
+              Hi, {{ userStore.getUserInfo.username }}
               <div class="float-right px-2">
-                <font-awesome-icon v-if="isOpenFooterMenu"  icon="fa-solid fa-caret-up" />
-                <font-awesome-icon v-else  icon="fa-solid fa-caret-down" />
+                <font-awesome-icon
+                  v-if="isOpenFooterMenu"
+                  icon="fa-solid fa-caret-up"
+                />
+                <font-awesome-icon v-else icon="fa-solid fa-caret-down" />
               </div>
             </template>
 
             <template #content="{ isOpenFooterMenu }">
-              <ul v-if="isOpenFooterMenu === true" class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar w-40 text-right">
+              <ul
+                v-if="isOpenFooterMenu === true"
+                class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar w-40 text-right"
+              >
                 <li class="mx-1">
-                  <a class="nav-footer-item py-2 px-4 block whitespace-no-wrap" @click="openTemplateForm">
+                  <a
+                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
+                    @click="openTemplateForm"
+                  >
                     <font-awesome-icon icon="fa-solid fa-palette" /> Theme
                   </a>
                 </li>
                 <li class="mx-1">
-                  <a class="nav-footer-item py-2 px-4 block whitespace-no-wrap" @click="showUserInfo">
-                    <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+                  <a
+                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
+                    @click="showUserInfo"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-user-secret" /> User
+                    info
                   </a>
                 </li>
                 <li class="mx-1">
-                  <a class="nav-footer-item py-2 px-4 block whitespace-no-wrap" @click="onLogout">
+                  <a
+                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
+                    @click="onLogout"
+                  >
                     <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
                   </a>
                 </li>
@@ -422,5 +518,4 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
   transform: translateY(10%);
   opacity: 0;
 }
-
 </style>

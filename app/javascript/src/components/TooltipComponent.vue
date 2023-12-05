@@ -1,7 +1,9 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-    <div :class="`tooltiptext ${position} ${backgroundClass} ${textClass} ${afterClass}`">
+    <div
+      :class="`tooltiptext ${position} ${backgroundClass} ${textClass} ${afterClass}`"
+    >
       <span>{{ dataTip }}</span>
     </div>
   </div>
@@ -113,7 +115,7 @@ const afterClass = computed(() => {
         margin-right: 0.5rem;
       }
     }
-   
+
     &.right {
       top: -5px;
       left: 110%;
@@ -138,5 +140,4 @@ const afterClass = computed(() => {
     }
   }
 }
-
 </style>

@@ -1,8 +1,11 @@
-const scrollToTop = (behavior: ScrollBehavior = "auto", delayInMs: number = 0) => {
+const scrollToTop = (
+  behavior: ScrollBehavior = "auto",
+  delayInMs: number = 0,
+) => {
   setTimeout(() => {
     window.scrollTo({
       top: 0,
-      behavior
+      behavior,
     });
   }, delayInMs);
 };

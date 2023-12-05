@@ -30,7 +30,7 @@ import { useUserStore } from "@/store/user";
 import { useModalStore } from "@/store/modal";
 import { onBeforeRouteLeave } from "vue-router";
 import type { ModuleType } from "@/types/types";
-import scrollToTop from "@/utils/scrollToTop"
+import scrollToTop from "@/utils/scrollToTop";
 
 const props = withDefaults(defineProps<{ module: ModuleType; id: number }>(), {
   module: "book",

@@ -39,7 +39,7 @@ import {
   faDesktop,
   faVenus,
   faCaretUp,
-  faCaretDown
+  faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit } from "@fortawesome/free-regular-svg-icons";
 
@@ -69,6 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
   app.use(store);
   app.component("font-awesome-icon", FontAwesomeIcon);
   app.config.warnHandler = (msg, vm, trace) => null;
-  app.directive('click-outside', clickOutside);
+  app.directive("click-outside", clickOutside);
   app.mount("#app");
 });

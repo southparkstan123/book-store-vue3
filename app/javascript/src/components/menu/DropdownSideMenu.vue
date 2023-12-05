@@ -1,5 +1,8 @@
 <template>
-  <div :class="wrapperClass" v-click-outside="{action : () => isOpenFooterMenu = false}">
+  <div
+    :class="wrapperClass"
+    v-click-outside="{ action: () => (isOpenFooterMenu = false) }"
+  >
     <ButtonComponent
       :buttonType="'button'"
       :textClass="buttonClass"
@@ -10,7 +13,10 @@
         <slot name="button" :isOpenFooterMenu="isOpenFooterMenu"></slot>
       </template>
     </ButtonComponent>
-    <Transition :appear="true" :name="(isAnimated === true) ? 'dropdown-menu' : 'none'">
+    <Transition
+      :appear="true"
+      :name="isAnimated === true ? 'dropdown-menu' : 'none'"
+    >
       <slot name="content" :isOpenFooterMenu="isOpenFooterMenu"></slot>
     </Transition>
   </div>
@@ -20,20 +26,23 @@
 import { ref } from "vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 
-const props = withDefaults(defineProps<{
-  wrapperClass: string;
-  buttonClass: string;
-  isAnimated: boolean;
-}>(), {
-  wrapperClass: "",
-  buttonClass: "",
-  isAnimated: false
-})
+const props = withDefaults(
+  defineProps<{
+    wrapperClass: string;
+    buttonClass: string;
+    isAnimated: boolean;
+  }>(),
+  {
+    wrapperClass: "",
+    buttonClass: "",
+    isAnimated: false,
+  },
+);
 const isOpenFooterMenu = ref<boolean>(false);
 
 const toggleFooterMenu = () => {
-  isOpenFooterMenu.value = !isOpenFooterMenu.value
-}
+  isOpenFooterMenu.value = !isOpenFooterMenu.value;
+};
 </script>
 
 <style scoped>

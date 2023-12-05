@@ -52,13 +52,10 @@ import MobileMenu from "@/components/menu/MobileMenu.vue";
 import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
 
-withDefaults(
-  defineProps<{ backgroundClass: string; breakpoint: number }>(),
-  {
-    backgroundClass: "bg-navbar",
-    breakpoint: 1024,
-  },
-);
+withDefaults(defineProps<{ backgroundClass: string; breakpoint: number }>(), {
+  backgroundClass: "bg-navbar",
+  breakpoint: 1024,
+});
 
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
