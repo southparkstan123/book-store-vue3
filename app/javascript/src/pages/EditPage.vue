@@ -9,7 +9,7 @@
       >
         <template #back>
           <router-link
-            class="cursor-pointer link text-info"
+            class="cursor-pointer link text-primary"
             :to="`/${module}/list`"
           >
             Back to Listing page
@@ -25,14 +25,19 @@ import AuthorForm from "@/components/forms/AuthorForm.vue";
 import BookForm from "@/components/forms/BookForm.vue";
 import PublisherForm from "@/components/forms/PublisherForm.vue";
 
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useUserStore } from "@/store/user";
 import { useModalStore } from "@/store/modal";
 import { onBeforeRouteLeave } from "vue-router";
 import type { ModuleType } from "@/types/types";
+import scrollToTop from "@/utils/scrollToTop"
 
 const props = withDefaults(defineProps<{ module: ModuleType; id: number }>(), {
   module: "book",
+});
+
+onMounted(() => {
+  scrollToTop("smooth", 1000);
 });
 
 const isFormChanged = ref(false);

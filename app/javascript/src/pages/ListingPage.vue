@@ -45,8 +45,9 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.created_at).format('lll')"
-                :content="moment(item.created_at).fromNow()"
+                :textClass="'text-sm text-white'"
               >
+                {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
               <div v-else>
                 {{ moment(item.created_at).format("lll") }}
@@ -57,8 +58,9 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.updated_at).format('lll')"
-                :content="moment(item.updated_at).fromNow()"
+                :textClass="'text-sm text-white'"
               >
+                {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
               <div v-else>
                 {{ moment(item.updated_at).format("lll") }}
@@ -146,7 +148,13 @@
         :backgroundClass="'bg-secondary py-3 px-4 m-1 rounnded rounded-full'"
       >
         <template #text>
-          <font-awesome-icon icon="fa-solid fa-plus" />
+          <TooltipComponent
+            :position="'left'"
+            :dataTip="'Add ' + category.toUpperCase()"
+            :textClass="'text-sm text-white'"
+          >
+            <font-awesome-icon icon="fa-solid fa-plus" />
+          </TooltipComponent>
         </template>
       </ButtonComponent>
       <ButtonComponent
@@ -158,7 +166,13 @@
         :backgroundClass="'bg-info py-3 px-4 m-1 rounnded rounded-full'"
       >
         <template #text>
-          <font-awesome-icon icon="fa-solid fa-gear" />
+          <TooltipComponent
+            :position="'left'"
+            :dataTip="'Setting'"
+            :textClass="'text-sm text-white'"
+          >
+            <font-awesome-icon icon="fa-solid fa-gear" />
+          </TooltipComponent>
         </template>
       </ButtonComponent>
     </div>
@@ -222,12 +236,9 @@ const toogleDisplayView = (payload) => {
 // Pagination
 import { usePagination } from "@/hooks/usePagination";
 const { pagination, changeCurrentPage } = usePagination();
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+
+// Scroll to top
+import scrollToTop from "@/utils/scrollToTop"
 
 // Theme
 import { useThemeStore } from "@/store/theme";
@@ -380,7 +391,7 @@ watch(
         newKeyword,
       );
     }
-    scrollToTop();
+    scrollToTop("smooth");
   },
 );
 

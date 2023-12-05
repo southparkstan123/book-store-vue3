@@ -6,7 +6,9 @@
       @closeMenu="closeModal"
     >
       <template #header>
-        <span class="float-left modal-title text-primary text-xl font-extrabold">
+        <span
+          class="float-left modal-title text-primary text-xl font-extrabold"
+        >
           {{ modalState.title }}
         </span>
       </template>
@@ -51,9 +53,7 @@
             :textClass="'text-sm text-white'"
             :backgroundClass="'bg-success py-2 px-4'"
           >
-            <template #text>
-              Close
-            </template>
+            <template #text> Close </template>
           </ButtonComponent>
         </div>
       </template>
@@ -377,7 +377,7 @@ const showUserInfo = () => {
 import TemplateForm from "./components/forms/TemplateForm.vue";
 const openTemplateForm = () => {
   modalStore.open({
-    title: "Setting",
+    title: "Theme",
     type: "content",
     component: TemplateForm,
     message: "",
@@ -417,4 +417,5 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
   transform: translateY(10%);
   opacity: 0;
 }
+
 </style>

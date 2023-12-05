@@ -47,7 +47,7 @@
                 @changeValue="onChangeISBN"
               >
                 <template #label>
-                  <span class="text-red-400"
+                  <span class="text-sm text-info"
                     >Hint: ISBN10 and ISBN13 supported</span
                   >
                 </template>
@@ -77,7 +77,7 @@
                 :isRequired="true"
               >
                 <template #label>
-                  <span class="text-red-400"
+                  <span class="text-sm text-info"
                     >Hint: From 1900 to {{ new Date().getFullYear() }}</span
                   >
                 </template>
@@ -125,7 +125,7 @@
                 <template #hints>
                   <router-link
                     v-if="publishers"
-                    class="cursor-pointer link text-info"
+                    class="cursor-pointer link text-primary"
                     :to="`/publisher/add`"
                   >
                     Add Publisher
@@ -181,7 +181,7 @@
                 <template #hints>
                   <router-link
                     v-if="publishers"
-                    class="cursor-pointer link text-info"
+                    class="cursor-pointer link text-primary"
                     :to="`/author/add`"
                   >
                     Add Author
