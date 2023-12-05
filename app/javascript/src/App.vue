@@ -116,7 +116,12 @@
           </template>
         </DropdownSideMenu>
         
-        <DropdownSideMenu v-if="!isMobileView" :isAnimated="true" :wrapperClass="'inline-block'" :buttonClass="'nav-main-item'">
+        <DropdownSideMenu 
+          v-if="!isMobileView" 
+          :isAnimated="true" 
+          :wrapperClass="'inline-block'" 
+          :buttonClass="'nav-main-item'"
+        >
           <template #button="{ isOpenFooterMenu }">
             <div class="">
               <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author

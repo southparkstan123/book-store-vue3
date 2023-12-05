@@ -1,5 +1,5 @@
 <template>
-  <div :class="wrapperClass">
+  <div :class="wrapperClass" v-click-outside="{action : () => isOpenFooterMenu = false}">
     <ButtonComponent
       :buttonType="'button'"
       :textClass="buttonClass"

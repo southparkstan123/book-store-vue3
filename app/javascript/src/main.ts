@@ -22,6 +22,9 @@ import {
 } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+// Directives
+import clickOutside from "@/directives/clickOutside";
+
 import {
   faPlus,
   faGear,
@@ -66,5 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
   app.use(store);
   app.component("font-awesome-icon", FontAwesomeIcon);
   app.config.warnHandler = (msg, vm, trace) => null;
+  app.directive('click-outside', clickOutside);
   app.mount("#app");
 });
