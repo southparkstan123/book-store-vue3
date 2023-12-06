@@ -64,9 +64,13 @@
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
-        <router-link class="nav-brand-item" to="/"> Book Store </router-link>
+        <a class="nav-brand-item">Book Store</a>
       </template>
       <template #body-content="{ isMobileView }">
+        <router-link class="nav-main-item" to="/"> 
+          <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta) 
+        </router-link>
+
         <DropdownSideMenu
           v-if="!isMobileView"
           :isAnimated="true"

@@ -41,7 +41,7 @@ import {
   faCaretUp,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { faEye, faEdit } from "@fortawesome/free-regular-svg-icons";
+import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
 
 library.add(faPlus as IconDefinition);
 library.add(faGear as IconDefinition);
@@ -55,6 +55,7 @@ library.add(faEye as IconDefinition);
 library.add(faEdit as IconDefinition);
 library.add(faRemove as IconDefinition);
 library.add(faUpload as IconDefinition);
+library.add(faImage as IconDefinition);
 
 library.add(faPalette as IconDefinition);
 library.add(faDesktop as IconDefinition);
