@@ -1,17 +1,12 @@
 <template>
   <div
-    :style="`
-    background-image:url(${src});
-    height: 200px;
-    background-position: 50% 50%;
-    background-size: cover;
-    background-repeat: no-repeat;`"
+    :style="`background-image:url(${src});`"
+    class="h-48 w-full md:w-48 backdrop"
   >
     <div
-      class="p-2"
-      :style="`background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0))`"
+      class="p-2 overlay"
     >
-      <div :style="{ overflow: 'scroll' }">{{ name }}</div>
+      <div class="overflow-scroll">{{ name }}</div>
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
       <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
@@ -37,4 +32,15 @@ const props = withDefaults(defineProps<ImageFile>(), {
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.backdrop {
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  .overlay {
+    background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0));
+  }
+}
+
+</style>
