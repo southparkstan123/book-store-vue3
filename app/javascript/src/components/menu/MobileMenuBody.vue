@@ -18,13 +18,12 @@
 .content {
   height: 100vh;
   width: 100%;
-  overflow: scroll;
+  
   .items {
     :deep(a) {
       display: block;
       text-decoration: none;
-      font-size: 1.5rem;
-      margin: 0.75rem 1rem;
+      margin: 0 1rem 0.75rem;
     }
   }
 }

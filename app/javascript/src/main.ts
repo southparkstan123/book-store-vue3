@@ -41,6 +41,7 @@ import {
   faCaretUp,
   faCaretDown,
   faList,
+  faAt
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
 
@@ -50,6 +51,7 @@ library.add(faUserSecret as IconDefinition);
 library.add(faDoorOpen as IconDefinition);
 library.add(faBook as IconDefinition);
 library.add(faPenNib as IconDefinition);
+library.add(faAt as IconDefinition);
 library.add(faBuilding as IconDefinition);
 
 library.add(faEye as IconDefinition);

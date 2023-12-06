@@ -114,11 +114,11 @@
         <DropdownSideMenu
           v-else
           :isAnimated="true"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :wrapperClass="'nav-main-item cursor-pointer'"
           :buttonClass="'block float-left px-4 my-2 w-full'"
         >
           <template #button="{ isOpenFooterMenu }">
-            <span class="float-left text-2xl">
+            <span class="float-left">
               <font-awesome-icon icon="fa-solid fa-book" /> Book
             </span>
             <span class="float-right">
@@ -155,7 +155,7 @@
         >
           <template #button="{ isOpenFooterMenu }">
             <div class="">
-              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
+              <font-awesome-icon icon="fa-solid fa-at" /> Author
               <font-awesome-icon
                 v-if="isOpenFooterMenu"
                 icon="fa-solid fa-caret-up"
@@ -190,12 +190,12 @@
         <DropdownSideMenu
           v-else
           :isAnimated="true"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :wrapperClass="'nav-main-item cursor-pointer'"
           :buttonClass="'block float-left px-4 my-2 w-full'"
         >
           <template #button="{ isOpenFooterMenu }">
-            <span class="float-left text-2xl">
-              <font-awesome-icon icon="fa-solid fa-pen-nib" /> Author
+            <span class="float-left">
+              <font-awesome-icon icon="fa-solid fa-at" /> Author
             </span>
             <span class="float-right">
               <font-awesome-icon
@@ -266,11 +266,11 @@
         <DropdownSideMenu
           v-else
           :isAnimated="true"
-          :wrapperClass="'nav-main-item text-xl cursor-pointer'"
+          :wrapperClass="'nav-main-item cursor-pointer'"
           :buttonClass="'block float-left px-4 my-2 w-full'"
         >
           <template #button="{ isOpenFooterMenu }">
-            <span class="float-left text-2xl">
+            <span class="float-left">
               <font-awesome-icon icon="fa-solid fa-building" /> Publisher
             </span>
             <span class="float-right">

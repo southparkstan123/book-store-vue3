@@ -10,8 +10,11 @@
           </template>
 
           <template #body-content>
-            <div class="body">
+            <div class="brand">
               <slot name="brand"></slot>
+            </div>
+            <div class="body">
+              
               <slot name="body-content"></slot>
             </div>
           </template>
@@ -30,7 +33,6 @@
 <script setup lang="ts">
 import MobileMenuCloseButton from "@/components/menu/MobileMenuCloseButton.vue";
 import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
-import isValidColorValue from "@/utils/isValidColorValue";
 
 withDefaults(
   defineProps<{
@@ -75,11 +77,29 @@ emit("showMenuContent", true);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.brand {
+  margin-left: auto;
+  margin-bottom: auto;
+  padding: 0.75rem 0 0.25rem;
+
+  :deep(*) {
+    text-align: center;
+  }
+}
+
 .body {
   clear: both;
   width: 100%;
   overflow: scroll;
   min-height: 50vh;
+  height: 55vh;
+}
+
+.footer {
+  width: 100%;
+  overflow: scroll;
+  min-height: 10vh;
+  height: 25vh;
 }
 
 // Outside
