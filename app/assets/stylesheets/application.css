@@ -29,8 +29,9 @@
     --color-muted: rgb(222, 187, 238);
 
     --color-navbar : seagreen;
+    --color-navbar-submenu : var(--color-gray);
     --color-menu-brand : beige;
-    --color-menu-button : purple;
+    --color-menu-button : var(--color-gray-dark);
     --color-menu-item : wheat;
 
     --color-table: #ddd;
@@ -70,6 +71,7 @@
     --color-muted: rgb(222, 187, 238);
 
     --color-navbar:rgb(187, 51, 187);
+    --color-navbar-submenu : rgb(221, 93, 221);
     --color-menu-brand : rgb(255, 255, 255);
     --color-menu-button : rgb(66, 63, 55);
     --color-menu-item : rgb(94, 64, 64);

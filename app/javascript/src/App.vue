@@ -90,7 +90,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
@@ -130,7 +130,7 @@
             </span>
           </template>
           <template #content="{ isOpenFooterMenu }">
-            <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
+            <div v-if="isOpenFooterMenu === true" class="inline-block w-full bg-navbar-submenu">
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/book/list"
@@ -166,7 +166,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
@@ -206,7 +206,7 @@
             </span>
           </template>
           <template #content="{ isOpenFooterMenu }">
-            <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
+            <div v-if="isOpenFooterMenu === true" class="inline-block w-full bg-navbar-submenu">
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/author/list"
@@ -242,7 +242,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
+              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
@@ -282,7 +282,7 @@
             </span>
           </template>
           <template #content="{ isOpenFooterMenu }">
-            <div v-if="isOpenFooterMenu === true" class="mt-1 inline-block">
+            <div v-if="isOpenFooterMenu === true" class="inline-block w-full bg-navbar-submenu">
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/publisher/list"
@@ -320,7 +320,7 @@
             <template #content="{ isOpenFooterMenu }">
               <ul
                 v-if="isOpenFooterMenu === true"
-                class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar w-40 text-right"
+                class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar-submenu w-40 text-right"
               >
                 <li class="mx-1">
                   <a

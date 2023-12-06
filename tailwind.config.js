@@ -23,6 +23,7 @@ module.exports = {
         'dark': 'var(--color-dark)',
         'muted': 'var(--color-muted)',
         'navbar': 'var(--color-navbar)',
+        'navbar-submenu': 'var(--color-navbar-submenu)',
         'menu-brand': 'var(--color-menu-brand)',
         'menu-item': 'var(--color-menu-item)',
         'menu-button': 'var(--color-menu-button)',
