@@ -97,7 +97,7 @@
                   class="nav-main-item whitespace-no-wrap"
                   to="/book/list"
                 >
-                  <font-awesome-icon icon="fa-solid fa-palette" /> List
+                  <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
               <li class="mx-1 my-3">
@@ -135,7 +135,7 @@
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/book/list"
               >
-                <font-awesome-icon icon="fa-solid fa-palette" /> List
+                <font-awesome-icon icon="fa-solid fa-list" /> List
               </router-link>
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"
@@ -173,7 +173,7 @@
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/author/list"
                 >
-                  <font-awesome-icon icon="fa-solid fa-palette" /> List
+                  <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
               <li class="mx-1 my-3">
@@ -211,7 +211,7 @@
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/author/list"
               >
-                <font-awesome-icon icon="fa-solid fa-palette" /> List
+                <font-awesome-icon icon="fa-solid fa-list" /> List
               </router-link>
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"
@@ -249,7 +249,7 @@
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/publisher/list"
                 >
-                  <font-awesome-icon icon="fa-solid fa-palette" /> List
+                  <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
               <li class="mx-1 my-3">
@@ -287,7 +287,7 @@
                 class="nav-main-item whitespace-no-wrap px-2"
                 to="/publisher/list"
               >
-                <font-awesome-icon icon="fa-solid fa-palette" /> List
+                <font-awesome-icon icon="fa-solid fa-list" /> List
               </router-link>
               <router-link
                 class="nav-main-item whitespace-no-wrap px-2"

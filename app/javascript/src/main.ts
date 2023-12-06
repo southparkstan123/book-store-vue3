@@ -40,6 +40,7 @@ import {
   faVenus,
   faCaretUp,
   faCaretDown,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
 
@@ -62,6 +63,7 @@ library.add(faDesktop as IconDefinition);
 library.add(faVenus as IconDefinition);
 library.add(faCaretUp as IconDefinition);
 library.add(faCaretDown as IconDefinition);
+library.add(faList as IconDefinition);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = createApp(App);
