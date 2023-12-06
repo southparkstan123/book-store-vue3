@@ -51,8 +51,13 @@ const toggleFooterMenu = () => {
   transition: all 0.3s ease-in-out;
 }
 
-.dropdown-menu-enter-from,
+.dropdown-menu-enter-from {
+  transform: translateY(-20%);
+  opacity: 0;
+}
+
 .dropdown-menu-leave-to {
+  transition-delay: 0.3s;
   transform: translateY(-20%);
   opacity: 0;
 }
