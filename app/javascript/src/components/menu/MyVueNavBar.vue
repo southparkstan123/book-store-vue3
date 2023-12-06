@@ -18,7 +18,7 @@
       :showMenuContent="showMenuContent"
       @closeMenu="closeMenu"
       :backgroundClass="backgroundClass"
-      :width="'200px'"
+      :width="'250px'"
     >
       <template #brand>
         <slot name="brand"></slot>
