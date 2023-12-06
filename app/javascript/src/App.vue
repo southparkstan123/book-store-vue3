@@ -92,7 +92,7 @@
               v-if="isOpenFooterMenu === true"
               class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
             >
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap"
                   to="/book/list"
@@ -100,7 +100,7 @@
                   <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap"
                   to="/book/add"
@@ -168,7 +168,7 @@
               v-if="isOpenFooterMenu === true"
               class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
             >
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/author/list"
@@ -176,7 +176,7 @@
                   <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/author/add"
@@ -244,7 +244,7 @@
               v-if="isOpenFooterMenu === true"
               class="fixed grid text-gray-700 pt-1 bg-navbar w-40"
             >
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/publisher/list"
@@ -252,7 +252,7 @@
                   <font-awesome-icon icon="fa-solid fa-list" /> List
                 </router-link>
               </li>
-              <li class="mx-1 my-3">
+              <li class="mx-2 my-3">
                 <router-link
                   class="nav-main-item whitespace-no-wrap px-2"
                   to="/publisher/add"
