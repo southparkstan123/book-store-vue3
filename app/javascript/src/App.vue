@@ -156,71 +156,48 @@
         </DropdownSideMenu>
       </template>
       <template #footer-content="{ isMobileView }">
-        <div v-if="!isMobileView" class="dropdown inline-block relative">
-          <DropdownSideMenu
-            :isAnimated="true"
-            :wrapperClass="'mx-1'"
-            :buttonClass="'text-menu-item cursor-pointer'"
-            :isFloatRight="true"
-          >
-            <template #button>
-              Hi, {{ userStore.getUserInfo.username }}
-            </template>
-
-            <template #content>
-              <div class="my-1 text-right">
-                <a class="nav-footer-item" @click="openTemplateForm">
-                  <font-awesome-icon icon="fa-solid fa-palette" /> Theme
-                </a>
-              </div>
-              <div class="my-1 text-right">
-                <a class="nav-footer-item" @click="showUserInfo">
-                  <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
-                </a>
-              </div>
-              <div class="my-1 text-right">
-                <a class="nav-footer-item" @click="onLogout">
-                  <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
-                </a>
-              </div>
-
-              <!-- <ul
-                v-if="isOpenFooterMenu === true"
-                class="dropdown-menu absolute text-gray-700 pt-1 right-0 top-9 bg-navbar-submenu w-40 text-right"
-              >
-                <li class="mx-1">
-                  <a
-                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
-                    @click="openTemplateForm"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-palette" /> Theme
-                  </a>
-                </li>
-                <li class="mx-1">
-                  <a
-                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
-                    @click="showUserInfo"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-user-secret" /> User
-                    info
-                  </a>
-                </li>
-                <li class="mx-1">
-                  <a
-                    class="nav-footer-item py-2 px-4 block whitespace-no-wrap"
-                    @click="onLogout"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
-                  </a>
-                </li>
-              </ul> -->
-            </template>
-          </DropdownSideMenu>
-        </div>
-        <div v-else>
-          <a class="nav-footer-item my-1" @click="openTemplateForm">
+        <DropdownSideMenu
+          :isAnimated="true"
+          :wrapperClass="'lg:inline-block cursor-pointer relative'"
+          :buttonClass="'text-menu-item lg:float-none lg:px-4 lg:my-0 block float-left px-4 my-2 w-full lg:inline-block cursor-pointer'"
+          :isFloatRight="true"
+        >
+          <template #button>
             <font-awesome-icon icon="fa-solid fa-palette" /> Theme
-          </a>
+          </template>
+
+          <template #content>
+            <div class="my-2">
+              <TemplateForm />
+            </div>
+          </template>
+        </DropdownSideMenu>
+
+        <DropdownSideMenu
+          v-if="!isMobileView"
+          :isAnimated="true"
+          :wrapperClass="'px-1 inline-block relative'"
+          :buttonClass="'text-menu-item cursor-pointer'"
+          :isFloatRight="true"
+        >
+          <template #button>
+            Hi, {{ userStore.getUserInfo.username }}
+          </template>
+
+          <template #content>
+            <div class="my-1 text-right">
+              <a class="nav-footer-item" @click="showUserInfo">
+                <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+              </a>
+            </div>
+            <div class="my-1 text-right">
+              <a class="nav-footer-item" @click="onLogout">
+                <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
+              </a>
+            </div>
+          </template>
+        </DropdownSideMenu>
+        <div v-else>
           <a class="nav-footer-item my-1" @click="showUserInfo">
             <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
           </a>
@@ -346,16 +323,6 @@ const showUserInfo = () => {
 };
 
 import TemplateForm from "./components/forms/TemplateForm.vue";
-const openTemplateForm = () => {
-  modalStore.open({
-    title: "Theme",
-    type: "content",
-    component: TemplateForm,
-    message: "",
-    props: undefined,
-    isFitContent: true,
-  });
-};
 
 import { useThemeStore } from "@/store/theme";
 import { ref } from "vue";

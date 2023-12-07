@@ -28,8 +28,8 @@
     >
       <div
         v-if="isOpenFooterMenu === true"
-        class="lg:fixed lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full"
-        :class="isFloatRight === true ? 'right-0' : ''"
+        class="lg:absolute lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full"
+        :class="isFloatRight === true ? 'lg:right-0' : ''"
       >
         <slot name="content" :isOpenFooterMenu="isOpenFooterMenu"></slot>
       </div>
