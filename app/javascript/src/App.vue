@@ -90,7 +90,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
+              class="fixed grid text-gray-700 mt-3 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
@@ -166,7 +166,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
+              class="fixed grid text-gray-700 mt-3 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
@@ -242,7 +242,7 @@
           <template #content="{ isOpenFooterMenu }">
             <ul
               v-if="isOpenFooterMenu === true"
-              class="fixed grid text-gray-700 pt-1 bg-navbar-submenu w-40"
+              class="fixed grid text-gray-700 mt-3 pt-1 bg-navbar-submenu w-40"
             >
               <li class="mx-2 my-3">
                 <router-link
