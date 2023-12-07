@@ -1,6 +1,9 @@
 <template>
   <Transition :duration="1000" name="modal">
     <div class="overlay modal" v-if="showModalContent">
+      <div class="absolute right-2 top-2">
+        <slot name="close-button"></slot>
+      </div>
       <div
         class="dialog inline-block align-bottom bg-gray-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm"
         :style="`height:${
@@ -16,9 +19,6 @@
               Title
             </span>
           </slot>
-          <div class="float-right">
-            <slot name="close-button"></slot>
-          </div>
         </div>
         <div
           class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:mb-4"

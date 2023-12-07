@@ -14,7 +14,7 @@
       </template>
 
       <template #close-button>
-        <div class="cursor-pointer" @click="closeModal">
+        <div class="cursor-pointer text-muted text-3xl" @click="closeModal">
           <font-awesome-icon icon="fa-solid fa-remove" />
         </div>
       </template>
