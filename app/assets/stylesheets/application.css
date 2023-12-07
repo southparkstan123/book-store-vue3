@@ -18,18 +18,18 @@
     --color-gray: #6c757d;
     --color-gray-dark: #343a40;
 
-    --color-primary: #007bff;
-    --color-secondary: #6c757d;
-    --color-success: #28a745;
-    --color-info: #17a2b8;
-    --color-warning: #ffc107;
-    --color-danger: #dc3545;
+    --color-primary: var(--color-blue);
+    --color-secondary: var(--color-gray);
+    --color-success: var(--color-green);
+    --color-info: var(--color-cyan);
+    --color-warning: var(--color-yellow);
+    --color-danger: var(--color-red);
     --color-light: #f8f9fa;
-    --color-dark: #343a40;
+    --color-dark: var(--color-gray-dark);
     --color-muted: rgb(222, 187, 238);
 
     --color-navbar : seagreen;
-    --color-navbar-submenu : var(--color-gray);
+    --color-navbar-submenu : var(--color-success);
     --color-menu-brand : beige;
     --color-menu-button : var(--color-gray-dark);
     --color-menu-item : wheat;
@@ -72,7 +72,7 @@
 
     --color-navbar:rgb(187, 51, 187);
     --color-navbar-submenu : rgb(221, 93, 221);
-    --color-menu-brand : rgb(255, 255, 255);
+    --color-menu-brand : var(--color-white);
     --color-menu-button : rgb(66, 63, 55);
     --color-menu-item : rgb(94, 64, 64);
 
