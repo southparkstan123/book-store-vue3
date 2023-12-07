@@ -3,9 +3,7 @@
     :style="`background-image:url(${src});`"
     class="h-48 w-full md:w-48 backdrop"
   >
-    <div
-      class="p-2 overlay"
-    >
+    <div class="p-2 overlay">
       <div class="overflow-scroll">{{ name }}</div>
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
@@ -39,8 +37,11 @@ const props = withDefaults(defineProps<ImageFile>(), {
   background-repeat: no-repeat;
 
   .overlay {
-    background: linear-gradient(to bottom,rgba(0,0,0,.7) 30%,rgba(255,255,255,0));
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 30%,
+      rgba(255, 255, 255, 0)
+    );
   }
 }
-
 </style>

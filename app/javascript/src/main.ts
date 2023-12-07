@@ -41,7 +41,7 @@ import {
   faCaretUp,
   faCaretDown,
   faList,
-  faAt
+  faAt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
 

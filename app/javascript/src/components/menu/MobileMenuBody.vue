@@ -18,7 +18,7 @@
 .content {
   height: 100vh;
   width: 100%;
-  
+
   .items {
     :deep(a) {
       display: block;
