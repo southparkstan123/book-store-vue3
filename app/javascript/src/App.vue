@@ -67,7 +67,7 @@
         <a class="nav-brand-item">Book Store</a>
       </template>
       <template #body-content>
-        <router-link class="nav-main-item" to="/">
+        <router-link class="mx-2 my-3 nav-main-item" to="/">
           <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta)
         </router-link>
 
@@ -78,22 +78,18 @@
             <font-awesome-icon icon="fa-solid fa-book" /> Book
           </template>
           <template #content>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/book/list"
-              >
-                <font-awesome-icon class="mx-2" icon="fa-solid fa-list" /> List
-              </router-link>
-            </div>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/book/add"
-              >
-                <font-awesome-icon class="mx-2" icon="fa-solid fa-plus" /> Add
-              </router-link>
-            </div>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/book/list"
+            >
+              <font-awesome-icon class="mx-2" icon="fa-solid fa-list" /> List
+            </router-link>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/book/add"
+            >
+              <font-awesome-icon class="mx-2" icon="fa-solid fa-plus" /> Add
+            </router-link>
           </template>
         </DropdownSideMenu>
 
@@ -104,22 +100,18 @@
             <font-awesome-icon icon="fa-solid fa-at" /> Author
           </template>
           <template #content>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/author/list"
-              >
-                <font-awesome-icon class="mx-2" icon="fa-solid fa-list" /> List
-              </router-link>
-            </div>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/author/add"
-              >
-                <font-awesome-icon class="mx-2" icon="fa-solid fa-plus" /> Add
-              </router-link>
-            </div>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/author/list"
+            >
+              <font-awesome-icon class="mx-2" icon="fa-solid fa-list" /> List
+            </router-link>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/author/add"
+            >
+              <font-awesome-icon class="mx-2" icon="fa-solid fa-plus" /> Add
+            </router-link>
           </template>
         </DropdownSideMenu>
 
@@ -130,22 +122,18 @@
             <font-awesome-icon icon="fa-solid fa-building" /> Publisher
           </template>
           <template #content>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/publisher/list"
-              >
-                <font-awesome-icon icon="fa-solid fa-list" /> List
-              </router-link>
-            </div>
-            <div class="mx-2 my-3">
-              <router-link
-                class="nav-main-item whitespace-no-wrap"
-                to="/publisher/add"
-              >
-                <font-awesome-icon icon="fa-solid fa-plus" /> Add
-              </router-link>
-            </div>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/publisher/list"
+            >
+              <font-awesome-icon icon="fa-solid fa-list" /> List
+            </router-link>
+            <router-link
+              class="mx-2 my-3 nav-main-item whitespace-no-wrap"
+              to="/publisher/add"
+            >
+              <font-awesome-icon icon="fa-solid fa-plus" /> Add
+            </router-link>
           </template>
         </DropdownSideMenu>
       </template>
@@ -177,16 +165,12 @@
           </template>
 
           <template #content>
-            <div class="my-1">
-              <a class="nav-footer-item" @click="showUserInfo">
-                <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
-              </a>
-            </div>
-            <div class="my-1">
-              <a class="nav-footer-item" @click="onLogout">
-                <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
-              </a>
-            </div>
+            <a class="mx-2 my-3 nav-footer-item" @click="showUserInfo">
+              <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
+            </a>
+            <a class="mx-2 my-3 nav-footer-item" @click="onLogout">
+              <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
+            </a>
           </template>
         </DropdownSideMenu>
         <div v-else>

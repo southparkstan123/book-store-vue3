@@ -24,6 +24,10 @@
       display: block;
       text-decoration: none;
       margin: 0 1rem 0.75rem;
+
+      &:first-child {
+        padding-top: 0.75rem;
+      }
     }
   }
 }
