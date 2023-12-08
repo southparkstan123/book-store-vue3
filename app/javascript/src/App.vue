@@ -257,9 +257,7 @@
       </template>
     </MyVueNavBar>
     <router-view v-slot="{ Component }">
-      <transition name="slide-upward" :duration="1000">
-        <component :is="Component" />
-      </transition>
+      <component :is="Component" />
     </router-view>
   </div>
 </template>
@@ -341,18 +339,4 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
 </script>
 
 <style lang="scss">
-.slide-upward-enter-active,
-.slide-upward-leave-active {
-  transition: all 1s ease-in-out 1s;
-}
-
-.slide-upward-enter-from {
-  transform: translateY(10%);
-  opacity: 0;
-}
-
-.slide-upward-leave-to {
-  transform: translateY(10%);
-  opacity: 0;
-}
 </style>
