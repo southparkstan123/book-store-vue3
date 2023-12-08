@@ -5,7 +5,7 @@
   >
     <ButtonComponent
       :buttonType="'button'"
-      :textClass="buttonClass"
+      :textClass="'lg:nav-main-item lg:float-none lg:px-0 lg:my-0 block float-left px-4 my-2 w-full'"
       :backgroundClass="wrapperClass"
       :onButtonClicked="toggleFooterMenu"
     >
@@ -29,7 +29,7 @@
       <div
         v-if="isOpenFooterMenu === true"
         class="lg:absolute lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full"
-        :class="isFloatRight === true ? 'lg:right-0' : ''"
+        :class="isFloatRight === true ? 'lg:right-0 lg:text-right' : ''"
       >
         <slot name="content" :isOpenFooterMenu="isOpenFooterMenu"></slot>
       </div>
@@ -38,19 +38,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 
 const props = withDefaults(
   defineProps<{
-    wrapperClass: string;
-    buttonClass: string;
     isAnimated: boolean;
     isFloatRight: boolean;
   }>(),
   {
-    wrapperClass: "",
-    buttonClass: "",
     isAnimated: false,
     isFloatRight: false,
   },
@@ -60,6 +56,11 @@ const isOpenFooterMenu = ref<boolean>(false);
 const toggleFooterMenu = () => {
   isOpenFooterMenu.value = !isOpenFooterMenu.value;
 };
+
+const wrapperClass = computed<string>(() => {
+  return `lg:inline-block nav-main-item cursor-pointer ${(props.isFloatRight === true) ? 'lg:px-1 relative ' : ''}`;
+});
+
 </script>
 
 <style scoped>

@@ -66,15 +66,13 @@
       <template #brand>
         <a class="nav-brand-item">Book Store</a>
       </template>
-      <template #body-content="{ isMobileView }">
+      <template #body-content>
         <router-link class="nav-main-item" to="/">
           <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta)
         </router-link>
 
         <DropdownSideMenu
           :isAnimated="true"
-          :wrapperClass="'lg:inline-block nav-main-item cursor-pointer'"
-          :buttonClass="'lg:nav-main-item lg:float-none lg:px-0 lg:my-0 block float-left px-4 my-2 w-full'"
         >
           <template #button>
             <font-awesome-icon icon="fa-solid fa-book" /> Book
@@ -101,8 +99,6 @@
 
         <DropdownSideMenu
           :isAnimated="true"
-          :wrapperClass="'lg:inline-block nav-main-item cursor-pointer'"
-          :buttonClass="'lg:nav-main-item lg:float-none lg:px-0 lg:my-0 block float-left px-4 my-2 w-full'"
         >
           <template #button>
             <font-awesome-icon icon="fa-solid fa-at" /> Author
@@ -129,13 +125,11 @@
 
         <DropdownSideMenu
           :isAnimated="true"
-          :wrapperClass="'lg:inline-block nav-main-item cursor-pointer'"
-          :buttonClass="'lg:nav-main-item lg:float-none lg:px-0 lg:my-0 block float-left px-4 my-2 w-full'"
         >
           <template #button>
             <font-awesome-icon icon="fa-solid fa-building" /> Publisher
           </template>
-          <template #content="{ isOpenFooterMenu }">
+          <template #content>
             <div class="mx-2 my-3">
               <router-link
                 class="nav-main-item whitespace-no-wrap"
@@ -158,8 +152,6 @@
       <template #footer-content="{ isMobileView }">
         <DropdownSideMenu
           :isAnimated="true"
-          :wrapperClass="'lg:inline-block cursor-pointer relative'"
-          :buttonClass="'text-menu-item lg:float-none lg:px-4 lg:my-0 block float-left px-4 my-2 w-full lg:inline-block cursor-pointer'"
           :isFloatRight="true"
         >
           <template #button>
@@ -185,12 +177,12 @@
           </template>
 
           <template #content>
-            <div class="my-1 text-right">
+            <div class="my-1">
               <a class="nav-footer-item" @click="showUserInfo">
                 <font-awesome-icon icon="fa-solid fa-user-secret" /> User info
               </a>
             </div>
-            <div class="my-1 text-right">
+            <div class="my-1">
               <a class="nav-footer-item" @click="onLogout">
                 <font-awesome-icon icon="fa-solid fa-door-open" /> Logout
               </a>
