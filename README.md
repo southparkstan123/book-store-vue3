@@ -97,7 +97,7 @@ TBC
 ### Fix Lint and Type errors
 
 ```bash 
-yarn lint
+yarn format
 ```
 
 ```bash
