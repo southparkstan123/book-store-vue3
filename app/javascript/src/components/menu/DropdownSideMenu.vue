@@ -58,9 +58,10 @@ const toggleFooterMenu = () => {
 };
 
 const wrapperClass = computed<string>(() => {
-  return `lg:inline-block nav-main-item cursor-pointer ${(props.isFloatRight === true) ? 'lg:px-1 relative ' : ''}`;
+  return `lg:inline-block nav-main-item cursor-pointer ${
+    props.isFloatRight === true ? "lg:px-1 relative " : ""
+  }`;
 });
-
 </script>
 
 <style scoped>

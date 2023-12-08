@@ -71,9 +71,7 @@
           <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta)
         </router-link>
 
-        <DropdownSideMenu
-          :isAnimated="true"
-        >
+        <DropdownSideMenu :isAnimated="true">
           <template #button>
             <font-awesome-icon icon="fa-solid fa-book" /> Book
           </template>
@@ -93,9 +91,7 @@
           </template>
         </DropdownSideMenu>
 
-        <DropdownSideMenu
-          :isAnimated="true"
-        >
+        <DropdownSideMenu :isAnimated="true">
           <template #button>
             <font-awesome-icon icon="fa-solid fa-at" /> Author
           </template>
@@ -115,9 +111,7 @@
           </template>
         </DropdownSideMenu>
 
-        <DropdownSideMenu
-          :isAnimated="true"
-        >
+        <DropdownSideMenu :isAnimated="true">
           <template #button>
             <font-awesome-icon icon="fa-solid fa-building" /> Publisher
           </template>
@@ -138,10 +132,7 @@
         </DropdownSideMenu>
       </template>
       <template #footer-content="{ isMobileView }">
-        <DropdownSideMenu
-          :isAnimated="true"
-          :isFloatRight="true"
-        >
+        <DropdownSideMenu :isAnimated="true" :isFloatRight="true">
           <template #button>
             <font-awesome-icon icon="fa-solid fa-palette" /> Theme
           </template>
@@ -314,5 +305,4 @@ const vBodyScrollLock = (el: HTMLElement, binding) => {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
