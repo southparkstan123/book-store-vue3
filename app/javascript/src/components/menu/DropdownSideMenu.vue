@@ -68,7 +68,7 @@ const wrapperClass = computed<string>(() => {
 .dropdown-menu-enter-active,
 .dropdown-menu-leave-active {
   transition: all 0.3s ease-in-out;
-  max-height: 24rem;
+  max-height: 36rem;
 
   :deep(*) {
     transition-delay: 0.1s;
