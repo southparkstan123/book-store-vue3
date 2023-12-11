@@ -64,20 +64,25 @@ const wrapperClass = computed<string>(() => {
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .dropdown-menu-enter-active,
 .dropdown-menu-leave-active {
   transition: all 0.3s ease-in-out;
+  max-height: 24rem;
+
+  :deep(*) {
+    transition-delay: 0.1s;
+    opacity: 1;
+  }
 }
 
-.dropdown-menu-enter-from {
-  transform: translateY(-20%);
-  opacity: 0;
-}
-
+.dropdown-menu-enter-from,
 .dropdown-menu-leave-to {
-  transition-delay: 0.3s;
-  transform: translateY(-20%);
-  opacity: 0;
+  max-height: 0;
+  
+  :deep(*) {
+    transition-delay: 0.1s;
+    opacity: 0;
+  }
 }
 </style>
