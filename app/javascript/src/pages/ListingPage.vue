@@ -82,7 +82,13 @@
                 :isDisable="false"
               >
                 <template #text>
-                  <font-awesome-icon icon="fa-regular fa-eye" />
+                  <TooltipComponent
+                    :position="'right'"
+                    :dataTip="'View'"
+                    :textClass="'text-sm text-white'"
+                  >
+                    <font-awesome-icon icon="fa-regular fa-eye" />
+                  </TooltipComponent>
                 </template>
               </ButtonComponent>
               <ButtonComponent
@@ -93,7 +99,13 @@
                 :isDisable="false"
               >
                 <template #text>
-                  <font-awesome-icon icon="fa-regular fa-edit" />
+                  <TooltipComponent
+                    :position="'right'"
+                    :dataTip="'Edit'"
+                    :textClass="'text-sm text-white'"
+                  >
+                    <font-awesome-icon icon="fa-regular fa-edit" />
+                  </TooltipComponent>
                 </template>
               </ButtonComponent>
               <ButtonComponent
@@ -104,7 +116,13 @@
                 :isDisable="false"
               >
                 <template #text>
-                  <font-awesome-icon icon="fa-solid fa-remove" />
+                  <TooltipComponent
+                    :position="'right'"
+                    :dataTip="'Delete'"
+                    :textClass="'text-sm text-white'"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-remove" />
+                  </TooltipComponent>
                 </template>
               </ButtonComponent>
             </template>
