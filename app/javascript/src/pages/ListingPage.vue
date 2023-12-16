@@ -70,61 +70,40 @@
               <EllipsisInTable :data="item.books" />
             </template>
 
-            <template #addition-header>
-              <th>Actions</th>
-            </template>
             <template #addition-content="{ item }">
-              <ButtonComponent
-                @buttonClicked="action('view', item.id)"
-                :buttonType="'button'"
-                :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-success py-2 px-4 my-1'"
-                :isDisable="false"
-              >
-                <template #text>
+              <DropdownSideMenu :isAnimated="true" :isFloatRight="true" :showCaret="false">
+                <template #button>
                   <TooltipComponent
-                    :position="'right'"
-                    :dataTip="'View'"
-                    :textClass="'text-sm text-white'"
+                    :position="'left'"
+                    :dataTip="'Actions'"
+                    :textClass="'text-lg text-white'"
                   >
-                    <font-awesome-icon icon="fa-regular fa-eye" />
+                    <span class="text-table-text px-1">
+                      <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+                    </span>
                   </TooltipComponent>
                 </template>
-              </ButtonComponent>
-              <ButtonComponent
-                @buttonClicked="action('edit', item.id)"
-                :buttonType="'button'"
-                :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-info py-2 px-4 my-1'"
-                :isDisable="false"
-              >
-                <template #text>
-                  <TooltipComponent
-                    :position="'right'"
-                    :dataTip="'Edit'"
-                    :textClass="'text-sm text-white'"
+                <template #content>
+                  <a
+                    class="text-primary hover:text-muted text-xl whitespace-no-wrap px-2 my-1"
+                    @click="action('view', item.id)"
                   >
-                    <font-awesome-icon icon="fa-regular fa-edit" />
-                  </TooltipComponent>
-                </template>
-              </ButtonComponent>
-              <ButtonComponent
-                @buttonClicked="action('delete', item.id)"
-                :buttonType="'button'"
-                :textClass="'text-sm text-white'"
-                :backgroundClass="'bg-danger py-2 px-4 my-1'"
-                :isDisable="false"
-              >
-                <template #text>
-                  <TooltipComponent
-                    :position="'right'"
-                    :dataTip="'Delete'"
-                    :textClass="'text-sm text-white'"
+                    <font-awesome-icon icon="fa-regular fa-eye" /> View
+                  </a>
+                  <a
+                    class="text-warning hover:text-muted text-xl whitespace-no-wrap px-2 my-1"
+                    @click="action('edit', item.id)"
                   >
-                    <font-awesome-icon icon="fa-solid fa-remove" />
-                  </TooltipComponent>
+                    <font-awesome-icon icon="fa-regular fa-edit" /> Edit
+                  </a>
+                  <a
+                    class="text-danger hover:text-muted text-xl whitespace-no-wrap px-2 my-1"
+                    @click="action('delete', item.id)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-remove" /> Delete
+                  </a>
                 </template>
-              </ButtonComponent>
+              </DropdownSideMenu>
             </template>
             <template #footer>
               <div class="footer-item text-table-footer-text">
@@ -218,6 +197,7 @@ import PaginationComponent from "@/components/pagination/PaginationComponent.vue
 import InputField from "@/components/inputs/InputField.vue";
 import TooltipComponent from "@/components/TooltipComponent.vue";
 import LoadingComponent from "@/components/loading/LoadingComponent.vue";
+import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
 
 // Props
 const props = defineProps<{ category: ModuleType }>();

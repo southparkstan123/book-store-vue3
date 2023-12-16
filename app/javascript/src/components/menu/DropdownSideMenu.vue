@@ -13,7 +13,7 @@
         <span class="inline lg:float-none float-left">
           <slot name="button"></slot>
         </span>
-        <span class="inline float-right pl-2">
+        <span v-if="showCaret" class="inline float-right pl-2">
           <font-awesome-icon
             :icon="`fa-solid ${
               isOpenFooterMenu ? 'fa-caret-up' : 'fa-caret-down'
@@ -28,7 +28,7 @@
     >
       <div
         v-if="isOpenFooterMenu === true"
-        class="lg:absolute lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full"
+        class="lg:absolute lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full z-50"
         :class="isFloatRight === true ? 'lg:right-0 lg:text-right' : ''"
       >
         <slot name="content" :isOpenFooterMenu="isOpenFooterMenu"></slot>
@@ -45,10 +45,12 @@ const props = withDefaults(
   defineProps<{
     isAnimated: boolean;
     isFloatRight: boolean;
+    showCaret: boolean;
   }>(),
   {
     isAnimated: false,
     isFloatRight: false,
+    showCaret: true
   },
 );
 const isOpenFooterMenu = ref<boolean>(false);

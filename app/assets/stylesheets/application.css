@@ -90,11 +90,11 @@
 
 @layer components {
   .nav-main-item {
-    @apply cursor-pointer text-menu-item hover:text-muted transition hover:duration-300;
+    @apply cursor-pointer text-menu-item transition hover:text-white hover:duration-300;
   }
 
   .nav-footer-item {
-    @apply cursor-pointer mx-2 text-sm text-menu-item hover:text-muted transition hover:duration-300;
+    @apply cursor-pointer mx-2 text-sm text-menu-item transition hover:text-white hover:duration-300;
   }
 
   .nav-brand-item {

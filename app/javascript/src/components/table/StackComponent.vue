@@ -29,9 +29,10 @@
             {{ item[field] }}
           </slot>
         </td>
-        <td>
+        <td 
+          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
+        >
           <div class="text-table-title-2">
-            <slot name="addition-header"></slot>
             <slot name="addition-content" :item="item"></slot>
           </div>
         </td>
@@ -61,6 +62,10 @@ const props = withDefaults(defineProps<DataProps>(), {
   data: undefined,
   fields: undefined,
 });
+
+const slots = defineSlots<{
+  caption: string
+}>()
 
 const { displayedfields, displayedRecords } = useList(props);
 </script>

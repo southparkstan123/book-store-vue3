@@ -22,7 +22,11 @@
             {{ item }}
           </th>
         </slot>
-        <slot name="addition-header"></slot>
+        <th
+          class="p-1 bg-table-header text-table-title-1"
+        >
+          <slot name="addition-header"></slot>
+        </th>
       </tr>
     </thead>
     <tbody>
