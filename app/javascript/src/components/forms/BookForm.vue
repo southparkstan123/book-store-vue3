@@ -72,13 +72,13 @@
                 :placeholder="'Year'"
                 :step="1"
                 :min="1900"
-                :max="2023"
+                :max="currentYear"
                 @changeValue="onChangeYearPublished"
                 :isRequired="true"
               >
                 <template #label>
                   <span class="text-sm text-info"
-                    >Hint: From 1900 to {{ new Date().getFullYear() }}</span
+                    >Hint: From 1900 to {{ currentYear }}</span
                   >
                 </template>
                 <template #error-feedback>
@@ -267,6 +267,8 @@ const emit = defineEmits<{ e; formChanged }>();
 
 const modalStore = useModalStore();
 const router = useRouter();
+
+const currentYear: number = new Date().getFullYear();
 
 const { errors, bookForm, fetchById, authors, publishers, fetchForDropdowns } =
   useBookForm();
