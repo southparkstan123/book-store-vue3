@@ -62,7 +62,7 @@ const afterClass = computed(() => {
     transition: opacity 0.5s;
 
     &.bottom {
-      top: 150%;
+      top: 100%;
       left: 50%;
       margin-left: -60px;
 
@@ -78,7 +78,7 @@ const afterClass = computed(() => {
     }
 
     &.top {
-      bottom: 150%;
+      bottom: 100%;
       left: 50%;
       margin-left: -60px;
 
