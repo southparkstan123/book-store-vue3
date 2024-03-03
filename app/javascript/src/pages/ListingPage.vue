@@ -85,19 +85,19 @@
                 </template>
                 <template #content>
                   <a
-                    class="text-primary hover:text-muted text-xl whitespace-no-wrap px-2 my-1 block"
+                    class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
                     @click="action('view', item.id)"
                   >
                     <font-awesome-icon icon="fa-regular fa-eye" /> View
                   </a>
                   <a
-                    class="text-warning hover:text-muted text-xl whitespace-no-wrap px-2 my-1 block"
+                    class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
                     @click="action('edit', item.id)"
                   >
                     <font-awesome-icon icon="fa-regular fa-edit" /> Edit
                   </a>
                   <a
-                    class="text-danger hover:text-muted text-xl whitespace-no-wrap px-2 my-1 block"
+                    class="text-danger hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
                     @click="action('delete', item.id)"
                   >
                     <font-awesome-icon icon="fa-solid fa-remove" /> Delete
