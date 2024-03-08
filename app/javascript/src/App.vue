@@ -132,7 +132,7 @@
         </DropdownSideMenu>
       </template>
       <template #footer-content="{ isMobileView }">
-        <DropdownSideMenu :isAnimated="true" :isFloatRight="true">
+        <DropdownSideMenu :isAnimated="true" :isFloatRight="true" :backgroundClassForContent="'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-primary block float-left px-4 my-2 w-full z-50'">
           <template #button>
             <font-awesome-icon icon="fa-solid fa-palette" /> Theme
           </template>
@@ -150,6 +150,7 @@
           :wrapperClass="'px-1 inline-block relative'"
           :buttonClass="'text-menu-item cursor-pointer'"
           :isFloatRight="true"
+          :backgroundClassForContent="'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-danger block float-left px-4 my-2 w-full z-50'"
         >
           <template #button>
             Hi, {{ userStore.getUserInfo.username }}
