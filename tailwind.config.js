@@ -9,6 +9,15 @@ module.exports = {
     './app/views/**/*.{html,html.erb,erb}',
     './app/javascript/src/**/*.{js,ts,vue}',
   ],
+  safelist: [
+    {
+      pattern: /(border)-(t|b|l|r)-(primary|secondary|info|warning|danger|success|light|dark|muted|transparent)/,
+      variants: ['after'],
+    },
+    {
+      pattern: /(bg|text)-(primary|secondary|info|warning|danger|success|light|dark|muted|transparent)/,
+    }
+  ],
   theme: {
     fontFamily: {},
     extend: {

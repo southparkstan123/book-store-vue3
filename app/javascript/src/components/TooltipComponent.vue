@@ -2,7 +2,7 @@
   <div class="tooltip">
     <slot></slot>
     <div
-      :class="`tooltiptext ${position} ${backgroundClass} ${textClass} ${afterClass}`"
+      :class="`tooltiptext ${position} ${afterClass} ${backgroundClass}`"
     >
       <span>{{ dataTip }}</span>
     </div>
@@ -14,30 +14,33 @@ import { computed } from "vue";
 
 type TooltipProps = {
   position: "top" | "bottom" | "left" | "right";
-  backgroundClass: string;
-  textClass: string;
   dataTip: string;
+  type: "primary" | "secondary" | "light" | "dark" | "success" | "error" | "warning" | "info" | "danger";
 };
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   position: "top",
-  backgroundClass: "bg-primary",
-  textClass: "text-white",
+  type: "primary",
   dataTip: "Hover",
 });
 
 const afterClass = computed(() => {
   switch (props.position) {
     case "top":
-      return `after:border-transparent after:border-t-primary`;
+      return `after:border-transparent after:border-t-${props.type}`;
     case "bottom":
-      return `after:border-transparent after:border-b-primary`;
+      return `after:border-transparent after:border-b-${props.type}`;
     case "left":
-      return `after:border-transparent after:border-l-primary`;
+      return `after:border-transparent after:border-l-${props.type}`;
     case "right":
-      return `after:border-transparent after:border-r-primary`;
+      return `after:border-transparent after:border-r-${props.type}`;
   }
 });
+
+const backgroundClass = computed(() => {
+  return `bg-${props.type}`
+});
+
 </script>
 
 <style lang="scss" scoped>

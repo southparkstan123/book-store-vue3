@@ -45,7 +45,7 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.created_at).format('lll')"
-                :textClass="'text-sm text-white'"
+                :type="'info'"
               >
                 {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
@@ -58,7 +58,7 @@
                 v-if="!isMobileView"
                 :position="'top'"
                 :dataTip="moment(item.updated_at).format('lll')"
-                :textClass="'text-sm text-white'"
+                :type="'info'"
               >
                 {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
@@ -77,6 +77,7 @@
                     :position="'left'"
                     :dataTip="'Actions'"
                     :textClass="'text-lg text-white'"
+                    :type="'primary'"
                   >
                     <span class="text-table-text px-1">
                       <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
@@ -149,6 +150,7 @@
             :position="'left'"
             :dataTip="'Add ' + category.toUpperCase()"
             :textClass="'text-sm text-white'"
+            :type="'primary'"
           >
             <font-awesome-icon icon="fa-solid fa-plus" />
           </TooltipComponent>
@@ -167,6 +169,7 @@
             :position="'left'"
             :dataTip="'Setting'"
             :textClass="'text-sm text-white'"
+            :type="'primary'"
           >
             <font-awesome-icon icon="fa-solid fa-gear" />
           </TooltipComponent>
