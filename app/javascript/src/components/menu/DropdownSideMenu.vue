@@ -25,10 +25,10 @@
     <Transition
       :appear="true"
       :name="isAnimated === true ? 'dropdown-menu' : 'none'"
+      :class="backgroundClassForContent"
     >
       <div
         v-if="isOpenFooterMenu === true"
-        class="lg:absolute lg:grid lg:mt-3 lg:pt-1 bg-navbar-submenu lg:w-40 block float-left px-4 my-2 w-full z-50"
         :class="isFloatRight === true ? 'lg:right-0 lg:text-right' : ''"
       >
         <slot name="content" :isOpenFooterMenu="isOpenFooterMenu"></slot>
@@ -46,11 +46,13 @@ const props = withDefaults(
     isAnimated: boolean;
     isFloatRight: boolean;
     showCaret: boolean;
+    backgroundClassForContent: string;
   }>(),
   {
     isAnimated: false,
     isFloatRight: false,
-    showCaret: true
+    showCaret: true,
+    backgroundClassForContent: 'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-navbar-submenu block float-left px-4 my-2 w-full z-50'
   },
 );
 const isOpenFooterMenu = ref<boolean>(false);
