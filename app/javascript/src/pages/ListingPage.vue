@@ -24,6 +24,9 @@
             :data="data"
             :fields="listingPageSettingStore.getFields"
             :style="`width: ${windowWidth * 0.9}px;`"
+            :headerClass="'before:text-table-title-2 border-dotted border-b-2 border-table-header lg:bg-table-header lg:border-none lg:p-1 lg:text-table-title-1'"
+            :rowClass="'text-left text-table-text odd:bg-table-body-1 even:bg-table-body-2 border-dotted border-b-2 border-table-header lg:text-center lg:border-none'"
+            :footerClass="'bg-table-footer'"
           >
             <template #price="{ item }">
               {{ "$" + item.price }}

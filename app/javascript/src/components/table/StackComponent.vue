@@ -6,11 +6,11 @@
     </caption>
     <tbody>
       <tr
-        class="odd:bg-table-body-1 even:bg-table-body-2"
+        :class="rowClass"
         v-for="item in displayedRecords"
       >
         <td
-          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
+          :class="headerClass"
           v-if="fields"
           v-for="field in fields"
           :data-label="field.label"
@@ -20,7 +20,6 @@
           </slot>
         </td>
         <td
-          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
           v-else
           v-for="field in displayedfields"
           :data-label="field"
@@ -29,17 +28,15 @@
             {{ item[field] }}
           </slot>
         </td>
-        <td 
-          class="before:text-table-title-2 text-table-text border-dotted border-b-2 border-table-header"
-        >
-          <div class="text-table-title-2">
+        <td>
+          <div>
             <slot name="addition-content" :item="item"></slot>
           </div>
         </td>
       </tr>
     </tbody>
     <tfoot>
-      <tr class="bg-table-footer">
+      <tr :class="footerClass">
         <td :colspan="displayedfields.length + 1">
           <div :style="'float: left'">
             <slot name="footer"></slot>
@@ -58,9 +55,12 @@
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
 
-const props = withDefaults(defineProps<DataProps>(), {
+const props = withDefaults(defineProps<DataProps & { headerClass: string; rowClass: string; footerClass: string }>(), {
   data: undefined,
   fields: undefined,
+  headerClass: "",
+  rowClass: "",
+  footerClass: ""
 });
 
 const slots = defineSlots<{

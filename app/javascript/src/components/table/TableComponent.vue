@@ -7,33 +7,20 @@
     <thead>
       <tr>
         <slot name="header" :fields="fields">
-          <th
-            class="p-1 bg-table-header text-table-title-1"
-            v-if="fields"
-            v-for="item in fields"
-          >
+          <th :class="headerClass" v-if="fields" v-for="item in fields">
             {{ item.label }}
           </th>
-          <th
-            class="p-1 bg-table-header text-table-title-1"
-            v-else
-            v-for="item in displayedfields"
-          >
+          <th :class="headerClass" v-else v-for="item in displayedfields">
             {{ item }}
           </th>
         </slot>
-        <th
-          class="p-1 bg-table-header text-table-title-1"
-        >
+        <th :class="headerClass">
           <slot name="addition-header"></slot>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr
-        class="text-center text-table-text odd:bg-table-body-1 even:bg-table-body-2"
-        v-for="item in displayedRecords"
-      >
+      <tr :class="rowClass" v-for="item in displayedRecords">
         <td v-for="field in displayedfields">
           <slot :name="field" :item="item">
             {{ item[field] }}
@@ -45,7 +32,7 @@
       </tr>
     </tbody>
     <tfoot>
-      <tr class="bg-table-footer">
+      <tr :class="footerClass">
         <td :colspan="displayedfields && displayedfields.length + 1">
           <div :style="'float: left'">
             <slot name="footer"></slot>
@@ -64,9 +51,12 @@
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
 
-const props = withDefaults(defineProps<DataProps>(), {
+const props = withDefaults(defineProps<DataProps & { headerClass: string; rowClass: string; footerClass: string }>(), {
   data: undefined,
   fields: undefined,
+  headerClass: "",
+  rowClass: "",
+  footerClass: ""
 });
 
 const { displayedfields, displayedRecords } = useList(props);
