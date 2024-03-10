@@ -3,7 +3,11 @@
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
-      @closeMenu="closeModal"
+      :modalBoxClass="'dialog inline-block align-bottom bg-gray-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm'"
+      :overlayClass="'overlay modal'"
+      :titleClass="'mt-3 sm:mt-2 px-4 py-6 flex items-center justify-between'"
+      :contentClass="'px-4 pt-5 pb-4 sm:p-6 sm:mb-4'"
+      :footerClass="'m-2 px-4 py-3 flex flex-row-reverse'"
     >
       <template #header>
         <span
@@ -13,8 +17,8 @@
         </span>
       </template>
 
-      <template #close-button>
-        <div class="cursor-pointer text-muted text-3xl" @click="closeModal">
+      <template #close-button-in-overlay>
+        <div class="cursor-pointer text-muted text-3xl absolute right-2 top-2" @click="closeModal">
           <font-awesome-icon icon="fa-solid fa-remove" />
         </div>
       </template>

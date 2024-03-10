@@ -1,40 +1,29 @@
 <template>
-  <Transition :duration="1000" name="modal">
-    <div class="overlay modal" v-if="showModalContent">
-      <div class="absolute right-2 top-2">
-        <slot name="close-button"></slot>
-      </div>
+  <Transition name="modal">
+    <div :class="overlayClass" v-if="showModalContent">
+      <slot name="close-button-in-overlay"></slot>
       <div
-        class="dialog inline-block align-bottom bg-gray-100 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg max-w-sm"
-        :style="`height:${
+        :class="`${modalBoxClass} height:${
           modalState.isFitContent === false ? '70%' : 'fit-content'
         }; ${modalState.type === 'content' ? 'min-height:280px' : ''}`"
       >
-        <div class="mt-3 sm:mt-2 px-4 py-6 flex items-center justify-between">
-          <slot name="header">
-            <span
-              id="modal-headline"
-              class="float-left text-lg leading-6 font-medium text-gray-900"
-            >
-              Title
-            </span>
-          </slot>
+        <div :class="titleClass">
+          <slot name="header"></slot>
+          <slot name="close-button-in-content"></slot>
         </div>
         <div
-          class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:mb-4"
-          :style="`height:${
+          :class="`${contentClass} ${(type === 'content') ? `overflow-scroll` : ''} height:${
             !modalState.isFitContent ? 'inherit' : 'fit-content'
           }`"
-          :class="type === 'content' ? `overflow-scroll` : ''"
         >
           <slot v-if="type === 'content'" name="form-body"></slot>
           <slot v-else name="message-body"></slot>
         </div>
         <div
           v-if="type !== 'content'"
-          class="m-2 px-4 py-3 flex flex-row-reverse"
+          :class="footerClass"
         >
-          <slot name="footer" :type="type"></slot>
+          <slot name="footer" :type="type">footer</slot>
         </div>
       </div>
     </div>
@@ -45,10 +34,23 @@
 import type { ModalType } from "@/types/types";
 
 const props = withDefaults(
-  defineProps<{ type: ModalType; showModalContent: boolean }>(),
+  defineProps<{
+    type: ModalType;
+    showModalContent: boolean;
+    modalBoxClass: string;
+    overlayClass: string;
+    titleClass: string;
+    contentClass: string;
+    footerClass: string;
+  }>(),
   {
     type: "alert",
     showModalContent: false,
+    modalBoxClass: "",
+    overlayClass: "overlay modal",
+    titleClass: "flex",
+    contentClass: "",
+    footerClass: "flex"
   },
 );
 
