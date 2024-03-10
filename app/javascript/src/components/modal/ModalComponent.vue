@@ -3,7 +3,8 @@
     <div :class="overlayClass" v-if="showModalContent">
       <slot name="close-button-in-overlay"></slot>
       <div
-        :class="`${modalBoxClass} height:${
+        :class="`${modalBoxClass}`"
+        :style="`height:${
           modalState.isFitContent === false ? '70%' : 'fit-content'
         }; ${modalState.type === 'content' ? 'min-height:280px' : ''}`"
       >
@@ -12,7 +13,8 @@
           <slot name="close-button-in-content"></slot>
         </div>
         <div
-          :class="`${contentClass} ${(type === 'content') ? `overflow-scroll` : ''} height:${
+          :class="`${contentClass} ${(type === 'content') ? `overflow-scroll` : ''}`"
+          :style="`height:${
             !modalState.isFitContent ? 'inherit' : 'fit-content'
           }`"
         >
