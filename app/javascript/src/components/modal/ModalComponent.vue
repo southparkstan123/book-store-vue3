@@ -13,7 +13,9 @@
           <slot name="close-button-in-content"></slot>
         </div>
         <div
-          :class="`${contentClass} ${(type === 'content') ? `overflow-scroll` : ''}`"
+          :class="`${contentClass} ${
+            type === 'content' ? `overflow-scroll` : ''
+          }`"
           :style="`height:${
             !modalState.isFitContent ? 'inherit' : 'fit-content'
           }`"
@@ -21,10 +23,7 @@
           <slot v-if="type === 'content'" name="form-body"></slot>
           <slot v-else name="message-body"></slot>
         </div>
-        <div
-          v-if="type !== 'content'"
-          :class="footerClass"
-        >
+        <div v-if="type !== 'content'" :class="footerClass">
           <slot name="footer" :type="type">footer</slot>
         </div>
       </div>
@@ -52,7 +51,7 @@ const props = withDefaults(
     overlayClass: "overlay modal",
     titleClass: "flex",
     contentClass: "",
-    footerClass: "flex"
+    footerClass: "flex",
   },
 );
 

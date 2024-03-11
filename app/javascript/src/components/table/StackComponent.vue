@@ -5,10 +5,7 @@
       <slot name="search-bar"></slot>
     </caption>
     <tbody>
-      <tr
-        :class="rowClass"
-        v-for="item in displayedRecords"
-      >
+      <tr :class="rowClass" v-for="item in displayedRecords">
         <td
           :class="headerClass"
           v-if="fields"
@@ -19,11 +16,7 @@
             {{ item[field.key] }}
           </slot>
         </td>
-        <td
-          v-else
-          v-for="field in displayedfields"
-          :data-label="field"
-        >
+        <td v-else v-for="field in displayedfields" :data-label="field">
           <slot :name="field" :item="item">
             {{ item[field] }}
           </slot>
@@ -55,17 +48,22 @@
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
 
-const props = withDefaults(defineProps<DataProps & { headerClass: string; rowClass: string; footerClass: string }>(), {
-  data: undefined,
-  fields: undefined,
-  headerClass: "",
-  rowClass: "",
-  footerClass: ""
-});
+const props = withDefaults(
+  defineProps<
+    DataProps & { headerClass: string; rowClass: string; footerClass: string }
+  >(),
+  {
+    data: undefined,
+    fields: undefined,
+    headerClass: "",
+    rowClass: "",
+    footerClass: "",
+  },
+);
 
 const slots = defineSlots<{
-  caption: string
-}>()
+  caption: string;
+}>();
 
 const { displayedfields, displayedRecords } = useList(props);
 </script>

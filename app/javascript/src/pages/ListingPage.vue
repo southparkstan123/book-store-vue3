@@ -74,7 +74,11 @@
             </template>
 
             <template #addition-content="{ item }">
-              <DropdownSideMenu :isAnimated="true" :isFloatRight="true" :showCaret="false">
+              <DropdownSideMenu
+                :isAnimated="true"
+                :isFloatRight="true"
+                :showCaret="false"
+              >
                 <template #button>
                   <TooltipComponent
                     :position="'left'"

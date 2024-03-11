@@ -42,7 +42,7 @@ import {
   faCaretDown,
   faList,
   faAt,
-  faEllipsisV
+  faEllipsisV,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
 

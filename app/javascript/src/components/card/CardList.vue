@@ -1,7 +1,10 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
-    <div v-if="data.length > 0 && data !== undefined" class="overflow-scroll h-96 min-w-lg">
-      <TransitionGroup name="list" tag="div" :class="wrapperClass" mode="in-out">
+    <div
+      v-if="data.length > 0 && data !== undefined"
+      class="overflow-scroll h-96 min-w-lg"
+    >
+      <TransitionGroup name="list" tag="div" :class="wrapperClass">
         <div v-for="(item, index) in data" :key="item[key]">
           <slot v-bind="{ item, index }"></slot>
         </div>
@@ -14,13 +17,13 @@
   </Transition>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T">
 const props = withDefaults(
-  defineProps<{ data: unknown[]; wrapperClass: string, key: string }>(),
+  defineProps<{ data: T[]; wrapperClass: string; key: string }>(),
   {
-    data: () => [],
+    data: [],
     wrapperClass: "",
-    key: 'name'
+    key: "name",
   },
 );
 </script>
@@ -39,6 +42,16 @@ const props = withDefaults(
 
 .list-leave-to {
   transform: translateY(10%);
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

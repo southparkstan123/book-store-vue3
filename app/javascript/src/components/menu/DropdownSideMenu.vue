@@ -52,7 +52,8 @@ const props = withDefaults(
     isAnimated: false,
     isFloatRight: false,
     showCaret: true,
-    backgroundClassForContent: 'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-navbar-submenu block float-left px-4 my-2 w-full z-50'
+    backgroundClassForContent:
+      "lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-navbar-submenu block float-left px-4 my-2 w-full z-50",
   },
 );
 const isOpenFooterMenu = ref<boolean>(false);
@@ -83,7 +84,7 @@ const wrapperClass = computed<string>(() => {
 .dropdown-menu-enter-from,
 .dropdown-menu-leave-to {
   max-height: 0;
-  
+
   :deep(*) {
     transition-delay: 0.1s;
     opacity: 0;

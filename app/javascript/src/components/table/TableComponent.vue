@@ -51,13 +51,18 @@
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
 
-const props = withDefaults(defineProps<DataProps & { headerClass: string; rowClass: string; footerClass: string }>(), {
-  data: undefined,
-  fields: undefined,
-  headerClass: "",
-  rowClass: "",
-  footerClass: ""
-});
+const props = withDefaults(
+  defineProps<
+    DataProps & { headerClass: string; rowClass: string; footerClass: string }
+  >(),
+  {
+    data: undefined,
+    fields: undefined,
+    headerClass: "",
+    rowClass: "",
+    footerClass: "",
+  },
+);
 
 const { displayedfields, displayedRecords } = useList(props);
 </script>

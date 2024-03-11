@@ -1,9 +1,7 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-    <div
-      :class="`tooltiptext ${position} ${afterClass} ${backgroundClass}`"
-    >
+    <div :class="`tooltiptext ${position} ${afterClass} ${backgroundClass}`">
       <span>{{ dataTip }}</span>
     </div>
   </div>
@@ -15,7 +13,16 @@ import { computed } from "vue";
 type TooltipProps = {
   position: "top" | "bottom" | "left" | "right";
   dataTip: string;
-  type: "primary" | "secondary" | "light" | "dark" | "success" | "error" | "warning" | "info" | "danger";
+  type:
+    | "primary"
+    | "secondary"
+    | "light"
+    | "dark"
+    | "success"
+    | "error"
+    | "warning"
+    | "info"
+    | "danger";
 };
 
 const props = withDefaults(defineProps<TooltipProps>(), {
@@ -38,9 +45,8 @@ const afterClass = computed(() => {
 });
 
 const backgroundClass = computed(() => {
-  return `bg-${props.type}`
+  return `bg-${props.type}`;
 });
-
 </script>
 
 <style lang="scss" scoped>

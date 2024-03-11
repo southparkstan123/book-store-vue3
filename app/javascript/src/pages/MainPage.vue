@@ -31,11 +31,7 @@
         :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
       >
         <template v-slot="{ item, index }">
-          <CardItem
-            :wrapperClass="''"
-            :item="item"
-            class="text-white text-sm"
-          >
+          <CardItem :wrapperClass="''" :item="item" class="text-white text-sm">
             <template #close-button>
               <div
                 :class="'float-right cursor-pointer p-3 text-lg'"
@@ -50,7 +46,7 @@
               <ImageCard
                 :name="name"
                 :src="src"
-                :type="type "
+                :type="type"
                 :createdAt="createdAt"
                 :size="size"
                 :width="width"
@@ -61,9 +57,14 @@
         </template>
 
         <template #no-result>
-          <div class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
+          <div
+            class="flex items-center justify-center"
+            :style="'height: 400px;min-width:320px;'"
+          >
             <div class="w-full">
-              <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
+              <h1 class="text-2xl text-center text-primary">
+                No Preview Images
+              </h1>
             </div>
           </div>
         </template>
@@ -81,8 +82,16 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends ImageFile">
 import { computed } from "vue";
+import type { ImageFile } from "@/types/types";
+
+import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
+import InputField from "@/components/inputs/InputField.vue";
+
+import CardList from "@/components/card/CardList.vue";
+import CardItem from "@/components/card/CardItem.vue";
+
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 
@@ -108,28 +117,11 @@ const information = computed(
     }.`,
 );
 
-import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
-import InputField from "@/components/inputs/InputField.vue";
-
-import CardList from "@/components/card/CardList.vue";
-import CardItem from "@/components/card/CardItem.vue";
-
 // Upload Files
-import type { ImageFile } from "@/types/types";
 import { useUploadFile } from "@/hooks/useUploadFile";
 import ImageCard from "@/components/card/ImageCard.vue";
 const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize } =
   useUploadFile();
 </script>
 
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 1s ease-in-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
+<style scoped></style>

@@ -18,7 +18,10 @@
       </template>
 
       <template #close-button-in-overlay>
-        <div class="cursor-pointer text-muted text-3xl absolute right-2 top-2" @click="closeModal">
+        <div
+          class="cursor-pointer text-muted text-3xl absolute right-2 top-2"
+          @click="closeModal"
+        >
           <font-awesome-icon icon="fa-solid fa-remove" />
         </div>
       </template>
@@ -136,7 +139,11 @@
         </DropdownSideMenu>
       </template>
       <template #footer-content="{ isMobileView }">
-        <DropdownSideMenu :isAnimated="true" :isFloatRight="true" :backgroundClassForContent="'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-primary block float-left px-4 my-2 w-full z-50'">
+        <DropdownSideMenu
+          :isAnimated="true"
+          :isFloatRight="true"
+          :backgroundClassForContent="'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-primary block float-left px-4 my-2 w-full z-50'"
+        >
           <template #button>
             <font-awesome-icon icon="fa-solid fa-palette" /> Theme
           </template>
