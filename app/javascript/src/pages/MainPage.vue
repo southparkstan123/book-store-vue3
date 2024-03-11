@@ -26,68 +26,57 @@
         </LabelWrapper>
       </div>
 
-      <Transition :appear="true" name="fade" mode="out-in">
-        <div
-          v-if="imageData.length > 0 && imageData !== undefined"
-          class="overflow-scroll h-96 min-w-lg"
-        >
-          <CardList
-            :data="imageData as ImageFile[]"
-            :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
+      <CardList
+        :data="imageData"
+        :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
+      >
+        <template v-slot="{ item, index }">
+          <CardItem
+            :wrapperClass="''"
+            :item="item"
+            class="text-white text-sm"
           >
-            <template v-slot="{ item, index }">
-              <CardItem
-                :wrapperClass="''"
-                :item="item as ImageFile"
-                class="text-white text-sm"
+            <template #close-button>
+              <div
+                :class="'float-right cursor-pointer p-3 text-lg'"
+                @click="confirmDelete(index)"
               >
-                <template #close-button>
-                  <div
-                    :class="'float-right cursor-pointer p-3 text-lg'"
-                    @click="confirmDelete(index)"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-remove" />
-                  </div>
-                </template>
-                <template
-                  v-slot="{ name, src, type, createdAt, size, width, height }"
-                >
-                  <ImageCard
-                    :name="name as string"
-                    :src="src as string"
-                    :type="type as string"
-                    :createdAt="createdAt as number"
-                    :size="size as number"
-                    :width="width as number"
-                    :height="height as number"
-                  />
-                </template>
-              </CardItem>
+                <font-awesome-icon icon="fa-solid fa-remove" />
+              </div>
             </template>
-          </CardList>
-        </div>
-        <div
-          v-else
-          class="flex items-center justify-center"
-          :style="'height: 400px;min-width:320px;'"
-        >
-          <div class="w-full">
-            <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
-          </div>
-        </div>
-      </Transition>
+            <template
+              v-slot="{ name, src, type, createdAt, size, width, height }"
+            >
+              <ImageCard
+                :name="name"
+                :src="src"
+                :type="type "
+                :createdAt="createdAt"
+                :size="size"
+                :width="width"
+                :height="height"
+              />
+            </template>
+          </CardItem>
+        </template>
 
-      <!-- <Transition :appear="true" name="fade" mode="out-in">
-        <div
-          class="flex items-center justify-between w-full mx-auto"
-          v-if="imageData.length > 0 && imageData !== undefined"
-        >
-          <span class="float-right"
-            >Total Size: {{ displaySize(totalFileSize as number) }}</span
-          >
-          <span class="float-left">{{ information }}</span>
-        </div>
-      </Transition> -->
+        <template #no-result>
+          <div class="flex items-center justify-center" :style="'height: 400px;min-width:320px;'">
+            <div class="w-full">
+              <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
+            </div>
+          </div>
+        </template>
+
+        <template #information>
+          <div class="flex items-center justify-between w-full mx-auto">
+            <span class="float-right"
+              >Total Size: {{ displaySize(totalFileSize as number) }}</span
+            >
+            <span class="float-left">{{ information }}</span>
+          </div>
+        </template>
+      </CardList>
     </div>
   </div>
 </template>

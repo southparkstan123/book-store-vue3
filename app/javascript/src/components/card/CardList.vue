@@ -1,9 +1,17 @@
 <template>
-  <TransitionGroup name="list" tag="div" :class="wrapperClass" mode="in-out">
-    <div v-for="(item, index) in data" :key="item[key]" v-if="data && data.length > 0">
-      <slot v-bind="{ item, index }"></slot>
+  <Transition :appear="true" name="fade" mode="out-in">
+    <div v-if="data.length > 0 && data !== undefined" class="overflow-scroll h-96 min-w-lg">
+      <TransitionGroup name="list" tag="div" :class="wrapperClass" mode="in-out">
+        <div v-for="(item, index) in data" :key="item[key]">
+          <slot v-bind="{ item, index }"></slot>
+        </div>
+      </TransitionGroup>
+      <slot name="information"></slot>
     </div>
-  </TransitionGroup>
+    <div v-else>
+      <slot name="no-result"></slot>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
