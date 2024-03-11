@@ -77,15 +77,17 @@
         </div>
       </Transition>
 
-      <div
-        class="flex items-center justify-between w-full mx-auto"
-        v-if="imageData.length > 0 && imageData !== undefined"
-      >
-        <span class="float-right"
-          >Total Size: {{ displaySize(totalFileSize as number) }}</span
+      <Transition :appear="true" name="fade" mode="out-in">
+        <div
+          class="flex items-center justify-between w-full mx-auto"
+          v-if="imageData.length > 0 && imageData !== undefined"
         >
-        <span class="float-left">{{ information }}</span>
-      </div>
+          <span class="float-right"
+            >Total Size: {{ displaySize(totalFileSize as number) }}</span
+          >
+          <span class="float-left">{{ information }}</span>
+        </div>
+      </Transition>
     </div>
   </div>
 </template>
