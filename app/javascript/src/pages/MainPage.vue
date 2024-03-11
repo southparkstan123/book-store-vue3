@@ -77,7 +77,7 @@
         </div>
       </Transition>
 
-      <Transition :appear="true" name="fade" mode="out-in">
+      <!-- <Transition :appear="true" name="fade" mode="out-in">
         <div
           class="flex items-center justify-between w-full mx-auto"
           v-if="imageData.length > 0 && imageData !== undefined"
@@ -87,7 +87,7 @@
           >
           <span class="float-left">{{ information }}</span>
         </div>
-      </Transition>
+      </Transition> -->
     </div>
   </div>
 </template>
