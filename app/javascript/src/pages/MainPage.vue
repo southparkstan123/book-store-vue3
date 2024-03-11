@@ -26,55 +26,56 @@
         </LabelWrapper>
       </div>
 
-      <div
-        v-if="imageData.length > 0 && imageData !== undefined"
-        :style="'height: 400px;min-width:320px;'"
-        class="overflow-scroll"
-      >
-        <CardList
-          :data="imageData as ImageFile[]"
-          :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
+      <Transition :appear="true" name="fade" mode="out-in">
+        <div
+          v-if="imageData.length > 0 && imageData !== undefined"
+          class="overflow-scroll h-96 min-w-lg"
         >
-          <template v-slot="{ item, index }">
-            <CardItem
-              :wrapperClass="''"
-              :item="item as ImageFile"
-              class="text-white text-sm"
-            >
-              <template #close-button>
-                <div
-                  :class="'float-right cursor-pointer p-3 text-lg'"
-                  @click="confirmDelete(index)"
-                >
-                  <font-awesome-icon icon="fa-solid fa-remove" />
-                </div>
-              </template>
-              <template
-                v-slot="{ name, src, type, createdAt, size, width, height }"
+          <CardList
+            :data="imageData as ImageFile[]"
+            :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
+          >
+            <template v-slot="{ item, index }">
+              <CardItem
+                :wrapperClass="''"
+                :item="item as ImageFile"
+                class="text-white text-sm"
               >
-                <ImageCard
-                  :name="name as string"
-                  :src="src as string"
-                  :type="type as string"
-                  :createdAt="createdAt as number"
-                  :size="size as number"
-                  :width="width as number"
-                  :height="height as number"
-                />
-              </template>
-            </CardItem>
-          </template>
-        </CardList>
-      </div>
-      <div
-        v-else
-        class="flex items-center justify-center"
-        :style="'height: 400px;min-width:320px;'"
-      >
-        <div class="w-full">
-          <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
+                <template #close-button>
+                  <div
+                    :class="'float-right cursor-pointer p-3 text-lg'"
+                    @click="confirmDelete(index)"
+                  >
+                    <font-awesome-icon icon="fa-solid fa-remove" />
+                  </div>
+                </template>
+                <template
+                  v-slot="{ name, src, type, createdAt, size, width, height }"
+                >
+                  <ImageCard
+                    :name="name as string"
+                    :src="src as string"
+                    :type="type as string"
+                    :createdAt="createdAt as number"
+                    :size="size as number"
+                    :width="width as number"
+                    :height="height as number"
+                  />
+                </template>
+              </CardItem>
+            </template>
+          </CardList>
         </div>
-      </div>
+        <div
+          v-else
+          class="flex items-center justify-center"
+          :style="'height: 400px;min-width:320px;'"
+        >
+          <div class="w-full">
+            <h1 class="text-2xl text-center text-primary">No Preview Images</h1>
+          </div>
+        </div>
+      </Transition>
 
       <div
         class="flex items-center justify-between w-full mx-auto"
@@ -130,4 +131,14 @@ const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize } =
   useUploadFile();
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
