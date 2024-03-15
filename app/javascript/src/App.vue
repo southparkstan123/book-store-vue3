@@ -235,6 +235,11 @@
         </svg>
       </template>
     </MyVueNavBar>
+    <ToastList
+      :wrapperClass="'mt-16 z-100 absolute'"
+      :verticalPosition="messageStore.getHorizontalPosition"
+      :horizontalPosition="messageStore.getVerticalPosition"
+    />
     <router-view v-slot="{ Component }">
       <component :is="Component" />
     </router-view>
@@ -242,6 +247,12 @@
 </template>
 
 <script setup lang="ts">
+// Toast
+import { useMessageStore } from "@/store/message";
+const messageStore = useMessageStore();
+
+import ToastList from "@/components/toast/ToastList.vue";
+
 // Router
 import { useRouter, useRoute } from "vue-router";
 const router = useRouter();
@@ -302,7 +313,7 @@ const showUserInfo = () => {
 import TemplateForm from "./components/forms/TemplateForm.vue";
 
 import { useThemeStore } from "@/store/theme";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 const themeStore = useThemeStore();
 themeStore.onToggleTheme();
 themeStore.changeValuePerPage();

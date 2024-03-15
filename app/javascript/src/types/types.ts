@@ -194,3 +194,6 @@ export type DataProps = {
   data: TableItem[] | undefined;
   fields: TableField[] | undefined;
 };
+
+export type HorizontalPosition = "start" | "end";
+export type VerticalPosition = "top" | "bottom";

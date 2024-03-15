@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
+import type { HorizontalPosition, VerticalPosition } from "@/types/types";
 
 type ToastMessage = {
   id: number;
@@ -10,11 +11,17 @@ type ToastMessage = {
 export const useMessageStore = defineStore("message", () => {
   const state = reactive<{
     massages: ToastMessage[];
+    horizontalPosition: HorizontalPosition;
+    verticalPosition: VerticalPosition;
   }>({
     messages: [],
+    horizontalPosition: "start",
+    verticalPosition: "bottom"
   });
 
   const getMessages = computed<ToastMessage[]>(() => state.messages);
+  const getHorizontalPosition = computed<HorizontalPosition>(() => state.horizontalPosition);
+  const getVerticalPosition = computed<VerticalPosition>(() => state.verticalPosition);
 
   const push = (payload: {
     content: string;
@@ -28,9 +35,31 @@ export const useMessageStore = defineStore("message", () => {
     }, 5000);
   };
 
+  const setHorizontalPosition = (payload: HorizontalPosition) => {
+    state.horizontalPosition = payload;
+
+    push({
+      type: 'default',
+      content: "Changed"
+    });
+  };
+
+  const setVerticalPosition = (payload: VerticalPosition) => {
+    state.verticalPosition = payload;
+
+    push({
+      type: 'default',
+      content: "Changed"
+    });
+  };
+
   return {
     state,
     getMessages,
+    getHorizontalPosition,
+    getVerticalPosition,
     push,
+    setHorizontalPosition,
+    setVerticalPosition
   };
 });

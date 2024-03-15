@@ -59,6 +59,10 @@ import { useUserStore } from "@/store/user";
 const { signin, state } = useUserStore();
 const modalStore = useModalStore();
 
+// Toast
+import { useMessageStore } from "@/store/message";
+const messageStore = useMessageStore();
+
 import { type LoginForm } from "@/types/types";
 
 const disableInputs = ref<boolean>(false);
@@ -69,16 +73,17 @@ const onLogin = async () => {
     await signin(loginForm.form);
     if (state.token) {
       router.replace("/");
+
+      messageStore.push({
+        type: "success",
+        content: "Welcome!"
+      })
     }
   } catch (error) {
-    modalStore.open({
-      type: "alert",
-      title: "Error",
-      component: "",
-      message: "Invalid username or password.",
-      props: undefined,
-      isFitContent: true,
-    });
+    messageStore.push({
+      type: "error",
+      content: "Invalid username or password.",
+    })
     disableInputs.value = false;
   }
 };

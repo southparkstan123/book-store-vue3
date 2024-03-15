@@ -16,14 +16,13 @@ import ToastItem from "@/components/toast/ToastItem.vue";
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
-const props = withDefaults(defineProps<{
-  horizontalPosition: "start" | "end";
-  verticalPosition: "top" | "bottom";
+import type { HorizontalPosition, VerticalPosition } from "@/types/types";
+
+const props = defineProps<{
+  horizontalPosition: HorizontalPosition;
+  verticalPosition: VerticalPosition;
   wrapperClass: string;
-}>(), {
-  horizontalPosition: "start",
-  verticalPosition: "bottom"
-});
+}>();
 
 const className = computed(() => {
   return `${props.wrapperClass} ${props.verticalPosition }-4 ${props.horizontalPosition}-4`;

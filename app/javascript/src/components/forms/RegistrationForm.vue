@@ -76,6 +76,10 @@ import { register } from "@/services/AuthServices";
 import { useModalStore } from "@/store/modal";
 import { useForm } from "@/hooks/useForm";
 
+// Toast
+import { useMessageStore } from "@/store/message";
+const messageStore = useMessageStore();
+
 const router = useRouter();
 const modalStore = useModalStore();
 const { errors } = useForm();
@@ -114,15 +118,10 @@ const toLoginPage = () => {
 const onRegistration = async () => {
   try {
     const result = await register(registrationForm);
-
-    modalStore.open({
-      title: "Success",
-      message: result.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
-    });
+    messageStore.push({
+      type: "success",
+      content: result.data.message
+    })
 
     router.push("/signin");
   } catch (error: any) {
