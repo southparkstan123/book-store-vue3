@@ -16,6 +16,9 @@ module.exports = {
     },
     {
       pattern: /(bg|text)-(primary|secondary|info|warning|danger|success|light|dark|muted|transparent)/,
+    },
+    {
+      pattern: /(start|top|bottom|end)-[0-9]/,
     }
   ],
   theme: {
