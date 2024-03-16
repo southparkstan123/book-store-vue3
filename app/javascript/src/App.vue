@@ -292,6 +292,10 @@ const onLogout = async () => {
     if (confirm) {
       userStore.signout().then(() => {
         router.push("/signin");
+        messageStore.push({
+          type: "success",
+          content: "Bye Bye!"
+        })
       });
     }
   } else {
