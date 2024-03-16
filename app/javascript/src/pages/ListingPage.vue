@@ -262,6 +262,9 @@ import ColumnFilter from "@/components/table/ColumnFilter.vue";
 import DetailInfo from "@/components/DetailInfo.vue";
 
 import { useListingPageSettingStore } from "@/store/listingPageSetting";
+import { useMessageStore } from "@/store/message";
+const messageStore = useMessageStore();
+
 const listingPageSettingStore = useListingPageSettingStore();
 listingPageSettingStore.changeCategory(props.category);
 
@@ -299,13 +302,10 @@ const fetchRecords = async (
     };
   } catch (error: any) {
     isError.value = true;
-    modalStore.open({
-      title: `${error.response.status} Error`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
+
+    messageStore.push({
+      content: [`${error.response.status} Error`, error.response.data.message].join("\n"),
+      type: "error"
     });
   } finally {
     isLoading.value = false;
@@ -342,13 +342,9 @@ const action = async (type: ActionType, id: number) => {
       if (confirm) {
         const response = await deleteRecordById(id, props.category);
 
-        modalStore.open({
-          title: "Success",
-          message: response.data.message,
-          type: "alert",
-          component: "",
-          props: undefined,
-          isFitContent: true,
+        messageStore.push({
+          content: response.data.message,
+          type: "success"
         });
 
         setTimeout(() => {

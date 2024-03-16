@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from "vue";
 import { usePublisherForm } from "@/hooks/usePublisherForm";
-import { useModalStore } from "@/store/modal";
+import { useMessageStore } from "@/store/message";
 import { updateRecordById, createRecord } from "@/services/CRUDServices";
 import { useRouter } from "vue-router";
 
@@ -99,7 +99,7 @@ const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
 
 const { errors, publisherForm, fetchById } = usePublisherForm();
-const modalStore = useModalStore();
+const messageStore = useMessageStore();
 
 const router = useRouter();
 
@@ -129,27 +129,16 @@ const onSubmit = async () => {
 
     router.push("/publisher/list");
 
-    modalStore.open({
-      title: "Success",
-      message: response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
+    messageStore.push({
+      content: response.data.message,
+      type: "success"
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error - ${
-        error.response.statusText
-          ? error.response.statusText
-          : error.response.data.message
-      }`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
+
+    messageStore.push({
+      content: [`${error.response.status} Error`, `${error.response.statusText ? error.response.statusText : error.response.data.message}`].join("\n"),
+      type: "error"
     });
   }
 };

@@ -244,7 +244,7 @@
 <script setup lang="ts">
 import { onMounted, watch, computed } from "vue";
 import { useBookForm } from "@/hooks/useBookForm";
-import { useModalStore } from "@/store/modal";
+import { useMessageStore } from "@/store/message";
 import { useRouter } from "vue-router";
 
 import DropdownMenu from "@/components/dropdowns/DropdownMenu.vue";
@@ -265,7 +265,7 @@ import ToggleSwitch from "@/components/inputs/ToggleSwitch.vue";
 const props = defineProps<{ id: number }>();
 const emit = defineEmits<{ e; formChanged }>();
 
-const modalStore = useModalStore();
+const messageStore = useMessageStore();
 const router = useRouter();
 
 const currentYear: number = new Date().getFullYear();
@@ -319,27 +319,16 @@ const onSubmit = async () => {
 
     router.push("/book/list");
 
-    modalStore.open({
-      title: "Success",
-      message: response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
+    messageStore.push({
+      content: response.data.message,
+      type: "success"
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error - ${
-        error.response.statusText
-          ? error.response.statusText
-          : error.response.data.message
-      }`,
-      message: error.response.data.message,
-      type: "alert",
-      component: "",
-      props: undefined,
-      isFitContent: true,
+
+    messageStore.push({
+      content: [`${error.response.status} Error`, `${error.response.statusText ? error.response.statusText : error.response.data.message}`].join("\n"),
+      type: "error"
     });
   }
 };
