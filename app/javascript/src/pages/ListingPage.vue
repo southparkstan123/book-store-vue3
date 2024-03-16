@@ -37,6 +37,11 @@
             <template #updater="{ item }">
               {{ item.updater.username }}
             </template>
+            <template #is_published="{ item }">
+              <span :class="`${item.is_published ? 'bg-success' : 'bg-warning'} w-fit text-light rounded px-2`">
+                {{ item.is_published ? 'Yes' : 'No' }}
+              </span> 
+            </template>
             <template #publisher="{ item }">
               {{ item.publisher.name }}
             </template>
