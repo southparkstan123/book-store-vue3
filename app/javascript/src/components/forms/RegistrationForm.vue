@@ -73,7 +73,6 @@ import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 import ErrorFeedback from "@/components/ErrorFeedback.vue";
 
 import { register } from "@/services/AuthServices";
-import { useModalStore } from "@/store/modal";
 import { useForm } from "@/hooks/useForm";
 
 // Toast
@@ -81,7 +80,6 @@ import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
 const router = useRouter();
-const modalStore = useModalStore();
 const { errors } = useForm();
 
 import type { RegistrationForm } from "@/types/types";
@@ -121,21 +119,23 @@ const onRegistration = async () => {
     messageStore.push({
       type: "success",
       content: result.data.message
-    })
+    });
 
     router.push("/signin");
   } catch (error: any) {
     errors.value = error.response.data.errors;
-    modalStore.open({
-      title: `${error.response.status} Error - ${error.response.data.message}`,
-      message: "",
-      type: "content",
-      component: ErrorFeedback,
-      props: {
-        errors,
-      },
-      isFitContent: true,
+
+    messageStore.push({
+      content: `${error.response.status} Error - ${error.response.data.message}`,
+      type: "error"
     });
+
+    setTimeout(() => {
+      messageStore.push({
+        content: Object.entries(errors.value).map(([key, value]) => '- ' + value).join('\n'),
+        type: "error"
+      });
+    }, 1000);
   }
 };
 </script>
