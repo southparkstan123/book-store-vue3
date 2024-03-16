@@ -15,8 +15,8 @@ export const useMessageStore = defineStore("message", () => {
     verticalPosition: VerticalPosition;
   }>({
     messages: [],
-    horizontalPosition: "start",
-    verticalPosition: "bottom"
+    horizontalPosition: "end",
+    verticalPosition: "top"
   });
 
   const getMessages = computed<ToastMessage[]>(() => state.messages);
