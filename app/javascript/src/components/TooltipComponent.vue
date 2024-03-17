@@ -1,7 +1,7 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-    <div :class="`tooltiptext ${position} ${afterClass} ${backgroundClass}`">
+    <div :class="`tooltiptext ${textClass} ${position} ${afterClass} ${backgroundClass}`">
       <span>{{ dataTip }}</span>
     </div>
   </div>
@@ -13,13 +13,11 @@ import { computed } from "vue";
 type TooltipProps = {
   position: "top" | "bottom" | "left" | "right";
   dataTip: string;
+  textSize: "xs" | "sm" | "md" | "lg" | "xl";
   type:
     | "primary"
     | "secondary"
-    | "light"
-    | "dark"
     | "success"
-    | "error"
     | "warning"
     | "info"
     | "danger";
@@ -29,6 +27,7 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   position: "top",
   type: "primary",
   dataTip: "Hover",
+  textSize: "md"
 });
 
 const afterClass = computed(() => {
@@ -46,6 +45,10 @@ const afterClass = computed(() => {
 
 const backgroundClass = computed(() => {
   return `bg-${props.type}`;
+});
+
+const textClass = computed(() => {
+  return `${(props.type !== 'warning') ? 'text-light' : 'text-dark'} text-${props.textSize}`;
 });
 </script>
 

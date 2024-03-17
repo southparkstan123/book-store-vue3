@@ -51,6 +51,7 @@
             <template #created_at="{ item }">
               <TooltipComponent
                 v-if="!isMobileView"
+                :textSize="'sm'"
                 :position="'top'"
                 :dataTip="moment(item.created_at).format('lll')"
                 :type="'info'"
@@ -64,9 +65,10 @@
             <template #updated_at="{ item }">
               <TooltipComponent
                 v-if="!isMobileView"
+                :textSize="'sm'"
                 :position="'top'"
                 :dataTip="moment(item.updated_at).format('lll')"
-                :type="'info'"
+                :type="'warning'"
               >
                 {{ moment(item.created_at).fromNow() }}
               </TooltipComponent>
@@ -88,7 +90,6 @@
                   <TooltipComponent
                     :position="'left'"
                     :dataTip="'Actions'"
-                    :textClass="'text-lg text-white'"
                     :type="'primary'"
                   >
                     <span class="text-table-text px-1">
@@ -161,7 +162,6 @@
           <TooltipComponent
             :position="'left'"
             :dataTip="'Add ' + category.toUpperCase()"
-            :textClass="'text-sm text-white'"
             :type="'primary'"
           >
             <font-awesome-icon icon="fa-solid fa-plus" />
@@ -180,7 +180,6 @@
           <TooltipComponent
             :position="'left'"
             :dataTip="'Setting'"
-            :textClass="'text-sm text-white'"
             :type="'primary'"
           >
             <font-awesome-icon icon="fa-solid fa-gear" />
