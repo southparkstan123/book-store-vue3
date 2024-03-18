@@ -62,6 +62,11 @@ module Api::V1::Author
       end
     end
 
+    def dashboard
+      @count = Author.count
+      render json: { total: @count }
+    end
+
     private
 
     def author_params
