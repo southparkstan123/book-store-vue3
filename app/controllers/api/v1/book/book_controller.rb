@@ -56,6 +56,11 @@ module Api::V1::Book
       end
     end
 
+    def dashboard
+      @count = Book.count
+      render json: { total: @count }
+    end
+
     private
 
     def book_params

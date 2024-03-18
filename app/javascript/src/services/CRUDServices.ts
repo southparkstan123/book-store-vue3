@@ -73,3 +73,18 @@ export async function getNameOfPublishers() {
   const result = await axios.get("/api/v1/publisher/list/names");
   return result;
 }
+
+export async function *getSummary() {
+  const token: string | null = localStorage.getItem("token");
+  const types: ModuleType[] = ["book", "author", "publisher"];
+
+  for (const type of types) {
+    const r = await axios.get(`/api/v1/${type}/summary`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    yield { [type]: r.data.total };
+  }
+}

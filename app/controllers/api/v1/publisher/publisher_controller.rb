@@ -61,6 +61,11 @@ module Api::V1::Publisher
       end
     end
 
+    def dashboard
+      @count = Publisher.count
+      render json: { total: @count }
+    end
+
     private
 
     def publisher_params

@@ -71,10 +71,12 @@
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
-        <a class="nav-brand-item">Book Store</a>
+        <router-link class="nav-brand-item" to="/">
+          Book Store
+        </router-link>
       </template>
       <template #body-content>
-        <router-link class="mx-2 my-3 nav-main-item" to="/">
+        <router-link class="mx-2 my-3 nav-main-item" to="/media">
           <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta)
         </router-link>
 
@@ -236,7 +238,7 @@
       </template>
     </MyVueNavBar>
     <ToastList
-      :wrapperClass="'mt-16 z-100 absolute'"
+      :wrapperClass="'mt-16 z-100 fixed'"
       :verticalPosition="messageStore.getHorizontalPosition"
       :horizontalPosition="messageStore.getVerticalPosition"
     />
