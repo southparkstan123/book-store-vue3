@@ -4,17 +4,19 @@
       <h1 class="text-3xl my-2 text-primary">
         <font-awesome-icon icon="fa-solid fa-gauge" class="mr-3"/>Dashboard
       </h1>
-      <div class="flex">
-        <div v-for="(num, key) in totalNumbers" class="bg-dark p-6 rounded-xl mx-1">
-          <span class="text-info text-md">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:flex">
+        <div v-for="(num, key) in totalNumbers" class="bg-dark p-6 rounded-xl m-1">
+          <span class="text-info text-lg">
             <font-awesome-icon :icon="`fa-solid fa-${icon(key)}`" /> {{ key.toUpperCase() }} :
           </span>
           <span class="text-light text-5xl">
             {{ num }}
           </span>
-          <router-link class="block text-success" :to="`/${key}/list`">
-            More >>
-          </router-link>
+          <div class="block mt-3">
+            <router-link class="text-light bg-success w-fit rounded p-2" :to="`/${key}/list`">
+              More >>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
