@@ -4,10 +4,18 @@ import RegistrationPage from "@/pages/RegistrationPage.vue";
 import NotFoundPage from "@/pages/NotFoundPage.vue";
 import ListingPage from "@/pages/ListingPage.vue";
 import EditPage from "@/pages/EditPage.vue";
+import DashboardPage from "@/pages/DashboardPage.vue";
 
 export const routes = [
   {
     path: "/",
+    component: DashboardPage,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/media",
     component: MainPage,
     meta: {
       requiresAuth: true,

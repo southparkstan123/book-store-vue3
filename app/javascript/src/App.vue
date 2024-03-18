@@ -75,6 +75,9 @@
       </template>
       <template #body-content>
         <router-link class="mx-2 my-3 nav-main-item" to="/">
+          <font-awesome-icon icon="fa-solid fa-gauge" /> Dashboard
+        </router-link>
+        <router-link class="mx-2 my-3 nav-main-item" to="/media">
           <font-awesome-icon icon="fa-regular fa-image" /> Gallery (Beta)
         </router-link>
 
