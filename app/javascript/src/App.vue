@@ -238,7 +238,7 @@
       </template>
     </MyVueNavBar>
     <ToastList
-      :wrapperClass="'mt-16 z-100 absolute'"
+      :wrapperClass="'mt-16 z-100 fixed'"
       :verticalPosition="messageStore.getHorizontalPosition"
       :horizontalPosition="messageStore.getVerticalPosition"
     />
