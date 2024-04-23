@@ -127,6 +127,8 @@ const onSubmit = async () => {
       response = await createRecord(publisherForm.form, "publisher");
     }
 
+    console.log(response);
+
     router.push("/publisher/list");
 
     messageStore.push({
@@ -134,6 +136,9 @@ const onSubmit = async () => {
       type: "success"
     });
   } catch (error: any) {
+
+    console.log(error);
+
     errors.value = error.response.data.errors;
 
     messageStore.push({
