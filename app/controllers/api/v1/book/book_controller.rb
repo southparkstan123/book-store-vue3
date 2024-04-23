@@ -23,7 +23,7 @@ module Api::V1::Book
     end
 
     def create
-      @book = Book.new(book_params)
+      @book = Book.create(book_params)
       @book.creator = logged_in_user
       @book.updater = logged_in_user
 

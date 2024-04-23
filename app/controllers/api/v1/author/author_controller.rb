@@ -29,7 +29,7 @@ module Api::V1::Author
     end
 
     def create
-      @author = Author.new(author_params)
+      @author = Author.create(author_params)
       @author.creator = logged_in_user
       @author.updater = logged_in_user
 
