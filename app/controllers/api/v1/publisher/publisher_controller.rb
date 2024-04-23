@@ -33,7 +33,7 @@ module Api::V1::Publisher
       @publisher.updater = logged_in_user
 
       if @publisher.save
-        render json: @publisher, status: :created
+        render json: { message: "Publisher \"#{@publisher.name}\" is created", data: @publisher }, status: :created
       else
         render json: { message: 'Error occurs!', errors: @publisher.errors.as_json(full_messages: true) }, status: 422
       end

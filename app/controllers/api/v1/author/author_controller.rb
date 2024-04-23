@@ -34,7 +34,7 @@ module Api::V1::Author
       @author.updater = logged_in_user
 
       if @author.save
-        render json: @author, status: :created
+        render json: { message: "Author \"#{@author.name}\" is created", data: @author }, status: :created
       else
         render json: { message: 'Error occurs!', errors: @author.errors.as_json(full_messages: true) }, status: 422
       end
