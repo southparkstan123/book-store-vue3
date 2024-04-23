@@ -28,7 +28,7 @@ module Api::V1::Book
       @book.updater = logged_in_user
 
       if @book.save
-        render json: @book, status: :created
+        render json: { message: "Book \"#{@book.name}\" is created" , data: @book }, status: :created
       else
         render json: { message: 'Error occurs!', errors: @book.errors.as_json(full_messages: true) }, status: 422
       end
