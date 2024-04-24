@@ -136,7 +136,6 @@ const onSubmit = async () => {
       type: "success"
     });
   } catch (error: any) {
-    console.log(error);
     errors.value = error.response.data.errors;
 
     messageStore.push({
