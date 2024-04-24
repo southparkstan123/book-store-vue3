@@ -28,7 +28,7 @@ module Api::V1::Publisher
     end
 
     def create
-      @publisher = Publisher.create(publisher_params)
+      @publisher = Publisher.new(publisher_params)
       @publisher.creator = logged_in_user
       @publisher.updater = logged_in_user
 
