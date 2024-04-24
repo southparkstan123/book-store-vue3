@@ -61,6 +61,8 @@ group :development do
   gem 'spring'
   # Use Foreman as the process manager for applications
   gem 'foreman', '~> 0.87.2'
+  # For database seeding
+  gem 'faker'
 end
 
 group :test do
@@ -73,6 +75,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# For database seeding
-gem 'faker'
