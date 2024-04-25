@@ -127,6 +127,8 @@ const onSubmit = async () => {
       response = await createRecord(publisherForm.form, "publisher");
     }
 
+    console.log(response);
+
     router.push("/publisher/list");
 
     messageStore.push({

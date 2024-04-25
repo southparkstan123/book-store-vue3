@@ -70,7 +70,7 @@
                 :dataTip="moment(item.updated_at).format('lll')"
                 :type="'warning'"
               >
-                {{ moment(item.created_at).fromNow() }}
+                {{ moment(item.updated_at).fromNow() }}
               </TooltipComponent>
               <div v-else>
                 {{ moment(item.updated_at).format("lll") }}

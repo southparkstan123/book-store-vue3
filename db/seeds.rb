@@ -14,7 +14,7 @@ User.create([
 ])
 
 # Create publishers by users
-100.times do |index|
+100.times do
   user = User.find_by(id: rand(User.count))
 
   Publisher.create(
@@ -26,7 +26,7 @@ User.create([
 end
 
 # Create books by users
-100.times do |index|
+100.times do
   user = User.find_by(id: rand(User.count))
   publisher = Publisher.find_by(id: rand(Publisher.count))
 
@@ -44,7 +44,7 @@ end
 end
 
 # Create authors by users
-100.times do |index|
+100.times do
   user = User.find_by(id: rand(User.count))
 
   books = Book.find(Book.ids.sample(5))
