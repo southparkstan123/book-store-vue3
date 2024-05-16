@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts" generic="T extends ImageFile">
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import type { ImageFile } from "@/types/types";
 
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
@@ -120,8 +120,12 @@ const information = computed(
 // Upload Files
 import { useUploadFile } from "@/hooks/useUploadFile";
 import ImageCard from "@/components/card/ImageCard.vue";
-const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize } =
+const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize, fetchFilesFromSupabase } =
   useUploadFile();
+
+onMounted(async () => {
+  const data = fetchFilesFromSupabase();
+})
 </script>
 
 <style scoped></style>
