@@ -8,7 +8,7 @@
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
       <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
-      <div>{{ width }} x {{ height }} px</div>
+      <!-- <div>{{ width }} x {{ height }} px</div> -->
     </div>
   </div>
 </template>
@@ -20,13 +20,14 @@ import { useUploadFile } from "@/hooks/useUploadFile";
 
 const { displaySize } = useUploadFile();
 const props = withDefaults(defineProps<ImageFile>(), {
+  id: "",
   name: "",
   src: "",
   type: "image/png",
   createdAt: 0,
   size: 0,
-  width: 0,
-  height: 0,
+  // width: 0,
+  // height: 0,
 });
 </script>
 

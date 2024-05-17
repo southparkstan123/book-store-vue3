@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
-    <div class="mx-auto">
+    <div class="mx-auto" v-if="isLoading === false">
       <div class="text-center">
         <LabelWrapper
           :forAttribute="'images'"
@@ -25,7 +25,6 @@
           </InputField>
         </LabelWrapper>
       </div>
-
       <CardList
         :data="imageData"
         :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
@@ -35,22 +34,21 @@
             <template #close-button>
               <div
                 :class="'float-right cursor-pointer p-3 text-lg'"
-                @click="confirmDelete(index)"
+                @click="confirmDelete(item.name)"
               >
                 <font-awesome-icon icon="fa-solid fa-remove" />
               </div>
             </template>
             <template
-              v-slot="{ name, src, type, createdAt, size, width, height }"
+              v-slot="{ id, name, src, type, createdAt, size, width, height }"
             >
               <ImageCard
+                :id="id"
                 :name="name"
                 :src="src"
                 :type="type"
                 :createdAt="createdAt"
                 :size="size"
-                :width="width"
-                :height="height"
               />
             </template>
           </CardItem>
@@ -71,23 +69,29 @@
 
         <template #information>
           <div class="flex items-center justify-between w-full mx-auto">
-            <span class="float-right"
-              >Total Size: {{ displaySize(totalFileSize as number) }}</span
-            >
-            <span class="float-left">{{ information }}</span>
+            <span class="float-left">{{ displaySize(totalFileSize as number) }} for {{ information }}</span>
           </div>
         </template>
       </CardList>
+    </div>
+    <div class="flex items-center justify-center" v-else>
+      <LoadingComponent
+        class="text-2xl text-primary"
+        :text="'Loading...'"
+        :animationType="'fade-in-zoom-in'"
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts" generic="T extends ImageFile">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import type { ImageFile } from "@/types/types";
 
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 import InputField from "@/components/inputs/InputField.vue";
+
+import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
@@ -95,7 +99,12 @@ import CardItem from "@/components/card/CardItem.vue";
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 
-const confirmDelete = async (index) => {
+import { useMessageStore } from "@/store/message";
+const messageStore = useMessageStore();
+
+const isLoading = ref<boolean>(false);
+
+const confirmDelete = async (id) => {
   const confirm = await modalStore.open({
     type: "confirm",
     title: "Delete",
@@ -106,25 +115,43 @@ const confirmDelete = async (index) => {
   });
 
   if (confirm) {
-    deleteImage(index);
+    deleteFilesFromSupabase([id]);
   }
 };
 
 const information = computed(
   () =>
     `${imageData.value.length} ${
-      imageData.value.length > 1 ? "images were uploaded" : "image was uploaded"
-    }.`,
+      imageData.value.length > 1 ? "items" : "item"
+    }`,
 );
 
 // Upload Files
 import { useUploadFile } from "@/hooks/useUploadFile";
 import ImageCard from "@/components/card/ImageCard.vue";
-const { imageData, onChangeFile, deleteImage, totalFileSize, displaySize, fetchFilesFromSupabase } =
-  useUploadFile();
+const { 
+  imageData, 
+  onChangeFile, 
+  deleteImage, 
+  totalFileSize, 
+  displaySize, 
+  fetchFilesFromSupabase,
+  deleteFilesFromSupabase
+} = useUploadFile();
 
 onMounted(async () => {
-  const data = fetchFilesFromSupabase();
+  try {
+    isLoading.value = true;
+    const data = await fetchFilesFromSupabase();
+    imageData.value = data;
+  } catch (error) {
+    messageStore.push({
+      type: "error",
+      content: "Oops! Error occurs!"
+    })
+  } finally {
+    isLoading.value = false;
+  }
 })
 </script>
 

@@ -2,9 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(import.meta.env.VITE_SUPABASE_PROJECT_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-export async function uploadFile (file, filePath: string = '', bucketName: string = 'media', allowedContentType = 'image/*') {
+export async function uploadFile (file, filePath: string = '', allowedContentType = 'image/*') {
   try {
-    return await supabase.storage.from(bucketName).upload(filePath, file, {
+    return await supabase.storage.from('media').upload(filePath, file, {
       upsert: true,
       contentType: allowedContentType,
       fileSizeLimit: '1MB'
@@ -14,27 +14,34 @@ export async function uploadFile (file, filePath: string = '', bucketName: strin
   }
 }
 
-export async function deleteFile (objectKeys: string[], bucketName: string = 'media') {
+export async function deleteFile(objectKeys: string[]) {
   try {
-    return await supabase.storage.from(bucketName).remove(objectKeys)
+    return await supabase.storage.from('media').remove(objectKeys)
   } catch (error) {
     return error;
   }
 }
 
-export async function fetchAllFiles(bucketName: string, folderName: string) {
+export async function fetchAllFiles(folderName: string) {
   try {
     const data = await supabase
       .storage
-      .from('media')
-      .list('book-store', {
+      .from('media').list(undefined, {
         limit: 100,
         offset: 0,
-        sortBy: { column: 'name', order: 'asc' },
+        sortBy: { column: 'created_at', order: 'desc' },
       })
     return data;
   } catch (error) {
     return error;
   }
+}
+
+export function getPublicUrl(bucketName: string = 'media', filename: string) {
+  const { data } = supabase
+    .storage
+    .from(bucketName)
+    .getPublicUrl(filename)
+  return data.publicUrl;
 }
 
