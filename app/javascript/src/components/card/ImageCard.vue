@@ -8,6 +8,7 @@
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
       <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
+      <a class="text-muted bg-dark p-1" :href="src" target="_blank">View</a>
     </div>
   </div>
 </template>
