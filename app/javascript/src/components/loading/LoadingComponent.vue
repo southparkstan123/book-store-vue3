@@ -26,17 +26,11 @@ const props = withDefaults(
 
 const textArray = computed(() => props.text.split(""));
 
-onMounted(() => {
-  document.documentElement.style.setProperty("--content", props.text);
-});
 </script>
 
 <style scoped lang="scss">
-:root {
-  --content: "";
-}
 
-$length: str-length(var(--content));
+$length: str-length(v-bind(text));
 $factor: 100ms;
 $duration: $length * $factor;
 
