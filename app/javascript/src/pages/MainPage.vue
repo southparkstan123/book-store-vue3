@@ -1,10 +1,10 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
     <div class="mx-auto" v-if="isLoading === false">
-      <div class="text-center">
+      <div class="flex items-center justify-around">
         <LabelWrapper
           :forAttribute="'images'"
-          :labelClass="'text-center inline-block m-1 cursor-pointer bg-info py-2 px-4'"
+          :labelClass="'inline-block m-1 cursor-pointer bg-info py-2 px-4'"
           :textClass="'text-sm text-white'"
           :labelText="'Upload Images (For Testing)'"
         >
@@ -25,6 +25,7 @@
           </InputField>
         </LabelWrapper>
       </div>
+
       <CardList
         :data="imageData"
         :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
@@ -66,13 +67,10 @@
             </div>
           </div>
         </template>
-
-        <template #information>
-          <div class="flex items-center justify-between w-full mx-auto">
-            <span class="float-left">{{ displaySize(totalFileSize as number) }} for {{ information }}</span>
-          </div>
-        </template>
       </CardList>
+      <div v-if="imageData.length > 1">
+        <span class="float-right text-primary">{{ displaySize(totalFileSize as number) }} for {{ information }}</span>
+      </div>
     </div>
     <div class="flex items-center justify-center" v-else>
       <LoadingComponent
@@ -102,6 +100,8 @@ const modalStore = useModalStore();
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
+import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles } from "@/services/SupabaseServices";
+
 const isLoading = ref<boolean>(false);
 
 const confirmDelete = async (id) => {
@@ -115,9 +115,81 @@ const confirmDelete = async (id) => {
   });
 
   if (confirm) {
-    deleteFilesFromSupabase([id]);
+    try {
+      const data = await deleteFile([id], 'image/*');
+
+      const index = imageData.value.findIndex(image => image.id === data[0].id)
+      imageData.value.splice(index, 1);
+
+      messageStore.push({
+        type: "success",
+        content: `${data[0].name} was deleted successfully.`
+      });
+    } catch (error) {
+      messageStore.push({
+        type: "error",
+        content: "Oops! Error occurs!"
+      });
+    }
   }
 };
+
+const onChangeFile = (payload: FileList) => {
+  const files = payload;
+  if (files) {
+    Array.prototype.forEach.call(files, async (file) => {
+      messageStore.push({
+        type: "info",
+        content: `${file.name} is uploading.`
+      });
+
+      const { data, error } = await uploadFile(file, file.name, 'image/*');
+
+      uploadFile(file, file.name, 'image/*').then((data) => {
+        const imageObject: ImageFile = {
+          id: data.id,
+          name: file.name,
+          type: file.type,
+          src: getPublicUrl('media', file.name),
+          size: file.size,
+          createdAt: Date.now(),
+        };
+
+        imageData.value.push(imageObject);
+
+        messageStore.push({
+          type: "success",
+          content: `${file.name} was uploaded successfully.`
+        });
+      }).catch((error) => {
+        messageStore.push({
+          type: "error",
+          content: "Oops! Error occurs!"
+        });
+      })
+    });
+  }
+};
+
+const onFetchAllFiles = async (bucketName: string = 'media', folderName: string = 'book-store') => {
+  try {
+    const { data } = await fetchAllFiles(bucketName, folderName);
+
+    return data.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        type: item.metadata.mimetype,
+        src: getPublicUrl(bucketName, item.name),
+        size: item.metadata.size,
+        createdAt: item.created_at,
+      };
+    });
+
+  } catch (error) {
+    return error;
+  }
+}
 
 const information = computed(
   () =>
@@ -130,24 +202,20 @@ const information = computed(
 import { useUploadFile } from "@/hooks/useUploadFile";
 import ImageCard from "@/components/card/ImageCard.vue";
 const { 
-  imageData, 
-  onChangeFile, 
-  deleteImage, 
+  imageData,
   totalFileSize, 
-  displaySize, 
-  fetchFilesFromSupabase,
-  deleteFilesFromSupabase
+  displaySize
 } = useUploadFile();
 
 onMounted(async () => {
   try {
     isLoading.value = true;
-    const data = await fetchFilesFromSupabase();
+    const data = await onFetchAllFiles();
     imageData.value = data;
   } catch (error) {
     messageStore.push({
       type: "error",
-      content: "Oops! Error occurs!"
+      content: error
     })
   } finally {
     isLoading.value = false;
