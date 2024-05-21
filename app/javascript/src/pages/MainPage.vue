@@ -28,7 +28,7 @@
 
       <CardList
         :data="imageData"
-        :wrapperClass="'p-3 grid w-full gap-6 lg:grid-cols-4 md:grid-cols-2'"
+        :wrapperClass="'p-3 grid w-full gap-3 lg:grid-cols-4 md:grid-cols-2'"
       >
         <template v-slot="{ item, index }">
           <CardItem :wrapperClass="''" :item="item" class="text-white text-sm">
