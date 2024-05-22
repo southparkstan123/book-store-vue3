@@ -26,11 +26,11 @@ export async function deleteFile(objectKeys: string[]) {
   }
 }
 
-export async function fetchAllFiles(folderName: string) {
+export async function fetchAllFiles(bucketName: string = 'media') {
   try {
     const data = await supabase
       .storage
-      .from('media').list(undefined, {
+      .from(bucketName).list(undefined, {
         limit: 100,
         offset: 0,
         sortBy: { column: 'created_at', order: 'asc' },
