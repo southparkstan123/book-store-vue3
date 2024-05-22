@@ -169,10 +169,12 @@ const confirmDelete = async (id) => {
       const index = imageData.value.findIndex(image => image.id === data[0].id)
       imageData.value.splice(index, 1);
 
-      messageStore.push({
-        type: "success",
-        content: `${data[0].name} was deleted successfully.`
-      });
+      setTimeout(() => {
+        messageStore.push({
+          type: "success",
+          content: `${data[0].name} was deleted successfully.`
+        });
+      }, 100);
     }
   }
 };
@@ -180,11 +182,13 @@ const confirmDelete = async (id) => {
 const onChangeFile = (payload: FileList) => {
   const files = payload;
   if (files) {
-    Array.prototype.forEach.call(files, async (file) => {
-      messageStore.push({
-        type: "info",
-        content: `${file.name} is uploading.`
-      });
+    Array.prototype.forEach.call(files, async (file, index) => {
+      setTimeout(() => {
+        messageStore.push({
+          type: "info",
+          content: `${file.name} is uploading.`
+        });
+      }, 100 * index);
 
       const { data, error } = await uploadFile(file, file.name, 'image/*');
 
