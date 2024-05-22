@@ -41,6 +41,12 @@ export async function fetchAllFiles(bucketName: string = 'media') {
   }
 }
 
+export async function deleteAllFiles(bucketName: string = 'media') {
+  return await supabase
+    .storage
+    .emptyBucket(bucketName);
+}
+
 export function getPublicUrl(bucketName: string = 'media', filename: string) {
   const { data } = supabase
     .storage

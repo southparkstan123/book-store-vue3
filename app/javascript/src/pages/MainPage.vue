@@ -24,6 +24,17 @@
           >
           </InputField>
         </LabelWrapper>
+        <ButtonComponent
+          @buttonClicked="confirmDeleteAll"
+          :buttonType="'button'"
+          :textClass="'text-sm text-white'"
+          :backgroundClass="'bg-danger py-2 px-4'"
+        >
+          <template #icon>
+            <font-awesome-icon icon="fa-regular fa-trash-can" />
+          </template>
+          <template #text> Delete All </template>
+        </ButtonComponent>
       </div>
 
       <CardList
@@ -88,6 +99,7 @@ import type { ImageFile } from "@/types/types";
 
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 import InputField from "@/components/inputs/InputField.vue";
+import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 
 import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
@@ -100,9 +112,38 @@ const modalStore = useModalStore();
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
-import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles } from "@/services/SupabaseServices";
+import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles, deleteAllFiles } from "@/services/SupabaseServices";
 
 const isLoading = ref<boolean>(false);
+
+const confirmDeleteAll = async () => {
+  const confirm = await modalStore.open({
+    type: "confirm",
+    title: "Delete All files",
+    message: "Are you sure?",
+    component: "",
+    props: undefined,
+    isFitContent: true,
+  });
+
+  if (confirm) {
+    const { data, error } = await deleteAllFiles();
+
+    if (error) {
+      messageStore.push({
+        type: "error",
+        content: error.message
+      });
+    } else {
+      messageStore.push({
+        type: "success",
+        content: data.message
+      });
+
+      imageData.value = [];
+    }
+  }
+}
 
 const confirmDelete = async (id) => {
   const confirm = await modalStore.open({
