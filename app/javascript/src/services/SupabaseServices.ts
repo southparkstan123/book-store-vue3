@@ -2,28 +2,16 @@ import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(import.meta.env.VITE_SUPABASE_PROJECT_URL, import.meta.env.VITE_SUPABASE_API_KEY);
 
-export async function uploadFile (file, filePath: string = '', allowedContentType = 'image/*') {
-  const { data, error } = await supabase.storage.from('media').upload(filePath, file, {
+export async function uploadFile (file, filePath: string = '', allowedContentType = 'image/*', bucketName: string = 'media') {
+  return await supabase.storage.from(bucketName).upload(filePath, file, {
     upsert: true,
     contentType: allowedContentType,
     fileSizeLimit: '1MB'
   });
-
-  if (error) {
-    return error;
-  } else {
-    return data;
-  }
 }
 
-export async function deleteFile(objectKeys: string[]) {
-  const { data, error } = await supabase.storage.from('media').remove(objectKeys);
-
-  if (error) {
-    return error;
-  } else {
-    return data;
-  }
+export async function deleteFile(objectKeys: string[], bucketName: string = 'media') {
+  return await supabase.storage.from(bucketName).remove(objectKeys);
 }
 
 export async function fetchAllFiles(bucketName: string = 'media') {
@@ -47,7 +35,7 @@ export async function deleteAllFiles(bucketName: string = 'media') {
     .emptyBucket(bucketName);
 }
 
-export function getPublicUrl(bucketName: string = 'media', filename: string) {
+export function getPublicUrl(filename: string, bucketName: string = 'media') {
   const { data } = supabase
     .storage
     .from(bucketName)

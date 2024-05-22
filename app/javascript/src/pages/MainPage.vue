@@ -25,6 +25,7 @@
           </InputField>
         </LabelWrapper>
         <ButtonComponent
+          v-if="imageData.length > 0"
           @buttonClicked="confirmDeleteAll"
           :buttonType="'button'"
           :textClass="'text-sm text-white'"
@@ -127,7 +128,7 @@ const confirmDeleteAll = async () => {
   });
 
   if (confirm) {
-    const { data, error } = await deleteAllFiles();
+    const { data, error } = await deleteFile(imageData.value.map(image => image.name));
 
     if (error) {
       messageStore.push({
@@ -135,9 +136,10 @@ const confirmDeleteAll = async () => {
         content: error.message
       });
     } else {
+
       messageStore.push({
         type: "success",
-        content: data.message
+        content: `${data.length} ${data.length > 1 ? ' items were' : ' item was'} deleted successfully.`
       });
 
       imageData.value = [];
@@ -156,20 +158,20 @@ const confirmDelete = async (id) => {
   });
 
   if (confirm) {
-    try {
-      const data = await deleteFile([id], 'image/*');
+    const { data, error } = await deleteFile([id]);
 
+    if (error) {
+      messageStore.push({
+        type: "error",
+        content: error.message
+      });
+    } else {
       const index = imageData.value.findIndex(image => image.id === data[0].id)
       imageData.value.splice(index, 1);
 
       messageStore.push({
         type: "success",
         content: `${data[0].name} was deleted successfully.`
-      });
-    } catch (error) {
-      messageStore.push({
-        type: "error",
-        content: "Oops! Error occurs!"
       });
     }
   }
@@ -186,28 +188,30 @@ const onChangeFile = (payload: FileList) => {
 
       const { data, error } = await uploadFile(file, file.name, 'image/*');
 
-      uploadFile(file, file.name, 'image/*').then((data) => {
+      if(error){
+        messageStore.push({
+          type: "error",
+          content: error.message
+        });
+      } else {
         const imageObject: ImageFile = {
           id: data.id,
           name: file.name,
           type: file.type,
-          src: getPublicUrl('media', file.name),
+          src: getPublicUrl(file.name, 'media'),
           size: file.size,
           createdAt: Date.now(),
         };
 
         imageData.value.push(imageObject);
 
-        messageStore.push({
-          type: "success",
-          content: `${file.name} was uploaded successfully.`
-        });
-      }).catch((error) => {
-        messageStore.push({
-          type: "error",
-          content: "Oops! Error occurs!"
-        });
-      })
+        setTimeout(() => {
+          messageStore.push({
+            type: "success",
+            content: `${file.name} was uploaded successfully.`
+          });
+        }, 300);
+      }
     });
   }
 };
@@ -221,7 +225,7 @@ const onFetchAllFiles = async (bucketName: string = 'media', folderName: string 
         id: item.id,
         name: item.name,
         type: item.metadata.mimetype,
-        src: getPublicUrl(bucketName, item.name),
+        src: getPublicUrl(item.name, bucketName),
         size: item.metadata.size,
         createdAt: item.created_at,
       };
