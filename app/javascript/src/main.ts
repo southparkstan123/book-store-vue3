@@ -45,7 +45,7 @@ import {
   faEllipsisV,
   faGauge
 } from "@fortawesome/free-solid-svg-icons";
-import { faEye, faEdit, faImage } from "@fortawesome/free-regular-svg-icons";
+import { faEye, faEdit, faImage, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 library.add(faPlus as IconDefinition);
 library.add(faGear as IconDefinition);
@@ -70,6 +70,7 @@ library.add(faCaretDown as IconDefinition);
 library.add(faList as IconDefinition);
 library.add(faEllipsisV as IconDefinition);
 library.add(faGauge as IconDefinition);
+library.add(faTrashCan as IconDefinition);
 
 document.addEventListener("DOMContentLoaded", () => {
   const app = createApp(App);
