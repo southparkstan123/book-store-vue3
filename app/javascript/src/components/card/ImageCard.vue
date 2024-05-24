@@ -4,7 +4,7 @@
     ref="imageRef"
   >
     <div class="p-2 overlay">
-      <div class="overflow-scroll">{{ name }}</div>
+      <div class="overflow-scroll w-56">{{ name }}</div>
       <div>Type: {{ type }}</div>
       <div>Size: {{ displaySize(size as number) }}</div>
       <div>Create At: {{ moment(createdAt as number).fromNow() }}</div>
