@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-48 w-full md:w-64 backdrop"
+    class="h-48 w-72 md:w-64 backdrop"
     ref="imageRef"
   >
     <div class="p-2 overlay">
