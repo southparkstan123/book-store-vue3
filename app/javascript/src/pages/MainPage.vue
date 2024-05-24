@@ -97,6 +97,7 @@
 <script setup lang="ts" generic="T extends ImageFile">
 import { computed, onMounted, ref } from "vue";
 import type { ImageFile } from "@/types/types";
+import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles, deleteAllFiles, createBucket, download } from "@/services/SupabaseServices";
 
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 import InputField from "@/components/inputs/InputField.vue";
@@ -106,6 +107,7 @@ import LoadingComponent from "@/components/loading/LoadingComponent.vue";
 
 import CardList from "@/components/card/CardList.vue";
 import CardItem from "@/components/card/CardItem.vue";
+import ImageCard from "@/components/card/ImageCard.vue";
 
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
@@ -113,9 +115,36 @@ const modalStore = useModalStore();
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
-import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles, deleteAllFiles } from "@/services/SupabaseServices";
+// Upload Files
+import { useUploadFile } from "@/hooks/useUploadFile";
+const { 
+  isLoading,
+  information,
+  imageData,
+  totalFileSize, 
+  displaySize
+} = useUploadFile();
 
-const isLoading = ref<boolean>(false);
+const onCreateBucket = async (bucketName: string) => {
+  const { data, error } = await createBucket(bucketName);
+
+  if (error) {
+    messageStore.push({
+      type: "error",
+      content: error.message
+    });
+  } else {
+    messageStore.push({
+      type: "success",
+      content: "Success!"
+    });
+  }
+}
+
+const onDownload = (filename: string) => {
+  const file = download(filename);
+  return file.data;
+}
 
 const confirmDeleteAll = async () => {
   const confirm = await modalStore.open({
@@ -202,7 +231,7 @@ const onChangeFile = (payload: FileList) => {
           id: data.id,
           name: file.name,
           type: file.type,
-          src: getPublicUrl(file.name, 'media'),
+          src: getPublicUrl(file.name),
           size: file.size,
           createdAt: Date.now(),
         };
@@ -220,16 +249,16 @@ const onChangeFile = (payload: FileList) => {
   }
 };
 
-const onFetchAllFiles = async (bucketName: string = 'media', folderName: string = 'book-store') => {
+const onFetchAllFiles = async () => {
   try {
-    const { data } = await fetchAllFiles(bucketName, folderName);
+    const { data } = await fetchAllFiles();
 
     return data.map((item) => {
       return {
         id: item.id,
         name: item.name,
         type: item.metadata.mimetype,
-        src: getPublicUrl(item.name, bucketName),
+        src: getPublicUrl(item.name),
         size: item.metadata.size,
         createdAt: item.created_at,
       };
@@ -239,22 +268,6 @@ const onFetchAllFiles = async (bucketName: string = 'media', folderName: string 
     return error;
   }
 }
-
-const information = computed(
-  () =>
-    `${imageData.value.length} ${
-      imageData.value.length > 1 ? "items" : "item"
-    }`,
-);
-
-// Upload Files
-import { useUploadFile } from "@/hooks/useUploadFile";
-import ImageCard from "@/components/card/ImageCard.vue";
-const { 
-  imageData,
-  totalFileSize, 
-  displaySize
-} = useUploadFile();
 
 onMounted(async () => {
   try {

@@ -4,24 +4,28 @@ import type { ImageFile } from "@/types/types";
 export const useUploadFile = () => {
   const imageData = ref<ImageFile[]>([]);
 
+  const isLoading = ref<boolean>(false);
+
+  const information = computed(
+    () =>
+      `${imageData.value.length} ${
+        imageData.value.length > 1 ? "items" : "item"
+      }`,
+  );
+
   const previewImages = (file) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
 
     fileReader.addEventListener("load", (e) => {
       let image = new Image();
-      let imageObject: {
-        src: string;
-        name: string;
-        type: string;
-        size: number;
-        createdAt: number;
-    } = {};
+      let imageObject: ImageFile = {};
 
       image.src = e.target.result;
 
       image.onload = () => {
         imageObject = {
+          id: Math.random().toString(36).substring(2, 12),
           name: file.name,
           type: file.type,
           src: image.src as string,
@@ -46,6 +50,8 @@ export const useUploadFile = () => {
   );
 
   return {
+    isLoading,
+    information,
     imageData,
     totalFileSize,
     displaySize,
