@@ -46,7 +46,7 @@
           <CardItem :wrapperClass="''" :item="item" class="text-white text-sm">
             <template #close-button>
               <div
-                :class="'float-right cursor-pointer p-3 text-lg'"
+                :class="'float-right cursor-pointer p-5 md:p-3 text-lg'"
                 @click="confirmDelete(item.name)"
               >
                 <font-awesome-icon icon="fa-solid fa-remove" />
