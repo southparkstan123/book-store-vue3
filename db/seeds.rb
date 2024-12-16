@@ -36,7 +36,7 @@ end
     price: rand(15..90),
     isbn: Faker::Code.isbn,
     is_published: Faker::Boolean.boolean(true_ratio: 0.8),
-    year_published: Faker::Date.between_expect(from: 40.year.ago, to: 0.year.from_now, excepted: Date.today).year,
+    year_published: Faker::Date.between_except(from: 40.year.ago, to: 0.year.from_now, excepted: Date.today).year,
     publisher: publisher,
     creator: user, 
     updater: user
