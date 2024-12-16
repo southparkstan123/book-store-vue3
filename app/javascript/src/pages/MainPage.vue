@@ -212,14 +212,17 @@ const onChangeFile = (payload: FileList) => {
   const files = payload;
   if (files) {
     Array.prototype.forEach.call(files, async (file, index) => {
+
+      const filename: string = `${Math.random().toString(36).substring(2, 12)}.${file.name.split('.').pop()}`;
+
       setTimeout(() => {
         messageStore.push({
           type: "info",
-          content: `${file.name} is uploading.`
+          content: `${filename} is uploading.`
         });
       }, 100 * index);
 
-      const { data, error } = await uploadFile(file, file.name, 'image/*');
+      const { data, error } = await uploadFile(file, filename, 'image/*');
 
       if(error){
         messageStore.push({
@@ -229,9 +232,9 @@ const onChangeFile = (payload: FileList) => {
       } else {
         const imageObject: ImageFile = {
           id: data.id,
-          name: file.name,
+          name: filename,
           type: file.type,
-          src: getPublicUrl(file.name),
+          src: getPublicUrl(filename),
           size: file.size,
           createdAt: Date.now(),
         };
@@ -241,7 +244,7 @@ const onChangeFile = (payload: FileList) => {
         setTimeout(() => {
           messageStore.push({
             type: "success",
-            content: `${file.name} was uploaded successfully.`
+            content: `${filename} was uploaded successfully.`
           });
         }, 300);
       }
