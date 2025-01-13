@@ -3,21 +3,30 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
-const props = withDefaults(defineProps<{
-  maxWidth: number;
-  minWidth: number;
-  height: string;
-  width: string | null;
-}>(),{
-  maxWidth: 100,
-  minWidth: 80,
-  height: '1em',
-  width: null,
-})
+const props = withDefaults(
+  defineProps<{
+    maxWidth: number;
+    minWidth: number;
+    height: string;
+    width: string | null;
+  }>(),
+  {
+    maxWidth: 100,
+    minWidth: 80,
+    height: "1em",
+    width: null,
+  },
+);
 
-const computedWidth = computed<string>(() => props.width || `${Math.floor(Math.random() * (props.maxWidth - props.minWidth) + props.minWidth)}%`);
+const computedWidth = computed<string>(
+  () =>
+    props.width ||
+    `${Math.floor(
+      Math.random() * (props.maxWidth - props.minWidth) + props.minWidth,
+    )}%`,
+);
 </script>
 
 <style scoped lang="scss">
@@ -42,7 +51,7 @@ const computedWidth = computed<string>(() => props.width || `${Math.floor(Math.r
       rgba(#fff, 0)
     );
     animation: shimmer 2s infinite;
-    content: '';
+    content: "";
   }
 
   @keyframes shimmer {

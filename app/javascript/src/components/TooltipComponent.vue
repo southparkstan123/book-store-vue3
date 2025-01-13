@@ -1,7 +1,9 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-    <div :class="`tooltiptext ${textClass} ${position} ${afterClass} ${backgroundClass}`">
+    <div
+      :class="`tooltiptext ${textClass} ${position} ${afterClass} ${backgroundClass}`"
+    >
       <span>{{ dataTip }}</span>
     </div>
   </div>
@@ -14,20 +16,14 @@ type TooltipProps = {
   position: "top" | "bottom" | "left" | "right";
   dataTip: string;
   textSize: "xs" | "sm" | "md" | "lg" | "xl";
-  type:
-    | "primary"
-    | "secondary"
-    | "success"
-    | "warning"
-    | "info"
-    | "danger";
+  type: "primary" | "secondary" | "success" | "warning" | "info" | "danger";
 };
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   position: "top",
   type: "primary",
   dataTip: "Hover",
-  textSize: "md"
+  textSize: "md",
 });
 
 const afterClass = computed(() => {
@@ -48,7 +44,9 @@ const backgroundClass = computed(() => {
 });
 
 const textClass = computed(() => {
-  return `${(props.type !== 'warning') ? 'text-light' : 'text-dark'} text-${props.textSize}`;
+  return `${props.type !== "warning" ? "text-light" : "text-dark"} text-${
+    props.textSize
+  }`;
 });
 </script>
 

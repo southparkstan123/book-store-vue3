@@ -1,7 +1,7 @@
 <template>
   <TransitionGroup tag="div" name="fade" :appear="true" :class="className">
     <ToastItem
-      v-for="(message,index) in messageStore.getMessages"
+      v-for="(message, index) in messageStore.getMessages"
       :key="message.id"
       :message="message.content"
       :type="message.type"
@@ -25,9 +25,8 @@ const props = defineProps<{
 }>();
 
 const className = computed(() => {
-  return `${props.wrapperClass} ${props.verticalPosition }-4 ${props.horizontalPosition}-4`;
+  return `${props.wrapperClass} ${props.verticalPosition}-4 ${props.horizontalPosition}-4`;
 });
-
 </script>
 
 <style scoped>

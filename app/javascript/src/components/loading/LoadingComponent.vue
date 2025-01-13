@@ -25,11 +25,9 @@ const props = withDefaults(
 );
 
 const textArray = computed(() => props.text.split(""));
-
 </script>
 
 <style scoped lang="scss">
-
 $length: str-length(v-bind(text));
 $factor: 100ms;
 $duration: $length * $factor;

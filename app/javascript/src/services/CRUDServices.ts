@@ -74,7 +74,7 @@ export async function getNameOfPublishers() {
   return result;
 }
 
-export async function *getSummary() {
+export async function* getSummary() {
   const token: string | null = localStorage.getItem("token");
   const types: ModuleType[] = ["book", "author", "publisher"];
 

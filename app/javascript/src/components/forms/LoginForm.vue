@@ -76,14 +76,14 @@ const onLogin = async () => {
 
       messageStore.push({
         type: "success",
-        content: "Welcome!"
-      })
+        content: "Welcome!",
+      });
     }
   } catch (error) {
     messageStore.push({
       type: "error",
       content: "Invalid username or password.",
-    })
+    });
     disableInputs.value = false;
   }
 };

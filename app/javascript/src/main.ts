@@ -43,7 +43,7 @@ import {
   faList,
   faAt,
   faEllipsisV,
-  faGauge
+  faGauge,
 } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEdit, faImage, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 

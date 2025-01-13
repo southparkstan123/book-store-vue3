@@ -14,13 +14,19 @@
         >
           <slot :name="field.key" :item="item" :isLoading="isLoading">
             <span v-if="!isLoading">{{ item[field.key] }}</span>
-            <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20"></SkeletonBox>
+            <SkeletonBox
+              v-else
+              class="my-1 rounded-sm bg-info bg-opacity-20"
+            ></SkeletonBox>
           </slot>
         </td>
         <td v-else v-for="field in displayedfields" :data-label="field">
           <slot :name="field" :item="item" :isLoading="isLoading">
             <span v-if="!isLoading">{{ item[field] }}</span>
-            <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20"></SkeletonBox>
+            <SkeletonBox
+              v-else
+              class="my-1 rounded-sm bg-info bg-opacity-20"
+            ></SkeletonBox>
           </slot>
         </td>
         <td v-if="!isLoading">
@@ -53,7 +59,12 @@ import SkeletonBox from "./SkeletonBox.vue";
 
 const props = withDefaults(
   defineProps<
-    DataProps & { headerClass: string; rowClass: string; footerClass: string; isLoading: boolean }
+    DataProps & {
+      headerClass: string;
+      rowClass: string;
+      footerClass: string;
+      isLoading: boolean;
+    }
   >(),
   {
     data: undefined,
@@ -61,7 +72,7 @@ const props = withDefaults(
     headerClass: "",
     rowClass: "",
     footerClass: "",
-    isLoading: false
+    isLoading: false,
   },
 );
 
