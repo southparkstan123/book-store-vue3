@@ -7,12 +7,22 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-# amazon:
+amazon:
+  service: S3
+  access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
+  secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
+  region: <%= ENV['AWS_REGION'] %>
+  bucket: <%= ENV['VITE_SUPABASE_BUCKET_NAME'] %>
+  public: true
+
+# supabase:
 #   service: S3
-#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
-#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
-#   region: us-east-1
-#   bucket: your_own_bucket
+#   endpoint: <%= ENV['VITE_SUPABASE_PROJECT_URL'] %>
+#   region: <%= ENV['VITE_SUPABASE_BUCKET_REGION'] %>
+#   bucket: <%= ENV['VITE_SUPABASE_BUCKET_NAME'] %>
+#   access_key_id: <%= ENV['VITE_SUPABASE_API_KEY'] %>
+#   secret_access_key: <%= ENV['SUPABASE_KEY_SECRET'] %>
+#   force_path_style: true
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
