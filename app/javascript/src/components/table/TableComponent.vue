@@ -1,10 +1,10 @@
 <template>
   <table v-if="data">
-    <caption>
+    <caption v-if="!isLoading">
       <slot name="caption"></slot>
       <slot name="search-bar"></slot>
     </caption>
-    <thead>
+    <thead v-if="!isLoading">
       <tr>
         <slot name="header" :fields="fields" :isLoading="isLoading">
           <th :class="headerClass" v-if="fields" v-for="item in fields">
@@ -33,18 +33,19 @@
       </tr>
     </tbody>
     <tfoot>
-      <tr :class="footerClass">
+      <tr :class="footerClass" v-if="!isLoading">
         <td :colspan="displayedfields && displayedfields.length + 1">
           <div :style="'float: left'">
             <slot name="footer" :isLoading="isLoading"></slot>
           </div>
-          <div :style="'float: right'">
+          <div :style="'float: right'" >
             <slot name="pagination" :isLoading="isLoading"></slot>
           </div>
         </td>
       </tr>
     </tfoot>
   </table>
+  <!-- <div v-else-if="isLoading"></div> -->
   <div style="text-align: center" v-else>No Data</div>
 </template>
 
