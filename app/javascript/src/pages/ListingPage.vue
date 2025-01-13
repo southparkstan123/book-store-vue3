@@ -31,34 +31,59 @@
           >
             <template #price="{ item, isLoading }">
               <span v-if="!isLoading">{{ "$" + item.price }}</span>
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #creator="{ item, isLoading }">
               <span v-if="!isLoading">{{ item.creator.username }}</span>
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #updater="{ item, isLoading }">
               <span v-if="!isLoading">{{ item.updater.username }}</span>
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #is_published="{ item, isLoading }">
-              <span v-if="!isLoading" :class="`${item.is_published ? 'bg-success' : 'bg-warning'} w-fit text-light rounded px-2`">
-                {{ item.is_published ? 'Yes' : 'No' }}
-              </span> 
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <span
+                v-if="!isLoading"
+                :class="`${
+                  item.is_published ? 'bg-success' : 'bg-warning'
+                } w-fit text-light rounded px-2`"
+              >
+                {{ item.is_published ? "Yes" : "No" }}
+              </span>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #publisher="{ item, isLoading }">
               <span v-if="!isLoading">{{ item.publisher.name }}</span>
               <div v-else>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
               </div>
             </template>
             <template #authors="{ item, isLoading }">
               <EllipsisInTable v-if="!isLoading" :data="item.authors" />
               <div v-else>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
               </div>
             </template>
             <template #created_at="{ item, isLoading }">
@@ -76,7 +101,10 @@
                   {{ moment(item.created_at).format("lll") }}
                 </div>
               </div>
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #updated_at="{ item, isLoading }">
               <div v-if="!isLoading">
@@ -93,13 +121,20 @@
                   {{ moment(item.updated_at).format("lll") }}
                 </div>
               </div>
-              <SkeletonBox v-else class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
             <template #books="{ item, isLoading }">
               <EllipsisInTable v-if="!isLoading" :data="item.books" />
               <div v-else>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
-                <SkeletonBox class="my-1 rounded-sm bg-info bg-opacity-20" ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
               </div>
             </template>
 
@@ -332,8 +367,11 @@ const fetchRecords = async (
     isError.value = true;
 
     messageStore.push({
-      content: [`${error.response.status} Error`, error.response.data.message].join("\n"),
-      type: "error"
+      content: [
+        `${error.response.status} Error`,
+        error.response.data.message,
+      ].join("\n"),
+      type: "error",
     });
   } finally {
     setTimeout(() => {
@@ -374,7 +412,7 @@ const action = async (type: ActionType, id: number) => {
 
         messageStore.push({
           content: response.data.message,
-          type: "success"
+          type: "success",
         });
 
         setTimeout(() => {

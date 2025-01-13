@@ -118,7 +118,7 @@ const onRegistration = async () => {
     const result = await register(registrationForm);
     messageStore.push({
       type: "success",
-      content: result.data.message
+      content: result.data.message,
     });
 
     router.push("/signin");
@@ -127,13 +127,15 @@ const onRegistration = async () => {
 
     messageStore.push({
       content: `${error.response.status} Error - ${error.response.data.message}`,
-      type: "error"
+      type: "error",
     });
 
     setTimeout(() => {
       messageStore.push({
-        content: Object.entries(errors.value).map(([key, value]) => '- ' + value).join('\n'),
-        type: "error"
+        content: Object.entries(errors.value)
+          .map(([key, value]) => "- " + value)
+          .join("\n"),
+        type: "error",
       });
     }, 1000);
   }

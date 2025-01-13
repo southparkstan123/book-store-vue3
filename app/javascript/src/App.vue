@@ -71,9 +71,7 @@
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
-        <router-link class="nav-brand-item" to="/">
-          Book Store
-        </router-link>
+        <router-link class="nav-brand-item" to="/"> Book Store </router-link>
       </template>
       <template #body-content>
         <router-link class="mx-2 my-3 nav-main-item" to="/media">
@@ -296,8 +294,8 @@ const onLogout = async () => {
         router.push("/signin");
         messageStore.push({
           type: "success",
-          content: "Bye Bye!"
-        })
+          content: "Bye Bye!",
+        });
       });
     }
   } else {

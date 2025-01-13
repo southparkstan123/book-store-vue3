@@ -16,12 +16,16 @@ export const useMessageStore = defineStore("message", () => {
   }>({
     messages: [],
     horizontalPosition: "end",
-    verticalPosition: "top"
+    verticalPosition: "top",
   });
 
   const getMessages = computed<ToastMessage[]>(() => state.messages);
-  const getHorizontalPosition = computed<HorizontalPosition>(() => state.horizontalPosition);
-  const getVerticalPosition = computed<VerticalPosition>(() => state.verticalPosition);
+  const getHorizontalPosition = computed<HorizontalPosition>(
+    () => state.horizontalPosition,
+  );
+  const getVerticalPosition = computed<VerticalPosition>(
+    () => state.verticalPosition,
+  );
 
   const push = (payload: {
     content: string;
@@ -39,8 +43,8 @@ export const useMessageStore = defineStore("message", () => {
     state.horizontalPosition = payload;
 
     push({
-      type: 'default',
-      content: "Changed"
+      type: "default",
+      content: "Changed",
     });
   };
 
@@ -48,8 +52,8 @@ export const useMessageStore = defineStore("message", () => {
     state.verticalPosition = payload;
 
     push({
-      type: 'default',
-      content: "Changed"
+      type: "default",
+      content: "Changed",
     });
   };
 
@@ -60,6 +64,6 @@ export const useMessageStore = defineStore("message", () => {
     getVerticalPosition,
     push,
     setHorizontalPosition,
-    setVerticalPosition
+    setVerticalPosition,
   };
 });
