@@ -446,9 +446,7 @@ onMounted(async () => {
     isError.value = true;
   } finally {
     isLoadingPage.value = false;
-    setTimeout(() => {
-      isLoadingItems.value = false;
-    }, 1000);
+    isLoadingItems.value = false;
   }
 });
 
