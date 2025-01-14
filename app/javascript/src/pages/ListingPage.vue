@@ -446,7 +446,6 @@ onMounted(async () => {
     isError.value = true;
   } finally {
     isLoadingPage.value = false;
-    isLoadingItems.value = false;
   }
 });
 
