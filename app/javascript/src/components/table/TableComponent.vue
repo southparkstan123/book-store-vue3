@@ -48,6 +48,7 @@
       </tr>
     </tfoot>
   </table>
+  <slot name="no-data" v-else-if="data.length === 0"></slot>
 </template>
 
 <script setup lang="ts">
