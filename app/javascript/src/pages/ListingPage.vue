@@ -193,6 +193,11 @@
               >
               </PaginationComponent>
             </template>
+            <template #no-data>
+              <div class="h-screen min-h-12 flex items-center justify-center bg-muted" :style="`width: ${windowWidth * 0.9}px;`">
+                <h1 class="text-danger text-2xl">No Data</h1>
+              </div>
+            </template>
           </component>
         </div>
         <div v-else>
