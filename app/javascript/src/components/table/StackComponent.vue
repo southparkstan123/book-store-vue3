@@ -1,5 +1,5 @@
 <template>
-  <table v-if="data" :style="'border-collapse: collapse;'">
+  <table v-if="data && data.length > 0" :style="'border-collapse: collapse;'">
     <caption>
       <slot name="caption"></slot>
       <slot name="search-bar"></slot>

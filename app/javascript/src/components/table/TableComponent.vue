@@ -1,5 +1,5 @@
 <template>
-  <table v-if="data">
+  <table v-if="data && data.length > 0">
     <caption v-if="!isLoading">
       <slot name="caption"></slot>
       <slot name="search-bar"></slot>
@@ -48,8 +48,6 @@
       </tr>
     </tfoot>
   </table>
-  <!-- <div v-else-if="isLoading"></div> -->
-  <div style="text-align: center" v-else>No Data</div>
 </template>
 
 <script setup lang="ts">
