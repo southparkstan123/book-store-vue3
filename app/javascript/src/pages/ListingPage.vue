@@ -4,10 +4,10 @@
     class="min-h-screen flex justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoading" class="mt-12 p-1">
+      <div v-if="!isLoadingPage" class="mt-12 p-1">
         <div class="z-10 items-center justify-between w-full">
           <InputField
-            v-if="category === 'book'"
+            v-if="category === 'book' && !isLoadingPage"
             :className="'w-full float-right bg-table-header md:py-1 md:pr-1 p-1'"
             :inputId="'test'"
             :inputValue="keyword"
@@ -18,7 +18,7 @@
           >
           </InputField>
         </div>
-        <div v-if="!isError">
+        <div v-if="!isError && !isLoadingPage">
           <component
             :is="displayComponent"
             :data="data"
@@ -27,61 +27,120 @@
             :headerClass="'before:text-table-title-2 border-dotted border-b-2 border-table-header lg:bg-table-header lg:border-none lg:p-1 lg:text-table-title-1'"
             :rowClass="'text-left text-table-text odd:bg-table-body-1 even:bg-table-body-2 border-dotted border-b-2 border-table-header lg:text-center lg:border-none'"
             :footerClass="'bg-table-footer'"
+            :isLoading="isLoadingItems"
           >
-            <template #price="{ item }">
-              {{ "$" + item.price }}
+            <template #price="{ item, isLoading }">
+              <span v-if="!isLoading">{{ "$" + item.price }}</span>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
-            <template #creator="{ item }">
-              {{ item.creator.username }}
+            <template #creator="{ item, isLoading }">
+              <span v-if="!isLoading">{{ item.creator.username }}</span>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
-            <template #updater="{ item }">
-              {{ item.updater.username }}
+            <template #updater="{ item, isLoading }">
+              <span v-if="!isLoading">{{ item.updater.username }}</span>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
             </template>
-            <template #is_published="{ item }">
-              <span :class="`${item.is_published ? 'bg-success' : 'bg-warning'} w-fit text-light rounded px-2`">
-                {{ item.is_published ? 'Yes' : 'No' }}
-              </span> 
-            </template>
-            <template #publisher="{ item }">
-              {{ item.publisher.name }}
-            </template>
-            <template #authors="{ item }">
-              <EllipsisInTable :data="item.authors" />
-            </template>
-            <template #created_at="{ item }">
-              <TooltipComponent
-                v-if="!isMobileView"
-                :textSize="'sm'"
-                :position="'top'"
-                :dataTip="moment(item.created_at).format('lll')"
-                :type="'info'"
+            <template #is_published="{ item, isLoading }">
+              <span
+                v-if="!isLoading"
+                :class="`${
+                  item.is_published ? 'bg-success' : 'bg-warning'
+                } w-fit text-light rounded px-2`"
               >
-                {{ moment(item.created_at).fromNow() }}
-              </TooltipComponent>
+                {{ item.is_published ? "Yes" : "No" }}
+              </span>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
+            </template>
+            <template #publisher="{ item, isLoading }">
+              <span v-if="!isLoading">{{ item.publisher.name }}</span>
               <div v-else>
-                {{ moment(item.created_at).format("lll") }}
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
               </div>
             </template>
-            <template #updated_at="{ item }">
-              <TooltipComponent
-                v-if="!isMobileView"
-                :textSize="'sm'"
-                :position="'top'"
-                :dataTip="moment(item.updated_at).format('lll')"
-                :type="'warning'"
-              >
-                {{ moment(item.created_at).fromNow() }}
-              </TooltipComponent>
+            <template #authors="{ item, isLoading }">
+              <EllipsisInTable v-if="!isLoading" :data="item.authors" />
               <div v-else>
-                {{ moment(item.updated_at).format("lll") }}
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
               </div>
             </template>
-            <template #books="{ item }">
-              <EllipsisInTable :data="item.books" />
+            <template #created_at="{ item, isLoading }">
+              <div v-if="!isLoading">
+                <TooltipComponent
+                  v-if="!isMobileView"
+                  :textSize="'sm'"
+                  :position="'top'"
+                  :dataTip="moment(item.created_at).format('lll')"
+                  :type="'info'"
+                >
+                  {{ moment(item.created_at).fromNow() }}
+                </TooltipComponent>
+                <div v-else>
+                  {{ moment(item.created_at).format("lll") }}
+                </div>
+              </div>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
+            </template>
+            <template #updated_at="{ item, isLoading }">
+              <div v-if="!isLoading">
+                <TooltipComponent
+                  v-if="!isMobileView"
+                  :textSize="'sm'"
+                  :position="'top'"
+                  :dataTip="moment(item.updated_at).format('lll')"
+                  :type="'warning'"
+                >
+                  {{ moment(item.updated_at).fromNow() }}
+                </TooltipComponent>
+                <div v-else>
+                  {{ moment(item.updated_at).format("lll") }}
+                </div>
+              </div>
+              <SkeletonBox
+                v-else
+                class="my-1 rounded-sm bg-info bg-opacity-20"
+              ></SkeletonBox>
+            </template>
+            <template #books="{ item, isLoading }">
+              <EllipsisInTable v-if="!isLoading" :data="item.books" />
+              <div v-else>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+                <SkeletonBox
+                  class="my-1 rounded-sm bg-info bg-opacity-20"
+                ></SkeletonBox>
+              </div>
             </template>
 
-            <template #addition-content="{ item }">
+            <template #addition-content="{ item, isLoading }">
               <DropdownSideMenu
+                v-if="!isLoading"
                 :isAnimated="true"
                 :isFloatRight="true"
                 :showCaret="false"
@@ -119,14 +178,15 @@
                 </template>
               </DropdownSideMenu>
             </template>
-            <template #footer>
-              <div class="footer-item text-table-footer-text">
+            <template #footer="{ isLoading }">
+              <div v-if="!isLoading" class="footer-item text-table-footer-text">
                 {{ data.length }} of {{ pagination.total }}
                 {{ pagination.total > 1 ? "records" : "record" }}
               </div>
             </template>
-            <template #pagination>
+            <template #pagination="{ isLoading }">
               <PaginationComponent
+                v-if="!isLoading"
                 :page="pagination.currentPage"
                 :pages="pagination.pages"
                 @toPage="(payload) => changeCurrentPage(payload, scrollToTop())"
@@ -260,6 +320,9 @@ const themeStore = useThemeStore();
 import ColumnFilter from "@/components/table/ColumnFilter.vue";
 import DetailInfo from "@/components/DetailInfo.vue";
 
+// Skeleton Box
+import SkeletonBox from "@/components/table/SkeletonBox.vue";
+
 import { useListingPageSettingStore } from "@/store/listingPageSetting";
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
@@ -289,6 +352,7 @@ const fetchRecords = async (
   keyword: string,
 ) => {
   try {
+    isLoadingItems.value = true;
     const response = await _fetchRecords(category, page, perPage, keyword);
     data.value = response.data;
 
@@ -303,11 +367,16 @@ const fetchRecords = async (
     isError.value = true;
 
     messageStore.push({
-      content: [`${error.response.status} Error`, error.response.data.message].join("\n"),
-      type: "error"
+      content: [
+        `${error.response.status} Error`,
+        error.response.data.message,
+      ].join("\n"),
+      type: "error",
     });
   } finally {
-    isLoading.value = false;
+    setTimeout(() => {
+      isLoadingItems.value = false;
+    }, 500);
   }
 };
 
@@ -343,7 +412,7 @@ const action = async (type: ActionType, id: number) => {
 
         messageStore.push({
           content: response.data.message,
-          type: "success"
+          type: "success",
         });
 
         setTimeout(() => {
@@ -361,16 +430,24 @@ const action = async (type: ActionType, id: number) => {
   }
 };
 
-const isLoading = ref<boolean>(true);
+const isLoadingPage = ref<boolean>(true);
+const isLoadingItems = ref<boolean>(true);
 const isError = ref<boolean>(false);
 
-onMounted(() => {
-  fetchRecords(
-    props.category,
-    pagination.value.currentPage,
-    pagination.value.perPage,
-    keyword.value,
-  );
+onMounted(async () => {
+  try {
+    fetchRecords(
+      props.category,
+      pagination.value.currentPage,
+      pagination.value.perPage,
+      keyword.value,
+    );
+  } catch (error) {
+    isError.value = true;
+  } finally {
+    isLoadingPage.value = false;
+    isLoadingItems.value = false;
+  }
 });
 
 watch(
@@ -406,7 +483,6 @@ watch(
 watch(
   () => route.params,
   () => {
-    isLoading.value = true;
     keyword.value = "";
   },
 );

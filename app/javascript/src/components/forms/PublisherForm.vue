@@ -127,18 +127,27 @@ const onSubmit = async () => {
       response = await createRecord(publisherForm.form, "publisher");
     }
 
+    console.log(response);
+
     router.push("/publisher/list");
 
     messageStore.push({
       content: response.data.message,
-      type: "success"
+      type: "success",
     });
   } catch (error: any) {
     errors.value = error.response.data.errors;
 
     messageStore.push({
-      content: [`${error.response.status} Error`, `${error.response.statusText ? error.response.statusText : error.response.data.message}`].join("\n"),
-      type: "error"
+      content: [
+        `${error.response.status} Error`,
+        `${
+          error.response.statusText
+            ? error.response.statusText
+            : error.response.data.message
+        }`,
+      ].join("\n"),
+      type: "error",
     });
   }
 };

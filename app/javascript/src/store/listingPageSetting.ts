@@ -75,6 +75,10 @@ const presetFields: Fields = {
       label: "Name",
     },
     {
+      key: "books",
+      label: "Books",
+    },
+    {
       key: "created_at",
       label: "Created at",
     },

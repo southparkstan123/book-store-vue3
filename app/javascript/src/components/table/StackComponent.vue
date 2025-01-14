@@ -12,16 +12,24 @@
           v-for="field in fields"
           :data-label="field.label"
         >
-          <slot :name="field.key" :item="item">
-            {{ item[field.key] }}
+          <slot :name="field.key" :item="item" :isLoading="isLoading">
+            <span v-if="!isLoading">{{ item[field.key] }}</span>
+            <SkeletonBox
+              v-else
+              class="my-1 rounded-sm bg-info bg-opacity-20"
+            ></SkeletonBox>
           </slot>
         </td>
         <td v-else v-for="field in displayedfields" :data-label="field">
-          <slot :name="field" :item="item">
-            {{ item[field] }}
+          <slot :name="field" :item="item" :isLoading="isLoading">
+            <span v-if="!isLoading">{{ item[field] }}</span>
+            <SkeletonBox
+              v-else
+              class="my-1 rounded-sm bg-info bg-opacity-20"
+            ></SkeletonBox>
           </slot>
         </td>
-        <td>
+        <td v-if="!isLoading">
           <div>
             <slot name="addition-content" :item="item"></slot>
           </div>
@@ -32,11 +40,11 @@
       <tr :class="footerClass">
         <td :colspan="displayedfields.length + 1">
           <div :style="'float: left'">
-            <slot name="footer"></slot>
+            <slot name="footer" :isLoading="isLoading"></slot>
           </div>
 
           <div :style="'float: right'">
-            <slot name="pagination"> </slot>
+            <slot name="pagination" :isLoading="isLoading"> </slot>
           </div>
         </td>
       </tr>
@@ -47,10 +55,16 @@
 <script setup lang="ts">
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
+import SkeletonBox from "./SkeletonBox.vue";
 
 const props = withDefaults(
   defineProps<
-    DataProps & { headerClass: string; rowClass: string; footerClass: string }
+    DataProps & {
+      headerClass: string;
+      rowClass: string;
+      footerClass: string;
+      isLoading: boolean;
+    }
   >(),
   {
     data: undefined,
@@ -58,6 +72,7 @@ const props = withDefaults(
     headerClass: "",
     rowClass: "",
     footerClass: "",
+    isLoading: false,
   },
 );
 

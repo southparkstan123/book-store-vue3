@@ -3,7 +3,7 @@
     :class="`p-5 mb-2 text-sm ${className} w-64 max-w-lg text-light rounded-md justify-end whitespace-pre-wrap`"
   >
     <span>{{ message }}</span>
-</div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +16,7 @@ const props = withDefaults(
   }>(),
   {
     message: "",
-    type: "default"
+    type: "default",
   },
 );
 
@@ -34,9 +34,6 @@ const className = computed<string>(() => {
       return "bg-dark";
   }
 });
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

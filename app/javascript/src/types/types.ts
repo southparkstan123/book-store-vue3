@@ -175,13 +175,14 @@ export type Pagination = {
 export type ActionType = "view" | "edit" | "delete";
 
 export type ImageFile = {
+  id: string;
   src: string;
   name: string;
   type: string;
   size: number;
   createdAt: number;
-  width: number;
-  height: number;
+  // width: number;
+  // height: number;
 };
 
 export type Theme = "default" | "shoujyo";
