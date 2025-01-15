@@ -56,6 +56,6 @@ export const useUploadFile = () => {
     totalFileSize,
     displaySize,
     previewImages,
-    deleteImage
+    deleteImage,
   };
 };
