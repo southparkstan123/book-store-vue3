@@ -18,7 +18,7 @@
           >
           </InputField>
         </div>
-        <div v-if="!isError && !isLoadingPage">
+        <div v-if="!isError && !isLoadingPage && data.length > 0">
           <component
             :is="displayComponent"
             :data="data"
@@ -193,20 +193,34 @@
               >
               </PaginationComponent>
             </template>
-            <template #no-data>
-              <div
-                class="h-screen min-h-12 flex items-center justify-center bg-muted"
-                :style="`width: ${windowWidth * 0.9}px;`"
-              >
-                <h1 class="text-danger text-2xl">No Data</h1>
-              </div>
-            </template>
           </component>
         </div>
-        <div v-else>
+        <div v-else-if="isError">
           <div class="text-center">
             <h1 class="text-2xl text-primary">Oops! Error occurs.</h1>
           </div>
+        </div>
+        <div
+          v-else-if="keyword !== '' && data.length === 0"
+          :style="`width: ${windowWidth * 0.9}px;`"
+          class="h-screen min-h-12 flex items-center justify-center bg-table"
+        >
+          <LoadingComponent
+            class="text-2xl text-primary"
+            :text="'Please Wait...'"
+            :animationType="'fade-in-zoom-out'"
+          />
+        </div>
+        <div
+          v-else-if="keyword === '' && data.length === 0"
+          :style="`width: ${windowWidth * 0.9}px;`"
+          class="h-screen min-h-12 flex items-center justify-center bg-table"
+        >
+          <LoadingComponent
+            class="text-2xl text-primary"
+            :text="'Please Wait...'"
+            :animationType="'wavy'"
+          />
         </div>
       </div>
       <div class="flex items-center justify-center" v-else>
