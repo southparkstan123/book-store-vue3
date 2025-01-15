@@ -4,10 +4,10 @@
     class="min-h-screen flex justify-center"
   >
     <Transition :appear="true" name="fade" mode="out-in">
-      <div v-if="!isLoadingPage" class="mt-12 p-1">
+      <div class="mt-12 p-1">
         <div class="z-10 items-center justify-between w-full">
           <InputField
-            v-if="category === 'book' && !isLoadingPage"
+            v-if="category === 'book'"
             :className="'w-full float-right bg-table-header md:py-1 md:pr-1 p-1'"
             :inputId="'test'"
             :inputValue="keyword"
@@ -15,10 +15,11 @@
             :inputType="'text'"
             :placeholder="`Search by name`"
             @changeValue="searchKeyword"
+            :isDisabled="isLoadingItems"
           >
           </InputField>
         </div>
-        <div v-if="!isError && !isLoadingPage && data.length > 0">
+        <div v-if="!isError && data.length > 0">
           <component
             :is="displayComponent"
             :data="data"
@@ -203,18 +204,18 @@
         <div
           v-else-if="keyword !== '' && data.length === 0"
           :style="`width: ${windowWidth * 0.9}px;`"
-          class="h-screen min-h-12 flex items-center justify-center bg-table"
+          class="h-screen min-h-12 flex items-center justify-center"
         >
           <LoadingComponent
             class="text-2xl text-primary"
-            :text="'Please Wait...'"
-            :animationType="'fade-in-zoom-out'"
+            :text="'No Data'"
+            :animationType="'wavy'"
           />
         </div>
         <div
           v-else-if="keyword === '' && data.length === 0"
           :style="`width: ${windowWidth * 0.9}px;`"
-          class="h-screen min-h-12 flex items-center justify-center bg-table"
+          class="h-screen min-h-12 flex items-center justify-center"
         >
           <LoadingComponent
             class="text-2xl text-primary"
@@ -222,13 +223,6 @@
             :animationType="'wavy'"
           />
         </div>
-      </div>
-      <div class="flex items-center justify-center" v-else>
-        <LoadingComponent
-          class="text-2xl text-primary"
-          :text="'Loading...'"
-          :animationType="'wavy'"
-        />
       </div>
     </Transition>
 
@@ -452,7 +446,6 @@ const action = async (type: ActionType, id: number) => {
   }
 };
 
-const isLoadingPage = ref<boolean>(true);
 const isLoadingItems = ref<boolean>(true);
 const isError = ref<boolean>(false);
 
@@ -466,8 +459,6 @@ onMounted(async () => {
     );
   } catch (error) {
     isError.value = true;
-  } finally {
-    isLoadingPage.value = false;
   }
 });
 
