@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="h-48 w-full md:w-64 backdrop"
-    ref="imageRef"
-  >
+  <div class="h-48 w-full md:w-64 backdrop" ref="imageRef">
     <div class="p-2 overlay">
       <div class="overflow-scroll w-48">{{ name }}</div>
       <div>Type: {{ type }}</div>
@@ -17,9 +14,9 @@
 import moment from "moment";
 import type { ImageFile } from "@/types/types";
 import { useUploadFile } from "@/hooks/useUploadFile";
-import loadingImg from '@/assets/loading.png';
+import loadingImg from "@/assets/loading.png";
 
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed } from "vue";
 
 const imageRef = ref<Element | null>(null);
 
@@ -30,38 +27,39 @@ const props = withDefaults(defineProps<ImageFile>(), {
   src: "",
   type: "image/*",
   createdAt: 0,
-  size: 0
+  size: 0,
 });
 
-const srcURL = computed(() => `url(${props.src})`)
-const loadImageURL = computed(() => `url(${loadingImg})`)
+const srcURL = computed(() => `url(${props.src})`);
+const loadImageURL = computed(() => `url(${loadingImg})`);
 
-onMounted(() =>  {
+onMounted(() => {
   let observerRefValue: Element;
 
-  const observer = new IntersectionObserver(([entry]) => {
-    const loadImage = () => {
-      setTimeout(() => {
-        observerRefValue.classList.add('visible')
-      }, 0)
-    }
-    if (entry.isIntersecting === true) {
-      loadImage()
-      observer.unobserve(observerRefValue)
-    }
-  },{
-    root: null,
-    threshold: 0,
-    rootMargin: "10px"
-  })
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      const loadImage = () => {
+        setTimeout(() => {
+          observerRefValue.classList.add("visible");
+        }, 0);
+      };
+      if (entry.isIntersecting === true) {
+        loadImage();
+        observer.unobserve(observerRefValue);
+      }
+    },
+    {
+      root: null,
+      threshold: 0,
+      rootMargin: "10px",
+    },
+  );
 
   if (imageRef.value) {
     observer.observe(imageRef.value);
     observerRefValue = imageRef.value;
   }
-
-
-})
+});
 </script>
 
 <style scoped lang="scss">

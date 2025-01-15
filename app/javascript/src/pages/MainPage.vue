@@ -81,7 +81,10 @@
         </template>
       </CardList>
       <div v-if="imageData.length > 1">
-        <span class="float-right text-primary">{{ displaySize(totalFileSize as number) }} for {{ information }}</span>
+        <span class="float-right text-primary"
+          >{{ displaySize(totalFileSize as number) }} for
+          {{ information }}</span
+        >
       </div>
     </div>
     <div class="flex items-center justify-center" v-else>
@@ -97,7 +100,15 @@
 <script setup lang="ts" generic="T extends ImageFile">
 import { computed, onMounted, ref } from "vue";
 import type { ImageFile } from "@/types/types";
-import { uploadFile, getPublicUrl, deleteFile, fetchAllFiles, deleteAllFiles, createBucket, download } from "@/services/SupabaseServices";
+import {
+  uploadFile,
+  getPublicUrl,
+  deleteFile,
+  fetchAllFiles,
+  deleteAllFiles,
+  createBucket,
+  download,
+} from "@/services/SupabaseServices";
 
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 import InputField from "@/components/inputs/InputField.vue";
@@ -117,13 +128,8 @@ const messageStore = useMessageStore();
 
 // Upload Files
 import { useUploadFile } from "@/hooks/useUploadFile";
-const { 
-  isLoading,
-  information,
-  imageData,
-  totalFileSize, 
-  displaySize
-} = useUploadFile();
+const { isLoading, information, imageData, totalFileSize, displaySize } =
+  useUploadFile();
 
 const onCreateBucket = async (bucketName: string) => {
   const { data, error } = await createBucket(bucketName);
@@ -131,20 +137,20 @@ const onCreateBucket = async (bucketName: string) => {
   if (error) {
     messageStore.push({
       type: "error",
-      content: error.message
+      content: error.message,
     });
   } else {
     messageStore.push({
       type: "success",
-      content: "Success!"
+      content: "Success!",
     });
   }
-}
+};
 
 const onDownload = (filename: string) => {
   const file = download(filename);
   return file.data;
-}
+};
 
 const confirmDeleteAll = async () => {
   const confirm = await modalStore.open({
@@ -157,24 +163,27 @@ const confirmDeleteAll = async () => {
   });
 
   if (confirm) {
-    const { data, error } = await deleteFile(imageData.value.map(image => image.name));
+    const { data, error } = await deleteFile(
+      imageData.value.map((image) => image.name),
+    );
 
     if (error) {
       messageStore.push({
         type: "error",
-        content: error.message
+        content: error.message,
       });
     } else {
-
       messageStore.push({
         type: "success",
-        content: `${data.length} ${data.length > 1 ? ' items were' : ' item was'} deleted successfully.`
+        content: `${data.length} ${
+          data.length > 1 ? " items were" : " item was"
+        } deleted successfully.`,
       });
 
       imageData.value = [];
     }
   }
-}
+};
 
 const confirmDelete = async (id) => {
   const confirm = await modalStore.open({
@@ -192,16 +201,18 @@ const confirmDelete = async (id) => {
     if (error) {
       messageStore.push({
         type: "error",
-        content: error.message
+        content: error.message,
       });
     } else {
-      const index = imageData.value.findIndex(image => image.id === data[0].id)
+      const index = imageData.value.findIndex(
+        (image) => image.id === data[0].id,
+      );
       imageData.value.splice(index, 1);
 
       setTimeout(() => {
         messageStore.push({
           type: "success",
-          content: `${data[0].name} was deleted successfully.`
+          content: `${data[0].name} was deleted successfully.`,
         });
       }, 100);
     }
@@ -212,22 +223,23 @@ const onChangeFile = (payload: FileList) => {
   const files = payload;
   if (files) {
     Array.prototype.forEach.call(files, async (file, index) => {
-
-      const filename: string = `${Math.random().toString(36).substring(2, 12)}.${file.name.split('.').pop()}`;
+      const filename: string = `${Math.random()
+        .toString(36)
+        .substring(2, 12)}.${file.name.split(".").pop()}`;
 
       setTimeout(() => {
         messageStore.push({
           type: "info",
-          content: `${filename} is uploading.`
+          content: `${filename} is uploading.`,
         });
       }, 100 * index);
 
-      const { data, error } = await uploadFile(file, filename, 'image/*');
+      const { data, error } = await uploadFile(file, filename, "image/*");
 
-      if(error){
+      if (error) {
         messageStore.push({
           type: "error",
-          content: error.message
+          content: error.message,
         });
       } else {
         const imageObject: ImageFile = {
@@ -244,7 +256,7 @@ const onChangeFile = (payload: FileList) => {
         setTimeout(() => {
           messageStore.push({
             type: "success",
-            content: `${filename} was uploaded successfully.`
+            content: `${filename} was uploaded successfully.`,
           });
         }, 300);
       }
@@ -266,11 +278,10 @@ const onFetchAllFiles = async () => {
         createdAt: item.created_at,
       };
     });
-
   } catch (error) {
     return error;
   }
-}
+};
 
 onMounted(async () => {
   try {
@@ -280,12 +291,12 @@ onMounted(async () => {
   } catch (error) {
     messageStore.push({
       type: "error",
-      content: error
-    })
+      content: error,
+    });
   } finally {
     isLoading.value = false;
   }
-})
+});
 </script>
 
 <style scoped></style>

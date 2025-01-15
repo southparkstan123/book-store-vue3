@@ -45,7 +45,12 @@ import {
   faEllipsisV,
   faGauge,
 } from "@fortawesome/free-solid-svg-icons";
-import { faEye, faEdit, faImage, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import {
+  faEye,
+  faEdit,
+  faImage,
+  faTrashCan,
+} from "@fortawesome/free-regular-svg-icons";
 
 library.add(faPlus as IconDefinition);
 library.add(faGear as IconDefinition);
