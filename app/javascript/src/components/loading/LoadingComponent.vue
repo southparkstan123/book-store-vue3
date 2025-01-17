@@ -44,7 +44,7 @@ $duration: $length * $factor;
   @media screen and (min-width: 768px) and (max-width: 1024px) {
     padding: 0.4rem;
   }
-  
+
   padding: 0.5rem;
 
   display: inline-flex;
