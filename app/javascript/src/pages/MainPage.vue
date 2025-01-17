@@ -69,19 +69,19 @@
         <span class="block text-sm text-menu-item py-2">{{
           infoInCarousel.name
         }}</span>
-        <span class="block text-sm text-menu-item py-2">{{
-          infoInCarousel.type
-        }}</span>
+        <span class="block text-sm text-menu-item py-2">
+          {{ infoInCarousel.type ? `Type: ${infoInCarousel.type}` : "" }}
+        </span>
         <span class="block text-sm text-menu-item py-2">
           {{
-            infoInCarousel.name
+            infoInCarousel.size
               ? `Size: ${displaySize(infoInCarousel.size)}`
               : ""
           }}
         </span>
         <span class="block text-sm text-menu-item py-2">
           {{
-            infoInCarousel.name
+            infoInCarousel.createdAt
               ? `Created At: ${moment(infoInCarousel.createdAt).fromNow()}`
               : ""
           }}
