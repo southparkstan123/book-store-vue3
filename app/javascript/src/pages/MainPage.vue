@@ -89,7 +89,7 @@
       </template>
       <template #sub-menu-footer-desktop="{ title, infoInCarousel }">
         <a
-          :href="infoInCarousel.url"
+          :href="infoInCarousel.src"
           class="float-right text-menu-item text-sm"
           target="_blank"
         >
