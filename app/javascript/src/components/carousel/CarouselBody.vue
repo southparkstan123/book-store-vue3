@@ -17,7 +17,7 @@
           "
           v-for="(item, index) in items"
           v-bind:key="index"
-          :url="item.url"
+          :url="item.src"
           :caption="item.caption"
           :index="index + 1"
           :id="'item-' + (index + 1)"
@@ -69,13 +69,13 @@
 import { ref } from "vue";
 import Item from "@/components/carousel/Item.vue";
 import ScrollSnapContainer from "@/components/carousel/ScrollSnapContainer.vue";
-import type { MediaItemInCarousel } from "@/types/types";
+import type { ImageFile } from "@/types/types";
 
 const props = withDefaults(
   defineProps<{
     width: number;
     height: number;
-    items: MediaItemInCarousel[];
+    items: ImageFile[];
   }>(),
   {
     width: 640,
@@ -85,7 +85,7 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  (e: "itemDetail", payload: MediaItemInCarousel): void;
+  (e: "itemDetail", payload: ImageFile): void;
 }>();
 
 const direction = ref("x");

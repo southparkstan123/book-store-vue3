@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import type MediaItemInCarousel from "@/types/types";
+import type { ImageFile } from "@/types/types";
 
 import debounce from "lodash.debounce";
 import CarouselBody from "./CarouselBody.vue";
@@ -74,7 +74,7 @@ withDefaults(
   defineProps<{
     isShowCarousel: boolean;
     title: string;
-    imagesInCarousel: MediaItemInCarousel[];
+    imagesInCarousel: ImageFile[];
   }>(),
   {
     isShowCarousel: false,
@@ -83,10 +83,12 @@ withDefaults(
   },
 );
 
-const infoInCarousel = ref<MediaItemInCarousel>({
+const infoInCarousel = ref<ImageFile &  { selectedIndex: number }>({
   id: 1,
-  caption: "",
-  url: "",
+  name: "",
+  src: "",
+  type: "",
+  size: 0,
   selectedIndex: 1,
 });
 

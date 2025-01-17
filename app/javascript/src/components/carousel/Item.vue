@@ -30,7 +30,6 @@ const emit = defineEmits<{
 }>();
 
 const selectItem = () => {
-  console.log(props.index);
   emit("selectItem", props.index);
 };
 

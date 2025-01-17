@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 // Directives
 import clickOutside from "@/directives/clickOutside";
 import intersectionObserver from "@/directives/intersectionObserver";
+import bodyScrollLock from "@/directives/bodyScrollLock";
 
 import {
   faPlus,
@@ -87,5 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
   app.config.warnHandler = (msg, vm, trace) => null;
   app.directive("click-outside", clickOutside);
   app.directive("intersection-observer", intersectionObserver);
+  app.directive("body-scroll-lock", bodyScrollLock);
   app.mount("#app");
 });
