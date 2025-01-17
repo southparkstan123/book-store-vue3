@@ -42,6 +42,9 @@
         <span class="block text-sm text-menu-item py-2">{{
           infoInCarousel.name
           }}</span>
+        <span class="block text-sm text-menu-item py-2">{{
+          infoInCarousel.type
+          }}</span>
         <span class="block text-sm text-menu-item py-2">
           {{ infoInCarousel.name ? `Size: ${displaySize(infoInCarousel.size)}` : '' }}
         </span>
