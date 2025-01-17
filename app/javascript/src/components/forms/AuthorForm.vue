@@ -127,8 +127,6 @@ const onSubmit = async () => {
       response = await createRecord(authorForm.form, "author");
     }
 
-    console.log(response);
-
     router.push("/author/list");
 
     messageStore.push({
