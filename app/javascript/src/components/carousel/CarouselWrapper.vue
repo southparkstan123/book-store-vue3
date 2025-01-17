@@ -32,30 +32,51 @@
               </span>
             </template>
             <template #selected-item>
-              <slot name="sub-menu-header-mobile" :title="title" :infoInCarousel="infoInCarousel"></slot>
+              <slot
+                name="sub-menu-header-mobile"
+                :title="title"
+                :infoInCarousel="infoInCarousel"
+              ></slot>
             </template>
             <template #description>
-              <slot name="sub-menu-content-mobile" :title="title" :infoInCarousel="infoInCarousel"></slot>
+              <slot
+                name="sub-menu-content-mobile"
+                :title="title"
+                :infoInCarousel="infoInCarousel"
+              ></slot>
             </template>
           </CarouselBody>
         </div>
-        <div class="bg-navbar-submenu z-50 flex-col flex-1 h-screen hidden lg:flex">
+        <div
+          class="bg-navbar-submenu z-50 flex-col flex-1 h-screen hidden lg:flex"
+        >
           <div
             class="border border-light border-t-0 border-l-0 border-r-0 border-b-1 p-3"
           >
-            <slot name="sub-menu-header-desktop" :title="title" :infoInCarousel="infoInCarousel">
+            <slot
+              name="sub-menu-header-desktop"
+              :title="title"
+              :infoInCarousel="infoInCarousel"
+            >
               {{ infoInCarousel }}
             </slot>
           </div>
           <div class="px-3 my-5 text-md h-full">
-            <slot name="sub-menu-content-desktop" :title="title" :infoInCarousel="infoInCarousel">
+            <slot
+              name="sub-menu-content-desktop"
+              :title="title"
+              :infoInCarousel="infoInCarousel"
+            >
               {{ infoInCarousel }}
             </slot>
           </div>
           <div
             class="p-3 text-md items-end border border-light border-b-0 border-l-0 border-r-0 border-t-1"
           >
-            <slot name="sub-menu-footer-desktop" :infoInCarousel="infoInCarousel"></slot>
+            <slot
+              name="sub-menu-footer-desktop"
+              :infoInCarousel="infoInCarousel"
+            ></slot>
           </div>
         </div>
       </div>
@@ -83,7 +104,7 @@ withDefaults(
   },
 );
 
-const infoInCarousel = ref<ImageFile &  { selectedIndex: number }>({
+const infoInCarousel = ref<ImageFile & { selectedIndex: number }>({
   id: 1,
   name: "",
   src: "",
