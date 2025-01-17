@@ -1,5 +1,66 @@
 <template>
   <div class="min-h-screen flex items-center justify-center">
+    <CarouselWrapper
+      :isShowCarousel="isShowCarousel"
+      :imagesInCarousel="imagesInCarousel"
+      :title="descriptionOfGallery"
+    >
+      <template #close-button>
+        <div
+          class="cursor-pointer text-muted text-3xl absolute right-2 top-2 z-50"
+          @click="closeCarousel"
+        >
+          <font-awesome-icon icon="fa-solid fa-remove" />
+        </div>
+      </template>
+      <template #sub-menu-content-mobile="{ title, infoInCarousel }">
+        <span
+          class="lg:hidden absolute left-0 top-16 bold text-xl text-white bg-navbar-submenu bg-opacity-35"
+        >
+          {{ title }}
+        </span>
+      </template>
+      <template #sub-menu-header-mobile="{ title, infoInCarousel }">
+        <div
+          class="lg:hidden absolute left-0 top-0 text-menu-button text-sm p-3 bg-navbar-submenu"
+        >
+          {{ infoInCarousel.selectedIndex }} of
+          {{ imagesInCarousel.length }}
+          <a
+            :href="infoInCarousel.url"
+            class="block font-bold text-menu-item text-sm"
+            target="_blank"
+          >
+            View Image
+          </a>
+        </div>
+      </template>
+
+      <template #sub-menu-header-desktop="{ title, infoInCarousel }">
+        <div class="text-menu-item text-lg">
+          {{ infoInCarousel.selectedIndex }} of
+          {{ imagesInCarousel.length }}
+        </div>
+      </template>
+      <template #sub-menu-content-desktop="{ title, infoInCarousel }">
+        <span class="block text-lg text-menu-item py-2 font-bold">{{
+          title
+        }}</span>
+        <span class="block text-sm text-menu-item py-2">{{
+          infoInCarousel.caption
+        }}</span>
+      </template>
+      <template #sub-menu-footer-desktop="{ title, infoInCarousel }">
+        <a
+          :href="infoInCarousel.url"
+          class="float-right text-menu-item text-sm"
+          target="_blank"
+        >
+          View Image
+        </a>
+      </template>
+    </CarouselWrapper>
+
     <div class="mx-auto" v-if="isLoading === false">
       <div class="flex items-center justify-around">
         <LabelWrapper
@@ -86,6 +147,15 @@
           {{ information }}</span
         >
       </div>
+      <ButtonComponent
+        v-if="imageData.length > 0"
+        @buttonClicked="openCarousel(imageData, 'media')"
+        :buttonType="'button'"
+        :textClass="'text-sm text-white'"
+        :backgroundClass="'bg-info py-2 px-4'"
+      >
+        <template #text> View Images </template>
+      </ButtonComponent>
     </div>
     <div class="flex items-center justify-center" v-else>
       <LoadingComponent
@@ -126,6 +196,9 @@ const modalStore = useModalStore();
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
+// import { useCarouselStore } from "@/store/carousel";
+// const carouselStore = useCarouselStore();
+
 // Upload Files
 import { useUploadFile } from "@/hooks/useUploadFile";
 const { isLoading, information, imageData, totalFileSize, displaySize } =
@@ -145,6 +218,32 @@ const onCreateBucket = async (bucketName: string) => {
       content: "Success!",
     });
   }
+};
+
+import CarouselWrapper from "@/components/carousel/CarouselWrapper.vue";
+
+const descriptionOfGallery = ref<string>("");
+const imagesInCarousel = ref<ImageFile[]>([]);
+const isShowCarousel = ref<boolean>(false);
+
+const openCarousel = (images: ImageFile[], description: string) => {
+  if (images.length > 0) {
+    isShowCarousel.value = true;
+    descriptionOfGallery.value = description;
+
+    imagesInCarousel.value = images.map((image) => {
+      return {
+        id: image.id,
+        url: image.src,
+        caption: image.name,
+      };
+    });
+  }
+};
+
+const closeCarousel = () => {
+  isShowCarousel.value = false;
+  imagesInCarousel.value = [];
 };
 
 const onDownload = (filename: string) => {

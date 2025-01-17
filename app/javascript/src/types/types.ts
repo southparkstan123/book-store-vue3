@@ -198,3 +198,16 @@ export type DataProps = {
 
 export type HorizontalPosition = "start" | "end";
 export type VerticalPosition = "top" | "bottom";
+
+export type MediaItemInCarousel = {
+  id: number;
+  caption: string;
+  url: string;
+  selectedIndex: number;
+};
+
+// export type CarouselState = {
+//   visible: boolean;
+//   title: string;
+//   imagesInCarousel: MediaItemInCarousel[];
+// }
