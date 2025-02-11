@@ -12,7 +12,8 @@
             :items="imagesInCarousel"
             :width="sizeOfCarousel.width"
             :height="sizeOfCarousel.height"
-            @itemDetail="(payload) => (infoInCarousel = payload)"
+            :preselectedIndex="preselectedIndex"
+            @itemDetail="onChangeInfoInCarousel"
           >
             <template #prev-button>
               <svg class="" width="20px" height="20px">
@@ -96,11 +97,13 @@ withDefaults(
     isShowCarousel: boolean;
     title: string;
     imagesInCarousel: ImageFile[];
+    preselectedIndex: number;
   }>(),
   {
     isShowCarousel: false,
     title: "",
     imagesInCarousel: [],
+    preselectedIndex: 1,
   },
 );
 
@@ -112,6 +115,10 @@ const infoInCarousel = ref<ImageFile & { selectedIndex: number }>({
   size: 0,
   selectedIndex: 1,
 });
+
+const onChangeInfoInCarousel = (payload) => {
+  infoInCarousel.value = payload;
+};
 
 const sizeOfCarousel = ref<{ width: number; height: number }>({
   width: 0,
