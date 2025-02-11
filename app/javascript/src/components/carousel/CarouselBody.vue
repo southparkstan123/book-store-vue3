@@ -40,7 +40,7 @@
               toSelectItem(() => {
                 selectedItem--;
                 emit('itemDetail', { ...item, selectedIndex: selectedItem });
-              })
+              }, 'smooth')
             "
           >
             <slot name="prev-button"></slot>
@@ -54,7 +54,7 @@
               toSelectItem(() => {
                 selectedItem++;
                 emit('itemDetail', { ...item, selectedIndex: selectedItem });
-              })
+              }, 'smooth')
             "
           >
             <slot name="next-button"></slot>
@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Item from "@/components/carousel/Item.vue";
 import ScrollSnapContainer from "@/components/carousel/ScrollSnapContainer.vue";
 import type { ImageFile } from "@/types/types";
@@ -76,11 +76,13 @@ const props = withDefaults(
     width: number;
     height: number;
     items: ImageFile[];
+    preselectedIndex: number;
   }>(),
   {
     width: 640,
     height: 480,
     items: [],
+    preselectedIndex: 1,
   },
 );
 
@@ -90,16 +92,29 @@ const emit = defineEmits<{
 
 const direction = ref("x");
 const snapType = ref("mandatory");
-const selectedItem = ref(1);
+const selectedItem = ref(props.preselectedIndex);
 
-const toSelectItem = (callback: void) => {
+const toSelectItem = (
+  callback: void,
+  scrollBehavior: "auto" | "smooth" | "instant" = "auto",
+) => {
   callback();
   document.querySelector("#item-" + selectedItem.value).scrollIntoView({
-    behavior: "smooth",
+    behavior: scrollBehavior,
     block: "start",
     inline: "start",
   });
 };
+
+onMounted(() => {
+  setTimeout(() => {
+    toSelectItem(() => {
+      selectedItem.value = props.preselectedIndex;
+      const item = props.items.find((e, i) => selectedItem.value === i);
+      emit("itemDetail", { ...item, selectedIndex: selectedItem.value });
+    });
+  }, 500);
+});
 </script>
 
 <style lang="scss">

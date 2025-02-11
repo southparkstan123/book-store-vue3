@@ -4,6 +4,7 @@
       :isShowCarousel="isShowCarousel"
       :imagesInCarousel="imagesInCarousel"
       :title="descriptionOfGallery"
+      :preselectedIndex="preselectedIndex"
     >
       <template #close-button>
         <div
@@ -153,11 +154,19 @@
                 class="text-white text-sm"
               >
                 <template #close-button>
-                  <div
-                    :class="'float-right cursor-pointer p-3 text-lg'"
-                    @click="confirmDelete(item.name)"
-                  >
-                    <font-awesome-icon icon="fa-solid fa-remove" />
+                  <div class="float-right text-center text-lg p-3">
+                    <div
+                      :class="'cursor-pointer text-danger'"
+                      @click="confirmDelete(item.name)"
+                    >
+                      <font-awesome-icon icon="fa-regular fa-trash-can" />
+                    </div>
+                    <div
+                      :class="'cursor-pointer text-info'"
+                      @click="openCarousel(imageData, '', index + 1)"
+                    >
+                      <font-awesome-icon icon="fa-regular fa-eye" />
+                    </div>
                   </div>
                 </template>
                 <template
@@ -203,15 +212,6 @@
               {{ information }}</span
             >
           </div>
-          <ButtonComponent
-            v-if="imageData.length > 0"
-            @buttonClicked="openCarousel(imageData, '')"
-            :buttonType="'button'"
-            :textClass="'text-sm text-white'"
-            :backgroundClass="'bg-info py-2 px-4'"
-          >
-            <template #text> View Images </template>
-          </ButtonComponent>
         </div>
         <div class="flex items-center justify-center" v-else>
           <LoadingComponent
@@ -255,9 +255,6 @@ const modalStore = useModalStore();
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
-// import { useCarouselStore } from "@/store/carousel";
-// const carouselStore = useCarouselStore();
-
 // Upload Files
 import { useUploadFile } from "@/hooks/useUploadFile";
 const { isLoading, information, imageData, totalFileSize, displaySize } =
@@ -279,31 +276,33 @@ const onCreateBucket = async (bucketName: string) => {
   }
 };
 
+// Carousel (Global state for it by Pinia. TBC)
+// import { useCarouselStore } from "@/store/carousel";
+// const carouselStore = useCarouselStore();
 import CarouselWrapper from "@/components/carousel/CarouselWrapper.vue";
 
 const descriptionOfGallery = ref<string>("");
 const imagesInCarousel = ref<ImageFile[]>([]);
 const isShowCarousel = ref<boolean>(false);
+const preselectedIndex = ref<number>(1);
 
-const openCarousel = (images: ImageFile[], description: string) => {
+const openCarousel = (
+  images: ImageFile[],
+  description: string,
+  selectedIndex: number = 1,
+) => {
   if (images.length > 0) {
     isShowCarousel.value = true;
     descriptionOfGallery.value = description;
     imagesInCarousel.value = images;
-
-    // imagesInCarousel.value = images.map((image) => {
-    //   return {
-    //     id: image.id,
-    //     url: image.src,
-    //     caption: image.name,
-    //   };
-    // });
+    preselectedIndex.value = selectedIndex;
   }
 };
 
 const closeCarousel = () => {
   isShowCarousel.value = false;
   imagesInCarousel.value = [];
+  preselectedIndex.value = 1;
 };
 
 const onDownload = (filename: string) => {
