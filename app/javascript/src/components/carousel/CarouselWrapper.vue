@@ -62,7 +62,7 @@
               {{ infoInCarousel }}
             </slot>
           </div>
-          <div class="px-3 my-5 text-md h-full">
+          <div class="px-3 my-5 text-md h-full overflow-scroll">
             <slot
               name="sub-menu-content-desktop"
               :title="title"
