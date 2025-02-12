@@ -1,5 +1,10 @@
 <template>
-  <div v-body-scroll-lock="modalState.visible || isOpenMenu" class="mx-auto">
+  <div
+    v-body-scroll-lock="
+      modalState.visible || isOpenMenu || carouselState.isShowCarousel
+    "
+    class="mx-auto"
+  >
     <ModalComponent
       :showModalContent="modalState.visible"
       :type="modalState.type"
@@ -240,6 +245,104 @@
       :verticalPosition="messageStore.getHorizontalPosition"
       :horizontalPosition="messageStore.getVerticalPosition"
     />
+    <CarouselWrapper
+      :isShowCarousel="carouselState.isShowCarousel"
+      :imagesInCarousel="carouselState.imagesInCarousel"
+      :title="carouselState.descriptionOfGallery"
+      :preselectedIndex="carouselState.preselectedIndex"
+    >
+      <template #close-button>
+        <div
+          class="cursor-pointer text-muted text-3xl absolute right-2 top-2 z-50"
+          @click="carouselStore.close()"
+        >
+          <font-awesome-icon icon="fa-solid fa-remove" />
+        </div>
+      </template>
+      <template #sub-menu-content-mobile="{ title, infoInCarousel }">
+        <div
+          class="lg:hidden absolute left-0 bottom-14 bold bg-navbar-submenu p-3 bg-opacity-35 w-48 overflow-scroll"
+        >
+          <span class="block text-sm text-menu-item">{{
+            infoInCarousel.name ? infoInCarousel.name : ""
+          }}</span>
+          <span class="block text-sm text-menu-item">{{
+            infoInCarousel.type ? `Type: ${infoInCarousel.type}` : ""
+          }}</span>
+          <span class="block text-sm text-menu-item">{{
+            infoInCarousel.size
+              ? `Size:
+            ${displaySize(infoInCarousel.size as number)}`
+              : ""
+          }}</span>
+          <span class="block text-sm text-menu-item">{{
+            infoInCarousel.createdAt
+              ? `Create At:
+            ${moment(infoInCarousel.createdAt as number).fromNow()}`
+              : ""
+          }}</span>
+        </div>
+      </template>
+
+      <template #sub-menu-header-mobile="{ title, infoInCarousel }">
+        <div
+          class="lg:hidden absolute left-0 top-0 bold bg-navbar-submenu p-3 bg-opacity-35"
+        >
+          <span class="block text-sm text-menu-item py-2"
+            >{{ infoInCarousel.selectedIndex }} of
+            {{ carouselState.imagesInCarousel.length }}</span
+          >
+          <a
+            :href="infoInCarousel.src"
+            class="block font-bold text-menu-button text-sm"
+            target="_blank"
+          >
+            View Image
+          </a>
+        </div>
+      </template>
+
+      <template #sub-menu-header-desktop="{ title, infoInCarousel }">
+        <div class="text-menu-item text-lg">
+          {{ infoInCarousel.selectedIndex }} of
+          {{ carouselState.imagesInCarousel.length }}
+        </div>
+      </template>
+      <template #sub-menu-content-desktop="{ title, infoInCarousel }">
+        <span class="block text-lg text-menu-item py-2 font-bold">{{
+          title
+        }}</span>
+        <span class="block text-sm text-menu-item py-2">{{
+          infoInCarousel.name
+        }}</span>
+        <span class="block text-sm text-menu-item py-2">
+          {{ infoInCarousel.type ? `Type: ${infoInCarousel.type}` : "" }}
+        </span>
+        <span class="block text-sm text-menu-item py-2">
+          {{
+            infoInCarousel.size
+              ? `Size: ${displaySize(infoInCarousel.size)}`
+              : ""
+          }}
+        </span>
+        <span class="block text-sm text-menu-item py-2">
+          {{
+            infoInCarousel.createdAt
+              ? `Created At: ${moment(infoInCarousel.createdAt).fromNow()}`
+              : ""
+          }}
+        </span>
+      </template>
+      <template #sub-menu-footer-desktop="{ title, infoInCarousel }">
+        <a
+          :href="infoInCarousel.src"
+          class="float-right text-menu-item text-sm"
+          target="_blank"
+        >
+          View Image
+        </a>
+      </template>
+    </CarouselWrapper>
     <router-view v-slot="{ Component }">
       <component :is="Component" />
     </router-view>
@@ -272,6 +375,18 @@ import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
 import { useUserStore } from "@/store/user";
 const userStore = useUserStore();
 
+// Carousel
+import { useCarouselStore } from "@/store/carousel";
+const carouselStore = useCarouselStore();
+const carouselState = carouselStore.getCarouselObject;
+
+import { useUploadFile } from "@/hooks/useUploadFile";
+const { displaySize } = useUploadFile();
+import moment from "moment";
+
+import CarouselWrapper from "@/components/carousel/CarouselWrapper.vue";
+
+// Button
 import ButtonComponent from "@/components/inputs/ButtonComponent.vue";
 
 const closeModal = () => {
