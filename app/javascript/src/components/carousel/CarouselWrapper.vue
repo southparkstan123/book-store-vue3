@@ -160,8 +160,8 @@ const vOnResize = (el, binding) => {
   opacity: 0;
 }
 
-.carousel-enter-from .info ,
-.carousel-leave-to  .info {
+.carousel-enter-from .info,
+.carousel-leave-to .info {
   opacity: 0;
 }
 </style>
