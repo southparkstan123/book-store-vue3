@@ -261,7 +261,7 @@
       </template>
       <template #sub-menu-content-mobile="{ title, infoInCarousel }">
         <div
-          class="lg:hidden absolute left-0 bottom-14 bold bg-navbar-submenu p-3 bg-opacity-35 w-48 overflow-scroll"
+          class="lg:hidden absolute left-0 bottom-20 bold bg-navbar-submenu p-3 bg-opacity-35 w-48 overflow-scroll"
         >
           <span class="block text-sm text-menu-item">{{
             infoInCarousel.name ? infoInCarousel.name : ""
