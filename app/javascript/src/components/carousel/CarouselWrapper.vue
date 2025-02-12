@@ -147,7 +147,7 @@ const vOnResize = (el, binding) => {
 <style scoped>
 .carousel-enter-active,
 .carousel-leave-active {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out 0.5s;
 }
 
 .carousel-enter-from,
