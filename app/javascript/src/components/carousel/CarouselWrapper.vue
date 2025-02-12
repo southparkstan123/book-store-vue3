@@ -52,7 +52,7 @@
           class="bg-navbar-submenu z-50 flex-col flex-1 h-screen hidden lg:flex"
         >
           <div
-            class="border border-light border-t-0 border-l-0 border-r-0 border-b-1 p-3"
+            class="info border border-light border-t-0 border-l-0 border-r-0 border-b-1 p-3"
           >
             <slot
               name="sub-menu-header-desktop"
@@ -62,7 +62,7 @@
               {{ infoInCarousel }}
             </slot>
           </div>
-          <div class="px-3 my-5 text-md h-full overflow-scroll">
+          <div class="info px-3 my-5 text-md h-full overflow-scroll">
             <slot
               name="sub-menu-content-desktop"
               :title="title"
@@ -72,7 +72,7 @@
             </slot>
           </div>
           <div
-            class="p-3 text-md items-end border border-light border-b-0 border-l-0 border-r-0 border-t-1"
+            class="info p-3 text-md items-end border border-light border-b-0 border-l-0 border-r-0 border-t-1"
           >
             <slot
               name="sub-menu-footer-desktop"
@@ -146,12 +146,22 @@ const vOnResize = (el, binding) => {
 
 <style scoped>
 .carousel-enter-active,
-.carousel-leave-active {
+.carousel-leave-active,
+.carousel-enter-active .info {
+  transition: all 0.5s ease-in-out;
+}
+
+.carousel-enter-active .info {
   transition: all 0.5s ease-in-out 0.5s;
 }
 
 .carousel-enter-from,
 .carousel-leave-to {
+  opacity: 0;
+}
+
+.carousel-enter-from .info ,
+.carousel-leave-to  .info {
   opacity: 0;
 }
 </style>
