@@ -200,6 +200,6 @@ export type HorizontalPosition = "start" | "end";
 export type VerticalPosition = "top" | "bottom";
 
 export type NavBarObject = {
-  backgroundClass: string; 
+  backgroundClass: string;
   breakpoint: number;
-}
+};

@@ -370,10 +370,10 @@ import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
 import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
 import type { NavBarObject } from "@/types/types";
 
-provide<NavBarObject>('navBarObject', {
-  backgroundClass: 'bg-navbar',
-  breakpoint: 1024
-})
+provide<NavBarObject>("navBarObject", {
+  backgroundClass: "bg-navbar",
+  breakpoint: 1024,
+});
 
 // UserInfo
 import { useUserStore } from "@/store/user";
@@ -383,12 +383,11 @@ const userStore = useUserStore();
 import { useCarouselStore } from "@/store/carousel";
 const carouselStore = useCarouselStore();
 const carouselState = carouselStore.getCarouselObject;
-provide('carouselObject', carouselState);
+provide("carouselObject", carouselState);
 
 import { useUploadFile } from "@/hooks/useUploadFile";
 const { displaySize } = useUploadFile();
 import moment from "moment";
-
 
 import CarouselWrapper from "@/components/carousel/CarouselWrapper.vue";
 

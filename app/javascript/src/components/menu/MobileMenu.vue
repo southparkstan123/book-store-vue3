@@ -35,7 +35,7 @@ import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
 import type { NavBarObject } from "@/types/types";
 import { inject } from "vue";
 
-const { backgroundClass } = inject<NavBarObject>('navBarObject');
+const { backgroundClass } = inject<NavBarObject>("navBarObject");
 
 withDefaults(
   defineProps<{

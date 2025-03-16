@@ -98,7 +98,7 @@ const { preselectedIndex, imagesInCarousel } = inject<{
   imagesInCarousel: ImageFile[];
   isShowCarousel: boolean;
   preselectedIndex: number;
-}>('carouselObject');
+}>("carouselObject");
 
 const selectedItem = ref<number>(preselectedIndex);
 
