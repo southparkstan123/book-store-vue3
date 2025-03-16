@@ -9,10 +9,8 @@
         <div class="relative col-span-4 lg:col-span-3 bg-dark">
           <slot name="close-button"></slot>
           <CarouselBody
-            :items="imagesInCarousel"
             :width="sizeOfCarousel.width"
             :height="sizeOfCarousel.height"
-            :preselectedIndex="preselectedIndex"
             @itemDetail="onChangeInfoInCarousel"
           >
             <template #prev-button>
@@ -96,14 +94,10 @@ withDefaults(
   defineProps<{
     isShowCarousel: boolean;
     title: string;
-    imagesInCarousel: ImageFile[];
-    preselectedIndex: number;
   }>(),
   {
     isShowCarousel: false,
     title: "",
-    imagesInCarousel: [],
-    preselectedIndex: 1,
   },
 );
 

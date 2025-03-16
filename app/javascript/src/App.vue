@@ -72,7 +72,6 @@
     </ModalComponent>
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
-      :backgroundClass="'bg-navbar'"
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
@@ -247,9 +246,7 @@
     />
     <CarouselWrapper
       :isShowCarousel="carouselState.isShowCarousel"
-      :imagesInCarousel="carouselState.imagesInCarousel"
       :title="carouselState.descriptionOfGallery"
-      :preselectedIndex="carouselState.preselectedIndex"
     >
       <template #close-button>
         <div
@@ -350,6 +347,7 @@
 </template>
 
 <script setup lang="ts">
+import { provide } from "vue";
 // Toast
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
@@ -370,6 +368,12 @@ const modalState = modalStore.getModalObject;
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
 import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
+import type { NavBarObject } from "@/types/types";
+
+provide<NavBarObject>("navBarObject", {
+  backgroundClass: "bg-navbar",
+  breakpoint: 1024,
+});
 
 // UserInfo
 import { useUserStore } from "@/store/user";
@@ -379,6 +383,7 @@ const userStore = useUserStore();
 import { useCarouselStore } from "@/store/carousel";
 const carouselStore = useCarouselStore();
 const carouselState = carouselStore.getCarouselObject;
+provide("carouselObject", carouselState);
 
 import { useUploadFile } from "@/hooks/useUploadFile";
 const { displaySize } = useUploadFile();

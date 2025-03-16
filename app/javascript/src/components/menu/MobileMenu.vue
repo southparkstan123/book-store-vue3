@@ -32,15 +32,17 @@
 <script setup lang="ts">
 import MobileMenuCloseButton from "@/components/menu/MobileMenuCloseButton.vue";
 import MobileMenuBody from "@/components/menu/MobileMenuBody.vue";
+import type { NavBarObject } from "@/types/types";
+import { inject } from "vue";
+
+const { backgroundClass } = inject<NavBarObject>("navBarObject");
 
 withDefaults(
   defineProps<{
-    backgroundClass: string;
     width: string;
     showMenuContent: boolean;
   }>(),
   {
-    backgroundClass: "",
     width: "100%",
     showMenuContent: false,
   },
