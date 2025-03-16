@@ -246,9 +246,7 @@
     />
     <CarouselWrapper
       :isShowCarousel="carouselState.isShowCarousel"
-      :imagesInCarousel="carouselState.imagesInCarousel"
       :title="carouselState.descriptionOfGallery"
-      :preselectedIndex="carouselState.preselectedIndex"
     >
       <template #close-button>
         <div
@@ -349,6 +347,7 @@
 </template>
 
 <script setup lang="ts">
+import { provide } from "vue";
 // Toast
 import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
@@ -369,7 +368,6 @@ const modalState = modalStore.getModalObject;
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
 import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
-import { provide } from "vue";
 import type { NavBarObject } from "@/types/types";
 
 provide<NavBarObject>('navBarObject', {
@@ -385,10 +383,12 @@ const userStore = useUserStore();
 import { useCarouselStore } from "@/store/carousel";
 const carouselStore = useCarouselStore();
 const carouselState = carouselStore.getCarouselObject;
+provide('carouselObject', carouselState);
 
 import { useUploadFile } from "@/hooks/useUploadFile";
 const { displaySize } = useUploadFile();
 import moment from "moment";
+
 
 import CarouselWrapper from "@/components/carousel/CarouselWrapper.vue";
 
