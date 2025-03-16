@@ -1,6 +1,6 @@
 <template>
   <div v-on-resize="{ breakpoint, action: onChangeView }">
-    <DesktopMenu v-if="!isMobileView" :backgroundClass="backgroundClass">
+    <DesktopMenu v-if="!isMobileView">
       <template #brand>
         <slot name="brand"></slot>
       </template>
@@ -17,7 +17,6 @@
       @showMenuContent="onShowMenuContent"
       :showMenuContent="showMenuContent"
       @closeMenu="closeMenu"
-      :backgroundClass="backgroundClass"
       :width="'250px'"
     >
       <template #brand>
@@ -46,17 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, watch, inject } from "vue";
+import type { NavBarObject } from "@/types/types";
 
 import MobileMenu from "@/components/menu/MobileMenu.vue";
 import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
 
-withDefaults(defineProps<{ backgroundClass: string; breakpoint: number }>(), {
-  backgroundClass: "bg-navbar",
-  breakpoint: 1024,
-});
-
+const { breakpoint } = inject('navBarObject');
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
 

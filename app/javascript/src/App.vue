@@ -72,7 +72,6 @@
     </ModalComponent>
     <MyVueNavBar
       v-if="userStore.isAuthenticated"
-      :backgroundClass="'bg-navbar'"
       @bodyScrollLock="onBodyScrollLock"
     >
       <template #brand>
@@ -370,6 +369,13 @@ const modalState = modalStore.getModalObject;
 // NavBar
 import MyVueNavBar from "@/components/menu/MyVueNavBar.vue";
 import DropdownSideMenu from "@/components/menu/DropdownSideMenu.vue";
+import { provide } from "vue";
+import type { NavBarObject } from "@/types/types";
+
+provide<NavBarObject>('navBarObject', {
+  backgroundClass: 'bg-navbar',
+  breakpoint: 1024
+})
 
 // UserInfo
 import { useUserStore } from "@/store/user";
