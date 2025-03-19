@@ -27,7 +27,7 @@ This is an SPA using Vite Ruby(include Ruby on Rails 7) with Vue 3 revamping the
 
 #### Rails
 
-**Rails 7.0** is used on this repo
+**Rails 7.2** is used on this repo
 
 ### Frontend
 
