@@ -136,7 +136,7 @@ You can add the .env files to store the configuration value for different enviro
 3. Run the following command to prepare the Docker image and start the PostgresSQL, Rails and Vite services:
 
 ```bash
-docker-compose up --build 
+docker-compose up --build && docker-compose exec web bundle exec yarn install 
 ```
 
 or specify an env file for several environment such as ```.env.development.local```.
@@ -196,6 +196,11 @@ docker compose down
 4. Run the following command to clean up old unused builds to keep my system clean:
 ```bash
 docker system prune --all
+```
+
+5. Run the following command to install dependencies for frontend
+```bash
+docker-compose exec web bundle exec yarn install 
 ```
 
 #### Rails
