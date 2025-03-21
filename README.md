@@ -203,6 +203,20 @@ docker system prune --all
 docker-compose exec web bundle exec yarn install 
 ```
 
+6. Run the following command to switch the application's database, such as PostgreSQL or MySQL:
+```bash
+docker-compose exec web bundle exec rails db:system:change --to=postgresql
+```
+
+#### Troubleshooting for refuse connect to database
+
+**Caution: You will lose all corresponding data**
+
+1. Clear the volumes which were created using ```docker-compose down --volumes```.
+
+2. Run ```docker-compose up --build``` to rebuild the images for the project.
+
+
 #### Rails
 
 1. Run the following command to access rails console:
