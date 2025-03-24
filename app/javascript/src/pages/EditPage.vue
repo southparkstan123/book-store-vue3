@@ -71,7 +71,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       title: "Unsaved changes",
       message: "Do you really want to leave?",
       type: "confirm",
-      component: "",
+      component: undefined,
       props: undefined,
       isFitContent: true,
     });
@@ -81,7 +81,7 @@ onBeforeRouteLeave(async (to, from, next) => {
         title: "Logout",
         message: "Are you sure?",
         type: "confirm",
-        component: "",
+        component: undefined,
         props: undefined,
         isFitContent: true,
       });
@@ -98,7 +98,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       title: "Unsaved changes",
       message: "Do you really want to leave?",
       type: "confirm",
-      component: "",
+      component: undefined,
       props: undefined,
       isFitContent: true,
     });
@@ -111,7 +111,7 @@ onBeforeRouteLeave(async (to, from, next) => {
       title: "Logout",
       message: "Are you sure?",
       type: "confirm",
-      component: "",
+      component: undefined,
       props: undefined,
       isFitContent: true,
     });

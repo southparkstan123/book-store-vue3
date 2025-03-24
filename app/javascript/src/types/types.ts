@@ -136,7 +136,7 @@ export type ModalState = {
   type: ModalType;
   message: string;
   title: string;
-  component: string;
+  component: Component | undefined;
   resolvePromise: any;
   isFitContent: boolean;
   props: any;
@@ -146,7 +146,7 @@ export type OpenModalPayload = {
   type: ModalType;
   message: string;
   title: string;
-  component: Component | "";
+  component: Component | undefined;
   props: any;
   isFitContent: boolean;
 };
@@ -175,12 +175,13 @@ export type Pagination = {
 export type ActionType = "view" | "edit" | "delete";
 
 export type ImageFile = {
-  id: string;
+  id: number | string;
   src: string;
   name: string;
   type: string;
   size: number;
   createdAt: number;
+  caption: string;
   // width: number;
   // height: number;
 };

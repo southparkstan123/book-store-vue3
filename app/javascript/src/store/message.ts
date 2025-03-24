@@ -10,7 +10,7 @@ type ToastMessage = {
 
 export const useMessageStore = defineStore("message", () => {
   const state = reactive<{
-    massages: ToastMessage[];
+    messages: ToastMessage[];
     horizontalPosition: HorizontalPosition;
     verticalPosition: VerticalPosition;
   }>({

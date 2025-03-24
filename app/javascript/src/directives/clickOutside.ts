@@ -1,14 +1,29 @@
+interface ClickOutsideBinding {
+  value: {
+    action: () => void;
+  };
+}
+
+interface HTMLElementWithClickOutside extends HTMLElement {
+  clickOutsideEvent?: (event: Event) => void;
+}
+
 export default {
-  beforeMount: (el: HTMLElement, binding) => {
+  beforeMount: (
+    el: HTMLElementWithClickOutside,
+    binding: ClickOutsideBinding,
+  ) => {
     const { action } = binding.value;
-    el.clickOutsideEvent = function (event) {
-      if (!(el === event.target || el.contains(event.target))) {
+    el.clickOutsideEvent = function (event: Event) {
+      if (!(el === event.target || el.contains(event.target as Node))) {
         action();
       }
     };
     document.addEventListener("click", el.clickOutsideEvent);
   },
-  unmounted: (el) => {
-    document.removeEventListener("click", el.clickOutsideEvent);
+  unmounted: (el: HTMLElementWithClickOutside) => {
+    if (el.clickOutsideEvent) {
+      document.removeEventListener("click", el.clickOutsideEvent);
+    }
   },
 };

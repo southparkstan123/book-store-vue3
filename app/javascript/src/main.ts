@@ -3,7 +3,7 @@ import App from "@/App.vue";
 
 // router
 import { createRouter, createWebHistory } from "vue-router";
-import { routes } from "@/routes/routes.ts";
+import { routes } from "@/routes/routes";
 // guardedRouter
 import guardedRouter from "@/routes/guardRouter";
 

@@ -39,7 +39,10 @@
             @click.prevent="
               toSelectItem(() => {
                 selectedItem--;
-                emit('itemDetail', { ...item, selectedIndex: selectedItem });
+                emit('itemDetail', {
+                  ...imagesInCarousel[selectedItem - 1],
+                  selectedIndex: selectedItem,
+                });
               }, 'smooth')
             "
           >
@@ -53,7 +56,10 @@
             @click.prevent="
               toSelectItem(() => {
                 selectedItem++;
-                emit('itemDetail', { ...item, selectedIndex: selectedItem });
+                emit('itemDetail', {
+                  ...imagesInCarousel[selectedItem - 1],
+                  selectedIndex: selectedItem,
+                });
               }, 'smooth')
             "
           >
@@ -87,31 +93,36 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  (e: "itemDetail", payload: ImageFile): void;
+  (e: "itemDetail", payload: ImageFile & { selectedIndex: number }): void;
 }>();
 
-const direction = ref("x");
-const snapType = ref("mandatory");
+const direction = ref<"x" | "y">("x");
+const snapType = ref<"mandatory" | "proximity">("mandatory");
 
-const { preselectedIndex, imagesInCarousel } = inject<{
+const carouselObject = inject<{
   descriptionOfGallery: string;
-  imagesInCarousel: ImageFile[];
+  imagesInCarousel: ImageFile[] | undefined;
   isShowCarousel: boolean;
   preselectedIndex: number;
 }>("carouselObject");
 
+const preselectedIndex = carouselObject?.preselectedIndex ?? 1;
+const imagesInCarousel = carouselObject?.imagesInCarousel ?? [];
+
 const selectedItem = ref<number>(preselectedIndex);
 
 const toSelectItem = (
-  callback: void,
+  callback: () => void,
   scrollBehavior: "auto" | "smooth" | "instant" = "auto",
 ) => {
   callback();
-  document.querySelector("#item-" + selectedItem.value).scrollIntoView({
-    behavior: scrollBehavior,
-    block: "start",
-    inline: "start",
-  });
+  const element = document.querySelector("#item-" + selectedItem.value);
+  if (element) {
+    element.scrollIntoView({
+      behavior: scrollBehavior,
+      inline: "start",
+    });
+  }
 };
 
 onMounted(() => {
@@ -119,7 +130,9 @@ onMounted(() => {
     toSelectItem(() => {
       selectedItem.value = preselectedIndex;
       const item = imagesInCarousel.find((e, i) => selectedItem.value === i);
-      emit("itemDetail", { ...item, selectedIndex: selectedItem.value });
+      if (item) {
+        emit("itemDetail", { ...item, selectedIndex: selectedItem.value });
+      }
     });
   }, 500);
 });

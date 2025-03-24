@@ -15,12 +15,19 @@ export async function createBucket(bucketName: string) {
   });
 }
 
-export async function uploadFile(
+interface UploadFileOptions {
+  file: File;
+  filePath?: string;
+  allowedContentType?: string;
+  bucketName?: string;
+}
+
+export async function uploadFile({
   file,
-  filePath: string = "",
+  filePath = "",
   allowedContentType = "image/*",
-  bucketName: string = _bucketName,
-) {
+  bucketName = _bucketName,
+}: UploadFileOptions): Promise<any> {
   return await supabase.storage.from(bucketName).upload(filePath, file, {
     upsert: true,
     contentType: allowedContentType,
@@ -36,12 +43,22 @@ export async function deleteFile(
 
 export async function fetchAllFiles(bucketName: string = _bucketName) {
   try {
-    const data = await supabase.storage.from(bucketName).list(undefined, {
+    const result = await supabase.storage.from(bucketName).list(undefined, {
       limit: 100,
       offset: 0,
       sortBy: { column: "created_at", order: "asc" },
     });
-    return data;
+
+    return result.data?.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        type: item.metadata.mimetype,
+        src: getPublicUrl(item.name),
+        size: item.metadata.size,
+        createdAt: item.created_at,
+      };
+    });
   } catch (error) {
     return error;
   }

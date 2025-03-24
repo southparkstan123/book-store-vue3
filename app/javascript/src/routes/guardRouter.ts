@@ -1,6 +1,6 @@
 import { useUserStore } from "@/store/user";
 
-const guardedRouter: void = (router) => {
+const guardedRouter = (router: any) => {
   router.beforeEach((to, from, next) => {
     const userStore = useUserStore();
 

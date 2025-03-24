@@ -241,8 +241,8 @@
     </MyVueNavBar>
     <ToastList
       :wrapperClass="'mt-16 z-50 fixed'"
-      :verticalPosition="messageStore.getHorizontalPosition"
-      :horizontalPosition="messageStore.getVerticalPosition"
+      :verticalPosition="messageStore.getVerticalPosition"
+      :horizontalPosition="messageStore.getHorizontalPosition"
     />
     <CarouselWrapper
       :isShowCarousel="carouselState.isShowCarousel"
@@ -330,7 +330,7 @@
           }}
         </span>
       </template>
-      <template #sub-menu-footer-desktop="{ title, infoInCarousel }">
+      <template #sub-menu-footer-desktop="{ infoInCarousel }">
         <a
           :href="infoInCarousel.src"
           class="float-right text-menu-item text-sm"

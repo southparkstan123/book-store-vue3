@@ -1,9 +1,6 @@
 <template>
   <Transition :appear="true" name="fade" mode="out-in">
-    <div
-      v-if="data.length > 0 && data !== undefined"
-      class="overflow-scroll h-96 min-w-lg"
-    >
+    <div v-if="data && data.length > 0" class="overflow-scroll h-96 min-w-lg">
       <TransitionGroup name="list" tag="div" :class="wrapperClass">
         <div v-for="(item, index) in data" :key="item[key]">
           <slot v-bind="{ item, index }"></slot>
@@ -19,9 +16,9 @@
 
 <script lang="ts" setup generic="T">
 const props = withDefaults(
-  defineProps<{ data: T[]; wrapperClass: string; key: string }>(),
+  defineProps<{ data: T[] | undefined; wrapperClass: string; key: string }>(),
   {
-    data: [],
+    data: undefined,
     wrapperClass: "",
     key: "name",
   },

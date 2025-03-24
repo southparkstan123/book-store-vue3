@@ -6,6 +6,7 @@ import {
   signout as _signout,
 } from "@/services/AuthServices";
 import { useModalStore } from "@/store/modal";
+import type { LoginForm } from "@/types/types";
 
 export type UserInfo = {
   id: string;
@@ -29,8 +30,8 @@ export const useUserStore = defineStore("user", () => {
   const isAuthenticated = computed<boolean>(
     () => state.userInfo !== null && state.token !== null,
   );
-  const getUserInfo = computed<UserInfo>(() => state.userInfo);
-  const getUserToken = computed<string>(() => state.token);
+  const getUserInfo = computed<UserInfo | null>(() => state.userInfo);
+  const getUserToken = computed<string | null>(() => state.token);
 
   // Actions
   const signin = async (user: LoginForm) => {
@@ -38,29 +39,21 @@ export const useUserStore = defineStore("user", () => {
       const response = await _signin(user);
       await attemp(response.data.token);
     } catch (error) {
-      useModalStore.open({
-        title: `${error.response.status} Error`,
-        message: error.response.data.message,
-        type: "alert",
-      });
+      state.token = null;
+      state.userInfo = null;
     }
   };
 
   const signout = async () => {
     try {
-      await _signout();
+      _signout();
+    } finally {
       state.token = null;
       state.userInfo = null;
-    } catch (error) {
-      useModalStore.open({
-        title: `${error.response.status} Error`,
-        message: error.response.data.message,
-        type: "alert",
-      });
     }
   };
 
-  const attemp = async (token) => {
+  const attemp = async (token: string) => {
     if (token) {
       state.token = token;
     }
@@ -75,12 +68,6 @@ export const useUserStore = defineStore("user", () => {
     } catch (error) {
       state.token = null;
       state.userInfo = null;
-
-      useModalStore.open({
-        title: `${error.response.status} Error`,
-        message: error.response.data.message,
-        type: "alert",
-      });
     }
   };
 

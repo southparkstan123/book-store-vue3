@@ -21,7 +21,7 @@ const imageRef = ref<Element | null>(null);
 
 const { displaySize } = useUploadFile();
 const props = withDefaults(defineProps<ImageFile>(), {
-  id: "",
+  id: 1,
   name: "",
   src: "",
   type: "image/*",

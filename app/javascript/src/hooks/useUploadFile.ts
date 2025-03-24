@@ -19,9 +19,19 @@ export const useUploadFile = () => {
 
     fileReader.addEventListener("load", (e) => {
       let image = new Image();
-      let imageObject: ImageFile = {};
+      let imageObject: ImageFile = {
+        id: "",
+        name: "",
+        type: "",
+        src: "",
+        size: 0,
+        createdAt: 0,
+        caption: "",
+      };
 
-      image.src = e.target.result;
+      if (e.target) {
+        image.src = e.target.result as string;
+      }
 
       image.onload = () => {
         imageObject = {
@@ -31,6 +41,7 @@ export const useUploadFile = () => {
           src: image.src as string,
           size: file.size,
           createdAt: Date.now(),
+          caption: "",
         };
 
         return imageObject;

@@ -10,4 +10,12 @@ declare module "vue-router" {
     // must be declared by every route
     requiresAuth: boolean;
   }
+
+  interface RouteRecordRaw {
+    path: string;
+    component: Component;
+    meta?: RouteMeta & Record<string, any>;
+    props?: boolean | Record<string, any>;
+    children?: RouteRecordRaw[];
+  }
 }

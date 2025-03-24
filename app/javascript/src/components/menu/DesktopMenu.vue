@@ -14,7 +14,8 @@
 import { inject } from "vue";
 import type { NavBarObject } from "@/types/types";
 
-const { backgroundClass } = inject<NavBarObject>("navBarObject");
+const navBarObject = inject<NavBarObject>("navBarObject");
+const backgroundClass = navBarObject?.backgroundClass || "";
 </script>
 
 <style scoped lang="scss">

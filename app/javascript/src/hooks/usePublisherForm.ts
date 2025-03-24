@@ -25,11 +25,14 @@ export const usePublisherForm = () => {
       publisherForm.form.description = response.data.description;
     } catch (error: any) {
       errors.value = error.response.data.errors;
+      const modalStore = useModalStore();
       modalStore.open({
         title: `${error.response.status} Error`,
         message: error.response.data.message,
         type: "alert",
         component: "",
+        props: undefined,
+        isFitContent: true,
       });
     } finally {
       publisherForm.isLoading = false;

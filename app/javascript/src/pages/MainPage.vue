@@ -42,18 +42,19 @@
         <CardList
           :data="imageData"
           :wrapperClass="'p-3 grid w-full gap-3 lg:grid-cols-4 md:grid-cols-2'"
+          :key="'id'"
         >
           <template v-slot="{ item, index }">
             <CardItem
               :wrapperClass="''"
-              :item="item"
+              :item="item as ImageFile"
               class="text-white text-sm"
             >
-              <template #close-button>
+              <template #close-button="{ id }">
                 <div class="float-right text-center text-lg p-3">
                   <div
                     :class="'cursor-pointer text-danger'"
-                    @click="confirmDelete(item.name)"
+                    @click="confirmDelete(id)"
                   >
                     <font-awesome-icon icon="fa-regular fa-trash-can" />
                   </div>
@@ -71,16 +72,15 @@
                   </div>
                 </div>
               </template>
-              <template
-                v-slot="{ id, name, src, type, createdAt, size, width, height }"
-              >
+              <template v-slot="{ id, name, src, type, createdAt, size }">
                 <ImageCard
-                  :id="id"
-                  :name="name"
-                  :src="src"
-                  :type="type"
-                  :createdAt="createdAt"
-                  :size="size"
+                  :id="id as string | number"
+                  :name="name as string"
+                  :src="src as string"
+                  :type="type as string"
+                  :createdAt="createdAt as number"
+                  :size="size as number"
+                  :caption="''"
                 />
               </template>
             </CardItem>
@@ -141,13 +141,15 @@ import CardItem from "@/components/card/CardItem.vue";
 import ImageCard from "@/components/card/ImageCard.vue";
 
 import { useModalStore } from "@/store/modal";
+import { useMessageStore } from "@/store/message";
+import { useUploadFile } from "@/hooks/useUploadFile";
+import { useCarouselStore } from "@/store/carousel";
+
 const modalStore = useModalStore();
 
-import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
 // Upload Files
-import { useUploadFile } from "@/hooks/useUploadFile";
 const { isLoading, information, imageData, totalFileSize, displaySize } =
   useUploadFile();
 
@@ -168,11 +170,11 @@ const onCreateBucket = async (bucketName: string) => {
 };
 
 // Carousel
-import { useCarouselStore } from "@/store/carousel";
+
 const carouselStore = useCarouselStore();
 
-const onDownload = (filename: string) => {
-  const file = download(filename);
+const onDownload = async (filename: string) => {
+  const file = await download(filename);
   return file.data;
 };
 
@@ -181,7 +183,7 @@ const confirmDeleteAll = async () => {
     type: "confirm",
     title: "Delete All files",
     message: "Are you sure?",
-    component: "",
+    component: undefined,
     props: undefined,
     isFitContent: true,
   });
@@ -214,7 +216,7 @@ const confirmDelete = async (id) => {
     type: "confirm",
     title: "Delete",
     message: "Are you sure?",
-    component: "",
+    component: undefined,
     props: undefined,
     isFitContent: true,
   });
@@ -228,15 +230,13 @@ const confirmDelete = async (id) => {
         content: error.message,
       });
     } else {
-      const index = imageData.value.findIndex(
-        (image) => image.id === data[0].id,
-      );
+      const index = imageData.value.findIndex((image) => image.id === id);
       imageData.value.splice(index, 1);
 
       setTimeout(() => {
         messageStore.push({
           type: "success",
-          content: `${data[0].name} was deleted successfully.`,
+          content: `The image was deleted successfully.`,
         });
       }, 100);
     }
@@ -258,7 +258,11 @@ const onChangeFile = (payload: FileList) => {
         });
       }, 100 * index);
 
-      const { data, error } = await uploadFile(file, filename, "image/*");
+      const { data, error } = await uploadFile({
+        file,
+        filePath: filename,
+        allowedContentType: "image/*",
+      });
 
       if (error) {
         messageStore.push({
@@ -267,12 +271,13 @@ const onChangeFile = (payload: FileList) => {
         });
       } else {
         const imageObject: ImageFile = {
-          id: data.id,
+          id: data.path,
           name: filename,
           type: file.type,
           src: getPublicUrl(filename),
           size: file.size,
           createdAt: Date.now(),
+          caption: "",
         };
 
         imageData.value.push(imageObject);
@@ -290,18 +295,8 @@ const onChangeFile = (payload: FileList) => {
 
 const onFetchAllFiles = async () => {
   try {
-    const { data } = await fetchAllFiles();
-
-    return data.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        type: item.metadata.mimetype,
-        src: getPublicUrl(item.name),
-        size: item.metadata.size,
-        createdAt: item.created_at,
-      };
-    });
+    const data = (await fetchAllFiles()) as { data: ImageFile[] };
+    return data;
   } catch (error) {
     return error;
   }
@@ -311,11 +306,11 @@ onMounted(async () => {
   try {
     isLoading.value = true;
     const data = await onFetchAllFiles();
-    imageData.value = data;
+    imageData.value = data as ImageFile[];
   } catch (error) {
     messageStore.push({
       type: "error",
-      content: error,
+      content: error as string,
     });
   } finally {
     isLoading.value = false;

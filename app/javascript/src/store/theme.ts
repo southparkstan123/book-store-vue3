@@ -4,7 +4,7 @@ import type { Theme, PaginationSetting } from "@/types/types";
 
 export const useThemeStore = defineStore("theme", () => {
   const state = reactive<{
-    theme: getTheme;
+    theme: Theme;
     allThemes: Theme[];
     pagination: PaginationSetting;
   }>({
@@ -36,13 +36,16 @@ export const useThemeStore = defineStore("theme", () => {
   };
 
   const changeValuePerPage = (payload?: number) => {
-    const perPage: number = parseInt(localStorage.getItem("perPage"), 10);
+    const perPage: number = parseInt(
+      localStorage.getItem("perPage") || "0",
+      10,
+    );
     const value = payload
       ? payload
       : perPage
       ? perPage
       : state.pagination.perPage;
-    localStorage.setItem("perPage", value);
+    localStorage.setItem("perPage", value.toString());
     state.pagination.perPage = value;
   };
 

@@ -101,13 +101,19 @@ withDefaults(
   },
 );
 
-const infoInCarousel = ref<ImageFile & { selectedIndex: number }>({
+interface InfoOfCarousel extends ImageFile {
+  selectedIndex: number;
+}
+
+const infoInCarousel = ref<InfoOfCarousel>({
   id: 1,
   name: "",
   src: "",
   type: "",
   size: 0,
   selectedIndex: 1,
+  createdAt: 0,
+  caption: "",
 });
 
 const onChangeInfoInCarousel = (payload) => {

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
 import type { TableField, TableItem, ModuleType } from "@/types/types";
 
-type Fields = { [key: ModuleType]: TableField[] };
+type Fields = Record<ModuleType, TableField[]>;
 
 const presetFields: Fields = {
   book: [
@@ -101,8 +101,8 @@ export const useListingPageSettingStore = defineStore(
     });
 
     // Getters
-    const getFields = computed<TableField[] | undefined>(
-      () => state.fields[state.category],
+    const getFields = computed<TableField[] | undefined>(() =>
+      state.category ? state.fields[state.category] : undefined,
     );
     const getCategory = computed<ModuleType | undefined>(() => state.category);
 
@@ -112,7 +112,11 @@ export const useListingPageSettingStore = defineStore(
     };
 
     const changeColumn = (payload?: TableField[]) => {
-      state.fields[state.category] = payload;
+      if (state.category) {
+        if (payload) {
+          state.fields[state.category] = payload;
+        }
+      }
     };
 
     return {

@@ -48,10 +48,11 @@
       </tr>
     </tfoot>
   </table>
-  <slot name="no-data" v-else-if="data.length === 0"></slot>
+  <slot name="no-data" v-else-if="data === undefined"></slot>
+  <slot name="no-data" v-else></slot>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
 import type { DataProps } from "@/types/types";
 import { useList } from "@/hooks/useList";
 import SkeletonBox from "./SkeletonBox.vue";
@@ -59,6 +60,7 @@ import SkeletonBox from "./SkeletonBox.vue";
 const props = withDefaults(
   defineProps<
     DataProps & {
+      data: T[] | undefined;
       headerClass: string;
       rowClass: string;
       footerClass: string;

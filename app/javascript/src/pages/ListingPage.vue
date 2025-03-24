@@ -113,7 +113,7 @@
                   v-if="!isMobileView"
                   :textSize="'sm'"
                   :position="'top'"
-                  :dataTip="moment(item.updated_at).format('lll')"
+                  :dataTip="moment(item['updated_at']).format('lll')"
                   :type="'warning'"
                 >
                   {{ moment(item.updated_at).fromNow() }}
@@ -309,12 +309,7 @@ const { keyword, searchKeyword } = useSearch();
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
 const displayComponent = computed(() => {
-  switch (isMobileView.value) {
-    case false:
-      return TableComponent;
-    default:
-      return StackComponent;
-  }
+  return (isMobileView.value) ? StackComponent : TableComponent;
 });
 const toogleDisplayView = (payload) => {
   windowWidth.value = payload.windowWidth;
@@ -418,7 +413,7 @@ const action = async (type: ActionType, id: number) => {
         title: "Delete",
         message: "Are you sure?",
         type: "confirm",
-        component: "",
+        component: undefined,
         props: undefined,
         isFitContent: true,
       });

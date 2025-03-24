@@ -11,9 +11,6 @@ import {
 } from "@/services/CRUDServices";
 
 export const useBookForm = () => {
-  const modalStore = useModalStore();
-  const router = useRouter();
-
   const { errors } = useForm();
 
   // For Dropdowns
@@ -51,12 +48,14 @@ export const useBookForm = () => {
       bookForm.form.author_ids = bookAPI.data.authors.map((e) => e.id);
     } catch (error: any) {
       errors.value = error.response.data.errors;
+      const modalStore = useModalStore();
       modalStore.open({
         title: `${error.response.status} Error`,
         message: error.response.data.message,
         type: "alert",
-        component: "",
+        component: undefined,
         props: undefined,
+        isFitContent: true,
       });
     } finally {
       bookForm.isLoading = false;
@@ -73,11 +72,14 @@ export const useBookForm = () => {
       publishers.value = response[1].data;
     } catch (error: any) {
       errors.value = error.response.data.errors;
+      const modalStore = useModalStore();
       modalStore.open({
         title: `${error.response.status} Error`,
         message: error.response.data.message,
         type: "alert",
-        component: "",
+        component: undefined,
+        props: undefined,
+        isFitContent: true,
       });
     }
   };

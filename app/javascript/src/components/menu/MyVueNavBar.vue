@@ -52,7 +52,8 @@ import MobileMenu from "@/components/menu/MobileMenu.vue";
 import MobileMenuBurgerButton from "@/components/menu/MobileMenuBurgerButton.vue";
 import DesktopMenu from "@/components/menu/DesktopMenu.vue";
 
-const { breakpoint } = inject<NavBarObject>("navBarObject");
+const navBarObject = inject<NavBarObject>("navBarObject");
+const breakpoint = navBarObject?.breakpoint ?? 768; // default breakpoint value
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
 

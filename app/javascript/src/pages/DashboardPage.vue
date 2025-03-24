@@ -80,7 +80,11 @@ const icon = (moduleType: ModuleType) => {
 onMounted(async () => {
   try {
     isLoading.value = true;
-    const list = {};
+    const list = {
+      book: 0,
+      author: 0,
+      publisher: 0,
+    };
     for await (const response of getSummary()) {
       Object.assign(list, response);
     }
@@ -88,7 +92,7 @@ onMounted(async () => {
   } catch (error) {
     messageStore.push({
       type: "error",
-      content: error,
+      content: String(error),
     });
   } finally {
     isLoading.value = false;

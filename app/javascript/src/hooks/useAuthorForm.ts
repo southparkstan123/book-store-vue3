@@ -27,12 +27,14 @@ export const useAuthorForm = () => {
       authorForm.form.description = response.data.description;
     } catch (error: any) {
       errors.value = error.response.data.errors;
+      const modalStore = useModalStore();
       modalStore.open({
         title: `${error.response.status} Error`,
         message: error.response.data.message,
         type: "alert",
-        component: "",
+        component: undefined,
         props: undefined,
+        isFitContent: true,
       });
     } finally {
       authorForm.isLoading = false;

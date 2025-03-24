@@ -1,23 +1,19 @@
 <template>
   <div :class="wrapperClass">
-    <slot name="close-button"></slot>
+    <slot name="close-button" v-bind="item"></slot>
     <slot v-bind="item">{{ item }}</slot>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup generic="T">
 import { computed } from "vue";
 
-type ItemProps = {
-  [key: string]: unknown;
-};
-
 const props = withDefaults(
-  defineProps<{ wrapperClass: string | undefined; item: ItemProps }>(),
+  defineProps<{ wrapperClass: string | undefined; item: T }>(),
   {
     wrapperClass: "",
   },
 );
 
-const keys = computed(() => Object.keys(props.item));
+const keys = computed(() => Object.keys(props.item as object));
 </script>

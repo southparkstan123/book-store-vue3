@@ -8,7 +8,7 @@ export const useModalStore = defineStore("modal", () => {
     type: "alert",
     message: "",
     title: "",
-    component: "",
+    component: undefined,
     resolvePromise: undefined,
     props: undefined,
     isFitContent: true,
@@ -36,7 +36,7 @@ export const useModalStore = defineStore("modal", () => {
     state.visible = false;
     state.title = "";
     state.type = "alert";
-    state.component = "";
+    state.component = undefined;
     state.message = "";
     state.props = undefined;
     state.isFitContent = true;
@@ -46,7 +46,7 @@ export const useModalStore = defineStore("modal", () => {
     state.visible = false;
     state.title = "";
     state.type = "alert";
-    state.component = "";
+    state.component = undefined;
     state.message = "";
     state.resolvePromise(true);
     state.props = undefined;
