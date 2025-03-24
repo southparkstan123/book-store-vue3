@@ -309,7 +309,7 @@ const { keyword, searchKeyword } = useSearch();
 const windowWidth = ref<number>(0);
 const isMobileView = ref<boolean>(false);
 const displayComponent = computed(() => {
-  return (isMobileView.value) ? StackComponent : TableComponent;
+  return isMobileView.value ? StackComponent : TableComponent;
 });
 const toogleDisplayView = (payload) => {
   windowWidth.value = payload.windowWidth;
