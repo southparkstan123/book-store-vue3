@@ -31,21 +31,21 @@
             :isLoading="isLoadingItems"
           >
             <template #price="{ item, isLoading }">
-              <span v-if="!isLoading">{{ "$" + item['price'] }}</span>
+              <span v-if="!isLoading">{{ "$" + item["price"] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
               ></SkeletonBox>
             </template>
             <template #creator="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item['creator']['username'] }}</span>
+              <span v-if="!isLoading">{{ item["creator"]["username"] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
               ></SkeletonBox>
             </template>
             <template #updater="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item['updater']['username'] }}</span>
+              <span v-if="!isLoading">{{ item["updater"]["username"] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -58,7 +58,7 @@
                   item['is_published'] ? 'bg-success' : 'bg-warning'
                 } w-fit text-light rounded px-2`"
               >
-                {{ item['is_published']  ? "Yes" : "No" }}
+                {{ item["is_published"] ? "Yes" : "No" }}
               </span>
               <SkeletonBox
                 v-else
@@ -66,7 +66,7 @@
               ></SkeletonBox>
             </template>
             <template #publisher="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item['publisher']['name'] }}</span>
+              <span v-if="!isLoading">{{ item["publisher"]["name"] }}</span>
               <div v-else>
                 <SkeletonBox
                   class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -96,10 +96,10 @@
                   :dataTip="moment(item['created_at']).format('lll')"
                   :type="'info'"
                 >
-                  {{ moment(item['created_at']).fromNow() }}
+                  {{ moment(item["created_at"]).fromNow() }}
                 </TooltipComponent>
                 <div v-else>
-                  {{ moment(item['created_at']).format("lll") }}
+                  {{ moment(item["created_at"]).format("lll") }}
                 </div>
               </div>
               <SkeletonBox
@@ -116,10 +116,10 @@
                   :dataTip="moment(item['updated_at']).format('lll')"
                   :type="'warning'"
                 >
-                  {{ moment(item['updated_at']).fromNow() }}
+                  {{ moment(item["updated_at"]).fromNow() }}
                 </TooltipComponent>
                 <div v-else>
-                  {{ moment(item['updated_at']).format("lll") }}
+                  {{ moment(item["updated_at"]).format("lll") }}
                 </div>
               </div>
               <SkeletonBox

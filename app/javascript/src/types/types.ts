@@ -226,4 +226,4 @@ export type TableSlots<T> = {
   authors: { item: T; isLoading: boolean };
   author: { item: T; isLoading: boolean };
   is_published: { item: T; isLoading: boolean };
-}
+};
