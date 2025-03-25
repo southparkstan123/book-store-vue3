@@ -31,21 +31,21 @@
             :isLoading="isLoadingItems"
           >
             <template #price="{ item, isLoading }">
-              <span v-if="!isLoading">{{ "$" + item.price }}</span>
+              <span v-if="!isLoading">{{ "$" + item['price'] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
               ></SkeletonBox>
             </template>
             <template #creator="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item.creator.username }}</span>
+              <span v-if="!isLoading">{{ item['creator']['username'] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
               ></SkeletonBox>
             </template>
             <template #updater="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item.updater.username }}</span>
+              <span v-if="!isLoading">{{ item['updater']['username'] }}</span>
               <SkeletonBox
                 v-else
                 class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -55,10 +55,10 @@
               <span
                 v-if="!isLoading"
                 :class="`${
-                  item.is_published ? 'bg-success' : 'bg-warning'
+                  item['is_published'] ? 'bg-success' : 'bg-warning'
                 } w-fit text-light rounded px-2`"
               >
-                {{ item.is_published ? "Yes" : "No" }}
+                {{ item['is_published']  ? "Yes" : "No" }}
               </span>
               <SkeletonBox
                 v-else
@@ -66,7 +66,7 @@
               ></SkeletonBox>
             </template>
             <template #publisher="{ item, isLoading }">
-              <span v-if="!isLoading">{{ item.publisher.name }}</span>
+              <span v-if="!isLoading">{{ item['publisher']['name'] }}</span>
               <div v-else>
                 <SkeletonBox
                   class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -74,7 +74,7 @@
               </div>
             </template>
             <template #authors="{ item, isLoading }">
-              <EllipsisInTable v-if="!isLoading" :data="item.authors" />
+              <EllipsisInTable v-if="!isLoading" :data="item['authors']" />
               <div v-else>
                 <SkeletonBox
                   class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -93,13 +93,13 @@
                   v-if="!isMobileView"
                   :textSize="'sm'"
                   :position="'top'"
-                  :dataTip="moment(item.created_at).format('lll')"
+                  :dataTip="moment(item['created_at']).format('lll')"
                   :type="'info'"
                 >
-                  {{ moment(item.created_at).fromNow() }}
+                  {{ moment(item['created_at']).fromNow() }}
                 </TooltipComponent>
                 <div v-else>
-                  {{ moment(item.created_at).format("lll") }}
+                  {{ moment(item['created_at']).format("lll") }}
                 </div>
               </div>
               <SkeletonBox
@@ -116,10 +116,10 @@
                   :dataTip="moment(item['updated_at']).format('lll')"
                   :type="'warning'"
                 >
-                  {{ moment(item.updated_at).fromNow() }}
+                  {{ moment(item['updated_at']).fromNow() }}
                 </TooltipComponent>
                 <div v-else>
-                  {{ moment(item.updated_at).format("lll") }}
+                  {{ moment(item['updated_at']).format("lll") }}
                 </div>
               </div>
               <SkeletonBox
@@ -128,7 +128,7 @@
               ></SkeletonBox>
             </template>
             <template #books="{ item, isLoading }">
-              <EllipsisInTable v-if="!isLoading" :data="item.books" />
+              <EllipsisInTable v-if="!isLoading" :data="item['books']" />
               <div v-else>
                 <SkeletonBox
                   class="my-1 rounded-sm bg-info bg-opacity-20"
@@ -160,19 +160,19 @@
                 <template #content>
                   <a
                     class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
-                    @click="action('view', item.id)"
+                    @click="action('view', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-eye" /> View
                   </a>
                   <a
                     class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
-                    @click="action('edit', item.id)"
+                    @click="action('edit', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-edit" /> Edit
                   </a>
                   <a
                     class="text-danger hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
-                    @click="action('delete', item.id)"
+                    @click="action('delete', item['id'])"
                   >
                     <font-awesome-icon icon="fa-solid fa-remove" /> Delete
                   </a>

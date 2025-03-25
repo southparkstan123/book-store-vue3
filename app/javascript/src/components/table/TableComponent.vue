@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import type { DataProps } from "@/types/types";
+import type { DataProps, TableSlots } from "@/types/types";
 import { useList } from "@/hooks/useList";
 import SkeletonBox from "./SkeletonBox.vue";
 
@@ -76,6 +76,8 @@ const props = withDefaults(
     isLoading: false,
   },
 );
+
+const slots = defineSlots<TableSlots<T>>();
 
 const { displayedfields, displayedRecords } = useList(props);
 </script>
