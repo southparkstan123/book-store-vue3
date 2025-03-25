@@ -213,7 +213,7 @@ export type TableSlots<T> = {
   "addition-header": unknown;
   "addition-content": { item: T; isLoading: boolean };
   "search-bar": unknown;
-  noData: unknown;
+  "no-data": unknown;
   price: { item: T; isLoading: boolean };
   creator: { item: T; isLoading: boolean };
   updater: { item: T; isLoading: boolean };
