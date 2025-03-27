@@ -168,7 +168,7 @@
           :backgroundClassForContent="'lg:absolute lg:grid lg:mt-3 lg:pt-1 lg:w-max bg-danger block float-left px-4 my-2 w-full z-50'"
         >
           <template #button>
-            Hi, {{ userStore.getUserInfo.username }}
+            Hi, {{ userStore.getUserInfo?.username }}
           </template>
 
           <template #content>
@@ -404,7 +404,7 @@ const onLogout = async () => {
       type: "confirm",
       title: "Logout",
       message: "Are you sure?",
-      component: "",
+      component: undefined,
       props: undefined,
       isFitContent: true,
     });
@@ -425,9 +425,9 @@ const onLogout = async () => {
 
 const showUserInfo = () => {
   modalStore.open({
-    title: userStore.getUserInfo.username,
-    message: userStore.getUserInfo.email,
-    component: "",
+    title: userStore.getUserInfo?.username || "User Info",
+    message: userStore.getUserInfo?.email || "No email",
+    component: undefined,
     type: "alert",
     props: undefined,
     isFitContent: true,
