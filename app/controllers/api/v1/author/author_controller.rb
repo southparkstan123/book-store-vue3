@@ -4,7 +4,7 @@ module Api::V1::Author
   class AuthorController < ApiController
     include Pagy::Backend
 
-    before_action :authorized, except: [:list, :show, :names]
+    before_action :authorized, except: [:list, :show, :names, :columns]
 
     def list
       @authors = Author.order(updated_at: :desc).includes(:books, :creator, :updater)
@@ -65,6 +65,11 @@ module Api::V1::Author
     def dashboard
       @count = Author.count
       render json: { total: @count }
+    end
+
+    def columns
+      @columns = Author.column_names
+      render json: { columns: @columns }
     end
 
     private

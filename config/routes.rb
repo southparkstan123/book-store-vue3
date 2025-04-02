@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
 
       namespace 'book' do
+        get '/column_names', to: 'book#columns'
         get '/summary', to: 'book#dashboard'
         get '/list', to: 'book#list'
         get '/:id', to: 'book#show'
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
       end
 
       namespace 'author' do
+        get '/column_names', to: 'author#columns'
         get '/summary', to: 'author#dashboard'
         get '/list', to: 'author#list'
         get '/:id', to: 'author#show'
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
       end
 
       namespace 'publisher' do
+        get '/column_names', to: 'publisher#columns'
         get '/summary', to: 'publisher#dashboard'
         get '/list', to: 'publisher#list'
         get '/:id', to: 'publisher#show'

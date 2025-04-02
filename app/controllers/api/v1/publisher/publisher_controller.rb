@@ -4,7 +4,7 @@ module Api::V1::Publisher
   class PublisherController < ApiController
     include Pagy::Backend
 
-    before_action :authorized, except: [:list, :show, :names]
+    before_action :authorized, except: [:list, :show, :names, :columns]
 
     def list
       @publishers = Publisher.order(updated_at: :desc).includes(:books, :creator, :updater)
@@ -64,6 +64,11 @@ module Api::V1::Publisher
     def dashboard
       @count = Publisher.count
       render json: { total: @count }
+    end
+
+    def columns
+      @columns = Publisher.column_names
+      render json: { columns: @columns }
     end
 
     private
