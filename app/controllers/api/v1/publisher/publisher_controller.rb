@@ -68,7 +68,8 @@ module Api::V1::Publisher
 
     def columns
       @columns = Publisher.column_names
-      render json: { columns: @columns }
+      result = @columns.map{|item| { key: item.chomp("_id"), label: item.humanize }}
+      render json: { columns: result }
     end
 
     private
