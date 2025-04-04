@@ -362,6 +362,7 @@ import { useMessageStore } from "@/store/message";
 const messageStore = useMessageStore();
 
 const listingPageSettingStore = useListingPageSettingStore();
+listingPageSettingStore.loadColumnNames(["book", "author", "publisher"]);
 listingPageSettingStore.changeCategory(props.category);
 
 const openPageSettingModal = () => {

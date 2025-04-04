@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ModuleType } from "@/types/types";
+import type { ModuleType, Fields } from "@/types/types";
 
 export async function fetchRecords(
   module: ModuleType,
@@ -87,4 +87,20 @@ export async function* getSummary() {
 
     yield { [type]: r.data.total };
   }
+}
+
+export async function* getColumnsFromAPI(types: ModuleType[]) {
+  for (const type of types) {
+    const r = await axios.get(`/api/v1/${type}/column_names`);
+
+    yield { [type]: r.data.columns };
+  }
+}
+
+export function setColumnsInLocalStorage(list: Fields) {
+  return localStorage.setItem("fields", JSON.stringify(list));
+}
+
+export function getColumnsFromLocalStorage(): string | null {
+  return localStorage.getItem("fields");
 }

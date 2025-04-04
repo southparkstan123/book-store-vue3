@@ -227,3 +227,5 @@ export type TableSlots<T> = {
   author: { item: T; isLoading: boolean };
   is_published: { item: T; isLoading: boolean };
 };
+
+export type Fields = Record<ModuleType, TableField[]>;

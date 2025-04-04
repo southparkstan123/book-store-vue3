@@ -1,108 +1,22 @@
 import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
-import type { TableField, TableItem, ModuleType } from "@/types/types";
-
-type Fields = Record<ModuleType, TableField[]>;
-
-const presetFields: Fields = {
-  book: [
-    {
-      key: "id",
-      label: "ID",
-    },
-    {
-      key: "name",
-      label: "Name",
-    },
-    {
-      key: "price",
-      label: "Price (USD)",
-    },
-    {
-      key: "isbn",
-      label: "ISBN",
-    },
-    {
-      key: "year_published",
-      label: "Year",
-    },
-    {
-      key: "is_published",
-      label: "Is published?",
-    },
-    {
-      key: "authors",
-      label: "Authors",
-    },
-    {
-      key: "created_at",
-      label: "Created at",
-    },
-    {
-      key: "updated_at",
-      label: "Updated at",
-    },
-  ],
-  author: [
-    {
-      key: "id",
-      label: "ID",
-    },
-    {
-      key: "name",
-      label: "Name",
-    },
-    {
-      key: "books",
-      label: "Books",
-    },
-    {
-      key: "created_at",
-      label: "Created at",
-    },
-    {
-      key: "updated_at",
-      label: "Updated at",
-    },
-  ],
-  publisher: [
-    {
-      key: "id",
-      label: "ID",
-    },
-    {
-      key: "name",
-      label: "Name",
-    },
-    {
-      key: "books",
-      label: "Books",
-    },
-    {
-      key: "created_at",
-      label: "Created at",
-    },
-    {
-      key: "updated_at",
-      label: "Updated at",
-    },
-  ],
-};
+import type { TableField, ModuleType, Fields } from "@/types/types";
+import { getColumnsFromAPI, setColumnsInLocalStorage, getColumnsFromLocalStorage } from "@/services/CRUDServices";
 
 export const useListingPageSettingStore = defineStore(
   "listingPageSetting",
   () => {
     const state = reactive<{
-      fields: Fields;
+      fields: Fields | undefined;
       category: ModuleType | undefined;
     }>({
-      fields: presetFields,
+      fields: undefined,
       category: undefined,
     });
 
     // Getters
     const getFields = computed<TableField[] | undefined>(() =>
-      state.category ? state.fields[state.category] : undefined,
+      state.category ? state.fields?.[state.category] ?? undefined : undefined,
     );
     const getCategory = computed<ModuleType | undefined>(() => state.category);
 
@@ -114,16 +28,44 @@ export const useListingPageSettingStore = defineStore(
     const changeColumn = (payload?: TableField[]) => {
       if (state.category) {
         if (payload) {
-          state.fields[state.category] = payload;
+          if (state.fields) {
+            state.fields[state.category] = payload;
+
+            setColumnsInLocalStorage(state.fields);
+          }
         }
       }
     };
+
+    const loadColumnNames = async (types: ModuleType[]) => {
+      const presetFields = getColumnsFromLocalStorage();
+
+      if (presetFields) {
+        const parsedFields: Fields = JSON.parse(presetFields);
+        state.fields = parsedFields;
+      } else {
+        let list = {
+          book: [],
+          author: [],
+          publisher: [],
+        };
+
+        for await (const response of getColumnsFromAPI(types)) {
+          Object.assign(list, response);
+        }
+
+        setColumnsInLocalStorage(list);
+
+        state.fields = list;
+      }
+    }
 
     return {
       getFields,
       getCategory,
       changeCategory,
       changeColumn,
+      loadColumnNames
     };
   },
 );
