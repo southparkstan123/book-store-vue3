@@ -29,10 +29,8 @@
             ></SkeletonBox>
           </slot>
         </td>
-        <td v-if="!isLoading">
-          <div>
-            <slot name="addition-content" :item="item"></slot>
-          </div>
+        <td v-if="!isLoading" :data-label="labelOfAdditionContent">
+          <slot name="addition-content" :item="item"></slot>
         </td>
       </tr>
     </tbody>
@@ -67,6 +65,7 @@ const props = withDefaults(
       rowClass: string;
       footerClass: string;
       isLoading: boolean;
+      labelOfAdditionContent: string;
     }
   >(),
   {
@@ -76,6 +75,7 @@ const props = withDefaults(
     rowClass: "",
     footerClass: "",
     isLoading: false,
+    labelOfAdditionContent: ""
   },
 );
 

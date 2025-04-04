@@ -15,7 +15,9 @@
           </th>
         </slot>
         <th :class="headerClass" v-if="!isLoading">
-          <slot name="addition-header"></slot>
+          <slot name="addition-header">
+            {{ labelOfAdditionContent }}
+          </slot>
         </th>
       </tr>
     </thead>
@@ -65,6 +67,7 @@ const props = withDefaults(
       rowClass: string;
       footerClass: string;
       isLoading: boolean;
+      labelOfAdditionContent: string;
     }
   >(),
   {
@@ -74,6 +77,7 @@ const props = withDefaults(
     rowClass: "",
     footerClass: "",
     isLoading: false,
+    labelOfAdditionContent: "",
   },
 );
 

@@ -29,6 +29,7 @@
             :rowClass="'text-left text-table-text odd:bg-table-body-1 even:bg-table-body-2 border-dotted border-b-2 border-table-header lg:text-center lg:border-none'"
             :footerClass="'bg-table-footer'"
             :isLoading="isLoadingItems"
+            :labelOfAdditionContent="''"
           >
             <template #price="{ item, isLoading }">
               <span v-if="!isLoading">{{ "$" + item["price"] }}</span>
@@ -140,44 +141,66 @@
             </template>
 
             <template #addition-content="{ item, isLoading }">
-              <DropdownSideMenu
-                v-if="!isLoading"
-                :isAnimated="true"
-                :isFloatRight="true"
-                :showCaret="false"
-              >
-                <template #button>
-                  <TooltipComponent
-                    :position="'left'"
-                    :dataTip="'Actions'"
-                    :type="'primary'"
-                  >
-                    <span class="text-table-text px-1">
-                      <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
-                    </span>
-                  </TooltipComponent>
-                </template>
-                <template #content>
+              <div v-if="!isLoading">
+                <div v-if="isMobileView">
                   <a
-                    class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                    class="text-dark hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('view', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-eye" /> View
                   </a>
                   <a
-                    class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                    class="text-dark hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('edit', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-edit" /> Edit
                   </a>
                   <a
-                    class="text-danger hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                    class="text-danger hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('delete', item['id'])"
                   >
                     <font-awesome-icon icon="fa-solid fa-remove" /> Delete
                   </a>
-                </template>
-              </DropdownSideMenu>
+                </div>
+                <DropdownSideMenu
+                  v-else
+                  :isAnimated="true"
+                  :isFloatRight="true"
+                  :showCaret="false"
+                >
+                  <template #button>
+                    <TooltipComponent
+                      :position="'left'"
+                      :dataTip="'Actions'"
+                      :type="'primary'"
+                    >
+                      <span class="text-table-text px-1">
+                        <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+                      </span>
+                    </TooltipComponent>
+                  </template>
+                  <template #content>
+                    <a
+                      class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                      @click="action('view', item['id'])"
+                    >
+                      <font-awesome-icon icon="fa-regular fa-eye" /> View
+                    </a>
+                    <a
+                      class="text-dark hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                      @click="action('edit', item['id'])"
+                    >
+                      <font-awesome-icon icon="fa-regular fa-edit" /> Edit
+                    </a>
+                    <a
+                      class="text-danger hover:text-muted text-sm whitespace-no-wrap px-2 my-1 block"
+                      @click="action('delete', item['id'])"
+                    >
+                      <font-awesome-icon icon="fa-solid fa-remove" /> Delete
+                    </a>
+                  </template>
+                </DropdownSideMenu>
+              </div>
             </template>
             <template #footer="{ isLoading }">
               <div v-if="!isLoading" class="footer-item text-table-footer-text">
