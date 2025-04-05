@@ -144,19 +144,19 @@
               <div v-if="!isLoading">
                 <div v-if="isMobileView">
                   <a
-                    class="text-dark hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
+                    class="text-dark hover:text-muted text-sm cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('view', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-eye" /> View
                   </a>
                   <a
-                    class="text-dark hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
+                    class="text-dark hover:text-muted text-sm cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('edit', item['id'])"
                   >
                     <font-awesome-icon icon="fa-regular fa-edit" /> Edit
                   </a>
                   <a
-                    class="text-danger hover:text-muted text-lg cursor-pointer whitespace-no-wrap px-2 my-1"
+                    class="text-danger hover:text-muted text-sm cursor-pointer whitespace-no-wrap px-2 my-1"
                     @click="action('delete', item['id'])"
                   >
                     <font-awesome-icon icon="fa-solid fa-remove" /> Delete
