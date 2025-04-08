@@ -214,18 +214,8 @@ export type TableSlots<T> = {
   "addition-content": { item: T; isLoading: boolean };
   "search-bar": unknown;
   "no-data": unknown;
-  price: { item: T; isLoading: boolean };
-  creator: { item: T; isLoading: boolean };
-  updater: { item: T; isLoading: boolean };
-  status: { item: T; isLoading: boolean };
-  created_at: { item: T; isLoading: boolean };
-  updated_at: { item: T; isLoading: boolean };
-  duration: { item: T; isLoading: boolean };
-  publisher: { item: T; isLoading: boolean };
-  books: { item: T; isLoading: boolean };
-  authors: { item: T; isLoading: boolean };
-  author: { item: T; isLoading: boolean };
-  is_published: { item: T; isLoading: boolean };
+} & {
+  [key: string]: { item: T; isLoading: boolean } 
 };
 
 export type Fields = Record<ModuleType, TableField[]>;
