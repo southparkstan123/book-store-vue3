@@ -11,7 +11,6 @@ ADD Gemfile /book-store-vue3/Gemfile
 ADD Gemfile.lock /book-store-vue3/Gemfile.lock
 RUN bundle install
 RUN yarn install
-RUN bin/vite build
 RUN apk del build-packages
 ADD . /book-store-vue3
 EXPOSE 3000
