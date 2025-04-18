@@ -87,7 +87,7 @@ const onChangeView = debounce((payload) => {
         : "fit-content",
     height:
       modalState.isFitContent === false
-        ? `${payload.height * 0.5}px`
+        ? `${payload.height * 0.7}px`
         : "fit-content",
   };
 }, 100);
