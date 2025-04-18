@@ -219,3 +219,8 @@ export type TableSlots<T> = {
 };
 
 export type Fields = Record<ModuleType, TableField[]>;
+
+export type TabObject = {
+  label: string,
+  id: string
+}
