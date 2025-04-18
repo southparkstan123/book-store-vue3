@@ -1,54 +1,61 @@
 <template>
-    <div :class="wrapperClass">
-      <div :class="`tab ${direction}`">
-        <button v-for="tab in data" :class="(currentTab !== tab.id) ? buttonClass : `${buttonClass} ${activeButtonClass}`" @click="onChangeTab(tab.id)">
-          {{ tab.label }}
-        </button>
-      </div>
-      <div v-for="tab in data">
-        <div v-if="currentTab === tab.id" :class="contentClass">
-          <slot :name="tab.id"></slot>
-        </div>
+  <div :class="wrapperClass">
+    <div :class="`tab ${direction}`">
+      <button
+        v-for="tab in data"
+        :class="
+          currentTab !== tab.id
+            ? buttonClass
+            : `${buttonClass} ${activeButtonClass}`
+        "
+        @click="onChangeTab(tab.id)"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+    <div v-for="tab in data">
+      <div v-if="currentTab === tab.id" :class="contentClass">
+        <slot :name="tab.id"></slot>
       </div>
     </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { ref } from "vue";
-  import type { TabObject } from "@/types/types";
-  
-  const props = withDefaults(defineProps<{
-    data: TabObject[],
-    wrapperClass: string,
-    buttonClass: string,
-    activeButtonClass: string,
-    contentClass: string,
-    direction: "vertical" | "horizontal",
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import type { TabObject } from "@/types/types";
+
+const props = withDefaults(
+  defineProps<{
+    data: TabObject[];
+    wrapperClass: string;
+    buttonClass: string;
+    activeButtonClass: string;
+    contentClass: string;
+    direction: "vertical" | "horizontal";
   }>(),
-    {
-      wrapperClass: "",
-      buttonClass: "",
-      activeButtonClass: "",
-      contentClass: "tabcontent",
-      direction: "vertical",
-    },
-  );
-  
-  const currentTab = ref<string>(props.data[0].id);
-  
-  const onChangeTab = (payload: string) => {
-    currentTab.value = payload;
-  }
-  
-  </script>
-  
-  <style lang="scss" scoped>
-  .tab {
-  
+  {
+    wrapperClass: "",
+    buttonClass: "",
+    activeButtonClass: "",
+    contentClass: "tabcontent",
+    direction: "vertical",
+  },
+);
+
+const currentTab = ref<string>(props.data[0].id);
+
+const onChangeTab = (payload: string) => {
+  currentTab.value = payload;
+};
+</script>
+
+<style lang="scss" scoped>
+.tab {
   &.vertical {
     float: left;
 
-     > button {
+    > button {
       display: block;
       width: 100%;
       border: none;
@@ -84,7 +91,7 @@
   &.vertical {
     float: left;
     padding: 0px 12px;
-    width:80%;
+    width: 80%;
   }
 
   &.horizontal {
@@ -101,4 +108,4 @@
     opacity: 1;
   }
 }
-  </style>
+</style>
