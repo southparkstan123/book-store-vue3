@@ -175,7 +175,9 @@
                       :type="'primary'"
                     >
                       <span class="text-table-text px-1">
-                        <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+                        <font-awesome-icon
+                          icon="fa-solid fa-ellipsis-vertical"
+                        />
                       </span>
                     </TooltipComponent>
                   </template>
@@ -427,6 +429,7 @@ const action = async (type: ActionType, id: number) => {
         component: DetailInfo,
         props: {
           item,
+          module: props.category,
         },
         isFitContent: false,
       });
