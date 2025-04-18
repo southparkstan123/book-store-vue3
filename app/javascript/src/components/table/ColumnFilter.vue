@@ -1,61 +1,71 @@
 <template>
   <div class="mx-auto inline w-full">
-    <FieldsetWrapper
-      :wrapperClass="'border border-solid border-info p-3'"
-      :textClass="'text-sm text-info'"
-      :title="'Pagination'"
+    <TabContainer
+      :data="[
+        {
+          id: 'pagination',
+          label: 'Pagination',
+        },
+        {
+          id: 'labels',
+          label: 'Labels',
+        },
+      ]"
+      :wrapperClass="'container'"
+      :buttonClass="'p-3'"
+      :activeButtonClass="'text-white bg-info'"
+      :contentClass="'p-1 border border-info h-72 overflow-scroll'"
+      :direction="'vertical'"
     >
-      <LabelWrapper
-        :forAttribute="'per-page'"
-        :textClass="''"
-        :labelText="'Page size:'"
-      >
-        <DropdownMenu
-          :data="[
-            [10, 10],
-            [20, 20],
-            [50, 50],
-          ]"
-          :placeholder="'Please select the page size'"
-          :selectedItem="themeStore.getPerPage"
-          @selectedItem="
-            (payload: number) => themeStore.changeValuePerPage(payload)
-          "
+      <template #pagination>
+        <LabelWrapper
+          :forAttribute="'per-page'"
+          :textClass="''"
+          :labelText="'Page size:'"
         >
-        </DropdownMenu>
-      </LabelWrapper>
-    </FieldsetWrapper>
-    <FieldsetWrapper
-      :wrapperClass="'border border-solid border-info p-3 overflow-y-scroll h-48'"
-      :textClass="'text-sm text-info'"
-      :title="`Labels`"
-    >
-      <div
-        v-for="item in fields"
-        class="grid sm:grid-cols-7 justify-center items-center"
-      >
-        <div class="sm:col-span-5">
-          <InputField
-            :className="'my-1 inline'"
-            :inputType="'text'"
-            :placeholder="`${item.key}`"
-            :inputValue="item.label"
-            :isDisabled="item.isVisible === false"
-            :inputFieldClass="'m-1 text-lg disabled:opacity-25'"
-            @changeValue="(payload) => onChangeLabel(item, payload)"
-          ></InputField>
+          <DropdownMenu
+            :data="[
+              [10, 10],
+              [20, 20],
+              [50, 50],
+            ]"
+            :placeholder="'Please select the page size'"
+            :selectedItem="themeStore.getPerPage"
+            @selectedItem="
+              (payload: number) => themeStore.changeValuePerPage(payload)
+            "
+          >
+          </DropdownMenu>
+        </LabelWrapper>
+      </template>
+      <template #labels>
+        <div
+          v-for="item in fields"
+          class="grid sm:grid-cols-7 justify-center items-center"
+        >
+          <div class="sm:col-span-5">
+            <InputField
+              :className="'my-1 inline'"
+              :inputType="'text'"
+              :placeholder="`${item.key}`"
+              :inputValue="item.label"
+              :isDisabled="item.isVisible === false"
+              :inputFieldClass="'m-1 text-lg disabled:opacity-25'"
+              @changeValue="(payload) => onChangeLabel(item, payload)"
+            ></InputField>
+          </div>
+          <div class="sm:col-span-2 m-2">
+            <ToggleSwitch
+              class="float-left"
+              :forAttribute="item.key"
+              :label="item.isVisible ? 'show' : 'hide'"
+              :inputValue="item.isVisible"
+              @changeValue="({ checked }) => onChangeVisible(item, checked)"
+            />
+          </div>
         </div>
-        <div class="sm:col-span-2 m-2">
-          <ToggleSwitch
-            class="float-left"
-            :forAttribute="item.key"
-            :label="item.isVisible ? 'show' : 'hide'"
-            :inputValue="item.isVisible"
-            @changeValue="({ checked }) => onChangeVisible(item, checked)"
-          />
-        </div>
-      </div>
-    </FieldsetWrapper>
+      </template>
+    </TabContainer>
   </div>
 </template>
 
@@ -63,7 +73,6 @@
 import { reactive, computed } from "vue";
 import type { TableItem, TableField } from "@/types/types";
 import InputField from "@/components/inputs/InputField.vue";
-import FieldsetWrapper from "@/components/inputs/FieldsetWrapper.vue";
 import LabelWrapper from "@/components/inputs/LabelWrapper.vue";
 import ToggleSwitch from "@/components/inputs/ToggleSwitch.vue";
 import DropdownMenu from "../dropdowns/DropdownMenu.vue";
@@ -73,6 +82,7 @@ import { useThemeStore } from "@/store/theme";
 const themeStore = useThemeStore();
 
 import { useListingPageSettingStore } from "@/store/listingPageSetting";
+import TabContainer from "../tab/TabContainer.vue";
 const { getFields, changeColumn } = useListingPageSettingStore();
 
 type Fields = TableField & { isVisible: boolean };
