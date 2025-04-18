@@ -26,7 +26,7 @@
       </LabelWrapper>
     </FieldsetWrapper>
     <FieldsetWrapper
-      :wrapperClass="'border border-solid border-info p-3'"
+      :wrapperClass="'border border-solid border-info p-3 overflow-y-scroll h-48'"
       :textClass="'text-sm text-info'"
       :title="`Labels`"
     >
