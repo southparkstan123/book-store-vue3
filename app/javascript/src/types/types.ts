@@ -215,7 +215,12 @@ export type TableSlots<T> = {
   "search-bar": unknown;
   "no-data": unknown;
 } & {
-  [key: string]: { item: T; isLoading: boolean } 
+  [key: string]: { item: T; isLoading: boolean };
 };
 
 export type Fields = Record<ModuleType, TableField[]>;
+
+export type TabObject = {
+  label: string;
+  id: string;
+};

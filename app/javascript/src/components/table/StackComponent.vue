@@ -75,7 +75,7 @@ const props = withDefaults(
     rowClass: "",
     footerClass: "",
     isLoading: false,
-    labelOfAdditionContent: ""
+    labelOfAdditionContent: "",
   },
 );
 

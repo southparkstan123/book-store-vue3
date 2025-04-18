@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import { reactive, computed } from "vue";
 import type { TableField, ModuleType, Fields } from "@/types/types";
-import { getColumnsFromAPI, setColumnsInLocalStorage, getColumnsFromLocalStorage } from "@/services/CRUDServices";
+import {
+  getColumnsFromAPI,
+  setColumnsInLocalStorage,
+  getColumnsFromLocalStorage,
+} from "@/services/CRUDServices";
 
 export const useListingPageSettingStore = defineStore(
   "listingPageSetting",
@@ -58,14 +62,14 @@ export const useListingPageSettingStore = defineStore(
 
         state.fields = list;
       }
-    }
+    };
 
     return {
       getFields,
       getCategory,
       changeCategory,
       changeColumn,
-      loadColumnNames
+      loadColumnNames,
     };
   },
 );

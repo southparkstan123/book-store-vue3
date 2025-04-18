@@ -4,9 +4,10 @@
       <slot name="close-button-in-overlay"></slot>
       <div
         :class="`${modalBoxClass}`"
-        :style="`height:${
-          modalState.isFitContent === false ? '70%' : 'fit-content'
-        }; ${modalState.type === 'content' ? 'min-height:280px' : ''}`"
+        :style="`height:${sizeOfModal.height}; width:${sizeOfModal.width}; ${
+          modalState.type === 'content' ? 'min-height:280px' : ''
+        }`"
+        v-on-resize="{ action: onChangeView }"
       >
         <div :class="titleClass">
           <slot name="header"></slot>
@@ -33,6 +34,8 @@
 
 <script setup lang="ts">
 import type { ModalType } from "@/types/types";
+import debounce from "lodash.debounce";
+import { ref } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -59,6 +62,35 @@ const props = withDefaults(
 import { useModalStore } from "@/store/modal";
 const modalStore = useModalStore();
 const modalState = modalStore.getModalObject;
+
+const vOnResize = (el, binding) => {
+  const resizeObserver = new ResizeObserver((entries) => {
+    entries.forEach((entry) => {
+      const height = window.outerHeight;
+      const width = window.outerWidth;
+      binding.value.action({ width, height });
+    });
+  });
+  resizeObserver.observe(document.body);
+};
+
+const sizeOfModal = ref<{ width: number | string; height: number | string }>({
+  width: 0,
+  height: 0,
+});
+
+const onChangeView = debounce((payload) => {
+  sizeOfModal.value = {
+    width:
+      modalState.isFitContent === false
+        ? `${payload.width * 0.95}px`
+        : "fit-content",
+    height:
+      modalState.isFitContent === false
+        ? `${payload.height * 0.5}px`
+        : "fit-content",
+  };
+}, 100);
 </script>
 
 <style scoped lang="scss">
