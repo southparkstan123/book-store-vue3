@@ -12,10 +12,10 @@
         },
       ]"
       :wrapperClass="'container'"
-      :buttonClass="'p-3'"
+      :buttonClass="'px-3 py-1'"
       :activeButtonClass="'text-white bg-info'"
       :contentClass="'p-1 border border-info h-72 overflow-scroll'"
-      :direction="'vertical'"
+      :direction="'horizontal'"
     >
       <template #pagination>
         <LabelWrapper
