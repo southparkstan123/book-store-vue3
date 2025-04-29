@@ -256,7 +256,7 @@
           <font-awesome-icon icon="fa-solid fa-remove" />
         </div>
       </template>
-      <template #sub-menu-content-mobile="{ title, infoInCarousel }">
+      <template #sub-menu-content-mobile="{ infoInCarousel }">
         <div
           class="lg:hidden absolute left-0 bottom-20 bold bg-navbar-submenu p-3 bg-opacity-35 w-48 h-28 overflow-scroll"
         >
@@ -281,17 +281,15 @@
         </div>
       </template>
 
-      <template #sub-menu-header-mobile="{ title, infoInCarousel }">
-        <div
-          class="lg:hidden absolute left-0 top-0 bold bg-navbar-submenu p-3 bg-opacity-35"
-        >
-          <span class="block text-sm text-menu-item py-2"
+      <template #sub-menu-header-mobile="{ infoInCarousel }">
+        <div class="lg:hidden absolute right-0 top-10 bold p-2 z-50 text-right">
+          <span class="block text-menu-item"
             >{{ infoInCarousel.selectedIndex }} of
             {{ carouselState.imagesInCarousel.length }}</span
           >
           <a
             :href="infoInCarousel.src"
-            class="block font-bold text-menu-button text-sm"
+            class="block font-bold text-menu-item text-sm cursor-pointer"
             target="_blank"
           >
             View Image
@@ -299,7 +297,7 @@
         </div>
       </template>
 
-      <template #sub-menu-header-desktop="{ title, infoInCarousel }">
+      <template #sub-menu-header-desktop="{ infoInCarousel }">
         <div class="text-menu-item text-lg">
           {{ infoInCarousel.selectedIndex }} of
           {{ carouselState.imagesInCarousel.length }}
