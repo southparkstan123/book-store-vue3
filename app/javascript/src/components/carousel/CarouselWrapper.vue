@@ -7,7 +7,11 @@
     >
       <div class="grid grid-cols-4">
         <div class="relative col-span-4 lg:col-span-3 bg-dark">
-          <slot name="close-button"></slot>
+          <slot
+            name="close-button"
+            :title="title"
+            :infoInCarousel="infoInCarousel"
+          ></slot>
           <CarouselBody
             :width="sizeOfCarousel.width"
             :height="sizeOfCarousel.height"
