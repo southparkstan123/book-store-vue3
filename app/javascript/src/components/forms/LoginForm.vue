@@ -78,6 +78,8 @@ const onLogin = async () => {
         type: "success",
         content: "Welcome!",
       });
+    } else {
+      throw new Error("Login failed");
     }
   } catch (error) {
     messageStore.push({

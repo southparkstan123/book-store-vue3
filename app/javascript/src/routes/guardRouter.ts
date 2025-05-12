@@ -3,10 +3,9 @@ import { useUserStore } from "@/store/user";
 const guardedRouter = (router: any) => {
   router.beforeEach((to, from, next) => {
     const userStore = useUserStore();
-    const token: string = localStorage.getItem("token") || "";
 
     userStore
-      .attemp(token)
+      .attemp(localStorage.getItem("token") as string)
       .then(() => {
         const isAuthenticated = userStore.isAuthenticated;
         if (to.matched.some((record) => record.meta.requiresAuth)) {
