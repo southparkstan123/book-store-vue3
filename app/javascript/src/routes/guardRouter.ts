@@ -5,7 +5,7 @@ const guardedRouter = (router: any) => {
     const userStore = useUserStore();
 
     userStore
-      .attemp(localStorage.getItem("token"))
+      .attemp(localStorage.getItem("token") as string)
       .then(() => {
         const isAuthenticated = userStore.isAuthenticated;
         if (to.matched.some((record) => record.meta.requiresAuth)) {
