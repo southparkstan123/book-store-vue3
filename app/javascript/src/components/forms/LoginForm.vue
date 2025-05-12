@@ -70,7 +70,7 @@ const disableInputs = ref<boolean>(false);
 const onLogin = async () => {
   try {
     disableInputs.value = true;
-    await signin(loginForm.form);
+    await signin(loginForm);
     if (state.token) {
       router.replace("/");
 

@@ -7,7 +7,7 @@ export async function getGreetingMessage() {
 }
 
 export async function signin(payload: LoginForm) {
-  const result = await axios.post("/api/v1/user/login", payload);
+  const result = await axios.post("/api/v1/user/login", payload.form);
   // set the access token in localStorage
   localStorage.setItem("token", result.data.token);
   return result;
