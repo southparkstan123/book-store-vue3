@@ -198,12 +198,26 @@ docker compose down
 docker system prune --all
 ```
 
-5. Run the following command to install dependencies for frontend
+#### Dependencies for frontend
+
+1. Run the following command to install dependencies for frontend
 ```bash
 docker-compose exec web bundle exec yarn install 
 ```
 
-6. Run the following command to switch the application's database, such as PostgreSQL or MySQL:
+2. Run the following command to install specified dependency for frontend
+```bash
+docker-compose exec web bundle exec yarn add <PACKAGE_NAME_AS_YOU_DESIRED> 
+```
+
+3. Run the following command to remove specified dependency for frontend
+```bash
+docker-compose exec web bundle exec yarn remove <PACKAGE_NAME_AS_YOU_DESIRED>  
+```
+
+#### Database
+
+1. Run the following command to switch the application's database, such as PostgreSQL or MySQL:
 ```bash
 docker-compose exec web bundle exec rails db:system:change --to=postgresql
 ```
