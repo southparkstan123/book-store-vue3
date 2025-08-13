@@ -2,7 +2,6 @@ import { reactive, ref, computed } from "vue";
 import { useForm } from "@/hooks/useForm";
 import type { AuthorFormState } from "@/types/types";
 import { useModalStore } from "@/store/modal";
-import { useRouter } from "vue-router";
 import { fetchRecordById } from "@/services/CRUDServices";
 
 export const useAuthorForm = () => {

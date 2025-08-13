@@ -2,7 +2,6 @@ import { reactive, ref } from "vue";
 import { useForm } from "@/hooks/useForm";
 import type { BookFormState } from "@/types/types";
 import { useModalStore } from "@/store/modal";
-import { useRouter } from "vue-router";
 
 import {
   fetchRecordById,

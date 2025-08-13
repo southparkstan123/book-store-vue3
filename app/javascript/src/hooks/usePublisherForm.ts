@@ -2,7 +2,6 @@ import { reactive, ref } from "vue";
 import { useForm } from "@/hooks/useForm";
 import type { PublisherFormState } from "@/types/types";
 import { useModalStore } from "@/store/modal";
-import { useRouter } from "vue-router";
 import { fetchRecordById } from "@/services/CRUDServices";
 
 export const usePublisherForm = () => {
@@ -30,7 +29,7 @@ export const usePublisherForm = () => {
         title: `${error.response.status} Error`,
         message: error.response.data.message,
         type: "alert",
-        component: "",
+        component: undefined,
         props: undefined,
         isFitContent: true,
       });

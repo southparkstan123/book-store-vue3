@@ -1,5 +1,4 @@
 import type { Pagination } from "@/types/types";
-import debounce from "lodash.debounce";
 import { ref } from "vue";
 import { useThemeStore } from "@/store/theme";
 
